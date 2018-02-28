@@ -25,16 +25,17 @@ By providing a Pull Request on github with your firstname-name as the branch nam
 If you're going to be late, please let us know...
 
 At the end of the process, _we will_ refuse your PR: don't take it as a bad sign. 
-It just mean we want to keep our master branch clean and shiny. If you're pride of it and want to keep your code, we 
-advise that you fork our repo instead of creating a branch, and make a PR out of your fork.
+It just mean we want to keep our master branch clean and shiny. 
+If you're proud of it and want to keep your code to yourself, we advise that you fork our repo instead of creating a 
+branch, and make a PR out of your fork.
 
 We'll get to you as soon as your Pull Request has been reviewed.
 Hopefuly to tell you how amazing your code is!
 
 #### Now, click on the challenge that match the the position you applied to:
 
-+ ![Progress](http://progressed.io/bar/0)   [Microservice Developer](/microservice) - http://smrtr.io/SLw9VQ
-+ ![Progress](http://progressed.io/bar/0)   [UI/UX Developer](/uiux) - http://smrtr.io/tcaWJA
++ ![Progress](http://progressed.io/bar/0)   [Microservice Developer](/microservice) 
++ ![Progress](http://progressed.io/bar/0)   [UI/UX Developer](/uiux) 
 
 
 If you have any questions, comment or suggestion, please don't hesitate to communicate with Lorraine or Galyna.
