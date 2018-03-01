@@ -12,7 +12,7 @@ If you feel frustrated about not having finished, why don't you just write down 
 - you can choose whichever language and framework you think is most appropriate, we may have challenged you to choose one 
 in particular, but you're a free human! Do what make most sense to you.
 
-- don't be scared to experiment a bit, just let us know it's something knew for you, we'll be more generous with our assessment
+- don't be scared to experiment a bit, just let us know it's something new for you, we'll be more generous with our assessment
 
 - show off, we're here for that!
 

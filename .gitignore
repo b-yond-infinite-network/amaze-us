@@ -112,3 +112,10 @@ typings/
 
 # next.js build output
 .next
+
+*.csv
+*.dat
+*.out
+*.gz
+
+results
