@@ -47,7 +47,7 @@ app.get('/reminders', function (req, res) {
   })
   .catch(error => {
     console.log(error);
-    res.status(500);
+    res.status(500).send('Internal server error');
   })
 })
 
@@ -62,8 +62,19 @@ app.get('/reminders/:id', function (req, res) {
   })
   .catch(error => {
     console.log(error);
-    res.status(500);
+    res.status(500).send('Internal server error');
   })
+})
+
+app.post('/reminders/:id', function (req, res){
+  reminders.createNewReminder(Object.assign({id: req.params.id}, req.body))
+    .then(() => {
+      res.status(201).send('New resource created')
+    })
+    .catch(error => {
+      console.error(error);
+      res.status(500).send('Internal server error')
+    })
 })
 
 app.get('/test', function(req, res){

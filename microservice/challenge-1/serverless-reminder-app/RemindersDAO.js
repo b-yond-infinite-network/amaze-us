@@ -59,7 +59,7 @@ class RemindersDAO {
   }
 
   createNewReminder(reminder){
-    this.query('INSERT INTO reminders SET ?', reminder);
+    return this.query('INSERT INTO reminders SET ?', reminder);
   }
 
   close(){
