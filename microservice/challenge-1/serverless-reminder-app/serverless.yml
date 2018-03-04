@@ -1,30 +1,11 @@
 service: serverless-reminder-app
 
-custom:
-  #tableName: 'users-table-${self:provider.stage}'
-  # dynamodb:
-  #   start:
-  #     migrate: true
-
 provider:
   name: aws
   runtime: nodejs6.10
   stage: dev
   region: us-east-1
   versionFunctions: false
-  # iamRoleStatements:
-  #   - Effect: Allow
-  #     Action:
-  #       - dynamodb:Query
-  #       - dynamodb:Scan
-  #       - dynamodb:GetItem
-  #       - dynamodb:PutItem
-  #       - dynamodb:UpdateItem
-  #       - dynamodb:DeleteItem
-  #     Resource:
-  #       - { "Fn::GetAtt": ["UsersDynamoDBTable", "Arn" ] }
-  # environment:
-  #   USERS_TABLE: ${self:custom.tableName}
 
   vpc:
     securityGroupIds:
@@ -43,18 +24,7 @@ functions:
     events:
       - http: ANY /
       - http: 'ANY {proxy+}'
-  dbtest:
-    handler: dbfunction.handler
-    
-
-  # getUser:
-  #   handler: index.handler
-  #   events:
-  #     - http: 'GET /users/{proxy+}'
-  # createUser:
-  #   handler: index.handler
-  #   events:
-  #     - http: 'POST /users'
+  
 
 plugins:
   #- serverless-dynamodb-local

@@ -20,7 +20,7 @@ const util = require('./util')(mysql.escapeId);
 class RemindersDAO {
   constructor(options){
     this.options = Object.assign({
-      mysql: mysql
+      mysql
     }, options);
     this.connect();
   }
@@ -39,31 +39,39 @@ class RemindersDAO {
 
   findAll(filters){
     return this.query('SELECT * FROM reminders r WHERE ' 
-      + util.filterByAllSql(filters), Object.values(filters));
+      + util.filterByAllSql(filters), Object.values(filters || {}));
   }
 
   findById(id){
-    return this.query('SELECT * FROM reminders r WHERE r.id = ?', id);
+    return this.findAll({id});
   }
 
   findByName(name){
-    return this.query('SELECT * FROM reminders r WHERE r.name = ?', name);
+    return this.findAll({name});
   }
 
   findByDate(date){
-    return this.query('SELECT * FROM reminders r WHERE r.date = ?', date);
+    return this.findAll({date});
   }
 
   findByIsComplete(isComplete){
-    return this.query('SELECT * FROM reminders r WHERE r.isComplete = ?', isComplete);
+    return this.findAll({isComplete});
   }
 
-  createNewReminder(reminder){
+  createReminder(reminder){
     return this.query('INSERT INTO reminders SET ?', reminder);
   }
 
-  close(){
-    this.connectionPool.end();
+  updateReminder(id, reminder){
+    return this.query('UPDATE reminders SET ? WHERE id = ?', [reminder, id]);
+  }
+
+  deleteReminder(id){
+    return this.query('DELETE FROM reminders WHERE id = ?', id);
+  }
+
+  count(){
+    return this.query('SELECT COUNT(*) as count FROM reminders');
   }
 }
 
