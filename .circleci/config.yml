@@ -1,0 +1,65 @@
+version: 2
+jobs:
+  build:
+    docker:
+      #Choose a build image that has golang, node and python
+      - image: avcosystems/golang-node 
+
+      # Start the dependent services such as mysql and mongodb
+      - image: mysql:5.5
+        environment: 
+        - MYSQL_ROOT_PASSWORD: "Guest0000!"
+        - MYSQL_DATABASE: todoapp
+        - MYSQL_USER: guest
+        - MYSQL_PASSWORD: "Guest0000!"
+
+      - image: circleci/mongo:3.4.4
+
+    working_directory: /go/src/github.com/b-yond-infinite-network/amaze-us
+    steps:
+      - checkout
+      - run:
+          name: booster-build-and-test
+          command: |
+            cd microservice/challenge-3/booster 
+            go  get -v ./...  
+            go build -v . 
+            go test -v ./...
+            #Sleep a bit before we try to connect to mysql 
+            sleep 2
+            ./booster 2>&1 > booster.log &
+            #Sleep a bit after we start the booster before we try to test it 
+            sleep 2
+            curl -H "Content-Type: application/json" -X POST http://127.0.0.1:3000/tanks -d '{"Title":"t1"}'
+            curl -H "Content-Type: application/json" -X POST http://0.0.0.0:3000/tanks -d '{"Title":"t2"}'
+
+      - run:
+          name: stage-2-build-and-test
+          command: |
+            cd microservice/challenge-3/stage2
+            python stage2.py 
+
+      - run:
+          name: cargo-build-and-test
+          command: |
+            cd microservice/challenge-3/cargo 
+            yarn install 
+            nodejs server 2>&1 > cargo.log &
+            #Sleep a bit after we start the cargo before we try to test it 
+            sleep 2
+            curl -H "Content-Type: application/json" -X POST http://127.0.0.1:8080/api/cargo -d '{"text":"food-stuff", "loaded":true}'
+            curl -H "Content-Type: application/json" -X POST http://0.0.0.0:8080/api/cargo -d '{"text":"food-stuff", "loaded":true}'
+
+      - run:
+          name: run-booster
+          background: true
+          command: |
+            cd microservice/challenge-3/booster 
+            ./booster 2>&1 > booster.log
+
+      - run:
+          name: integration-test 
+          command: |
+            echo "Integration testing..."
+            sleep 2 
+            curl -H "Content-Type: application/json" -X POST http://127.0.0.1:3000/tanks -d '{"Title":"t1"}'

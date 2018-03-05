@@ -20,7 +20,8 @@ type App struct {
 
 // Initialize initializes the app with predefined configuration
 func (a *App) Initialize(config *config.Config) {
-	dbURI := fmt.Sprintf("%s:%s@tcp(127.0.0.1:55455)/%s?charset=%s&parseTime=True",
+	//dbURI := fmt.Sprintf("%s:%s@tcp(127.0.0.1:55455)/%s?charset=%s&parseTime=True",
+	dbURI := fmt.Sprintf("%s:%s@/%s?charset=%s&parseTime=True",
 		config.DB.Username,
 		config.DB.Password,
 		config.DB.Name,
@@ -34,6 +35,8 @@ func (a *App) Initialize(config *config.Config) {
 	a.DB = model.DBMigrate(db)
 	a.Router = mux.NewRouter()
 	a.setRouters()
+
+	log.Printf("Initialization completed")
 }
 
 // setRouters sets the all required routers
