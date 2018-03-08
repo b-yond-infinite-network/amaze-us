@@ -1,7 +1,8 @@
 package config
 
 type Config struct {
-	DB *DBConfig
+	DB       *DBConfig
+	BindAddr string
 }
 
 type DBConfig struct {
@@ -21,5 +22,6 @@ func GetConfig() *Config {
 			Name:     "todoapp",
 			Charset:  "utf8",
 		},
+		BindAddr: ":3000",
 	}
 }

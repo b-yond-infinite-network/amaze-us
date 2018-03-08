@@ -1,7 +1,7 @@
 # This is the Booster API
 You fill its tanks with Fuel...seem legit ! :)
 
-Before running API server, you should set the database config with yours or the rocket's...
+Before running API server, you should set the database config with yours or the rocket's..., depends on mysql
 ```go
 func GetConfig() *Config {
 	return &Config{
@@ -18,9 +18,9 @@ func GetConfig() *Config {
 
 ```bash
 # Build and Run
-cd go-todo-rest-api-example
-go build
-./go-todo-rest-api-example
+cd /microservice/challenge-3/booster 
+go build -v .
+./booster
 
 # API Endpoint : http://127.0.0.1:3000
 ```

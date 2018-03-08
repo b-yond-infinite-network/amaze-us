@@ -6,9 +6,8 @@ import (
 )
 
 func main() {
+	//TODO: Process comand line arguments
 	config := config.GetConfig()
-
-	app := &app.App{}
-	app.Initialize(config)
-	app.Run(":3000")
+	appServer := &app.App{}
+	appServer.StartAppMain(config)
 }

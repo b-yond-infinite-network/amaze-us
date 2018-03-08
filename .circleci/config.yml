@@ -22,22 +22,18 @@ jobs:
           name: booster-build-and-test
           command: |
             cd microservice/challenge-3/booster 
-            go  get -v ./...  
+            go  get -t -v ./...  
             go build -v . 
-            go test -v ./...
             #Sleep a bit before we try to connect to mysql 
             sleep 2
-            ./booster 2>&1 > booster.log &
-            #Sleep a bit after we start the booster before we try to test it 
-            sleep 2
-            curl -H "Content-Type: application/json" -X POST http://127.0.0.1:3000/tanks -d '{"Title":"t1"}'
-            curl -H "Content-Type: application/json" -X POST http://0.0.0.0:3000/tanks -d '{"Title":"t2"}'
+            go test --cover -v ./tests/...
 
       - run:
           name: stage-2-build-and-test
           command: |
             cd microservice/challenge-3/stage2
             python stage2.py 
+            echo "Run stage-2 tests here"
 
       - run:
           name: cargo-build-and-test
@@ -45,21 +41,26 @@ jobs:
             cd microservice/challenge-3/cargo 
             yarn install 
             nodejs server 2>&1 > cargo.log &
-            #Sleep a bit after we start the cargo before we try to test it 
-            sleep 2
-            curl -H "Content-Type: application/json" -X POST http://127.0.0.1:8080/api/cargo -d '{"text":"food-stuff", "loaded":true}'
-            curl -H "Content-Type: application/json" -X POST http://0.0.0.0:8080/api/cargo -d '{"text":"food-stuff", "loaded":true}'
+            echo "Run Cargo Tests here" 
 
       - run:
-          name: run-booster
+          name: run-booster-bg
           background: true
           command: |
             cd microservice/challenge-3/booster 
             ./booster 2>&1 > booster.log
 
       - run:
+          name: run-cargo-bg
+          background: true
+          command: |
+            cd microservice/challenge-3/cargo
+            nodejs server 2>&1 > cargo.log
+
+      - run:
           name: integration-test 
           command: |
             echo "Integration testing..."
-            sleep 2 
+            sleep 2
             curl -H "Content-Type: application/json" -X POST http://127.0.0.1:3000/tanks -d '{"Title":"t1"}'
+            curl -H "Content-Type: application/json" -X POST http://127.0.0.1:8080/api/cargo -d '{"text":"food-stuff", "loaded":true}'
