@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.challenge.userservice.entities.UserEntity;
+import com.challenge.userservice.entities.User;
 import com.challenge.userservice.repos.UserRepository;
 
 @RestController
@@ -23,7 +23,7 @@ public class UserController {
 			@RequestParam String email,
 			@RequestParam String description) {
 
-		UserEntity user = new UserEntity();
+		User user = new User();
 		user.setName(name);
 		user.setEmail(email);
 		user.setDescription(description);
@@ -37,7 +37,7 @@ public class UserController {
 	
 	@RequestMapping("/all")
 	@ResponseBody
-    public Iterable<UserEntity> getAll() {
+    public Iterable<User> getAll() {
 		
 		return userRepository.findAll();
     }

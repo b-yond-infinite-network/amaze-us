@@ -2,8 +2,8 @@ package com.challenge.userservice.repos;
 
 import org.springframework.data.repository.CrudRepository;
 
-import com.challenge.userservice.entities.UserEntity;
+import com.challenge.userservice.entities.User;
 
-public interface UserRepository extends CrudRepository<UserEntity, Long> {
+public interface UserRepository extends CrudRepository<User, Long> {
 
 }
