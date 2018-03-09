@@ -24,6 +24,11 @@ public class UserService {
 		
 		List<UserModel> usersList = new ArrayList<>();
 		
+		usersList.add(new UserModel("musab", "hello@ddsd.com", "Test"));
+		usersList.add(new UserModel("ali", "ali@ddsd.com", "sdkf lsdhf lsdhkfl sdf"));
+		
+		
+		
 		return usersList;
 	}
 
