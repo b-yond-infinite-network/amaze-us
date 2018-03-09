@@ -1,8 +1,13 @@
 package com.challenge.frontend.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class UserModel {
 	
 	private String name, email, description;
+	
+	public UserModel() {}
 	
 	public UserModel(String name, String email, String description) {
 		this.name = name;
