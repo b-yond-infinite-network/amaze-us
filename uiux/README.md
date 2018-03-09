@@ -3,7 +3,7 @@
 You can choose whichever challenge you like. On is enough!
 Just make sure you choose something that you feel you will shine with!
 
-# ![Progress](http://progressed.io/bar/0) [Challenge 1 - ](challenge-1)
+# ![Progress](http://progressed.io/bar/0) [Challenge 1 - Karaoke needs words](challenge-1)
 In this challenge, demonstrate how you would build a web application against a high-volume API
 
 # ![Progress](http://progressed.io/bar/0) [Challenge 2 - Journey to Kepler](challenge-2)
