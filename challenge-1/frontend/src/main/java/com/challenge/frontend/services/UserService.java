@@ -1,5 +1,8 @@
 package com.challenge.frontend.services;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.challenge.frontend.models.UserModel;
@@ -14,6 +17,14 @@ public class UserService {
 		
 		// todo
 		
+	}
+	
+	
+	public List<UserModel> getAllUsers() {
+		
+		List<UserModel> usersList = new ArrayList<>();
+		
+		return usersList;
 	}
 
 }
