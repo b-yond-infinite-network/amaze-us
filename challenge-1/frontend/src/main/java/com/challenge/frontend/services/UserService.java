@@ -20,12 +20,16 @@ public class UserService {
 	public void save(UserModel user) {
 		
 		log.debug("Saving user: " + user);
+		
+		// todo: Save to the endpoint
 	}
 	
 	
 	public List<UserModel> getAllUsers() {
 		
 		List<UserModel> usersList = new ArrayList<>();
+		
+		// todo: fetch from endpoint
 		
 		usersList.add(new UserModel("musab", "hello@ddsd.com", "Test"));
 		usersList.add(new UserModel("ali", "ali@ddsd.com", "sdkf lsdhf lsdhkfl sdf"));
