@@ -33,5 +33,11 @@ public class UserModel {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	
+	
+	public String toString() {
+		return "User: " + String.join(" , ", name, email, description);
+	}
+	
 
 }
