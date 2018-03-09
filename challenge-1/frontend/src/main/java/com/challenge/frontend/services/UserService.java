@@ -4,6 +4,8 @@ import org.springframework.stereotype.Service;
 
 import com.challenge.frontend.models.UserModel;
 
+
+
 @Service
 public class UserService {
 	
