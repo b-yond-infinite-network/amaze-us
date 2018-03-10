@@ -6,7 +6,7 @@
 	<groupId>com.challenge</groupId>
 	<artifactId>userservice</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 
 	<name>userservice</name>
 	<description>Demo project for Spring Boot</description>
@@ -51,11 +51,29 @@
 	</dependencies>
 
 	<build>
+		<finalName>${project.artifactId}</finalName>	
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			
+			<plugin>
+		        <groupId>com.spotify</groupId>
+		        <artifactId>dockerfile-maven-plugin</artifactId>
+		        <version>1.3.6</version>
+		        <executions>
+		          <execution>
+		            <id>default</id>
+		            <goals>
+		              <goal>build</goal>
+		            </goals>
+		            <configuration>
+		              <repository>challenge/userservice</repository>
+		            </configuration>
+		          </execution>
+		        </executions>
+		      </plugin>
 		</plugins>
 	</build>
 
