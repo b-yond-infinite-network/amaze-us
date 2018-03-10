@@ -1,9 +1,9 @@
 package com.challenge.userservice.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,20 +16,15 @@ public class UserController {
 	@Autowired
 	private UserRepository userRepository;
 	
-	
-	@PostMapping(path="/save")
-	public @ResponseBody String addNewUser (
-			@RequestParam String name,
-			@RequestParam String email,
-			@RequestParam String description) {
 
-		User user = new User();
-		user.setName(name);
-		user.setEmail(email);
-		user.setDescription(description);
+	
+	
+	@RequestMapping(value = "/save", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
+	@ResponseBody
+	public User addNewUser (@RequestBody User user) {
+
+		return userRepository.save(user);
 		
-		userRepository.save(user);
-		return "Saved";
 	}
 	
 	

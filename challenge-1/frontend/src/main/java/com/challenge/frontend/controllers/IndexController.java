@@ -35,20 +35,10 @@ public class IndexController {
 	        @RequestParam(value="description") String description)
 	        		throws ServletException, IOException {
 		
-		try {
 			
-			userService.save(new UserModel(name, email, description));
+		userService.save(new UserModel(name, email, description));
 			
-			// todo: redirect to /home
-			
-			
-		} catch (Exception ex) {
-			
-			return "error";
-			
-		}
-		
-		return null;
+		return "redirect:home";
 	}
 
 }
