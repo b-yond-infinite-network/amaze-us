@@ -4,9 +4,10 @@ import (
 	"encoding/json"
 	"net/http"
 
+	"fmt"
+	"github.com/b-yond-infinite-network/amaze-us/microservice/challenge-3/booster/app/model"
 	"github.com/gorilla/mux"
 	"github.com/jinzhu/gorm"
-	"app/model"
 )
 
 func GetAllTanks(db *gorm.DB, w http.ResponseWriter, r *http.Request) {
@@ -27,6 +28,7 @@ func CreateTank(db *gorm.DB, w http.ResponseWriter, r *http.Request) {
 
 	if err := db.Save(&tank).Error; err != nil {
 		respondError(w, http.StatusInternalServerError, err.Error())
+		fmt.Printf("db.Save() err=%v\n", err)
 		return
 	}
 	respondJSON(w, http.StatusCreated, tank)
@@ -59,7 +61,7 @@ func UpdateTank(db *gorm.DB, w http.ResponseWriter, r *http.Request) {
 	}
 	defer r.Body.Close()
 
-	if err := db.Save(&tank).Error; err != nil {
+	if err := db.Model(&tank).Updates(&tank).Error; err != nil {
 		respondError(w, http.StatusInternalServerError, err.Error())
 		return
 	}
@@ -74,7 +76,7 @@ func DeleteTank(db *gorm.DB, w http.ResponseWriter, r *http.Request) {
 	if tank == nil {
 		return
 	}
-	if err := db.Delete(&tank).Error; err != nil {
+	if err := db.Unscoped().Delete(&tank).Error; err != nil {
 		respondError(w, http.StatusInternalServerError, err.Error())
 		return
 	}
@@ -90,7 +92,7 @@ func ArchiveTank(db *gorm.DB, w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	tank.Archive()
-	if err := db.Save(&tank).Error; err != nil {
+	if err := db.Model(&tank).Updates(&tank).Error; err != nil {
 		respondError(w, http.StatusInternalServerError, err.Error())
 		return
 	}
@@ -106,11 +108,12 @@ func RestoreTank(db *gorm.DB, w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	tank.Restore()
-	if err := db.Save(&tank).Error; err != nil {
+	if err := db.Model(&tank).Updates(&tank).Error; err != nil {
 		respondError(w, http.StatusInternalServerError, err.Error())
 		return
 	}
-	respondJSON(w, http.StatusOK, tank)
+	//All DEL calls must return NoContent as status
+	respondJSON(w, http.StatusNoContent, tank)
 }
 
 // getTankOr404 gets a tank instance if exists, or respond the 404 error otherwise

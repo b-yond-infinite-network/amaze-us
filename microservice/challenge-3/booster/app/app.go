@@ -1,25 +1,29 @@
 package app
 
 import (
+	"context"
 	"fmt"
 	"log"
 	"net/http"
 
+	"github.com/b-yond-infinite-network/amaze-us/microservice/challenge-3/booster/app/handler"
+	"github.com/b-yond-infinite-network/amaze-us/microservice/challenge-3/booster/app/model"
+	"github.com/b-yond-infinite-network/amaze-us/microservice/challenge-3/booster/config"
+
 	"github.com/gorilla/mux"
 	"github.com/jinzhu/gorm"
-	"github.com/mingrammer/go-todo-rest-api-example/app/handler"
-	"github.com/mingrammer/go-todo-rest-api-example/app/model"
-	"github.com/mingrammer/go-todo-rest-api-example/config"
 )
 
 // App has router and db instances
 type App struct {
+	Server *http.Server
 	Router *mux.Router
 	DB     *gorm.DB
 }
 
 // Initialize initializes the app with predefined configuration
 func (a *App) Initialize(config *config.Config) {
+	//dbURI := fmt.Sprintf("%s:%s@tcp(127.0.0.1:55455)/%s?charset=%s&parseTime=True",
 	dbURI := fmt.Sprintf("%s:%s@/%s?charset=%s&parseTime=True",
 		config.DB.Username,
 		config.DB.Password,
@@ -28,16 +32,19 @@ func (a *App) Initialize(config *config.Config) {
 
 	db, err := gorm.Open(config.DB.Dialect, dbURI)
 	if err != nil {
-		log.Fatal("Could not connect database")
+		log.Fatal("Could not connect database err:=", err)
 	}
 
 	a.DB = model.DBMigrate(db)
 	a.Router = mux.NewRouter()
 	a.setRouters()
+
+	log.Printf("Initialization completed")
 }
 
 // setRouters sets the all required routers
 func (a *App) setRouters() {
+
 	// Routing for handling the tank
 	a.Get("/tanks", a.GetAllTanks)
 	a.Post("/tanks", a.CreateTank)
@@ -141,5 +148,23 @@ func (a *App) UndoFuelPart(w http.ResponseWriter, r *http.Request) {
 
 // Run the app on it's router
 func (a *App) Run(host string) {
-	log.Fatal(http.ListenAndServe(host, a.Router))
+	a.Server = &http.Server{Addr: host, Handler: a.Router}
+	err := a.Server.ListenAndServe()
+	if err != http.ErrServerClosed {
+		log.Fatal(err)
+	}
+}
+
+func (a *App) Stop() {
+	if a.Server != nil {
+		if err := a.Server.Shutdown(context.TODO()); err != nil {
+			log.Fatal(err)
+		}
+	}
+}
+
+func (a *App) StartAppMain(config *config.Config) {
+	a.Initialize(config)
+	a.Run(config.BindAddr)
+
 }
