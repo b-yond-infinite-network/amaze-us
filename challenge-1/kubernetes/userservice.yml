@@ -1,0 +1,44 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: userservice
+spec:
+  ports:
+  - port: 9000
+  selector:
+    app: userservice
+  clusterIP: None
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: userservice-deployment
+spec:
+  selector:
+    matchLabels:
+      app: userservice
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: userservice
+    spec:
+      containers:
+      - image: challenge/userservice:latest
+        name: userservice
+        ports:
+        - containerPort: 8080
+          name: userservice-server
+
+        # userservice -> mysql connection settings
+        env:
+          - name: DB_HOST
+            value: mysql
+          - name: DB_PORT
+            value: 3306
+          - name: DB_DATABASE
+            value: db
+          - name: DB_USERNAME
+            value: dbuser
+          - name: DB_PASSWORD
+            value: dbpass
