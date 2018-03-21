@@ -1,0 +1,25 @@
+version: "3"
+services:
+  rabbitmq:
+    image: rabbitmq:management
+    ports:
+     - "5672:5672"
+     - "15672:15672"
+  user-data-manager:
+    image: amertkara/user-data-manager
+    ports:
+     - "8099:8099"
+    links:
+     - rabbitmq
+    environment:
+     - SPRING_RABBITMQ_HOST=rabbitmq
+  account-manager:
+    image: amertkara/account-manager
+    ports:
+     - "8080:8080"
+    links:
+     - rabbitmq
+     - user-data-manager
+    environment:
+     - SPRING_RABBITMQ_HOST=rabbitmq
+     - UDM_HOST=http://user-data-manager
