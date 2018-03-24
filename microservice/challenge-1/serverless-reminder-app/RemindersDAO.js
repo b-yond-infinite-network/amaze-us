@@ -28,9 +28,9 @@ class RemindersDAO {
   connect(){
     // TODO: KMS for credentials
     this.connectionPool = this.options.mysql.createPool({
-      host     : 'jax-rs-db.cce8xk4qewtv.us-east-1.rds.amazonaws.com',
-      user     : 'root',
-      password : '12345678',
+      host     : process.env.REMINDERS_DB_ENDPOINT,
+      user     : process.env.REMINDERS_DB_USER,
+      password : process.env.REMINDERS_DB_PASSWORD,
       database : 'reminders'
     });
 

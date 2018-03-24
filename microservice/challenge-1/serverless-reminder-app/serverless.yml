@@ -1,11 +1,20 @@
 service: serverless-reminder-app
 
+custom:
+    myStage: ${opt:stage, self:provider.stage}
+    myEnvironment:
+      REMINDERS_DB_ENDPOINT:
+        dev: localhost:3360
+        prod: jax-rs-db.cce8xk4qewtv.us-east-1.rds.amazonaws.com
+
 provider:
   name: aws
   runtime: nodejs6.10
-  stage: dev
+  stage: ${opt:stage, 'dev'}
   region: us-east-1
   versionFunctions: false
+  environment:
+    REMINDERS_DB_ENDPOINT: ${self:custom.myEnvironment.REMINDERS_DB_ENDPOINT.${self:custom.myStage}}
 
   vpc:
     securityGroupIds:
