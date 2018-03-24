@@ -5,11 +5,18 @@ const mysql = require('mysql');
 const app = express()
 const AWS = require('aws-sdk');
 const ReminderDAO = require('./RemindersDAO');
-//const reminders = ReminderDAO.create();
 
-function errorHandler(error, res){
-  console.log(error);
-  res.status(500).send('Internal server error');
+function errorHandler(res){
+  // scope wrap to include ability to handle the response
+  return function(error){
+    console.error(error);
+    if (error.code === 'ER_DUP_ENTRY'){
+      res.status(418).send('I\'m a teapot');
+    } else {
+      res.status(500).send('Internal server error');
+    }
+  }
+  
 }
 
 module.exports = function(options){
@@ -32,7 +39,7 @@ module.exports = function(options){
             .then(results => {
               res.json(results);
             })
-            .catch(errorHandler);
+            .catch(errorHandler(res));
           
           break;
       
@@ -47,7 +54,7 @@ module.exports = function(options){
       .then((results) => {
         res.json(results);
       })
-      .catch(errorHandler)
+      .catch(errorHandler(res))
   })
 
   app.get('/reminders/:id', function (req, res) {
@@ -59,7 +66,7 @@ module.exports = function(options){
         res.status(404).send('Resource not found');
       }
     })
-    .catch(errorHandler)
+    .catch(errorHandler(res))
   })
 
   app.post('/reminders/:id', function (req, res){
@@ -72,7 +79,7 @@ module.exports = function(options){
       .then(() => {
         res.status(201).send('New resource created')
       })
-      .catch(errorHandler);
+      .catch(errorHandler(res));
   })
 
   app.put('/reminders/:id', function (req, res){
@@ -84,7 +91,7 @@ module.exports = function(options){
         }
         res.send('Resource modified')
       })
-      .catch(errorHandler)
+      .catch(errorHandler(res))
   })
 
   app.delete('/reminders/:id', function (req, res){
@@ -96,7 +103,7 @@ module.exports = function(options){
         }
         res.send('Resource deleted')
       })
-      .catch(errorHandler)
+      .catch(errorHandler(res))
   })
 
   return app;

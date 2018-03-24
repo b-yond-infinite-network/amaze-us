@@ -4,7 +4,7 @@ custom:
     myStage: ${opt:stage, self:provider.stage}
     myEnvironment:
       REMINDERS_DB_ENDPOINT:
-        dev: localhost:3360
+        dev: localhost
         prod: jax-rs-db.cce8xk4qewtv.us-east-1.rds.amazonaws.com
 
 provider:
