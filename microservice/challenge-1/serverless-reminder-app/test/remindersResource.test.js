@@ -1,7 +1,7 @@
 const request = require('supertest');
 const MockMySql = require('./mocks/MockMySql');
 const mysqlInstance = new MockMySql();
-const remindersResource = require('../remindersResource');
+const remindersResource = require('../app/remindersResource');
 
 describe('remindersResource', () => {
     const remindersCaller = request(remindersResource({mysql: mysqlInstance}));

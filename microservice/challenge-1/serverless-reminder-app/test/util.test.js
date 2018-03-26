@@ -1,7 +1,7 @@
 //const jest = require('jest');
 const I = (p) => p;
 const escapeId = jest.fn(I);
-const util = require('../util')(escapeId);
+const util = require('../app/util')(escapeId);
 
 describe('filterByAllSql', () => {
     test('no parameters gives a tautology', () => {

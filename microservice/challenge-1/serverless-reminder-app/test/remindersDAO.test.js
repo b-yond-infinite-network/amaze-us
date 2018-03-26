@@ -1,4 +1,4 @@
-const RemindersDAO = require('../RemindersDAO');
+const RemindersDAO = require('../app/RemindersDAO');
 const MockMySql = require('./mocks/MockMySql');
 
 
@@ -27,7 +27,8 @@ describe('remindersDAO', () => {
 
   test('accepts mocked mysql', () => {
     const mysql = new MockMySql();
-    RemindersDAO.create({mysql});
+    const reminders = RemindersDAO.create({mysql});
+    reminders.query();
     expect(mysql.createPool).toHaveBeenCalled();
   })
 
@@ -41,5 +42,14 @@ describe('remindersDAO', () => {
     const reminders = RemindersDAO.create({mysql: new MockMySql(null, 'error!')});
     expect.assertions(1);
     return expect(reminders.findAll()).rejects.toEqual('error!');
+  })
+
+  test('connection ends after query', () => {
+    const mysql = new MockMySql();
+    const connection = mysql.createConnection();
+    const reminders = RemindersDAO.create({mysql});
+    reminders.query();
+
+    expect(connection.end).toHaveBeenCalled();
   })
 });

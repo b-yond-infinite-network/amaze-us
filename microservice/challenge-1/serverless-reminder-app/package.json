@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "load-test": "cd load-test; artillery run -e prod load-test.yml"
   },
   "keywords": [],
   "author": "",
@@ -18,6 +19,7 @@
     "util.promisify": "^1.0.0"
   },
   "devDependencies": {
+    "artillery": "^1.6.0-14",
     "jest": "^22.4.2",
     "node-fetch": "^2.1.1",
     "serverless-dynamodb-local": "^0.2.27",

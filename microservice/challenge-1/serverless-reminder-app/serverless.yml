@@ -1,5 +1,9 @@
 service: serverless-reminder-app
 
+package:
+  include:
+    - app/**
+
 custom:
     myStage: ${opt:stage, self:provider.stage}
     myEnvironment:
@@ -15,6 +19,8 @@ provider:
   versionFunctions: false
   environment:
     REMINDERS_DB_ENDPOINT: ${self:custom.myEnvironment.REMINDERS_DB_ENDPOINT.${self:custom.myStage}}
+    # REMINDERS_DB_USER: ${env:REMINDERS_DB_USER}
+    # REMINDERS_DB_PASSWORD: ${env:REMINDERS_DB_PASSWORD}
 
   vpc:
     securityGroupIds:
@@ -29,7 +35,7 @@ provider:
 
 functions:
   app:
-    handler: index.handler
+    handler: app/index.handler
     events:
       - http: ANY /
       - http: 'ANY {proxy+}'

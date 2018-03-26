@@ -1,4 +1,5 @@
 require('./polyfills');
+require('promise.prototype.finally').shim();
 
 
 module.exports = function(escapeId){
