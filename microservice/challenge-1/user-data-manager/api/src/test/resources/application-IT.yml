@@ -1,0 +1,6 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:dbm_test;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+  rabbitmq:
+    listener:
+      auto-startup: false

@@ -1,0 +1,21 @@
+<configuration>
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%-5level %logger{24} - %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<!-- silence a few noisy loggers -->
+	<logger name="org.apache.catalina" level="WARN"/>
+	<logger name="org.apache.coyote" level="WARN"/>
+	<logger name="org.apache.tomcat" level="WARN"/>
+	<logger name="org.apache.http" level="WARN"/>
+	<logger name="org.hibernate" level="WARN"/>
+	<logger name="org.springframework" level="WARN"/>
+
+	<logger name="com.amertkara.udm" level="DEBUG"/>
+
+	<root level="INFO">
+		<appender-ref ref="STDOUT"/>
+	</root>
+</configuration>

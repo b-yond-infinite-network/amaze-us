@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Create New Account</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<!-- CSS is from https://www.w3schools.com/css/css_form.asp -->
+<style>
+	input[type=text], select {
+		width: 100%;
+		padding: 12px 20px;
+		margin: 8px 0;
+		display: inline-block;
+		border: 1px solid #ccc;
+		border-radius: 4px;
+		box-sizing: border-box;
+	}
+
+	input[type=submit] {
+		width: 100%;
+		background-color: #4CAF50;
+		color: white;
+		padding: 14px 20px;
+		margin: 8px 0;
+		border: none;
+		border-radius: 4px;
+		cursor: pointer;
+	}
+
+	input[type=submit]:hover {
+		background-color: #45a049;
+	}
+
+	div {
+		border-radius: 5px;
+		background-color: #f2f2f2;
+		padding: 20px;
+	}
+</style>
+<body>
+<h1>Create Account</h1>
+<div>
+<form action="#" th:action="@{/}" th:object="${accountPayload}" method="post">
+	<p>Account Name: <input type="text" th:field="*{name}" /></p>
+	<p>Full Name: <input type="text" th:field="*{user.name}" /></p>
+	<p>Email: <input type="text" th:field="*{user.email}" /></p>
+	<p>Description: <input type="text" th:field="*{user.description}" /></p>
+	<input hidden="hidden" th:field="*{accountIdentifier}" />
+	<p><input type="submit" value="Submit" /><input type="reset" value="Reset" /></p>
+</form>
+</div>
+<a href="/accounts">List Accounts</a>
+</body>
+</html>

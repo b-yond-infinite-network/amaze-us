@@ -1,0 +1,13 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Getting Started: Handling Form Submission</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<title>Create New Account</title>
+<p th:text="'name: ' + ${accountPayload.name}" />
+<p th:text="'identifier: ' + ${accountPayload.accountIdentifier}" />
+<a href="/">Create another account</a>
+</body>
+</html>

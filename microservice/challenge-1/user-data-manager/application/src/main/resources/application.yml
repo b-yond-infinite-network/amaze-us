@@ -1,0 +1,23 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+  datasource:
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:dbm;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+  rabbitmq:
+    host: localhost
+    port: 5672
+endpoints:
+  enabled: false
+  health:
+    enabled: true
+    sensitive: false
+    time-to-live: 5000
+server:
+  port: 8099

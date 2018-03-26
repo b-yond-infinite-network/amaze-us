@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Accounts</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<!-- CSS is from https://www.w3schools.com/css/css_table.asp -->
+<style>
+	#users {
+		font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+		border-collapse: collapse;
+		width: 100%;
+	}
+
+	#users td, #users th {
+		border: 1px solid #ddd;
+		padding: 8px;
+	}
+
+	#users tr:nth-child(even){background-color: #f2f2f2;}
+
+	#users tr:hover {background-color: #ddd;}
+
+	#users th {
+		padding-top: 12px;
+		padding-bottom: 12px;
+		text-align: left;
+		background-color: #4CAF50;
+		color: white;
+	}
+</style>
+<body>
+<h1>Accounts</h1>
+<table id="users">
+	<thead>
+	<tr>
+		<th>Account Name</th>
+		<th>Full Name</th>
+		<th>Email</th>
+		<th>Description</th>
+		<th>Account Identifier</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr th:each="account : ${accounts}">
+		<td th:text="${account.name}" ></td>
+		<td th:text="${account.user.name}" ></td>
+		<td th:text="${account.user.email}" ></td>
+		<td th:text="${account.user.description}" ></td>
+		<td th:text="${account.accountIdentifier}" ></td>
+	</tr>
+	</tbody>
+</table>
+<a href="/">Create another account</a>
+</body>
+</html>
