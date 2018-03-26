@@ -1,0 +1,42 @@
+config:
+  environments:
+    dev:
+      target: http://localhost:3000
+      phases:
+        - duration: 10
+          arrivalRate: 10
+          name: "Warm up"
+    prod:
+      target: https://2adg6gqkp3.execute-api.us-east-1.amazonaws.com/prod
+      phases:
+        - duration: 10
+          arrivalRate: 10
+          name: "Warm up"
+        # simulate 15000 users over a minute
+        - duration: 60
+          arrivalRate: 0
+          rampTo: 100
+          name: "Max load"
+  defaults:
+    headers:
+      # x-my-service-auth: '987401838271002188298567'
+  payload:
+    - path: load-data.csv
+      fields:
+        - "id"
+        - "name"
+      order: "sequence"
+scenarios:
+  - flow:
+    - get:
+        url: "/reminders"
+    name: "Get all reminders"
+    weight: 1
+  - flow:
+    - post:
+        url: "/reminders/{{ id }}"
+        json:
+          name: "{{ name }}"
+    name: "Post a reminder"
+    weight: 1
+

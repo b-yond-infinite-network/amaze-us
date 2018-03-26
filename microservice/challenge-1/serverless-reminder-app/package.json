@@ -1,0 +1,29 @@
+{
+  "name": "serverless-reminder-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "load-test": "cd load-test; artillery run -e prod load-test.yml"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "aws-sdk": "^2.205.0",
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "mysql": "^2.15.0",
+    "serverless-http": "^1.5.3",
+    "util.promisify": "^1.0.0"
+  },
+  "devDependencies": {
+    "artillery": "^1.6.0-14",
+    "jest": "^22.4.2",
+    "node-fetch": "^2.1.1",
+    "serverless-dynamodb-local": "^0.2.27",
+    "serverless-offline": "^3.18.0",
+    "supertest": "^3.0.0"
+  }
+}

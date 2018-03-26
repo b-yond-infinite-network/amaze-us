@@ -1,0 +1,64 @@
+service: serverless-reminder-app
+
+package:
+  include:
+    - app/**
+
+custom:
+    myStage: ${opt:stage, self:provider.stage}
+    myEnvironment:
+      REMINDERS_DB_ENDPOINT:
+        dev: localhost
+        prod: jax-rs-db.cce8xk4qewtv.us-east-1.rds.amazonaws.com
+
+provider:
+  name: aws
+  runtime: nodejs6.10
+  stage: ${opt:stage, 'dev'}
+  region: us-east-1
+  versionFunctions: false
+  environment:
+    REMINDERS_DB_ENDPOINT: ${self:custom.myEnvironment.REMINDERS_DB_ENDPOINT.${self:custom.myStage}}
+    # REMINDERS_DB_USER: ${env:REMINDERS_DB_USER}
+    # REMINDERS_DB_PASSWORD: ${env:REMINDERS_DB_PASSWORD}
+
+  vpc:
+    securityGroupIds:
+      - sg-8a0abaf1
+    subnetIds:
+      - subnet-8e692ceb
+      - subnet-75b09803
+      - subnet-e2301ddf
+      - subnet-f47c04de
+      - subnet-b985c1e1
+      - subnet-fb42d0f7
+
+functions:
+  app:
+    handler: app/index.handler
+    events:
+      - http: ANY /
+      - http: 'ANY {proxy+}'
+  
+
+plugins:
+  #- serverless-dynamodb-local
+  - serverless-offline #serverless-offline needs to be last in the list
+
+# resources:
+#   Resources:
+#     UsersDynamoDBTable:
+#       Type: 'AWS::DynamoDB::Table'
+#       Properties:
+#         AttributeDefinitions:
+#           -
+#             AttributeName: userId
+#             AttributeType: S
+#         KeySchema:
+#           -
+#             AttributeName: userId
+#             KeyType: HASH
+#         ProvisionedThroughput:
+#           ReadCapacityUnits: 1
+#           WriteCapacityUnits: 1
+#         TableName: ${self:custom.tableName}
