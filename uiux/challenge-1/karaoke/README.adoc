@@ -1,0 +1,56 @@
+= karaoke
+
+== Dependency
+
+1. >= Maven 3.5.2
+1. >= Java 1.8.0_162
+1. >= Docker 18.03.0-ce
+1. Musixmatch API dev token (Create one here: https://developer.musixmatch.com/)
+
+== Quick run
+
+Execute...
+
+```
+docker run --rm --name lala -ti -e "musixmatch_api_key=[your key here]" -p 8080:8080 tveronezi/karaoke:0.0.1-SNAPSHOT
+```
+
+Then open http://localhost:8080
+
+== How to run it locally?
+
+1. Set the musixmatch_api_key environment variable (On linux you do `export musixmatch_api_key=<your token here>`)
+1. Run `mvn clean install` to build the docker images
+1. Run `mvn --projects webapp docker:run@dev` to run the application on development mode
+1. Open http://localhost:8080 to access your application.
+
+=== What is the `development` mode?
+
+On development mode, changes to any file under `webapp/src/main/docker/static/base/src` will be automatically
+pushed to the running http://localhost:8080 server.
+
+You can also debug your backend application running inside the container via remote debugging a the port 8000.
+Simply point your IDE to it.
+
+=== Where is my `node_modules` directory?
+
+It lives inside the docker container. If you want to have your IDE helping with auto complete,
+you will need to have this directory locally. You can create it with the following docker command.
+
+Go to the root directory of this project and run...
+
+```
+docker run --rm -ti -v $(pwd)/webapp/src/main/docker/static/base:/opt --workdir /opt --entrypoint /usr/local/bin/npm node:8.11.1 install
+```
+
+== How to run the server on `production` mode
+
+Simply run the docker image with...
+
+```
+docker run --rm -ti -e musixmatch_api_key=<your token here> -p 8080:8080 tveronezi/karaoke:0.0.1-SNAPSHOT
+```
+
+== Resources
+
+1. https://developer.musixmatch.com/documentation
