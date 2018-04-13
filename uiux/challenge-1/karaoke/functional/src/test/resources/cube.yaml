@@ -1,0 +1,10 @@
+webapp:
+  image: "tveronezi/karaoke:0.0.1-SNAPSHOT"
+  exposedPorts: [8080/tcp]
+  portBindings: [8080->8080/tcp]
+  await:
+    strategy: polling
+    sleepPollingTime: 2 s
+    iterations: 10
+  env: [musixmatch_api_key=${env.musixmatch_api_key}]
+

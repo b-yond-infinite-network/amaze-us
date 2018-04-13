@@ -47,6 +47,38 @@ class ServiceSongDbTest {
         Assert.assertEquals(lyrics.id, result.id)
     }
 
+    @Test
+    void 'should get tracks page'() {
+        Assert.assertEquals(
+                ['a011', 'a012', 'a013', 'a014', 'a015', 'a016', 'a017', 'a018', 'a019', 'a020'],
+                db.findByArtistName('a', 2, ServiceSongDb.OrderBy.artist, true).collect({ it.artist })
+        )
+        Assert.assertEquals(
+                ['a093', 'a092', 'a091', 'a090', 'a089', 'a088', 'a087', 'a086', 'a085', 'a084'],
+                db.findByArtistName('a', 2, ServiceSongDb.OrderBy.artist, false).collect({ it.artist })
+        )
+        Assert.assertEquals(
+                ['a103', 'a102', 'a101', 'a100', 'a099', 'a098', 'a097', 'a096', 'a095', 'a094'],
+                db.findByArtistName('a', 1, ServiceSongDb.OrderBy.artist, false).collect({ it.artist })
+        )
+        Assert.assertEquals(
+                ['a003', 'a002', 'a001'],
+                db.findByArtistName('a', 11, ServiceSongDb.OrderBy.artist, false).collect({ it.artist })
+        )
+        Assert.assertEquals(
+                ['a101', 'a102', 'a103'],
+                db.findByArtistName('a', 11, ServiceSongDb.OrderBy.artist, true).collect({ it.artist })
+        )
+        Assert.assertEquals(
+                [],
+                db.findByArtistName('a', 12, ServiceSongDb.OrderBy.artist, false).collect({ it.artist })
+        )
+        Assert.assertEquals(
+                [],
+                db.findByArtistName('a', 12, ServiceSongDb.OrderBy.artist, true).collect({ it.artist })
+        )
+    }
+
     @ApplicationScoped
     static class DymmyLyricsService implements LyricsService {
 
@@ -68,7 +100,19 @@ class ServiceSongDbTest {
 
         @Override
         Collection<Track> findByArtistName(String artistName) {
-            return null
+            if (artistName == 'a') {
+                def myList = (1..103).collect({
+                    return new Track(
+                            id: it,
+                            title: '',
+                            artist: 'a' + String.format("%03d", it),
+                            length: 0
+                    )
+                })
+                Collections.shuffle(myList)
+                return myList
+            }
+            return []
         }
     }
 }
