@@ -1,7 +1,7 @@
 package karaoke.cache;
 
-public class ApplicationException extends RuntimeException {
-    public ApplicationException(Throwable cause) {
+class ApplicationException extends RuntimeException {
+    ApplicationException(Throwable cause) {
         super(cause);
     }
 }

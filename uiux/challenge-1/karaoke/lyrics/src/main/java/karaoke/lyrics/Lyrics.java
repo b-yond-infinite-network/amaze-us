@@ -1,47 +1,24 @@
 package karaoke.lyrics;
 
-import java.util.Objects;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
+@ToString
+@EqualsAndHashCode(exclude = {"text", "track"})
 public class Lyrics {
+
+    @Getter
+    @Setter
     private Long id;
+
+    @Getter
+    @Setter
     private String text;
+
+    @Getter
+    @Setter
     private Track track;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
-
-    public Track getTrack() {
-        return track;
-    }
-
-    public void setTrack(Track track) {
-        this.track = track;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Lyrics lyrics = (Lyrics) o;
-        return Objects.equals(id, lyrics.id);
-    }
-
-    @Override
-    public int hashCode() {
-
-        return Objects.hash(id);
-    }
 }
