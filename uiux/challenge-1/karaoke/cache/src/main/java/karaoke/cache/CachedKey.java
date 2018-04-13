@@ -12,5 +12,4 @@ import java.lang.reflect.Method;
 class CachedKey {
     private final Method method;
     private final Object[] arguments;
-
 }

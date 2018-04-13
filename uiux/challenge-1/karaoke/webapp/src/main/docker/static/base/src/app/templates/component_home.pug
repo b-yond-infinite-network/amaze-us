@@ -16,10 +16,10 @@ form.search
             span Length
     ul
         li("*ngFor"="let track of tracks")
-            a(href="lyrics/{{track.id}}")
-                span {{track.title}}
-                span {{track.artistName}}
-                span {{track.length}}
+            a.entry(href="lyrics/{{track.id}}")
+                span.title {{track.title}}
+                span.artist {{track.artist}}
+                span.length {{track.length}}
 .more
     div("(click)"="loadMore()", "[ngClass]"="{'active': loading}")
         .loading
