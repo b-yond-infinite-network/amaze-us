@@ -9,6 +9,8 @@
 
 == Quick run
 
+=== Single App
+
 Execute...
 
 ```
@@ -16,6 +18,20 @@ docker run --rm --name lala -ti -e "musixmatch_api_key=[your key here]" -p 8080:
 ```
 
 Then open http://localhost:8080
+
+=== Cluster with Server Side Rendering
+
+Go to the root directory of this project and execute...
+
+```
+export musixmatch_api_key=[your key here]
+docker-compose up
+```
+
+Then open http://localhost
+
+Test the SSR with `curl -X GET http://localhost/tracks/alanis -H 'Cache-Control: no-cache' -H 'User-Agent: slackbot'`.
+If you see the tracks entries, this means the server successfully pre-rendered the html code before serving the it.
 
 == How to run it locally?
 

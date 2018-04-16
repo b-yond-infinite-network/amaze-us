@@ -84,6 +84,13 @@
                                         <dockerFileDir>${project.build.directory}/docker-build/tomee</dockerFileDir>
                                     </build>
                                 </image>
+                                <image>
+                                    <name>${images.owner}/karaoke-rendertron:${project.version}</name>
+                                    <build>
+                                        <filter>false</filter>
+                                        <dockerFileDir>${project.build.directory}/docker-build/rendertron</dockerFileDir>
+                                    </build>
+                                </image>
                             </images>
                         </configuration>
                     </execution>

@@ -1,0 +1,12 @@
+{
+  "name": "karaoke-rendertron",
+  "version": "0.0.1",
+  "description": "karaoke rendertron",
+  "license": "Apache-2.0",
+  "scripts": {
+    "rendertron": "rendertron"
+  },
+  "dependencies": {
+    "rendertron": "1.1.1"
+  }
+}

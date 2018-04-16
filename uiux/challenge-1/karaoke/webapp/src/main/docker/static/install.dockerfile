@@ -1,4 +1,4 @@
-FROM node:8.11.1
+FROM node:${node.version}
 RUN mkdir -p /opt/base
 WORKDIR /opt/base
 

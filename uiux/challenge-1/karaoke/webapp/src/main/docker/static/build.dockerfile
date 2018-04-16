@@ -1,4 +1,4 @@
-FROM node:8.11.1
+FROM node:${node.version}
 ENV DOC_BASE=/opt/output
 RUN mkdir -p /opt/base
 RUN mkdir -p /opt/output

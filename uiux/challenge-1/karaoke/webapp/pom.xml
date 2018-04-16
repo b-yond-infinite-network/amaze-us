@@ -99,6 +99,20 @@
                                     </build>
                                 </image>
                                 <image>
+                                    <name>${images.owner}/karaoke-renderer:${project.version}</name>
+                                    <build>
+                                        <filter>false</filter>
+                                        <dockerFileDir>${project.build.directory}/docker-build/renderer</dockerFileDir>
+                                    </build>
+                                </image>
+                                <image>
+                                    <name>${images.owner}/karaoke-proxy:${project.version}</name>
+                                    <build>
+                                        <filter>false</filter>
+                                        <dockerFileDir>${project.build.directory}/docker-build/proxy</dockerFileDir>
+                                    </build>
+                                </image>
+                                <image>
                                     <name>${images.owner}/karaoke-war:${project.version}</name>
                                     <build>
                                         <filter>false</filter>
