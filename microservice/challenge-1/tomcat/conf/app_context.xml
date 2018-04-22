@@ -1,10 +1,18 @@
 <Context>
 
-  <Environment name="java.mysql.ip" type="java.lang.String" value="byond.c8cpvznbifqp.us-east-2.rds.amazonaws.com" />
+  <!-- To use the MySql instance inside the docker container use
+    ip = mysql
+    port = 3306
+    name = byondtest
+    user = byond
+    password = mypassword
+  -->
+
+  <Environment name="java.mysql.ip" type="java.lang.String" value="mysql" />
   <Environment name="java.mysql.port" type="java.lang.String" value="3306" />
   <Environment name="java.mysql.name" type="java.lang.String" value="byondtest" />
   <Environment name="java.mysql.user" type="java.lang.String" value="byond" />
-  <Environment name="java.mysql.password" type="java.lang.String" value="nicetry" />
+  <Environment name="java.mysql.password" type="java.lang.String" value="mypassword" />
 
 
 </Context>
