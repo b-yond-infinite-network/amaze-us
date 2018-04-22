@@ -29,6 +29,7 @@ The web app has been modified in the following ways:
 * configurationn data for the MySql connection is now read from environment variables supplied by Tomcat rather than from the properties file included with the original project
 * simple SQL injection protection has been added by the use of inserts into the database using prepared statements
 * the back button on the database listing and error web pages now works
+* the clear button now works to correctly delete user data from the database
 
 
 ## Building the system
@@ -78,6 +79,10 @@ Once the WAR file is built then the system can be built with docker-compose:
 * the database connection parameters can be changed by edited the file app_context.xml in the directory tomcat/conf
 
 * the system should then be brought down and rebuilt and restarted with the commands listed above
+
+* to use the containerized instance of MySql the `java.mysql.ip` environment variable must be set to `mysql`
+
+* when the containerized instance of MySql is used the data is persisted in a Docker volume relative to the Docker project so that the data is not destoyed then the `docker-compose down` command is issued.
 
 
 ## Debugging the webapp
