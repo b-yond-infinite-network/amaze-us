@@ -52,7 +52,6 @@ public class FormSave extends HttpServlet {
         String description = request.getParameter("description");
         String submit = request.getParameter("submit");
         String clear = request.getParameter("clear");
-        String x = "hello";
 
         try {
 
