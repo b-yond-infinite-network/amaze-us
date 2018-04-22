@@ -30,6 +30,4 @@ COPY healthcheck.sh /healthcheck.sh
 ENTRYPOINT ["/entrypoint.sh"]
 HEALTHCHECK CMD /healthcheck.sh
 EXPOSE 3306
-EXPOSE 33060
-EXPOSE 33061
 CMD ["mysqld"]
