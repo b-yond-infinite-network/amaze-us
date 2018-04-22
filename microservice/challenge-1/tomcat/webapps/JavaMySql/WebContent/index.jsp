@@ -82,11 +82,11 @@
                     <div class="form-button"
                          style="margin-left: 100px; margin-right: 10px;">
                         <input id="SubmitButton" class="submit_btn" type="image" border="0"
-                               name="submit" alt="Submit" src="images/submit_btn.png"></input>
+                               name="submit" value="submit" alt="Submit" src="images/submit_btn.png"></input>
                     </div>
                     <div class="form-button">
                         <input id="Submit" class="clear_btn" type="image" border="0"
-                               name="clear" alt="clear" src="images/clear_btn.png">
+                               name="clear" value="clear" alt="clear" src="images/clear_btn.png">
                     </div>
                 </form>
             </div>
