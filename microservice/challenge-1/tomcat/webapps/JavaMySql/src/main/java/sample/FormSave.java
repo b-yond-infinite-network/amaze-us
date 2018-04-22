@@ -50,8 +50,9 @@ public class FormSave extends HttpServlet {
         String name = request.getParameter("name");
         String email = request.getParameter("email");
         String description = request.getParameter("description");
-        Connection conn = null;
-        Statement stmt = null;
+        String submit = request.getParameter("submit");
+        String clear = request.getParameter("clear");
+        String x = "hello";
 
         try {
 
@@ -68,13 +69,27 @@ public class FormSave extends HttpServlet {
 
             DbUtils db = new DbUtils(dburl, dbport, dbname, dbuser, dbpassword);
 
-            db.addUser(name, email, description);
+
+            if (submit != null)
+                db.addUser(name, email, description);
+            else if (clear != null)
+                db.deleteUsers();
 
             db.disconnect();
 
-            response.setStatus(response.SC_MOVED_PERMANENTLY);
-            response.setHeader("Location", nextPage);
+            String exMsg = db.getExceptionMessage();
 
+            if (exMsg.equals("")) {
+                response.setStatus(response.SC_MOVED_PERMANENTLY);
+                response.setHeader("Location", nextPage);
+            } else {
+                response.setContentType("text/html");
+                PrintWriter out = response.getWriter();
+                out.print("<!doctype html><html><head><meta charset='utf-8'><title>App42 Sample Java-MySql Application</title><link href='css/style-User-Input-Form.css' rel='stylesheet' type='text/css'></head><body><div class='App42PaaS_header_wrapper'><div class='App42PaaS_header_inner'><div class='App42PaaS_header'><div class='logo'><a href='http://app42paas.shephertz.com'><img border='0' alt='App42PaaS' src='images/logo.png'></img></a></div></div></div></div><div class='App42PaaS_body_wrapper'><div class='App42PaaS_body'><div class='App42PaaS_body_inner'><div class='contactPage_title'>");
+                out.print("<h2 align='center'>Error occured. See Logs.</h2><br/><br/>");
+                out.print("<br/><a href='javascript:history.back()' style='font-size: 18px;'>Go Back</a>");
+                out.print("</div></div></div></div></body></html>");
+            }
 
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -85,22 +100,5 @@ public class FormSave extends HttpServlet {
             out.print("<br/><a href='javascript:history.back()' style='font-size: 18px;'>Go Back</a>");
             out.print("</div></div></div></div></body></html>");
         }
-        finally {
-            try {
-                if (stmt != null) {
-                    stmt.close();
-                }
-
-                if (conn != null)
-                    conn.close();
-
-            }
-            catch (Exception e) {
-                e.printStackTrace();
-            }
-
-        }
-
     }
-
 }
