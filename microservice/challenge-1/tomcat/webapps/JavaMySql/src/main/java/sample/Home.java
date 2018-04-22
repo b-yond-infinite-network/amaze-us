@@ -55,30 +55,42 @@ public class Home extends HttpServlet {
         List<HashMap<String,Object>> users = db.getUsers();
         db.disconnect();
 
+
+        String exMsg = db.getExceptionMessage();
+
+
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
         out.print("<!doctype html><html><head><meta charset='utf-8'><title>App42 Sample Java-MySql Application</title><link href='css/style-User-Input-Form.css' rel='stylesheet' type='text/css'></head><body><div class='App42PaaS_header_wrapper'><div class='App42PaaS_header_inner'><div class='App42PaaS_header'><div class='logo'><a href='http://app42paas.shephertz.com'><img border='0' alt='App42PaaS' src='images/logo.png'></img></a></div></div></div></div><div class='App42PaaS_body_wrapper'><div class='App42PaaS_body'><div class='App42PaaS_body_inner'><div class='contactPage_title'>");
-        try {
-             if (users.size() != 0) {
-                out.print("<table><thead class='table-head'><tr><td>Name</td><td>Email</td><td>Description</td></tr></thead><tbody>");
 
-                int numUsers = users.size();
+        if (exMsg.equals("")) {
+            try {
+                if (users.size() != 0) {
+                    out.print("<table><thead class='table-head'><tr><td>Name</td><td>Email</td><td>Description</td></tr></thead><tbody>");
 
-                for (int i = 0 ;i < numUsers; i++) {
-                    Map<String, Object> user = users.get(i);
-                    out.print("<tr><td>" + user.get("name") + "</td><td>"
-                            + user.get("email") + "</td><td>"
-                            + user.get("description") + "</td></tr>");
+                    int numUsers = users.size();
 
+                    for (int i = 0; i < numUsers; i++) {
+                        Map<String, Object> user = users.get(i);
+                        out.print("<tr><td>" + user.get("name") + "</td><td>"
+                                + user.get("email") + "</td><td>"
+                                + user.get("description") + "</td></tr>");
+
+                    }
+
+                    out.print("</tbody></table>");
+                } else {
+                    out.print("<h1>No data</h1><br/><br/>");
                 }
-
-                out.print("</tbody></table>");
-            } else {
-                out.print("<h1>No data</h1><br/><br/>");
+                out.print("<br/><a href='javascript:history.back()' style='font-size: 18px;'>Go back</a>");
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                out.print("<h2 align='center'>Error occured. See Logs.</h2><br/><br/>");
+                out.print("<br/><a href='javascript:history.back()' style='font-size: 18px;'>Go Back</a>");
             }
-            out.print("<br/><a href='javascript:history.back()' style='font-size: 18px;'>Go back</a>");
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        }
+        else
+        {
             out.print("<h2 align='center'>Error occured. See Logs.</h2><br/><br/>");
             out.print("<br/><a href='javascript:history.back()' style='font-size: 18px;'>Go Back</a>");
         }
