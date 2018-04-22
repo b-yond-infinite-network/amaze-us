@@ -99,5 +99,4 @@ After doing so the IntelliJ debugger will attach to the running webapp.  The sid
 Should the time have been available I would like to have:
 
 * implemented a scalable solution for MySql although this may have been difficult without Docker Swarms and other software
-* implemented the ability for the webapp to delete database entries
 * added more robust error and exception handling in the webapp (currently no error messages are shown to the user) but it should be realized that the purpose of this exercise was not to develop a robust webapp
