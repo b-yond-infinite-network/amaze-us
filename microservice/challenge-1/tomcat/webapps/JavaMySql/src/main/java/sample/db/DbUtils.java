@@ -14,6 +14,7 @@ public class DbUtils {
     private Boolean initialzed = false;
     private Connection conn = null;
     private Statement stmt = null;
+    private String exceptionMessage = "";
 
 
     public DbUtils(String url, String port, String name, String user, String password) {
@@ -24,7 +25,7 @@ public class DbUtils {
         this.dbUser = user;
         this.dbPassword = password;
         this.jdbcUrl = "jdbc:mysql://" + dbUrl + ":" + dbPort + "/" + dbName;
-
+        this.exceptionMessage = "";
         initialize();
     }
 
@@ -41,7 +42,8 @@ public class DbUtils {
             initialzed = true;
         }
         catch (Exception ex) {
-
+            String msg = ex.getMessage();
+            exceptionMessage = msg;
         }
     }
 
@@ -51,7 +53,10 @@ public class DbUtils {
 
             stmt.execute("create table user(name varchar(255), email varchar(255), description varchar(255));");
         } catch (Exception e) {
-
+            String msg = e.getMessage();
+            if (!msg.contains("already exists")) {
+                exceptionMessage = msg;
+            }
         }
     }
 
@@ -67,11 +72,25 @@ public class DbUtils {
 
             }
             catch (Exception e) {
-                e.printStackTrace();
+                exceptionMessage = e.getMessage();
             }
 
         }
     }
+
+    public void deleteUsers() {
+        try {
+
+            stmt.execute("truncate table user;");
+        } catch (Exception e) {
+            String msg = e.getMessage();
+            if (!msg.contains("already exists")) {
+                exceptionMessage = msg;
+            }
+        }
+
+    }
+
 
     public void addUser (String user, String email, String description)
     {
@@ -88,7 +107,7 @@ public class DbUtils {
             }
             catch (Exception  ex)
             {
-
+                exceptionMessage = ex.getMessage();
             }
 
         }
@@ -108,7 +127,7 @@ public class DbUtils {
                 data = convertResultSetToList(rs);
 
             } catch (Exception ex) {
-
+                exceptionMessage = ex.getMessage();
             }
 
         }
@@ -131,5 +150,9 @@ public class DbUtils {
         }
 
         return list;
+    }
+
+    public String getExceptionMessage() {
+        return exceptionMessage;
     }
 }
