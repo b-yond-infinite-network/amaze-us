@@ -1,0 +1,29 @@
+.content
+    .page-header
+        mat-toolbar
+            mat-toolbar-row
+                mat-form-field
+                    input(matInput, placeholder="Search by Artist", "[(ngModel)]"="filter", name="filter", "(keyup.enter)"="onEnter()")
+                .sort.button-row
+                    button(mat-button, color="primary", "(click)"="orderBy('title')", "[ngClass]"="{'active': orderByField === 'title'}")
+                        i.fa("[ngClass]"="{'fa-caret-up': ascending, 'fa-caret-down': !ascending}")
+                        span Title
+                    button(mat-button, color="accent", "(click)"="orderBy('artist')", "[ngClass]"="{'active': orderByField === 'artist'}")
+                        i.fa("[ngClass]"="{'fa-caret-up': ascending, 'fa-caret-down': !ascending}")
+                        span Artist
+                    button(mat-button, color="warn", "(click)"="orderBy('length')", "[ngClass]"="{'active': orderByField === 'length'}")
+                        i.fa("[ngClass]"="{'fa-caret-up': ascending, 'fa-caret-down': !ascending}")
+                        span Length
+    .results(infiniteScroll,
+        "[infiniteScrollDistance]"="0.1",
+        "[infiniteScrollThrottle]"="200",
+        "(scrolled)"="loadMore()")
+        mat-list(role="list", "*ngFor"="let track of tracks")
+            mat-list-item(role="listitem")
+                a.entry(href="lyrics/{{track.id}}")
+                    span.title {{track.title}}
+                    span.artist {{track.artist}}
+                    span.length {{track.length | amDuration:'seconds'}}
+.more
+    div("[ngClass]"="{'active': loading}")
+        .loading

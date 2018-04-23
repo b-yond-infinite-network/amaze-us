@@ -1,0 +1,80 @@
+@import "variables"
+
+div[data-karaoke-tracks]
+  > .content
+    margin-top: 10px
+    padding: 10px
+    min-height: 100vh
+
+  .page-header
+    mat-toolbar
+      background: #ffffff
+    mat-form-field
+      width: 100%
+      .mat-input-wrapper
+        margin-right: 5px
+    .button-row
+      width: 400px
+      margin-bottom: 20px
+      button
+        position: relative
+        margin-right: 5px
+        &:last-child
+          margin-right: 0
+        i
+          position: absolute
+          left: 5px
+          top: 50%
+          transform: translateY(-50%)
+          opacity: 0
+        &.active
+          i
+            opacity: 1
+
+  .results
+    $link-color: rgba(0,0,0,.54)
+    a
+      text-decoration: none
+      color: $link-color
+      span
+        margin-right: 10px
+        &:last-child
+          margin-right: 0
+        &.artist
+          font-size: 12px
+        &.length
+          font-size: 10px
+          padding: 5px 10px
+          border-radius: 5px
+          background: #3f51b5
+          color: #ffffff
+
+  div.more
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+    margin: 15px 0
+    > div
+      display: flex
+      align-items: center
+      border-radius: 5px
+      padding: 6px 22px 6px 12px
+      $spinner-size: 10px
+      $spinner-border: 2px
+      > div.loading
+        width: $spinner-size + $spinner-border * 2
+        height: $spinner-size + $spinner-border * 2
+      &.active
+        > div.loading
+          width: $spinner-size
+          height: $spinner-size
+          border-radius: 50%
+          border: $spinner-border solid #f3f3f3 /* Light grey */
+          border-top: $spinner-border solid #3498db /* Blue */
+          animation: spin 2s linear infinite
+          @keyframes spin
+            0%
+              transform: rotate(0deg)
+            100%
+              transform: rotate(360deg)

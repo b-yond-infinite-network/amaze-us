@@ -1,0 +1,48 @@
+version: '3.4'
+
+services:
+
+  full:
+    hostname: "full"
+    image: "tveronezi/karaoke:0.0.1-SNAPSHOT"
+    networks:
+      - karaoke
+    environment:
+      musixmatch_api_key: "${musixmatch_api_key}"
+
+  rendertron:
+    hostname: "rendertron"
+    image: "tveronezi/karaoke-rendertron:0.0.1-SNAPSHOT"
+    networks:
+      - karaoke
+    cap_add:
+      - SYS_ADMIN
+    shm_size: 256m
+
+  renderer:
+    hostname: "renderer"
+    image: "tveronezi/karaoke-renderer:0.0.1-SNAPSHOT"
+    networks:
+      - karaoke
+    environment:
+      RENDERTRON_URL: "http://rendertron:3000/render"
+      FULL_APP_HOST: "full:8080"
+    depends_on:
+      - rendertron
+
+  proxy:
+    hostname: "proxy"
+    image: "tveronezi/karaoke-proxy:0.0.1-SNAPSHOT"
+    networks:
+      - karaoke
+    ports:
+      - 80:3000
+    environment:
+      API_URL: "http://full:8080"
+      RENDERER_URL: "http://renderer:3000"
+    depends_on:
+      - rendertron
+      - full
+
+networks:
+  karaoke:
