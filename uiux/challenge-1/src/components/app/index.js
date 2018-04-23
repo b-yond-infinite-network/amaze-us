@@ -1,30 +1,29 @@
-import React, { Component } from 'react';
+import React, {
+  Component
+} from 'react';
 import 'components/app/index.css';
-
+// Store
+import store from 'store';
+// Components
 import ArtistSearch from 'components/container/artist-search';
 
+const {
+  Provider
+} = store;
 
 class App extends Component {
 
-  constructor (props) {
-    super(props);
-    this.handleArtistQuery = this.handleArtistQuery.bind(this);
-  }
-
-  async handleArtistQuery (query) {
-    const searchArtistResults = await this.props.musixmatchProvider.searchArtist(query);
-    console.log('searchArtistResults', searchArtistResults);
-  }
-
   render () {
     return (
-      <div className="App">
-        <ArtistSearch
-          handleArtistQuery={this.handleArtistQuery}
-        />
-      </div>
+      <Provider>
+        <div className="App">
+          <ArtistSearch/>
+        </div>
+      </Provider>
     );
   }
 }
 
 export default App;
+
+

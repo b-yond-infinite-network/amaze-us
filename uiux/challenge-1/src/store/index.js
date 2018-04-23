@@ -1,3 +1,28 @@
+// Libraries
+import {initStore} from 'react-waterfall';
+// Services
+import MusixmatchProvider from 'api/musixmatch-provider';
+
+const musixmatchProvider = new MusixmatchProvider({
+  apiKey: '4148caebc14fa40fdc1b7fa3b3aced63'
+});
+
+export default initStore({
+  initialState: {
+    searchArtistResults: []
+  },
+  actions: {
+    searchArtist: async ({searchArtistResults}, query) => {
+      const results = await musixmatchProvider.searchArtist(query);
+      return {
+        searchArtistResults: results.artist_list
+      };
+    }
+  },
+});
+
+
+
 
 // (async () => {
 //   const artistInfo = await musixmatchProvider.searchArtist('the black keys');

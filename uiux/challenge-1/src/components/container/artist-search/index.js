@@ -1,14 +1,28 @@
-
+// Libraries
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import debounce from 'lodash/debounce';
+// Utils
 import {DEBOUNCE_TIMEOUT} from 'util/constants';
+// Store
+import store from 'store';
+// Components
+import ResultsList from 'components/presentational/results-list';
+
+const {
+  actions,
+  connect
+} = store;
+
+const ConnectedResultsList = connect(state => ({
+  searchArtistResults: state.searchArtistResults
+}))(ResultsList);
 
 class ArtistSearch extends Component {
 
   constructor (props) {
     super(props);
-    // this.onSubmit = this.onSubmit.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
     this.onChange = this.onChange.bind(this);
     this.triggerArtistQuery = debounce(this.triggerArtistQuery.bind(this), DEBOUNCE_TIMEOUT);
     this.state = {
@@ -16,13 +30,20 @@ class ArtistSearch extends Component {
     };
   }
 
-  // onSubmit (event) {
-  //   event.preventDefault();
-  //   this.props.handleArtistSearchSubmit(event.target['karaoke-artist-search'].value);
-  // };
+  onSubmit (event) {
+    event.preventDefault();
+
+    // Cancel queued trigger
+    this.triggerArtistQuery.cancel();
+
+    // Trigger immediate search
+    actions.searchArtist(this.state.artistQuery);
+  };
 
   triggerArtistQuery () {
-    this.props.handleArtistQuery(this.state.artistQuery);
+
+    // Trigger debounced search
+    actions.searchArtist(this.state.artistQuery);
   };
 
   onChange (event) {
@@ -44,18 +65,12 @@ class ArtistSearch extends Component {
           <label htmlFor="karaoke-artist-search">Artist</label>
           <br/>
           <input
-            id="karaoke-artist-search"
-            name="karaoke-artist-search"
             onChange={this.onChange}
             type="text"
             value={this.state.artistQuery}
           />
-          {/*
-          <input
-            type="submit"
-          />
-          */}
         </form>
+        <ConnectedResultsList/>
       </div>
     );
   }

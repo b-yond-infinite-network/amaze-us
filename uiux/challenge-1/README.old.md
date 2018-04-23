@@ -19,9 +19,11 @@ bother them while singing drunk...
 
 ## Implementation checklist
 
-*   Create project setup using CRA :+1:
+*   Create project setup using [Create React App](https://github.com/facebook/create-react-app)
 *   Create musixmatch API provider :+1:
 *   An artist search input :+1:
+    * Enter at least 3 characters
+    * Validation
     * Live search results grid
         * Search result component
 *   Artist view
@@ -35,6 +37,10 @@ bother them while singing drunk...
     * Display lyrics
     * Navigation item to go back
 *   Design implementation
+
+## What's new and exciting?
+
+* Trying out React's new [Context API](https://reactjs.org/docs/context.html)
 
 ### To do
 *   Pass apikey via configuration

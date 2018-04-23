@@ -1,3 +1,4 @@
+// Utils
 import {
   fetchHandler,
   requiredParam,
@@ -9,6 +10,12 @@ const defaults = {
   url: 'https://api.musixmatch.com/ws/1.1/'
 };
 
+/**
+ * @method extractResponseBody
+ * @description Unpack data from most musixmatch APIs
+ * @param {Promise} promise
+ * @returns {Object}
+ */
 const extractResponseBody = promise => promise
   .then(response => response.message.body);
 
