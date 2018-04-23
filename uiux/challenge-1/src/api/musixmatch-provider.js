@@ -9,6 +9,9 @@ const defaults = {
   url: 'https://api.musixmatch.com/ws/1.1/'
 };
 
+const extractResponseBody = promise => promise
+  .then(response => response.message.body);
+
 class MusixmatchProvider {
 
   constructor (options) {
@@ -46,7 +49,11 @@ class MusixmatchProvider {
         q_artist
       }
     });
-    return fetchHandler(fetch(route));
+
+    let promise = fetch(route);
+    promise = fetchHandler(promise);
+    promise = extractResponseBody(promise);
+    return promise;
   }
 
   /**

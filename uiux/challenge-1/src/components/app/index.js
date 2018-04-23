@@ -1,33 +1,27 @@
 import React, { Component } from 'react';
 import 'components/app/index.css';
 
+import ArtistSearch from 'components/container/artist-search';
 
 
 class App extends Component {
-  render() {
+
+  constructor (props) {
+    super(props);
+    this.handleArtistQuery = this.handleArtistQuery.bind(this);
+  }
+
+  async handleArtistQuery (query) {
+    const searchArtistResults = await this.props.musixmatchProvider.searchArtist(query);
+    console.log('searchArtistResults', searchArtistResults);
+  }
+
+  render () {
     return (
       <div className="App">
-        <ul>
-          <li>an artist search bar - artist.get</li>
-          <li>list of songs</li>
-          <li>ability to sort the songs by
-            <ul>
-              <li>the number of lyrics they have</li>
-              <li>title</li>
-              <li>duration</li>
-            </ul>
-          </li>
-          <li>You will want, of course, to be able to display the song lyrics themselves.</li>
-          <li>Connect to Spotify API</li>
-          <li>Typeahead input</li>
-          <li>Get artist image from somewhere?</li>
-        </ul>
-
-        <h3>To do</h3>
-        <ul>
-          <li>Pass apikey via configuration</li>
-          <li>Unit tests</li>
-        </ul>
+        <ArtistSearch
+          handleArtistQuery={this.handleArtistQuery}
+        />
       </div>
     );
   }

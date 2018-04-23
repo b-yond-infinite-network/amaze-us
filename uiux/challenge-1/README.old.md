@@ -16,3 +16,32 @@ bother them while singing drunk...
 + Create a branch of this project (or fork it in your github account if you prefer)
 + Do you **_thang_** inside this folder (challenge-1)
 + Push your change inside a Pull Request to our master
+
+## Implementation checklist
+
+*   Create project setup using CRA :+1:
+*   Create musixmatch API provider :+1:
+*   An artist search input :+1:
+    * Live search results grid
+        * Search result component
+*   Artist view
+    * List of albums
+        * Album component (links to grid of album tracks)
+    * Sortable grid of tracks
+        * by number of lyrics
+        * title
+        * duration
+*   Track view
+    * Display lyrics
+    * Navigation item to go back
+*   Design implementation
+
+### To do
+*   Pass apikey via configuration
+*   Unit tests
+*   Transitions
+
+### Nice to have
+*   Connect to Spotify API
+*   Routing
+*   Get artist image from somewhere?
