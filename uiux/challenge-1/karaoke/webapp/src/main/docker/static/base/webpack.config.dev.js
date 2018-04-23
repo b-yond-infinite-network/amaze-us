@@ -4,6 +4,7 @@ var commonConfig = require("./webpack.common.js");
 var docBase = process.env.DOC_BASE_DEV;
 module.exports = webpackMerge(commonConfig, {
     mode: 'development',
+    devtool: 'inline-source-map',
     watchOptions: {
         aggregateTimeout: 300,
         poll: 1000 // watch has problems on docker containers (events not propagated)

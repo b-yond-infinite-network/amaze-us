@@ -35,7 +35,7 @@ class ApiTrackTest {
             }
         } as ResponseHandler<String>)
         Assert.assertNotNull(json)
-        Assert.assertEquals(10, json.size())
+        Assert.assertEquals(30, json.size())
         artistName.split(' ').each { String namePart ->
             json.each {
                 String artist = it.artist

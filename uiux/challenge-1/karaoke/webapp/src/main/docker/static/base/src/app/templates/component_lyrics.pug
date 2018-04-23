@@ -1,5 +1,6 @@
-div
-    .title
-        h1 {{lyrics?.track?.title}}
-        h2 ({{lyrics?.track?.artist}})
-    pre {{lyrics?.text}}
+mat-card
+    mat-card-header
+        mat-card-title {{lyrics?.track?.title}}
+        mat-card-subtitle {{lyrics?.track?.artist}}
+    mat-card-content
+        pre {{lyrics?.text}}

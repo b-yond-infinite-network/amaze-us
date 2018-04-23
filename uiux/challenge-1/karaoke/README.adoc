@@ -14,7 +14,7 @@
 Execute...
 
 ```
-docker run --rm --name lala -ti -e "musixmatch_api_key=[your key here]" -p 8080:8080 tveronezi/karaoke:0.0.1-SNAPSHOT
+docker run --rm -ti -e "musixmatch_api_key=[your key here]" -p 8080:8080 tveronezi/karaoke:0.0.1-SNAPSHOT
 ```
 
 Then open http://localhost:8080

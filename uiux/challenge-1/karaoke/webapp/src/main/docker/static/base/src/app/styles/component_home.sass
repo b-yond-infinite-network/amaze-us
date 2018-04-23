@@ -1,10 +1,53 @@
 @import "variables"
 
 div[data-karaoke-tracks]
-  padding: 10px
-  display: flex
-  flex-direction: column
-  justify-content: center
+  > .content
+    margin-top: 10px
+    padding: 10px
+    min-height: 100vh
+
+  .page-header
+    mat-toolbar
+      background: #ffffff
+    mat-form-field
+      width: 100%
+      .mat-input-wrapper
+        margin-right: 5px
+    .button-row
+      width: 400px
+      margin-bottom: 20px
+      button
+        position: relative
+        margin-right: 5px
+        &:last-child
+          margin-right: 0
+        i
+          position: absolute
+          left: 5px
+          top: 50%
+          transform: translateY(-50%)
+          opacity: 0
+        &.active
+          i
+            opacity: 1
+
+  .results
+    $link-color: rgba(0,0,0,.54)
+    a
+      text-decoration: none
+      color: $link-color
+      span
+        margin-right: 10px
+        &:last-child
+          margin-right: 0
+        &.artist
+          font-size: 12px
+        &.length
+          font-size: 10px
+          padding: 5px 10px
+          border-radius: 5px
+          background: #3f51b5
+          color: #ffffff
 
   div.more
     display: flex
@@ -15,7 +58,6 @@ div[data-karaoke-tracks]
     > div
       display: flex
       align-items: center
-      background-color: darken($app-background-color, 30%)
       border-radius: 5px
       padding: 6px 22px 6px 12px
       $spinner-size: 10px
@@ -36,105 +78,3 @@ div[data-karaoke-tracks]
               transform: rotate(0deg)
             100%
               transform: rotate(360deg)
-      span
-        font-size: 15px
-        font-weight: 200
-        color: #ffffff
-        width: 100px
-        text-align: center
-      &:hover
-        cursor: pointer
-        &.active
-          cursor: default
-
-  div.results
-    display: flex
-    flex-direction: column
-    div.sort
-      margin-top: 10px
-      display: flex
-      align-self: flex-end
-      justify-content: flex-end
-      border: solid 5px darken($app-background-color, 1)
-      background-color: $app-background-color
-      > span
-        margin-right: 10px
-      div.option
-        margin-left: 10px
-        &:hover
-          cursor: pointer
-        i
-          opacity: 0
-        &.active
-          i
-            opacity: 1
-        i ~ span
-          margin-left: 5px
-        span
-          font-weight: 100
-        i, span
-          font-size: 13px
-
-    > ul, li
-      padding: 0
-      margin: 0
-      list-style: none
-    > ul
-      padding: 5px 15px
-    li
-      margin-top: 10px
-    a span
-      font-weight: 200
-      margin-right: 10px
-      font-size: 20px
-      color: $app-font-color
-      &:hover
-        color: $app-font-color
-      &:last-child
-        margin-right: 0
-    a, a:hover
-      text-decoration: none
-    a.entry
-      span.title
-        font-size: 20px
-      span.artist, span.length
-        font-size: 10px
-      span.artist
-        font-weight: 300
-
-
-  form.search
-    display: flex
-    flex-direction: column
-    justify-content: center
-    position: relative
-    div.tip
-      position: absolute
-      right: 10px
-      top: 50%
-      transform: translateY(-50%)
-      background-color: $app-font-color
-      border-radius: 5px
-      padding: 3px 6px
-      display: none
-      justify-content: center
-      align-items: center
-      flex-direction: column
-      span
-        font-size: 11px
-        font-weight: 100
-        color: white
-    &.ng-dirty
-      div.tip
-        display: flex
-
-    input
-      text-align: center
-      font-size: 30px
-      font-weight: 200
-      border: solid 5px darken($app-background-color, 1)
-      background-color: $app-background-color
-      padding: 5px 10px
-      color: $app-font-color
-      &:focus::placeholder
-        color: transparent

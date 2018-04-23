@@ -11,7 +11,7 @@ import java.util.List;
 @ApplicationScoped
 public class ServiceSongDb {
 
-    private static final int PAGE_SIZE = 10;
+    private int pageSize = Integer.getInteger("tracks_page_size", 30);
 
     @Inject
     private ServiceThirdPartyLyrics lyricsService;
@@ -40,8 +40,8 @@ public class ServiceSongDb {
             Collections.reverse(allItems);
         }
         int index = page - 1;
-        int start = index * PAGE_SIZE;
-        int end = Math.min(start + PAGE_SIZE, allItems.size());
+        int start = index * pageSize;
+        int end = Math.min(start + pageSize, allItems.size());
         try {
             return allItems.subList(start, end);
         } catch (IndexOutOfBoundsException | IllegalArgumentException e) {

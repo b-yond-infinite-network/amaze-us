@@ -12,5 +12,7 @@ import "rxjs";
 require("../node_modules/font-awesome/css/font-awesome.css");
 require('typeface-lato');
 
+require("@angular/material/prebuilt-themes/indigo-pink.css");
+
 // Note that css-loader will resolve all url(...) in the css files as require(...)
 // In the case of font-awesome, all images will match the configuration for images set up in "webpack.common.js"

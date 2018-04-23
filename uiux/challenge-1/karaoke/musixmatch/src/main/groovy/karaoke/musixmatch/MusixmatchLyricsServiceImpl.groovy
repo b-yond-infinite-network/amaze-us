@@ -128,7 +128,6 @@ class MusixmatchLyricsServiceImpl implements LyricsService {
                 logger.log(Level.WARNING, "[query '${artistName}'; page '${i}'] failed.", e)
                 logger.info("submit query again [query '${artistName}'; page '${i}'].")
                 executor.submit(this) // trying again
-                [].collate()
             }
         }
     }
