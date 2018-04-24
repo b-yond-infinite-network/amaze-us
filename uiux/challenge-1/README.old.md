@@ -19,13 +19,12 @@ bother them while singing drunk...
 
 ## Implementation checklist
 
-*   Create project setup using [Create React App](https://github.com/facebook/create-react-app)
-*   Create musixmatch API provider :+1:
-*   An artist search input :+1:
+*   Create project setup using [Create React App](https://github.com/facebook/create-react-app) :heavy_check_mark:
+*   Create musixmatch API provider :heavy_check_mark:
+*   An artist search input :heavy_check_mark:
     * Enter at least 3 characters
     * Validation
-    * Live search results grid
-        * Search result component
+    * Search results component :heavy_check_mark:
 *   Artist view
     * List of albums
         * Album component (links to grid of album tracks)
@@ -45,9 +44,9 @@ bother them while singing drunk...
 ### To do
 *   Pass apikey via configuration
 *   Unit tests
-*   Transitions
+*   UI Transitions
 
 ### Nice to have
-*   Connect to Spotify API
 *   Routing
 *   Get artist image from somewhere?
+*   A fluid node visualization

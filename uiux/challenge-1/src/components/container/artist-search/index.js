@@ -1,22 +1,21 @@
 // Libraries
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import debounce from 'lodash/debounce';
 // Utils
 import {DEBOUNCE_TIMEOUT} from 'util/constants';
 // Store
 import store from 'store';
 // Components
-import ResultsList from 'components/presentational/results-list';
+import ArtistList from 'components/presentational/artist-list';
 
 const {
   actions,
   connect
 } = store;
 
-const ConnectedResultsList = connect(state => ({
+const ConnectedArtistList = connect(state => ({
   searchArtistResults: state.searchArtistResults
-}))(ResultsList);
+}))(ArtistList);
 
 class ArtistSearch extends Component {
 
@@ -30,22 +29,10 @@ class ArtistSearch extends Component {
     };
   }
 
-  onSubmit (event) {
-    event.preventDefault();
-
-    // Cancel queued trigger
-    this.triggerArtistQuery.cancel();
-
-    // Trigger immediate search
-    actions.searchArtist(this.state.artistQuery);
-  };
-
-  triggerArtistQuery () {
-
-    // Trigger debounced search
-    actions.searchArtist(this.state.artistQuery);
-  };
-
+  /**
+   * @method onChange
+   * @description Handle search text field input
+   */
   onChange (event) {
 
     //cache event value, as the event itself will not be available at the time setState runs
@@ -56,6 +43,29 @@ class ArtistSearch extends Component {
     }));
 
     this.triggerArtistQuery();
+  };
+
+  /**
+   * @method onSubmit
+   * @description Handle form submission
+   */
+  onSubmit (event) {
+    event.preventDefault();
+
+    // Cancel queued trigger
+    this.triggerArtistQuery.cancel();
+
+    this.triggerArtistQuery();
+  };
+
+  /**
+   * @method triggerArtistQuery
+   * @description Trigger artist search
+   */
+  triggerArtistQuery () {
+    actions.searchArtist({
+      q_artist: this.state.artistQuery
+    });
   };
 
   render() {
@@ -70,14 +80,10 @@ class ArtistSearch extends Component {
             value={this.state.artistQuery}
           />
         </form>
-        <ConnectedResultsList/>
+        <ConnectedArtistList/>
       </div>
     );
   }
 }
-
-ArtistSearch.propTypes = {
-  handleArtistSearchSubmit: PropTypes.func
-};
 
 export default ArtistSearch;
