@@ -2,7 +2,10 @@
 import React, { Component } from 'react';
 import debounce from 'lodash/debounce';
 // Utils
-import {DEBOUNCE_TIMEOUT} from 'util/constants';
+import {
+  DEBOUNCE_TIMEOUT,
+  MINIMUM_CHARACTER_INPUT
+} from 'util/constants';
 // Store
 import store from 'store';
 // Components
@@ -13,10 +16,6 @@ const {
   connect
 } = store;
 
-const ConnectedArtistList = connect(state => ({
-  searchArtistResults: state.searchArtistResults
-}))(ArtistList);
-
 class ArtistSearch extends Component {
 
   constructor (props) {
@@ -25,7 +24,7 @@ class ArtistSearch extends Component {
     this.onChange = this.onChange.bind(this);
     this.triggerArtistQuery = debounce(this.triggerArtistQuery.bind(this), DEBOUNCE_TIMEOUT);
     this.state = {
-      artistQuery: ''
+      artistQuery: this.props.artistQuery
     };
   }
 
@@ -63,10 +62,23 @@ class ArtistSearch extends Component {
    * @description Trigger artist search
    */
   triggerArtistQuery () {
-    actions.searchArtist({
-      q_artist: this.state.artistQuery
-    });
+
+    // Clear current selection
+    actions.reset(null);
+
+    // Some rudimentary validation
+    if(this.state.artistQuery && this.state.artistQuery.length >= MINIMUM_CHARACTER_INPUT){
+      actions.searchArtist({
+        q_artist: this.state.artistQuery
+      });
+    }
   };
+
+  componentWillReceiveProps (nextProps) {
+    this.setState(state => ({
+      artistQuery: nextProps.artistQuery
+    }));
+  }
 
   render() {
     return (
@@ -80,10 +92,21 @@ class ArtistSearch extends Component {
             value={this.state.artistQuery}
           />
         </form>
-        <ConnectedArtistList/>
+        {!this.props.selectedArtist &&
+        <ArtistList
+          actions={actions}
+          artists={this.props.searchArtistResults}
+        />
+        }
       </div>
     );
   }
 }
 
-export default ArtistSearch;
+const ConnectedArtistSearch = connect(state => ({
+  artistQuery: state.artistQuery,
+  searchArtistResults: state.searchArtistResults,
+  selectedArtist: state.selectedArtist
+}))(ArtistSearch);
+
+export default ConnectedArtistSearch;

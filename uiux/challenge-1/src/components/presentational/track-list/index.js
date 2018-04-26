@@ -1,9 +1,9 @@
 // Libraries
 import React from 'react';
 
-const ResultsList = ({
+const TrackList = ({
   actions,
-  searchTracksByArtistResults
+  tracks
 }) => {
 
   /**
@@ -22,23 +22,21 @@ const ResultsList = ({
   };
 
   return (
-    <div>
-      <ul>
-        {searchTracksByArtistResults
-          .map(track => (
-            <li
-              key={track.id}
-            >
-              <a
-                href="#0"
-                onClick={event => onClick(event, track)}
-              >{track.name}</a>
-            </li>
-          ))
-        }
-      </ul>
-    </div>
+    <ul>
+      {tracks
+        .map(track => (
+          <li
+            key={track.id}
+          >
+            <a
+              href="#0"
+              onClick={event => onClick(event, track)}
+            >{track.name}</a> {track.formattedDuration}
+          </li>
+        ))
+      }
+    </ul>
   );
 };
 
-export default ResultsList;
+export default TrackList;

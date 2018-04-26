@@ -3,18 +3,16 @@ import React from 'react';
 // Store
 import store from 'store';
 // Components
-import TrackList from 'components/presentational/track-list';
+import SortableTrackList from 'components/presentational/sortable-track-list';
 import TrackView from 'components/presentational/track-view';
 
 const {
+  actions,
   connect
 } = store;
 
-const ConnectedTrackList = connect(state => ({
-  searchTracksByArtistResults: state.searchTracksByArtistResults
-}))(TrackList);
-
 const ArtistView = ({
+  searchTracksByArtistResults,
   selectedArtist,
   selectedTrack,
   selectedTrackLyrics
@@ -24,11 +22,17 @@ const ArtistView = ({
       <React.Fragment>
         <h3>Selected Artist {selectedArtist.name}</h3>
         <h4>Most popular songs</h4>
-        <ConnectedTrackList/>
-        {selectedTrackLyrics && <TrackView
-          track={selectedTrack}
+        <SortableTrackList
+          actions={actions}
+          tracks={searchTracksByArtistResults}
+        />
+        {selectedTrackLyrics &&
+        <TrackView
+          actions={actions}
           lyrics={selectedTrackLyrics}
-        />}
+          track={selectedTrack}
+        />
+        }
       </React.Fragment>
     );
   } else {
@@ -37,6 +41,7 @@ const ArtistView = ({
 };
 
 const ConnectedArtistView = connect(state => ({
+  searchTracksByArtistResults: state.searchTracksByArtistResults,
   selectedArtist: state.selectedArtist,
   selectedTrack: state.selectedTrack,
   selectedTrackLyrics: state.selectedTrackLyrics

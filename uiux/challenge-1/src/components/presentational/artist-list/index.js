@@ -3,7 +3,7 @@ import React from 'react';
 
 const ArtistList = ({
   actions,
-  searchArtistResults
+  artists
 }) => {
 
   /**
@@ -24,7 +24,7 @@ const ArtistList = ({
   return (
     <div>
       <ul>
-        {searchArtistResults.map(artist => (
+        {artists.map(artist => (
           <li
             key={artist.id}
           >

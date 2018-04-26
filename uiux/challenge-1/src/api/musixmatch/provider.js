@@ -7,7 +7,7 @@ import {
 
 const defaults = {
   format: 'json',
-  url: 'https://api.musixmatch.com/ws/1.1/'
+  url: 'https://cors-anywhere.herokuapp.com/https://api.musixmatch.com/ws/1.1/'
 };
 
 /**
