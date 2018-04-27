@@ -22,16 +22,49 @@ const TrackList = ({
   };
 
   return (
-    <ul>
+    <ul style={{
+      listStyleType: 'none',
+      margin: 0,
+      padding: 0
+    }}>
       {tracks
-        .map(track => (
+        .map((track, index) => (
           <li
             key={track.id}
+            style={{
+              fontWeight: 'bold',
+              margin: '0 0 1rem 0'
+            }}
           >
             <a
               href="#0"
               onClick={event => onClick(event, track)}
-            >{track.name}</a> {track.formattedDuration}
+              style={{
+                display: 'block',
+              }}
+            >
+              <span
+                style={{
+                  background: `rgba(255, 255, 255, ${1 - (index / 12)})`,
+                  borderRadius: '100%',
+                  display: 'inline-block',
+                  height: '4rem',
+                  marginRight: '0.5rem',
+                  textDecoration: 'none',
+                  width: '4rem',
+                }}
+              ></span>
+              <span                
+                style={{
+                  color: `rgba(255, 255, 255, ${1 - (index / 12)})`,
+                  display: 'inline-block',
+                  fontSize: '2rem',
+                  height: '4rem',
+                  lineHeight: '4rem',
+                  textDecoration: 'none',
+                  verticalAlign: 'top'
+                }}>{track.name} <small>{track.formattedDuration}</small></span>
+            </a>
           </li>
         ))
       }

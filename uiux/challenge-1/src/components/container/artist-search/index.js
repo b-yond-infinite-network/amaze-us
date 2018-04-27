@@ -80,25 +80,27 @@ class ArtistSearch extends Component {
     }));
   }
 
-  render() {
+  render () {
     return (
-      <div>
+      <React.Fragment>
+        {!this.props.selectedArtist &&
         <form onSubmit={this.onSubmit}>
-          <label htmlFor="karaoke-artist-search">Artist</label>
-          <br/>
           <input
+            className="karaoke--artist-search--input"
             onChange={this.onChange}
+            placeholder="Gimme an artist"
             type="text"
             value={this.state.artistQuery}
           />
         </form>
+        }
         {!this.props.selectedArtist &&
         <ArtistList
           actions={actions}
           artists={this.props.searchArtistResults}
         />
         }
-      </div>
+      </React.Fragment>
     );
   }
 }

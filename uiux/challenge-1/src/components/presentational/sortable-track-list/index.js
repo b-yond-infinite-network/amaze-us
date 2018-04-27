@@ -4,10 +4,15 @@ import orderBy from 'lodash/orderBy';
 // Components
 import TrackList from 'components/presentational/track-list';
 
-const SortIcon = ({direction}) => (
+const SortIcon = ({
+  current,
   direction
-    ? <i className="fas fa-sort-up"></i>
-    : <i className="fas fa-sort-down"></i>
+}) => (
+  current
+    ? direction
+      ? <i className="fas fa-sort-up"></i>
+      : <i className="fas fa-sort-down"></i>
+    : <i className="fas fa-sort" style={{opacity: .25}}></i>
 );
 
 class SortableTrackList extends Component {
@@ -26,12 +31,12 @@ class SortableTrackList extends Component {
       // so surfacing that value here would mean making separate API calls for each
       // track. Overkill! I'm replacing it with track name word count just for fun :)
       {
-        name: 'Word Count',
+        name: 'Word count',
         property: 'wordCount',
         direction: true
       },
       {
-        name: 'Song Title',
+        name: 'Song title',
         property: 'name',
         direction: true
       },
@@ -97,32 +102,31 @@ class SortableTrackList extends Component {
   render() {
     return (
       <div>
-        <p>Sort results by&nbsp;
+        <p>
           {this.sortConfig
             .map(item => {
-              // const isCurrent = item.name === this.state.sortBy.name;
-              // const sortDirection = item.name === this.state.sortBy.name
-              //   ? this.getDirectionString(this.state.sortBy.direction)
-              //   : null;
-
               return (
                 <React.Fragment
                   key={item.property}
                 >
                   <a
+                    className="ui-pill"
                     href="#0"
                     onClick={event => this.onClick(event, item)}
-                  >{item.name}</a>
-                  {item.name === this.state.sortBy.name &&
-                  <SortIcon
-                    direction={this.state.sortBy.direction}
-                  />
-                  }
+                    style={{
+                      backgroundColor: item.name === this.state.sortBy.name ? 'rgba(255, 255, 255, .25)' : null
+                    }}
+                  >{item.name}&nbsp;
+                    <SortIcon
+                      current={item.name === this.state.sortBy.name}
+                      direction={this.state.sortBy.direction}
+                    />
+                  </a>
                 </React.Fragment>
               );
             })
             .reduce((previous, item) => {
-              return previous === null ? [item] : [previous, ', ', item];
+              return previous === null ? [item] : [previous, item];
             }, null)
           }
         </p>

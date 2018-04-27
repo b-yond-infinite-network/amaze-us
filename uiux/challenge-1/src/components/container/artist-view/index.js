@@ -11,6 +11,21 @@ const {
   connect
 } = store;
 
+/**
+ * @method reset
+ * @description Reset app
+ */
+const reset = () => actions.reset();
+
+/**
+ * @method onClick
+ * @description Handle link click
+ */
+const onResetClick = (event) => {
+  event.preventDefault();
+  reset(); 
+};
+
 const ArtistView = ({
   searchTracksByArtistResults,
   selectedArtist,
@@ -20,19 +35,29 @@ const ArtistView = ({
   if (selectedArtist) {
     return (
       <React.Fragment>
-        <h3>Selected Artist {selectedArtist.name}</h3>
-        <h4>Most popular songs</h4>
+        {!selectedTrack &&
         <SortableTrackList
           actions={actions}
           tracks={searchTracksByArtistResults}
         />
-        {selectedTrackLyrics &&
-        <TrackView
-          actions={actions}
-          lyrics={selectedTrackLyrics}
-          track={selectedTrack}
-        />
         }
+        {selectedTrackLyrics &&
+          <TrackView
+            lyrics={selectedTrackLyrics}
+            track={selectedTrack}
+          />
+        }
+        <a
+          className="ui-pill"
+          href="#0"
+          onClick={event => onResetClick(event)}
+          style={{
+            display: 'inline-block',
+            position: 'fixed',
+            top: '.5em',
+            right: 0
+          }}
+        >Start over <i className="fas fa-undo-alt"></i></a>
       </React.Fragment>
     );
   } else {

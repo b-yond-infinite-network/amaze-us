@@ -71,7 +71,7 @@ class MusixmatchProvider {
    */
   searchArtist = ({
     q_artist = requiredParam('q_artist'),
-    page_size = 6
+    page_size = 3
   } = {}) => {
     const route = this.getRoute({
       method: 'artist.search',
