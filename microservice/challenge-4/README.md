@@ -1,4 +1,4 @@
-# Challenge 4 - The Mystery of the Cats
+# Challenge 4 - Mysteries of the Cats
 
 Discovery is upon us! The mystery has to be solved! 
 After years of research, century of mysticism, we have it.

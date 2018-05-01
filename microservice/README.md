@@ -14,5 +14,5 @@ best-of-breed technologies.
 In this challenge, you will demonstrate your abilities to leverage the best technology available to guarantee only 
 working software is released.
 
-# ![Progress](http://progressed.io/bar/0) [Challenge 4 - ](challenge-4)
+# ![Progress](http://progressed.io/bar/0) [Challenge 4 - Mysteries of the Cats](challenge-4)
 In this challenge, you will demonstrate your abilities to use parallel computing to solve a big mystery of life.
