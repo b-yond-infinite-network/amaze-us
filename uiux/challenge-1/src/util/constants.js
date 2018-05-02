@@ -1,0 +1,2 @@
+export const DEBOUNCE_TIMEOUT = 1000;
+export const MINIMUM_CHARACTER_INPUT = 3;

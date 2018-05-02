@@ -1,0 +1,94 @@
+html, body, #root {
+  height: 100%
+}
+
+html {
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+body {
+  color: #fff;
+  margin: 0;
+  padding: 0;
+  font-family: 'PT Sans', sans-serif;
+  font-size: 100%;
+}
+
+a {
+  color: #fff;
+}
+
+::selection {
+  color: #000;; 
+  background: #fff;
+}
+
+/* Input */
+
+.karaoke--artist-search--input{
+  background-color: rgba(0, 0, 0, .25);
+  border: 0;
+  color: #fff;
+  font-family: 'PT Sans', sans-serif;
+  font-size: 4rem;
+  outline: none;
+  padding: 0.5rem 1rem;
+  width: 100%;
+}
+/* //ffd900 */
+.karaoke--artist-search--input::placeholder{
+  color: rgba(255, 255, 255, .25);
+}
+
+.karaoke--artist-search--input:focus{
+  border: 0;
+}
+
+/* Utilities */
+
+
+.ui-hoverable span{
+  transition: all 0.5s ease;
+}
+
+.ui-hoverable:hover span:nth-child(1){
+  background-color: #fff !important;
+}
+
+.ui-hoverable:hover span:nth-child(2){
+  color: #fff !important;
+}
+
+.ui-pill{
+  border: 1px solid #fff;
+  border-radius: .25rem;
+  font-size: 1rem;
+  margin-right: .5rem;
+  padding: 0.25rem 0.5rem;
+  text-decoration: none;
+  transition: all 0.5s ease;
+}
+
+.ui-pill:hover{
+  background-color: rgba(255, 255, 255, .25);
+}
+
+.karaoke-bg{
+  transition: all 2s ease;
+}
+
+.karaoke-bg-i {
+  background-color: #f90;
+}
+
+.karaoke-bg-ii {
+  background-color: #90f;
+}
+
+.karaoke-bg-iii {
+  background-color: #f09;
+}
