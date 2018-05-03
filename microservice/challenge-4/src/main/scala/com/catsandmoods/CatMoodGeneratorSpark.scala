@@ -33,7 +33,7 @@ object CatMoodGeneratorSpark {
     val spark = SparkSession.builder.master("local").appName("Generator Moods").getOrCreate()
 
 
-    val cats = spark.sparkContext.parallelize((1 to nbCats), 10).map(num => Cat(num))
+    val cats = spark.sparkContext.parallelize(1 to nbCats, 10).map(num => Cat(num))
     val times = spark.sparkContext.parallelize(Seq.range(0, totalSecondsInDay, delay), 10)
 
 
@@ -42,7 +42,7 @@ object CatMoodGeneratorSpark {
 
       CatAndMood(
         cat.name,
-        cat.mood.toString,
+        cat.mood,
         date.getYear,
         date.getMonthOfYear(),
         date.getDayOfMonth(),

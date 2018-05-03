@@ -1,11 +1,28 @@
 package com.catsandmoods
 
-import org.apache.spark.sql.SparkSession
+import org.apache.spark.sql.{DataFrame, SparkSession}
 import org.apache.spark.sql.expressions.Window
-
+import org.apache.spark.sql.functions._
+import org.apache.spark.storage.StorageLevel
 
 
 object Reporting {
+
+
+  //TODO Columns names as variables
+
+  def groupByHourAndCount(catsAndMoodDF : DataFrame) : DataFrame = {
+    catsAndMoodDF
+    .withColumn("hourInDay", concat(col("year"), lpad(col("month"),2,"0"), lpad(col("day"),2,"0"), lpad(col("hour"),2,"0")))
+      .withColumn("timestamp", unix_timestamp(col("hourInDay"), "yyyyMMddHH"))
+      .groupBy("timestamp", "mood")
+      .count()
+  }
+
+  def getRankPerHour( catsAndMoodsDF : DataFrame) : DataFrame = {
+    catsAndMoodsDF.withColumn("rank", rank().over(Window.partitionBy("timestamp").orderBy(col("count").desc)))
+  }
+
 
   def main(args: Array[String]) {
 
@@ -17,32 +34,18 @@ object Reporting {
       .options(Map("keyspace" -> "cats" , "table" -> "moods"))
       .load()
 
-    catsAndMoodsCassandra.printSchema()
+    //catsAndMoodsCassandra.printSchema()
     //catsAndMoodsCassandra.show()
+    //catsAndMoodsCassandra.groupBy("year").count()
+   // catsAndMoodsCassandra.groupBy("year", "month", "mood").count()
 
-    //catsAndMoodsCassandra.groupBy("year").count().show(100)
+    val dfPerHour = groupByHourAndCount(catsAndMoodsCassandra)
+    dfPerHour.persist(StorageLevel.MEMORY_AND_DISK)
 
-   // catsAndMoodsCassandra.groupBy("year", "month", "mood").count().show(100)
+    //dfPerHour.show()
 
-    import org.apache.spark.sql.functions._
-    val dfPerHour = catsAndMoodsCassandra
-      //.groupBy("year", "month", "day", "hour", "mood")
-        .withColumn("hourInDay", concat(col("year"), lpad(col("month"),2,"0"), lpad(col("day"),2,"0"), lpad(col("hour"),2,"0")))
-      .withColumn("timestamp", unix_timestamp(col("hourInDay"), "yyyyMMddHH"))
-      .groupBy("timestamp", "mood")
-      .count()
-
-
-    val win = Window.orderBy("timestamp")
-
-
-    dfPerHour.persist()
-
-    dfPerHour.show()
-    dfPerHour
-      .withColumn("rank", rank().over(Window.partitionBy("timestamp").orderBy(col("count").desc)))
-      .show()
-
+   // getRankPerHour(dfPerHour).show()
+    statisticsOverTime(dfPerHour).show()
     dfPerHour.unpersist()
     spark.stop()
   }

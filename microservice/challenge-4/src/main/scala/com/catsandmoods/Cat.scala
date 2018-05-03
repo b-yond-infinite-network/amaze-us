@@ -6,11 +6,9 @@ package com.catsandmoods
   */
 
 import com.catsandmoods.Cat.moods
-import com.catsandmoods.Mood.Mood
-
 
 case class Cat (name : String) {
-  def mood : Mood = {
+  def mood : String = {
     val random = new scala.util.Random
     val index = random.nextInt(moods.length )
     moods(index)
@@ -26,6 +24,13 @@ object Cat {
 
 
 object Mood extends Enumeration {
+  val GROWL         = "grr"
+  val HISS          = "kssss"
+  val PURR          = "rrrrr"
+  val THROWGLASS    = "cling bling"
+  val ROLLONFLOOR   = "fffff"
+  val SCRATCHCHAIRS = "gratgrat"
+  val LOOKDEEPINEYES = "-o-o-___--"
+  val MIAW = "dd"
   type Mood = Value
-  val GROWL, HISS, PURR, THROWGLASS, ROLLONFLOOR, SCRATCHCHAIRS, LOOKDEEPINEYES, MIAW = Value
 }
