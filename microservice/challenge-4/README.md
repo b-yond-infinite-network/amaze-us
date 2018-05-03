@@ -28,8 +28,32 @@ cats, right ?
 
 Make sparks, solve the mystery!
 
+# Cats and Moods
 
-## Expected steps
-+ Create a branch of this project (or fork it in your github account if you prefer)
-+ Do you **_thang_** inside this folder (challenge-4)
-+ Push your change inside a Pull Request to our master
+## Create infra
+
+```
+docker run --name cassandra -p 9042:9042  -d cassandra:3.11.2
+docker run -it --link cassandra:cassandra -v $(pwd)/microservice/challenge-4/src/main/resources:/scripts  --rm cassandra:3.11.2 cqlsh cassandra -f /scripts/cats-and-moods.cql
+```
+
+## Run the generator - using actors
+
+launches an app that doesn't stop generating every 27 seconds a new mood for each of the 1000 cats and registers it to cassandra
+
+```
+sbt 'run-main com.catsandmoods.CatMoodGeneratorAkka'
+```
+
+## Run the generator - using spark
+launches a spark job that register to cassandra a cartesian product between an rdd of cats and a rdd of times - each multiple of 27 seconds starting from the beginning of the day.
+
+```
+sbt 'run-main com.catsandmoods.CatMoodGeneratorSpark'
+```
+
+## Run the report
+
+```
+sbt 'run-main com.catsandmoods.Reporting'
+```
