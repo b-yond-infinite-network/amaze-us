@@ -24,6 +24,23 @@ object Reporting {
   }
 
 
+ /*
+    how many cats in a specific mood for a specific hour compared to mean
+  */
+  def getMeanPerHour( catsAndMoodsDF : DataFrame) : DataFrame = {
+    catsAndMoodsDF
+      .withColumn("mean", mean("count").over(Window.partitionBy("mood")))
+  }
+
+  //FixMe this doesn t give us a coherent result, needs investigation
+  def getVariance( catsAndMoodsDF : DataFrame) : DataFrame = {
+    catsAndMoodsDF
+      .withColumn("mean", mean("count").over(Window.partitionBy("mood")))
+      .withColumn("ecart", pow(col("count")-col("mean"),2))
+      .groupBy("mood")
+      .agg((sum("ecart")/8).alias("variance"))
+  }
+
   def main(args: Array[String]) {
 
     val spark = SparkSession.builder.master("local").appName("Reporting Moods").getOrCreate()
@@ -44,8 +61,9 @@ object Reporting {
 
     //dfPerHour.show()
 
-   // getRankPerHour(dfPerHour).show()
-    statisticsOverTime(dfPerHour).show()
+    getRankPerHour(dfPerHour).show()
+    getMeanPerHour(dfPerHour).show()
+    getVariance(dfPerHour).show()
     dfPerHour.unpersist()
     spark.stop()
   }
