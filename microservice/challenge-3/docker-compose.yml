@@ -1,0 +1,49 @@
+version: "2"
+
+services:
+  public: 
+    container_name: web-application
+    build:
+      context: ./cargo
+      dockerfile: public.dockerfile
+    networks:
+      - rocket-network
+    ports:
+    - "80:80"
+    depends_on: 
+      - app
+  app:
+    container_name: cargo
+    restart: always
+    build:
+      context: ./cargo
+      dockerfile: app.dockerfile
+      args:
+        NODE_ENV: development
+    environment:
+      NODE_ENV: development
+      PORT: 3000
+    ports:
+      - "3000:3000"
+    networks:
+      - rocket-network
+    depends_on: 
+      - mongo
+  mongo:
+    container_name: mongo
+    image: mongo
+    networks:
+      - rocket-network
+    ports:
+      - "27017:27017"
+  stage2:
+    build:
+      context: ./stage2
+      dockerfile: dockerfile
+    networks:
+      - rocket-network
+    ports:
+    - "5000:5000"
+networks:
+  rocket-network:
+    driver: bridge

@@ -21,3 +21,7 @@ those rocket programmers need to write the rest.
 + Create a branch of this project (or fork it in your github account if you prefer)
 + Do you **_thang_** inside this folder (challenge-3)
 + Push your change inside a Pull Request to our master
+
+## To Execute the solution
++ chmod +x start.sh
++ ./start.sh

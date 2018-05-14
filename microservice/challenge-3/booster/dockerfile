@@ -1,0 +1,17 @@
+# Create datebase 
+# FROM mysql:5.7
+# ENV MYSQL_ROOT_PASSWORD=root
+# ADD init/init-service.sql /docker-entrypoint-initdb.d
+
+# Build booster
+FROM golang:latest 
+WORKDIR ${GOPATH}
+
+COPY init/get.sh ${GOPATH}/get.sh
+
+RUN bash get.sh
+COPY . /
+
+EXPOSE 8080
+
+CMD ["main"]
