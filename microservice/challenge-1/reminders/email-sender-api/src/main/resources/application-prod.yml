@@ -1,0 +1,15 @@
+logging:
+ level:
+  ROOT: INFO
+
+server:
+ port: 8080
+
+
+cloud:
+  aws:
+    credentials:
+      accessKey:
+      secretKey:
+    region:
+        static: us-east-1

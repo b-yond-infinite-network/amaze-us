@@ -1,0 +1,17 @@
+logging:
+ level:
+  ROOT: INFO
+
+spring:
+ jpa:
+  show-sql: true
+
+server:
+ port: 8080
+
+reminder:
+  service:
+    url: http://localhost:8081/api/scheduler/v1
+    schedule:
+      task:
+        path: /reminder

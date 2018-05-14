@@ -1,0 +1,36 @@
+logging:
+ level:
+  ROOT: INFO
+
+spring:
+ jpa:
+  show-sql: false
+
+server:
+ port: 8080
+
+management:
+  endpoints:
+    enabled: false
+    health:
+      enabled: true
+      sensitive: false
+      time-to-live: 5000
+
+reminder:
+  core:
+    service:
+      url: http://reminders.local/api/reminders/v1
+      get:
+        reminder:
+          path: /reminder/
+  email:
+    originator: siriman0701@gmail.com
+    subject: Reminder alert
+
+email:
+  service:
+    url: http://reminders.local/api/mails/v1
+    send:
+      email:
+        path: /mail
