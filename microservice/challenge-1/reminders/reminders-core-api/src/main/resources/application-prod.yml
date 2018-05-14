@@ -1,0 +1,17 @@
+logging:
+ level:
+  ROOT: INFO
+
+spring:
+ jpa:
+  show-sql: false
+
+server:
+ port: 9000
+
+reminder:
+  service:
+    url: http://reminders.local/api/scheduler/v1
+    schedule:
+      task:
+        path: /reminder
