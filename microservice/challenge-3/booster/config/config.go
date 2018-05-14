@@ -16,9 +16,9 @@ func GetConfig() *Config {
 	return &Config{
 		DB: &DBConfig{
 			Dialect:  "mysql",
-			Username: "guest",
-			Password: "Guest0000!",
-			Name:     "todoapp",
+			Username: "developer",
+			Password: "password",
+			Name:     "booster",
 			Charset:  "utf8",
 		},
 	}

@@ -1,14 +1,27 @@
 {
-  "name": "node-todo",
-  "version": "0.0.0",
-  "description": "Simple todo application.",
+  "name": "cargo",
+  "version": "1.0.0",
+  "description": "Cargo To Mars.",
   "main": "server.js",
-  "author": "Scotch",
+  "author": "Ali ",
   "dependencies": {
-    "express": "~4.16.2",
-    "mongoose": "~5.0.7",
-    "morgan": "~1.9.0",
-    "body-parser": "~1.18.2",
-    "method-override": "~2.3.10"
+    "body-parser": "1.18.2",
+    "cors": "2.8.4",
+    "express": "4.16.2",
+    "method-override": "2.3.10",
+    "mongoose": "5.0.7",
+    "morgan": "1.9.0"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "test": "NODE_ENV=test && node node_modules/.bin/mocha --timeout 10000",
+    "test-unit": "NODE_ENV=test && node node_modules/.bin/mocha ./test/cargoController.test.js --timeout 10000"
+  },
+  "devDependencies": {
+    "chai": "4.1.2",
+    "mocha": "5.1.1",
+    "should": "13.2.1",
+    "sinon": "5.0.7",
+    "supertest": "3.1.0"
   }
 }
