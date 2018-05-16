@@ -9,6 +9,7 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <spark.installation.path>/home/seb/Dev/spark-2.3.0-bin-hadoop2.7</spark.installation.path>
   </properties>
 
   <dependencies>
@@ -29,6 +30,30 @@
       <groupId>com.typesafe.akka</groupId>
       <artifactId>akka-testkit_2.11</artifactId>
       <version>2.5.12</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.spark</groupId>
+      <artifactId>spark-sql_2.11</artifactId>
+      <version>2.3.0</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.spark</groupId>
+      <artifactId>spark-streaming_2.11</artifactId>
+      <version>2.3.0</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.spark</groupId>
+      <artifactId>spark-streaming-kafka-0-10_2.11</artifactId>
+      <version>2.3.0</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.spark</groupId>
+      <artifactId>spark-sql-kafka-0-10_2.11</artifactId>
+      <version>2.3.0</version>
     </dependency>
 
     <dependency>
@@ -63,6 +88,31 @@
         <configuration>
           <source>1.8</source>
           <target>1.8</target>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>1.6.0</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <executable>${spark.installation.path}/bin/spark-submit</executable>
+          <arguments>
+            <argument>--class</argument>
+            <argument>com.byond.challenge4.spark.CatMoodStatsOverTime</argument>
+            <argument>--master</argument>
+            <argument>local[4]</argument>
+            <argument>--packages</argument>
+            <argument>com.typesafe.akka:akka-actor_2.11:2.5.12,org.apache.spark:spark-streaming-kafka-0-10_2.11:2.3.0,org.apache.spark:spark-sql-kafka-0-10_2.11:2.3.0</argument>
+            <argument>${project.build.directory}/${project.artifactId}-${project.version}.jar</argument>
+            <argument>1000</argument>
+          </arguments>
         </configuration>
       </plugin>
     </plugins>
