@@ -35,14 +35,12 @@
 		<!-- CARGO LIST -->
 		<div id="cargo-list" class="row">
 			<div class="col-sm-4 col-sm-offset-4">
-
 				<!-- LOOP OVER THE CARGOS IN $scope.cargos -->
 				<div class="checkbox" ng-repeat="cargo_item in cargo_list">
 					<label>
 						<input type="checkbox" ng-click="deleteCargo(cargo_item._id)"> {{ cargo_item.text }}
 					</label>
 				</div>
-
 			</div>
 		</div>
 
