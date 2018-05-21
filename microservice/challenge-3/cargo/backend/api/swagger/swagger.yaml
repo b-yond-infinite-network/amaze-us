@@ -1,0 +1,118 @@
+swagger: "2.0"
+info:
+  version: "0.0.1"
+  title: Cargo App backend service
+# during dev, should point to your local machine
+host: localhost:3001
+# basePath prefixes all resource paths 
+basePath: /
+# 
+schemes:
+  # tip: remove http to make production-grade
+  - http
+  - https
+# format of bodies a client can send (Content-Type)
+consumes:
+  - application/json
+# format of the responses to the client (Accepts)
+produces:
+  - application/json
+paths:
+  /healthcheck.html:
+    x-swagger-router-controller: static
+    get:
+      description: Health check
+      operationId: healthCheck
+      produces:
+        - text/html
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/Text"
+  /cargo:
+    x-swagger-router-controller: cargo
+    get:
+      description: Get all cargo items
+      operationId: getAll
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/CargoListResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+    post:
+      description: Create a new cargo item
+      operationId: create
+      parameters:
+        - name: cargo
+          in: body
+          required: true
+          schema:
+            type: object
+            $ref: "#/definitions/CargoItem"
+      responses:
+        "201":
+          description: Success
+          schema:
+            $ref: "#/definitions/CargoListResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /cargo/{hashId}:
+    x-swagger-router-controller: cargo
+    delete:
+      description: Delete a cargo item
+      operationId: delete
+      parameters:
+        - name: hashId
+          in: path
+          description: cargo item ID
+          required: true
+          type: string
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/CargoListResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+  /swagger:
+    x-swagger-pipe: swagger_raw
+# complex objects have schema definitions
+definitions:
+  Text:
+    type: string
+  CargoItem:
+    type: object
+    required:
+      - text
+    properties:
+      text:
+        type: string
+        minLength: 1
+        maxLength: 200
+      loaded:
+        type: boolean
+        default: false
+  CargoListResponse:
+    required:
+      - cargoList
+    properties:
+      cargoList:
+        type: array
+        items:
+          $ref: "#/definitions/CargoItem"
+  ErrorResponse:
+    required:
+      - message
+    properties:
+      message:
+        type: string

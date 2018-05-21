@@ -1,0 +1,7 @@
+{
+  "services": {
+    "cargodata": {
+      "host": "http://localhost:3002"
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "host": "http://localhost:8080",
+  "services": {
+    "cargodata": {
+      "host": "http://localhost:3000"
+    }
+  }
+}

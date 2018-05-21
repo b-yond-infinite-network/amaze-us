@@ -1,4 +1,4 @@
-var Cargo = require('./models/cargo');
+var Cargo = require('./api/models/cargo');
 
 module.exports = function(app) {
 
@@ -19,6 +19,10 @@ module.exports = function(app) {
 
 	// create the cargo and send back all cargo items after creation
 	app.post('/api/cargo', function(req, res) {
+
+	  if (req.body.text === '' || typeof req.body.text === 'undefined') {
+	    res.send();
+    }
 
 		// create a cargo, information comes from AJAX request from Angular
 		Cargo.create({
