@@ -3,6 +3,7 @@ package com.byond.challenge4
 import com.byond.challenge4.cats.Cat
 import com.byond.challenge4.configuration.{SensorSettings, Settings}
 import com.byond.challenge4.sensor.CatMoodSensor
+import com.byond.challenge4.udaf.MedianUDAF
 import com.typesafe.config.ConfigFactory
 import net.ceedubs.ficus.Ficus._
 import net.ceedubs.ficus.readers.ArbitraryTypeReader._
@@ -41,6 +42,9 @@ object Mysteries {
   @transient
   private[this] lazy val sensorSettings   = SensorSettings(producer, settings.kafka.topics.head,
     settings.akka.catsToSense, settings.akka.intervalDuration)
+
+  @transient
+  private[this] lazy val median = new MedianUDAF(COUNT_COLUMN_NAME)
 
   def main(args: Array[String]): Unit = {
 
@@ -94,14 +98,12 @@ object Mysteries {
   private[this] def generateStats(cats: DataFrame): DataFrame = {
     cats
       .groupBy(MOOD_COLUMN_NAME)
-      .count()
-      .sort(desc(COUNT_COLUMN_NAME))
-      .groupBy(MOOD_COLUMN_NAME)
+      .agg(count(MOOD_COLUMN_NAME).alias(COUNT_COLUMN_NAME))
       .agg(
         avg(COUNT_COLUMN_NAME).alias("Average"),
         mean(COUNT_COLUMN_NAME).alias("Mean"),
-        variance(COUNT_COLUMN_NAME).alias("Variance"),
-        skewness(COUNT_COLUMN_NAME).alias("Skewness")
+        median(col(COUNT_COLUMN_NAME)).alias("Median"),
+        variance(COUNT_COLUMN_NAME).alias("Variance")
       )
   }
 }

@@ -41,8 +41,9 @@ Due cats are not hard to get angry, the best choice is to use a micro sensor to 
 + Modelling Cats on Scala, Sensor moods on Akka and publish to Kafka,
 + Schedulle to obtain moods every 27s and publish to Kafka,
 + Use Spark streaming to consume all mood messages from Kafka,
++ Implement a UADF to compute median,
 + To facilite the execution of the solution, we use docker-compose container that includes: JDK, Zookeeper and Kafka, defined on *docker-compose.yml*
-+ Application settings was configured on *resources/application.conf*
++ Application settings was configured on *resources/application.conf*, for example: kafka configuration, batch duration, interval time to scan cats, num of cats to sense.
 
 ## Execute the solution
 
@@ -61,17 +62,11 @@ Requirements: Scala 2.12, Docker, Docker-compose, Spark-2.2.0, JDK8
 After that you should see output like:
 
 ```
-+----+-------+------+--------+--------+
-|mood|Average|  Mean|Variance|Skewness|
-+----+-------+------+--------+--------+
-|   1| 6671.0|6671.0|     NaN|     NaN|
-|   6| 6629.0|6629.0|     NaN|     NaN|
-|   3| 6576.0|6576.0|     NaN|     NaN|
-|   5| 6682.0|6682.0|     NaN|     NaN|
-|   4| 6569.0|6569.0|     NaN|     NaN|
-|   7| 6463.0|6463.0|     NaN|     NaN|
-|   2| 6610.0|6610.0|     NaN|     NaN|
-+----+-------+------+--------+--------+
++------------------+------------------+------+------------------+
+|           Average|              Mean|Median|          Variance|
++------------------+------------------+------+------------------+
+|157.14285714285714|157.14285714285714| 163.0|125.80952380952381|
++------------------+------------------+------+------------------+
 ```
 
 ### Next steps
