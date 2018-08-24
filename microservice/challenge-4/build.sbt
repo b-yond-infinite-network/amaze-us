@@ -17,8 +17,9 @@ libraryDependencies ++= Seq(
   "com.iheart"        %% "ficus"                      % "1.4.3",
   "org.log4s"         %% "log4s"                      % "1.3.0",
   "com.typesafe.akka" %% "akka-actor"                 % "2.5.9",
-  "com.typesafe.akka" %% "akka-testkit"               % "2.5.9"      % "test"
-
+  "com.typesafe.akka" %% "akka-testkit"               % "2.5.9"      % "test",
+  "org.mockito"       %  "mockito-core"               % "1.10.8"     % "test",
+  "org.scalatest"     %% "scalatest"                  % "2.2.1"      % "test"
 )
 
 target in assembly := file("build")

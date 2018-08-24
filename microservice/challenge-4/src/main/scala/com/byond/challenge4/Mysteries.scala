@@ -10,8 +10,7 @@ import net.ceedubs.ficus.readers.ArbitraryTypeReader._
 import org.apache.kafka.clients.consumer.ConsumerRecord
 import org.apache.kafka.clients.producer.KafkaProducer
 import org.apache.spark.rdd.RDD
-import org.apache.spark.sql.functions._
-import org.apache.spark.sql.{DataFrame, SparkSession}
+import org.apache.spark.sql.SparkSession
 import org.apache.spark.streaming.dstream.DStream
 import org.apache.spark.streaming.kafka010.ConsumerStrategies.Subscribe
 import org.apache.spark.streaming.kafka010.KafkaUtils
@@ -21,11 +20,8 @@ import org.log4s._
 
 object Mysteries {
 
-  protected[this] val MOOD_COLUMN_NAME: String  = "mood"
-  protected[this] val COUNT_COLUMN_NAME: String = "count"
-
   @transient
-  protected[this] lazy val logger: Logger = getLogger(getClass)
+  private[this] lazy val logger: Logger = getLogger(getClass)
 
   @transient
   private[this] lazy val config           = ConfigFactory.load()
@@ -42,9 +38,6 @@ object Mysteries {
   @transient
   private[this] lazy val sensorSettings   = SensorSettings(producer, settings.kafka.topics.head,
     settings.akka.catsToSense, settings.akka.intervalDuration)
-
-  @transient
-  private[this] lazy val median = new MedianUDAF(COUNT_COLUMN_NAME)
 
   def main(args: Array[String]): Unit = {
 
@@ -88,22 +81,10 @@ object Mysteries {
 
   private[this] def processStream(ss: SparkSession, stream: DStream[Cat]): Unit = {
     stream.foreachRDD { rdd =>
-      val stats = generateStats(ss.createDataFrame(rdd))
+      val stats = Stats.generateStats(ss.createDataFrame(rdd))
       stats.cache()
       logger.info("show metrics")
       stats.show()
     }
-  }
-
-  private[this] def generateStats(cats: DataFrame): DataFrame = {
-    cats
-      .groupBy(MOOD_COLUMN_NAME)
-      .agg(count(MOOD_COLUMN_NAME).alias(COUNT_COLUMN_NAME))
-      .agg(
-        avg(COUNT_COLUMN_NAME).alias("Average"),
-        mean(COUNT_COLUMN_NAME).alias("Mean"),
-        median(col(COUNT_COLUMN_NAME)).alias("Median"),
-        variance(COUNT_COLUMN_NAME).alias("Variance")
-      )
   }
 }
