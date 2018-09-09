@@ -1,0 +1,10 @@
+{
+    "/posts": {
+      "target": "https://api.musixmatch.com",
+      "secure": true,
+      "pathRewrite": {
+      "^/posts/gets": ""
+    },
+      "changeOrigin": true
+    }
+  }

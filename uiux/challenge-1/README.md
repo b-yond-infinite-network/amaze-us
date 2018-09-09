@@ -1,18 +1,33 @@
-# Challenge 1 - Karaoke needs words
-It's your birthday (come on, just pretend!) and you're organizing a party with all your friends. 
-You've decided that people shall be singing. 
-Now, being the developer that you are, you won't use some cranky old book with songs to get the lyrics, you want a web 
-app! Not only an app, but a beautiful Single Web Page app that you can be proud of.
+# MusixMatch
 
-It so happens that the MusixMatch API (https://developer.musixmatch.com/documentation) has all the data you need.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.2.1.
 
-Now, it just needs an artist search bar, list of songs, ability to sort the songs by the number of lyrics they have, 
-title, and duration. You will want, of course, to be able to display the song lyrics themselves. 
+## Development server
 
-A nice bonus would be to minimize the number of calls you're doing to the MusixMatch API, because we don't want to 
-bother them while singing drunk...
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-## Expected steps
-+ Create a branch of this project (or fork it in your github account if you prefer)
-+ Do you **_thang_** inside this folder (challenge-1)
-+ Push your change inside a Pull Request to our master
+## Code scaffolding
+
+Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+
+## Build
+
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+
+## Running unit tests
+
+Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+
+## Running end-to-end tests
+
+Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+
+## Further help
+
+To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+Download the folder and run the following command from inside the folder to host the application on http://localhost:4200
+## ng serve  
+
+To enable cors for local host
+## added an extension / plugin to allow CORS on local host
