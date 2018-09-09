@@ -1,0 +1,28 @@
+<div [ngClass]="'input-group'">
+  <input #artist (keyup.enter)="onKeyUp(artist.value,'desc')" [ngClass]="'form-control'" placeholder="Search for artist...">
+  <span [ngClass]="'input-group-btn'">
+    <button [ngClass]="'btn btn-default'" type="button" (click)="onKeyUp(artist.value)">Go!</button>
+  </span>
+</div>
+<br>
+<div [ngClass]="'row'">
+  <div [ngClass]="'col-md-6'">
+    <table [ngClass]="'table table-hover table-sm'" *ngIf="artists!=null && (artists|json) != '{}'">
+      <tr>
+        <th scope="col">Track Title</th>
+        <th scope="col">Track Length</th>
+      </tr>
+      <tr *ngFor="let item of artists.message.body.track_list">
+        <td>{{item.track.track_name}}</td>
+        <td>{{item.track.track_length}}</td>
+        <td><button (click)="onClickTrack(item.track.track_id, item.track.track_name)">View Lyrics</button></td>
+      </tr>
+    </table>
+  </div>
+  <div [ngClass]="'col-md-6'">
+    <div *ngIf="lyrics!=null && (lyrics|json)!= '{}'">
+        <h4>{{trackName}} Lyrics</h4>
+      {{lyrics.message.body.lyrics.lyrics_body}}
+    </div>
+  </div>
+</div>
