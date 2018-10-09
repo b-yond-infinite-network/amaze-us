@@ -1,13 +1,18 @@
 import * as React from 'react';
+import { searchArtist } from '../services/musicmatch';
 
 export default class Search extends React.Component<{}> {
     constructor() {
-        super({});
+        super(null);
         this.state = { search: '' };
     }
 
     search() {
-        alert(this.state['search']);
+        searchArtist(this.state['search'])
+            .then(results => {
+                const artists = results.message.body.artist_list;
+                console.log(artists);
+            });
     }
 
     updateSearch(e) {
