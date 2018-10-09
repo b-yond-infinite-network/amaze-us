@@ -1,0 +1,21 @@
+{
+  "name": "the-karaoke",
+  "version": "1.0.0",
+  "description": "A tool to fetch songs and lyrics",
+  "main": "index.js",
+  "scripts": {
+    "karaoke": "./node_modules/.bin/webpack"
+  },
+  "author": "Jonathan Massot",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/react": "^16.4.16",
+    "@types/react-dom": "^16.0.9",
+    "react": "^16.5.2",
+    "react-dom": "^16.5.2",
+    "ts-loader": "^5.2.1",
+    "typescript": "^3.1.1",
+    "webpack": "^4.20.2",
+    "webpack-cli": "^3.1.2"
+  }
+}
