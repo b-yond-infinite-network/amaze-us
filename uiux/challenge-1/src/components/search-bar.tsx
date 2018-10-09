@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { searchArtist } from '../services/musicmatch';
+import Artists from './artists';
 
 export default class Search extends React.Component<{}> {
     constructor() {
@@ -11,7 +12,8 @@ export default class Search extends React.Component<{}> {
         searchArtist(this.state['search'])
             .then(results => {
                 const artists = results.message.body.artist_list;
-                console.log(artists);
+                this.setState({ artists: artists });
+                this.render();
             });
     }
 
@@ -24,8 +26,13 @@ export default class Search extends React.Component<{}> {
     render() {
         return (
             <div>
-                <input type="text" onChange={this.updateSearch.bind(this)} placeholder="Find your artist" />
-                <button onClick={this.search.bind(this)}>Find it</button>
+                <div>
+                    <input type="text" onChange={this.updateSearch.bind(this)} placeholder="Find your artist" />
+                    <button onClick={this.search.bind(this)}>Find it</button>
+                </div>
+                {
+                    this.state['artists'] && this.state['artists'].length > 0 ? <Artists artists={this.state['artists']} /> : ''
+                }
             </div>
         );
     }
