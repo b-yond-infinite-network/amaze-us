@@ -28,3 +28,43 @@ These travelers get pickier every generation and we have seven of those still to
 + Create a branch of this project (or fork it in your github account if you prefer)
 + Do you **_thang_** inside this folder (challenge-2)
 + Push your change inside a Pull Request to our master
+
+# domyzorgblug
+
+## What is done and features:
+- Home welcome page
+- Manage Water Levels page
+- Animated water containers view
+- Default form validations
+- Water output load
+- Manage Food Levels page
+- Vuex store 
+- Mocked data emulating some DB response
+- Food Farm Output/Input load
+- Use of Vue-Router
+- Minimal styling
+
+## Project setup
+```
+yarn install
+```
+
+### Compiles and hot-reloads for development
+```
+yarn run serve
+```
+
+### Compiles and minifies for production
+```
+yarn run build
+```
+
+### Run your tests
+```
+yarn run test
+```
+
+### Lints and fixes files
+```
+yarn run lint
+```
