@@ -2,7 +2,6 @@ import * as fetchJsonp from 'fetch-jsonp';
 
 // TODO: Environment config
 const endpoint = 'http://api.musixmatch.com/ws/1.1';
-
 const APIKey = 'f07f8550f90c9002961792c4cb4844e3';
 
 export async function searchArtist(glob) {
@@ -20,7 +19,7 @@ export async function searchArtist(glob) {
         });
 }
 
-export async function searchLyricsByArtistId(id) {
+export async function searchTracksByArtistId(id) {
     const params = `apikey=${APIKey}&f_artist_id=${id}&format=jsonp`;
 
     return fetchJsonp(`${endpoint}/track.search?${params}`, { jsonpCallbackFunction: 'processResults' })

@@ -1,12 +1,8 @@
 import * as React from 'react';
 import Artist from '../models/artist';
 
-import { searchLyricsByArtistId } from '../services/musicmatch';
-import Track from '../models/track';
-
 export default class Artists extends React.Component<{ artists }> {
     artists: Artist[];
-    tracks: Track[];
 
     constructor(data) {
         super(data)
@@ -21,7 +17,7 @@ export default class Artists extends React.Component<{ artists }> {
         };
     }
 
-    async fetchSongsByArtistId(id) {
+    async showTracks(id) {
         let artist;
         for (let i = 0; i < this.artists.length; ++i) {
             if (this.artists[i].id === id) {
@@ -30,22 +26,14 @@ export default class Artists extends React.Component<{ artists }> {
             }
         }
 
-        if (!artist.tracksFetched) {
-            return searchLyricsByArtistId(id).then(results => {
-                const tracks = results.message.body.track_list;
-
-                artist.tracksFetched = true;
-                artist.addTracks(tracks);
-                this.setState({ artist })
-            });
-        }
-        
-        this.setState({artist})
+        return artist.getTracks().then(() => {
+            this.setState({ artist });
+        });
     }
 
     render() {
         const list = this.artists.map(artist => {
-            return <div key={artist.id} onClick={this.fetchSongsByArtistId.bind(this, artist.id)}>
+            return <div key={artist.id} onClick={this.showTracks.bind(this, artist.id)}>
                 {artist.name}
             </div>
         });
@@ -59,7 +47,7 @@ export default class Artists extends React.Component<{ artists }> {
         }
         return <div>{list}
             {
-                    tracks ? <div className="track-list">{tracks}</div>: ''
+                tracks ? <div className="track-list">{tracks}</div>: ''
             }
         </div>;
     }

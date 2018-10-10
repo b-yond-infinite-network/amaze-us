@@ -1,4 +1,5 @@
 import Track from './track';
+import { searchTracksByArtistId } from '../services/musicmatch';
 
 export default class Artist {
     name: string;
@@ -15,6 +16,19 @@ export default class Artist {
         this.id = artist.artist_id;
         this.tracks = [];
         this.tracksFetched = false;
+    }
+
+    getTracks() {
+        if (!this.tracksFetched) {
+            return searchTracksByArtistId(this.id).then(results => {
+                const tracks = results.message.body.track_list;
+    
+                this.tracksFetched = true;
+                this.addTracks(tracks);
+                return this.tracks;
+            });
+        }
+        return Promise.resolve(this.tracks);
     }
 
     addTrack(data) {
