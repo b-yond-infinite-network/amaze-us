@@ -1,9 +1,17 @@
 {
     "compilerOptions": {
-        "target": "es6",
+        "target": "es5",
         "jsx": "react",
-        "module": "commonjs"
+        "module": "commonjs",
+        "noImplicitAny": false,
+        "lib": [
+            "es2015",
+            "dom"
+        ]
     },
+    "include": [
+        "karaoke.d.ts"
+    ],
     "exclude": [
         "node_modules"
     ]
