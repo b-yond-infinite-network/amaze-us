@@ -13,13 +13,13 @@ export default class Search extends React.Component<{}> {
             .then(results => {
                 const artists = results.message.body.artist_list;
                 this.setState({ artists: artists });
-                this.render();
             });
     }
 
     updateSearch(e) {
         this.setState({
-            search: e.target.value
+            search: e.target.value,
+            artists: []
         });
     }
 

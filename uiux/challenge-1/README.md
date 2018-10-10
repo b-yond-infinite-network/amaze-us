@@ -16,3 +16,13 @@ bother them while singing drunk...
 + Create a branch of this project (or fork it in your github account if you prefer)
 + Do you **_thang_** inside this folder (challenge-1)
 + Push your change inside a Pull Request to our master
+
+## Dependencies
+Command line: `npm i`
+
+## Run
+For testing:
++ npm run server
+
+For release:
++ npm run karaoke
