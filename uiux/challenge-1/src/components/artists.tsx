@@ -1,17 +1,14 @@
 import * as React from 'react';
+
+import Tracks from './tracks';
 import Artist from '../models/artist';
 
 export default class Artists extends React.Component<{ artists }> {
     artists: Artist[];
 
-    constructor(data) {
-        super(data)
+    constructor(props) {
+        super(props)
 
-        this.artists = [];
-        for (let i = 0; i < data.artists.length; ++i) {
-            const a = data.artists[i];
-            this.artists.push(new Artist(a.artist));
-        }
         this.state = {
             artist: null
         };
@@ -31,24 +28,39 @@ export default class Artists extends React.Component<{ artists }> {
         });
     }
 
+    setArtists() {
+        this.artists = [];
+        for (let i = 0; i < this.props.artists.length; ++i) {
+            const a = this.props.artists[i];
+            this.artists.push(new Artist(a.artist));
+        }
+    }
+
     render() {
+        this.setArtists();
+
         const list = this.artists.map(artist => {
-            return <div key={artist.id} onClick={this.showTracks.bind(this, artist.id)}>
-                {artist.name}
+            return <div key={artist.id} className='artist' onClick={this.showTracks.bind(this, artist.id)}>
+                {
+                    artist.name.length > 75 ?
+                        artist.name.substr(0, 75) + '...' : artist.name
+                }
             </div>
         });
-        let tracks = '';
-        if (this.state['artist'] && this.state['artist'].tracks && this.state['artist'].tracks.length > 0) {
-            tracks = this.state['artist'].tracks.map(track => {
-                return <div key={track.id}>
-                    {track.name}
+        
+        return <div className="row">
+            <div className="col-md-4 col-sm-4">
+                <div className="box">
+                    <h2>Artists</h2>
+                    {list}
                 </div>
-            });
-        }
-        return <div>{list}
+            </div>
+            <div className="col-md-8 col-sm-8">
             {
-                tracks ? <div className="track-list">{tracks}</div>: ''
+                this.state['artist'] ?
+                    <Tracks tracks={this.state['artist'].tracks} sorted={[]} /> : ''
             }
+            </div>
         </div>;
     }
 }

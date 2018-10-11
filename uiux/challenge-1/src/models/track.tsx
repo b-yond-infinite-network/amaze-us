@@ -1,4 +1,4 @@
-import Lyric from './lyric';
+import { getTrackLyric } from '../services/musicmatch';
 
 export default class Track {
     id: number;
@@ -6,7 +6,7 @@ export default class Track {
     name: string;
     length: number;
     has_lyrics: boolean;
-    lyric: Lyric;
+    lyrics: string;
 
     constructor(data) {
         this.album = data.album_name;
@@ -14,7 +14,15 @@ export default class Track {
         this.length = data.track_length;
         this.id = data.track_id;
         this.has_lyrics = data.has_lyrics;
-        if (data.has_lyrics)
-            this.lyric = new Lyric({ id: data.lyrics_id });
+    }
+
+    getLyric() {
+        if (!this.lyrics) {
+            return getTrackLyric(this.id).then(results => {
+                this.lyrics = results.message.body.lyrics.lyrics_body;
+                return this.lyrics;
+            });
+        }
+        return Promise.resolve(this.lyrics);
     }
 }
