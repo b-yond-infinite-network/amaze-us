@@ -1,4 +1,5 @@
 import * as React from 'react';
+import Artist from '../models/artist';
 
 import Tracks from './tracks';
 import Artist from '../models/artist';
