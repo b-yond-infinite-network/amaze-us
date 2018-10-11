@@ -2,9 +2,12 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
 import Header from './components/header';
-import SearchBar from './components/search-bar';
+import Search from './components/search';
 
-ReactDOM.render(<div>
-    <Header />
-    <SearchBar />
+import 'flexboxgrid-sass/dist/flexboxgrid.css';
+import './assets/styles/main.scss';
+
+ReactDOM.render(<div className="wrapper container-fluid">
+    <Header /> 
+    <Search />
 </div>, document.getElementById('root'));

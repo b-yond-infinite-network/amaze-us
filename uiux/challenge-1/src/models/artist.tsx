@@ -17,7 +17,7 @@ export default class Artist {
         this.tracks = [];
         this.tracksFetched = false;
     }
-
+    
     getTracks() {
         if (!this.tracksFetched) {
             return searchTracksByArtistId(this.id).then(results => {
