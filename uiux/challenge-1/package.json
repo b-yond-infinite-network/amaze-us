@@ -4,8 +4,8 @@
   "description": "A tool to fetch songs and lyrics",
   "main": "index.js",
   "scripts": {
-    "karaoke": "./node_modules/.bin/webpack",
-    "server": "./node_modules/.bin/webpack-dev-server"
+    "build": "./node_modules/.bin/webpack",
+    "watch": "./node_modules/.bin/webpack-dev-server"
   },
   "author": "Jonathan Massot",
   "license": "ISC",

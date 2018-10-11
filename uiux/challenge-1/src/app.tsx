@@ -4,7 +4,6 @@ import * as ReactDOM from 'react-dom';
 import Header from './components/header';
 import Search from './components/search';
 
-import 'flexboxgrid-sass/dist/flexboxgrid.css';
 import './assets/styles/main.scss';
 
 ReactDOM.render(<div className="wrapper container-fluid">
