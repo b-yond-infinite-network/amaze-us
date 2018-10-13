@@ -10,7 +10,6 @@
   "author": "Jonathan Massot",
   "license": "ISC",
   "devDependencies": {
-    "@fortawesome/fontawesome-free": "^5.4.0",
     "@material-ui/icons": "^3.0.1",
     "@types/react": "^16.4.16",
     "@types/react-dom": "^16.0.9",
