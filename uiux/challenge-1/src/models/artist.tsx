@@ -32,7 +32,9 @@ export default class Artist {
     }
 
     addTrack(data) {
-        this.tracks.push(new Track(data.track));
+        if (data.track.has_lyrics) {
+            this.tracks.push(new Track(data.track));
+        }
     }
 
     addTracks(data) {

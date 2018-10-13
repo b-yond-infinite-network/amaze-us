@@ -1,12 +1,7 @@
-$flexboxgrid-grid-columns: 12;
-$flexboxgrid-gutter-width: 1rem;
-$flexboxgrid-outer-margin: 1rem;
-
 $fa-font-path: '/fonts';
 
 @import '~@fortawesome/fontawesome-free/scss/fontawesome';
 @import '~@fortawesome/fontawesome-free/scss/solid';
-@import '~flexboxgrid-sass/dist/flexboxgrid.css';
 
 body {
     background-color: #1A1A1D;
@@ -18,40 +13,12 @@ h1 {
     text-transform: uppercase;
 }
 
-.artist {
-    padding: 0.1rem;
-
-    &:hover {
-        color: #6F2232;
-    }
-}
-
-.search-field {
-    border: none;
-    border-radius: 8px;
-    font-size: 24px;
-    margin-bottom: 6px;
-    outline:none;
-    padding: 6px;
-    width: 100%;
-}
-
-.search-button {
+.track-modal {
     background-color: #1A1A1D;
-    border: #C3073F 1px solid;
-    border-radius: 12px;
     color: #FFF;
-    font-size: 24px;
-    outline:none;
-    padding: 12px 24px;
-
-    &:hover {
-        border: #6F2232 1px solid;
-    }
-
-    &:active {
-        border: #4E4E50 1px solid;
-    }
+    padding: 24px;
+    position: absolute;
+    width: 500px;
 }
 
 table.tracks-list {

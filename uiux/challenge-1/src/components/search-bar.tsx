@@ -1,11 +1,33 @@
 import * as React from 'react';
+
+import withStyles from '@material-ui/core/styles/withStyles';
+import Button from '@material-ui/core/Button';
+import Input from '@material-ui/core/Input';
+
 import { musicmatchdata, searchArtist } from '../services/musicmatch';
+import { Grid } from '@material-ui/core';
+
+const SearchBox = withStyles({
+    root: {
+        color: '#FFF',
+        fontSize: 24,
+        margin: 'dense'
+    },
+    underline: { 
+        '&:before': {
+            borderBottomColor: '#FFF'
+        }
+    }
+})(Input);
+
+const SearchButton = withStyles({
+    root: {
+        textAlign: 'center'
+    }
+})(Button);
 
 export default class Search extends React.Component<{ setArtists }> {
-    constructor(props) {
-        super(props);
-        this.state = { search: '' };
-    }
+    state = { search: '' };
 
     search() {
         if (!musicmatchdata[this.state['search']]) {
@@ -35,22 +57,14 @@ export default class Search extends React.Component<{ setArtists }> {
 
     render() {
         return (
-            <div className="row">
-                <div className="col-xs-12">
-                    <div className="box box-container">
-                        <div className="row">
-                            <div className="col-xs-12">
-                                <input type="text" className="search-field" onKeyPress={this.onKeyPress.bind(this)} onChange={this.updateSearch.bind(this)} placeholder="Find your artist" />
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div className="col-xs-12 center-xs">
-                                <button className="search-button" onClick={this.search.bind(this)}>Find it</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <Grid container spacing={32}>
+                <Grid item xs={10}>
+                    <SearchBox color='secondary' fullWidth={true} onKeyPress={this.onKeyPress.bind(this)} onChange={this.updateSearch.bind(this)} placeholder="Find your artist" />
+                </Grid>
+                <Grid item xs={2}>
+                    <SearchButton size='large' color='secondary' variant='contained' onClick={this.search.bind(this)}>Find it</SearchButton>
+                </Grid>
+            </Grid>
         );
     }
 }
