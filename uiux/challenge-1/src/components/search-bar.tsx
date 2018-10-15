@@ -9,9 +9,10 @@ import { Grid } from '@material-ui/core';
 
 const SearchBox = withStyles({
     root: {
-        color: '#FFF',
-        fontSize: 24,
-        margin: 'dense'
+        fontSize: 18,
+        margin: 'dense',
+        padding: 6,
+        marginLeft: 12
     },
     underline: { 
         '&:before': {
@@ -20,13 +21,7 @@ const SearchBox = withStyles({
     }
 })(Input);
 
-const SearchButton = withStyles({
-    root: {
-        textAlign: 'center'
-    }
-})(Button);
-
-export default class Search extends React.Component<{ setArtists }> {
+export default class Search extends React.Component<{ setArtists: Function }> {
     state = { search: '' };
 
     search() {
@@ -42,13 +37,13 @@ export default class Search extends React.Component<{ setArtists }> {
         }
     }
 
-    onKeyPress(e) {
+    onKeyPress(e: Event) {
         if (e.which === 13) {
             this.search();
         }
     }
 
-    updateSearch(e) {
+    updateSearch(e: Event) {
         this.setState({
             search: e.target.value,
             artists: []
@@ -59,10 +54,10 @@ export default class Search extends React.Component<{ setArtists }> {
         return (
             <Grid container spacing={32}>
                 <Grid item xs={10}>
-                    <SearchBox color='secondary' fullWidth={true} onKeyPress={this.onKeyPress.bind(this)} onChange={this.updateSearch.bind(this)} placeholder="Find your artist" />
+                    <SearchBox fullWidth={true} onKeyPress={this.onKeyPress.bind(this)} onChange={this.updateSearch.bind(this)} placeholder="Find your artist" />
                 </Grid>
                 <Grid item xs={2}>
-                    <SearchButton size='large' color='secondary' variant='contained' onClick={this.search.bind(this)}>Find it</SearchButton>
+                    <Button size='large' variant='contained' onClick={this.search.bind(this)}>Find it</Button>
                 </Grid>
             </Grid>
         );

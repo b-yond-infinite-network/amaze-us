@@ -4,21 +4,13 @@ import ArtistCard from './artist-card';
 import Artist from '../models/artist';
 import { Grid } from '@material-ui/core';
 
-export default class Artists extends React.Component<{ artists }> {
+export default class Artists extends React.Component<{ artists: MusicMatchArtist[] }> {
     artists: Artist[];
-
-    constructor(props) {
-        super(props)
-
-        this.state = {
-            artist: null
-        };
-    }
 
     setArtists() {
         this.artists = [];
         for (let i = 0; i < this.props.artists.length; ++i) {
-            const a = this.props.artists[i];
+            const a: MusicMatchArtist = this.props.artists[i];
             this.artists.push(new Artist(a.artist));
         }
     }
@@ -32,7 +24,7 @@ export default class Artists extends React.Component<{ artists }> {
         });
         
         return (
-            <Grid container>
+            <Grid container style={{ marginLeft: 16 }}>
                 {list}
             </Grid>
         );

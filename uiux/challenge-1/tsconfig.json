@@ -2,15 +2,17 @@
     "compilerOptions": {
         "target": "es5",
         "jsx": "react",
+        "sourceMap": true,
+        "skipLibCheck": true,
         "module": "commonjs",
-        "noImplicitAny": false,
+        "noImplicitAny": true,
         "lib": [
             "es2015",
             "dom"
         ]
     },
     "include": [
-        "karaoke.d.ts"
+        "./src/**/*"
     ],
     "exclude": [
         "node_modules"

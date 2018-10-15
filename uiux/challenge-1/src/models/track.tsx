@@ -8,7 +8,7 @@ export default class Track {
     has_lyrics: boolean;
     lyrics: string;
 
-    constructor(data) {
+    constructor(data: MusicMatchTrackData) {
         this.album = data.album_name;
         this.name = data.track_name;
         this.length = data.track_length;

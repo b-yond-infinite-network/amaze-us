@@ -15,7 +15,7 @@ import Track from '../models/track';
 import { Modal, Typography, Grid, TablePagination, withStyles } from '@material-ui/core';
 import Empty from './empty';
 
-const desc = (a, b, orderBy) => {
+const desc = (a: any, b: any, orderBy: string) => {
     if (b[orderBy] < a[orderBy]) {
         return -1;
     }
@@ -34,11 +34,11 @@ const getModalStyle = () => {
     };
 };
 
-const getSorting = (order, orderBy) => {
-    return order === 'desc' ? (a, b) => desc(a, b, orderBy) : (a, b) => -desc(a, b, orderBy);
+const getSorting = (order: 'asc' | 'desc', orderBy: string) => {
+    return order === 'desc' ? (a: any, b: any) => desc(a, b, orderBy) : (a: any, b: any) => -desc(a, b, orderBy);
 };
 
-const stableSort = (array, cmp) => {
+const stableSort = (array: any[], cmp: Function) => {
     const stabilizedThis = array.map((el, index) => [el, index]);
     stabilizedThis.sort((a, b) => {
         const order = cmp(a[0], b[0]);
@@ -50,7 +50,6 @@ const stableSort = (array, cmp) => {
 
 const TrackTitleCell = withStyles({
     root: {
-        color: '#950740',
         fontSize: 16,
         fontWeight: 'bold',
         '&:active': {
@@ -68,28 +67,14 @@ const TrackTitleCell = withStyles({
     }
 })(TableSortLabel);
 
-const TrackCell = withStyles({
-    root: {
-        color: '#950740'
-    }
-})(TableCell);
-
 const Lyrics = withStyles({
     root: {
-        color: '#950740',
         fontSize: 16
     }
 })(Typography);
 
-const Pager = withStyles({
-    root: {
-        color: '#FFF'
-    }
-})(TablePagination);
-
 const GoBack = withStyles({
     root: {
-        color: 'grey',
         position: 'absolute',
         right: '48px',
         top: '12px'
@@ -98,7 +83,6 @@ const GoBack = withStyles({
 
 const CloseButton = withStyles({
     root: {
-        color: 'grey',
         position: 'absolute',
         right: '12px',
         top: '12px'
@@ -112,8 +96,8 @@ const columns = [
 
 let counter = 0;
 
-class TracksHeader extends React.Component<{ order, orderBy, onRequestSort }> {
-    createSortHandler = property => event => {
+class TracksHeader extends React.Component<{ order: 'asc' | 'desc', orderBy: string, onRequestSort: Function }> {
+    createSortHandler = (property: any) => (event: React.MouseEvent<HTMLElement>) => {
         this.props.onRequestSort(event, property);
     };
 
@@ -127,7 +111,7 @@ class TracksHeader extends React.Component<{ order, orderBy, onRequestSort }> {
                         columns.map(column => {
                             return <TableCell key={column.id} numeric={column.numeric} padding={column.disablePadding ? 'none' : 'default'}>
                                 <TrackTitleCell active={orderBy === column.id} direction={order} onClick={this.createSortHandler(column.id)}>
-                                    {column.label}
+                                    <Typography variant='h6'>{column.label}</Typography>
                                 </TrackTitleCell>
                             </TableCell>
                         })
@@ -138,46 +122,41 @@ class TracksHeader extends React.Component<{ order, orderBy, onRequestSort }> {
     }
 }
 
-export default class Tracks extends React.Component<{ tracks:Track[], closeModal, open: boolean }> {
+export default class Tracks extends React.Component<{ tracks:Track[], closeModal: Function, open: boolean }> {
     sort: object;
-    state = {
+    state:TrackState = {
         order: 'asc',
         orderBy: 'name',
         lyrics: null,
-        tracks: null,
         page: 0,
         rowsPerPage: 10,
-        showLyrics: false
+        showLyrics: false,
+        trackName: ''
     };
 
-    constructor(props) {
-        super(props);
-        this.state.tracks = this.props.tracks;
-    }
-
-    async showLyrics(track) {
+    async showLyrics(track: Track) {
         return track.getLyric().then(lyrics => {
             const l = lyrics.replace(/[\r\n]/g, '<br>');
-            this.setState({ lyrics: l, showLyrics: true });
+            this.setState({ lyrics: l, showLyrics: true, trackName: track.name });
         })
     }
 
-    closeModal(e) {
+    closeModal(e: Event) {
         e.stopPropagation();
         e.preventDefault();
         this.setState({ showLyrics: false });
         this.props.closeModal();
     }
 
-    handleChangePage = (event, page) => {
+    handleChangePage = (event: React.MouseEvent<HTMLButtonElement>, page: number) => {
         this.setState({ page });
     }
     
-    handleChangeRowsPerPage = event => {
+    handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLElement>) => {
         this.setState({ rowsPerPage: event.target.value });
     }
 
-    handleRequestSort = (event, property) => {
+    handleRequestSort = (event: Event, property: string) => {
         const orderBy = property;
         let order = 'desc';
 
@@ -193,7 +172,8 @@ export default class Tracks extends React.Component<{ tracks:Track[], closeModal
     }
 
     render() {
-        const { tracks, order, orderBy, rowsPerPage, page } = this.state;
+        const tracks = this.props.tracks;
+        const { order, orderBy, rowsPerPage, page } = this.state;
         const emptyRows = rowsPerPage - Math.min(rowsPerPage, tracks.length - page * rowsPerPage);
 
         return (
@@ -201,9 +181,9 @@ export default class Tracks extends React.Component<{ tracks:Track[], closeModal
                 <div style={getModalStyle()} className='track-modal'>
                     <Grid container>
                         <Grid item xs={10}>
-                            <Typography variant='h6' color='secondary'>
+                            <Typography variant='h6'>
                                 {
-                                    !this.state.showLyrics ? 'Tracks' : 'Lyrics'
+                                    !this.state.showLyrics ? 'Tracks' : this.state['trackName']
                                 }
                             </Typography>
                         </Grid>
@@ -231,12 +211,14 @@ export default class Tracks extends React.Component<{ tracks:Track[], closeModal
                                                 .map(track => {
                                                     counter++;
                                                     return <TableRow key={counter} onClick={this.showLyrics.bind(this, track)}>
-                                                            {
-                                                                columns.map(column => {
-                                                                    return <TrackCell key={`${column.id}-${counter}`} numeric={column.numeric}>{track[column.id]}</TrackCell>
-                                                                })
-                                                            }
-                                                        </TableRow>
+                                                        {
+                                                        columns.map(column => {
+                                                            return <TableCell key={`${column.id}-${counter}`} numeric={column.numeric}>
+                                                                <Typography variant='h6'>{track[column.id]}</Typography>
+                                                            </TableCell>
+                                                        })
+                                                        }
+                                                    </TableRow>
                                                         
                                                     })
                                                     )
@@ -250,7 +232,7 @@ export default class Tracks extends React.Component<{ tracks:Track[], closeModal
                                         }
                                     </TableBody>
                                 </Table>
-                                <Pager
+                                <TablePagination
                                     component="div"
                                     count={tracks.length}
                                     rowsPerPage={rowsPerPage}

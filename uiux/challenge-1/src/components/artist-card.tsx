@@ -11,17 +11,17 @@ import Artist from '../models/artist';
 
 const StyledCard = withStyles({
     root: {
-        backgroundColor: '#1A1A1D',
         display: 'flex',
         flexDirection: 'row',
         maxWidth: 350,
         minWidth: 100,
-        margin: 6,
+        margin: 6
     }
 })(Card);
 
 const ArtistContent = withStyles({
     root: {
+        backgroundColor: '#303030',
         padding: 6,
         paddingBottom: '6px !important',
         width: '100%'
@@ -30,7 +30,7 @@ const ArtistContent = withStyles({
 
 const ArtistName = withStyles({
     root: {
-        color: '#950740',
+        fontSize: 18,
         width: '100%',
         '&:hover': {
             color: '#FFF'

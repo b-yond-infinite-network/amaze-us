@@ -24,11 +24,17 @@ bother them while singing drunk...
 Command line: `npm i`
 
 ## Run
-For testing (hot reload):
-+ npm run watch
+To execute tests:
++ `npm run tests`
+
+To see code coverage:
++ `npm run coverage`
+
+To run (hot reload):
++ `npm run watch`
 
 For building source:
-+ npm run build
++ `npm run build`
 
 ## Dependencies
 + React

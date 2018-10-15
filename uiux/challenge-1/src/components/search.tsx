@@ -6,14 +6,12 @@ import { Grid } from '@material-ui/core';
 import Empty from './empty';
 
 export default class Search extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            artists: null
-        };
-    }
+    state: SearchState = {
+        artists: [],
+        searched: false
+    };
 
-    setArtists(artists) {
+    setArtists(artists: MusicMatchArtist[]) {
         this.setState({
             artists: artists,
             searched: true

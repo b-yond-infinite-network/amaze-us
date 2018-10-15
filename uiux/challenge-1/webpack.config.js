@@ -40,6 +40,10 @@ const config = {
                         publicPath: '../'       // override the default path
                     }
                 }]
+            }, {
+                test: /.js$/,
+                loader: 'source-map-loader',
+                enforce: 'pre',
             }
         ]
     },

@@ -8,8 +8,8 @@ const EmptyMessage = withStyles({
     }
 })(Typography);
 
-export default class Empty extends React.Component<{ message }> {
+export default class Empty extends React.Component<{ message: string }> {
     render() {
-        return <EmptyMessage variant='h4' color='secondary'>{this.props.message}</EmptyMessage>
+        return <EmptyMessage variant='h4'>{this.props.message}</EmptyMessage>
     }
 }

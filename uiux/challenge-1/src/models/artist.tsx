@@ -7,11 +7,7 @@ export default class Artist {
     tracksFetched: boolean;
     tracks: Track[];
 
-    constructor(data) {
-        let artist = data;
-        if (data.artist) {
-            artist = data.artist;
-        }
+    constructor(artist: MusicMatchArtistData) {
         this.name = artist.artist_name;
         this.id = artist.artist_id;
         this.tracks = [];
@@ -31,13 +27,13 @@ export default class Artist {
         return Promise.resolve(this.tracks);
     }
 
-    addTrack(data) {
+    addTrack(data: MusicMatchTrack) {
         if (data.track.has_lyrics) {
             this.tracks.push(new Track(data.track));
         }
     }
 
-    addTracks(data) {
+    addTracks(data: MusicMatchTrack[]) {
         for (let i = 0; i < data.length; ++i) {
             this.addTrack(data[i]);
         }
