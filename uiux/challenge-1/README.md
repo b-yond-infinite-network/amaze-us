@@ -43,6 +43,8 @@ For building source:
 + FlexBox
 + SASS
 + WebPack
++ Jest
++ Enzyme
 
 ## Missing bits
 + Would liked to have paging to go through the lenghty collection of some artists (Michael Jackson for instance)
