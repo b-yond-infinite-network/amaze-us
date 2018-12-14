@@ -12,7 +12,7 @@ public class Util {
 	static File dbFile = null;
 	static {
 		try {
-			dbFile = new File("ROOT/Config.properties");
+			dbFile = new File("webapps/ROOT/Config.properties");
 			dbProps.load(new FileInputStream(dbFile.getAbsolutePath()));
 		} catch (FileNotFoundException e) {
 			throw new RuntimeException(e);
@@ -54,8 +54,6 @@ public class Util {
 	 * This function fetches the DB Port from Config.properties
 	 */
 	public static int getDBPort() {
-		return new Integer(dbProps.getProperty("app42.paas.db.port"));
+		return Integer.parseInt(dbProps.getProperty("app42.paas.db.port"));
 	}
-	
-
 }

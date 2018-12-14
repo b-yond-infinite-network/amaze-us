@@ -1,0 +1,26 @@
+version: '3.3'
+services:
+    web:
+      build: ./App42PaaS-Java-MySQL-Sample/
+      ports:
+        - 8080:8080
+      secrets:
+        - db_user_password
+      env_file:
+        - ./docker/mysql_common.env
+    db:
+      image: "mariadb:10.4.0"
+      secrets:
+        - db_root_password
+        - db_user_password
+      env_file:
+        - ./docker/mysql_common.env
+      environment:
+        - MYSQL_ROOT_PASSWORD_FILE=/run/secrets/db_root_password
+
+secrets:
+  db_user_password:
+    file: ./docker/secrets/mysql_user_password
+  db_root_password:
+    file: ./docker/secrets/mysql_root_password
+
