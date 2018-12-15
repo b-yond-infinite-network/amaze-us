@@ -67,6 +67,40 @@ public class DBManager {
 	}
 
 	/**
+	 * Check if can issue a select 1; to the database
+	 *
+	 * @param query
+	 * @return boolean
+	 */
+	public boolean testSQL() {
+
+		boolean test_result = false;
+
+		JdbcTemplate db = null;
+		try {
+			db = new JdbcTemplate(DBManager.getInstance().getDataSource());
+		} catch (Exception e) {
+			return false;
+		}
+
+		try {
+			List<Map<String, Object>> result = db.queryForList("SELECT 1;");
+			if( result.size() == 1 ){
+				test_result = true;
+			}
+		} catch (Exception e) {
+		}
+
+		try{
+			dataSource.getConnection().close();
+		} catch (Exception e) {
+			// silent exeption, should be fine
+		}
+
+		return test_result;
+	}
+
+	/**
 	 * Select rows (This function fetches the rows from the table)
 	 * 
 	 * @param query

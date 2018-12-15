@@ -24,4 +24,24 @@
     <servlet-name>FormSave</servlet-name>
     <url-pattern>/save</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AreYouUp</display-name>
+    <servlet-name>Ping</servlet-name>
+    <servlet-class>com.shephertz.app42.paas.sample.Ping</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Ping</servlet-name>
+    <url-pattern>/ping</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AreYouReady</display-name>
+    <servlet-name>Ready</servlet-name>
+    <servlet-class>com.shephertz.app42.paas.sample.Ready</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Ready</servlet-name>
+    <url-pattern>/ready</url-pattern>
+  </servlet-mapping>
 </web-app>

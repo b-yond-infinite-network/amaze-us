@@ -17,7 +17,17 @@ BASE_URL="http://localhost:8080"
   [ "${code}" = "200" ]
 }
 
-@test "/home endpoint" {
+@test "/home endpoint (first time is slow)" {
   code=$(curl -s -o /dev/null -w "%{http_code}" "${BASE_URL}/home")
+  [ "${code}" = "200" ]
+}
+
+@test "/ping endpoint" {
+  code=$(curl -s -o /dev/null -w "%{http_code}" "${BASE_URL}/ping")
+  [ "${code}" = "200" ]
+}
+
+@test "/ready endpoint" {
+  code=$(curl -s -o /dev/null -w "%{http_code}" "${BASE_URL}/ready")
   [ "${code}" = "200" ]
 }
