@@ -1,0 +1,135 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app42-common-env
+  namespace: default
+data:
+  MYSQL_IP_ADDR: mysql.default
+  MYSQL_PORT: "3306"
+  MYSQL_DATABASE: database42
+  MYSQL_USER: user42
+  MYSQL_PASSWORD_FILE: /run/secrets_user/db_user_password
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql
+  labels:
+    app: app42
+    tier: backend
+    role: mysql
+spec:
+  ports:
+  - port: 3306
+    targetPort: 3306
+  selector:
+    app: app42
+    tier: backend
+    role: mysql
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql
+spec:
+  selector:
+    matchLabels:
+      app: app42
+      tier: backend
+      role: mysql
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: app42
+        tier: backend
+        role: mysql
+    spec:
+      containers:
+      - name: mysql
+        image: "mariadb:10.4.0"
+        ports:
+          - containerPort: 3306
+        envFrom:
+          - configMapRef:
+              name: app42-common-env
+        env:
+          - name: MYSQL_ROOT_PASSWORD_FILE
+            value: "/run/secrets_root/db_root_password"
+        volumeMounts:
+          - name: mysql-user-password
+            mountPath: "/run/secrets_user"
+            readOnly: true
+          - name: mysql-root-password
+            mountPath: "/run/secrets_root"
+            readOnly: true
+      volumes:
+        - name: mysql-root-password
+          secret:
+            secretName: mysql-root-password
+        - name: mysql-user-password
+          secret:
+            secretName: mysql-user-password
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: myapp
+  labels:
+    app: app42
+    tier: frontend
+    role: fatcat
+spec:
+  ports:
+  - port: 8080
+    targetPort: 8080
+  selector:
+    app: app42
+    tier: frontend
+    role: fatcat
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp
+spec:
+  selector:
+    matchLabels:
+      app: app42
+      tier: frontend
+      role: fatcat
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: app42
+        tier: frontend
+        role: fatcat
+    spec:
+      containers:
+      - name: web
+        image: app42front
+        imagePullPolicy: Never # we are using DinD, shall be copied over first!
+        envFrom:
+          - configMapRef:
+              name: app42-common-env
+        volumeMounts:
+          - name: mysql-user-password
+            mountPath: "/run/secrets_user"
+            readOnly: true
+        readinessProbe:
+          httpGet:
+            path: /ready
+            port: 8080
+          initialDelaySeconds: 10
+          timeoutSeconds: 5
+        livenessProbe:
+          httpGet:
+            path: /ping
+            port: 8080
+          initialDelaySeconds: 5
+          timeoutSeconds: 1
+      volumes:
+        - name: mysql-user-password
+          secret:
+            secretName: mysql-user-password
