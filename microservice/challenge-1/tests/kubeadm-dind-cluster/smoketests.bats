@@ -1,7 +1,7 @@
 #!/usr/bin/env bats
 
 @test "3 Pods are running" {
-  n=$(kubectl get pods -l app=app42 | tail -n +2 | wc -l)
+  n=$(kubectl get pods -l app=app42 | tail -n +2 | grep -i running | wc -l)
   [ $n -eq 3 ]
 }
 

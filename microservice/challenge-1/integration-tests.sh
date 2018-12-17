@@ -32,7 +32,7 @@ fi
 
 echo ''
 echo 'Waiting a bit for the cluster & apps to be up...'
-sleep 7
+sleep 15
 
 echo ''
 echo 'Running tests'
