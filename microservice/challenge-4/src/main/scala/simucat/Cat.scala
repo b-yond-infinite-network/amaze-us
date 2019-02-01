@@ -1,7 +1,7 @@
 package simucat
 
 import scala.util.Random
-import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.{ExecutionContext, Future, blocking}
 
 /** Available moods for the Cat
   *
@@ -53,10 +53,13 @@ class Cat(catID : Int) {
   def live(): Unit = {
     implicit val ec = ExecutionContext.global
     Future {
-      while (alive) {
-        mood = chooseMood()
-        println(s"Cat $id : ${mood.sound}")
-        Thread.sleep(27000)
+      blocking {
+        while (alive) {
+          mood = chooseMood()
+          println(s"Cat $id : ${mood.sound}")
+          //        Thread.sleep(27000)
+          Thread.sleep(3000)
+        }
       }
     }(ec)
   }

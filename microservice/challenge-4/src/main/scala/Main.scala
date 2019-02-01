@@ -4,26 +4,10 @@ import simucat.{Cat, Pool}
 object Main extends App {
   val pool = new Pool()
 
-  // Cat 1
-  pool.add()
-  Thread.sleep(30000*2)
+  // Add 1000 cats
+  pool.add(1000)
 
-  // Cat 2
-  pool.add()
-  Thread.sleep(30000*1)
-
-  // Cat 3
-  pool.add()
-  Thread.sleep(30000*3)
-
-  // 1
-  pool.remove()
-  Thread.sleep(30000*1)
-
-  // 2
-  pool.remove()
-  Thread.sleep(30000*1)
-
-  // 3
-  pool.remove()
+  Thread.sleep(5000)
+  // Remove cats
+  pool.clear()
 }
