@@ -1,20 +1,29 @@
-import simucat.Cat
+import scala.collection.mutable.Queue
+import simucat.{Cat, Pool}
 
 object Main extends App {
-  val cat1 = new Cat(1)
-  cat1.live()
+  val pool = new Pool()
 
-  val cat2 = new Cat(2)
-  cat2.live()
+  // Cat 1
+  pool.add()
+  Thread.sleep(30000*2)
 
-  Thread.sleep(30000 * 2)
+  // Cat 2
+  pool.add()
+  Thread.sleep(30000*1)
 
-  cat1.kill()
-  println("Cat 1 killed")
+  // Cat 3
+  pool.add()
+  Thread.sleep(30000*3)
 
-  Thread.sleep(30000 * 2)
+  // 1
+  pool.remove()
+  Thread.sleep(30000*1)
 
-  cat2.kill()
-  println("Cat 2 killed")
+  // 2
+  pool.remove()
+  Thread.sleep(30000*1)
 
+  // 3
+  pool.remove()
 }
