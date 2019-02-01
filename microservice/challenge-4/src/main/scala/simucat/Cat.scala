@@ -13,8 +13,9 @@ case object ROLLONFLOOR extends Mood {val sound = "fffff"}
 case object SCRATCHCHAIRS extends Mood {val sound = "gratgrat"}
 case object LOOKDEEPINEYES extends Mood {val sound = "-o-o-___--"}
 
-class Cat {
-  var mood : Mood = chooseMood()
+class Cat(catID : Int) {
+  private val id : Int = catID
+  private var mood : Mood = chooseMood()
   private var alive : Boolean = true
 
   def chooseMood(): Mood = {
@@ -32,7 +33,7 @@ class Cat {
   def live(): Unit = {
     while (alive) {
       mood = chooseMood()
-      println(s"$mood")
+      println(s"Cat $id : ${mood.sound}")
       Thread.sleep(27000)
     }
   }
