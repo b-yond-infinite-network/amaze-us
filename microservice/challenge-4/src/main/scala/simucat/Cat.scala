@@ -1,40 +1,32 @@
 package simucat
 
 import scala.util.Random
-import scala.concurrent.{ExecutionContext, Future, blocking}
+import scala.concurrent.duration._
+import akka.actor.Actor
+import akka.actor.Timers
 
-/** Available moods for the Cat
-  *
-  * @attribute sound : phonic representation of the mood
+/** Companion object of Cat class
+  * Define the event receivable by Cat actor
   */
-sealed trait Mood {
-  val sound : String
+object Cat {
+  private case object TickKey
+  private case object ChangeMood
 }
-case object GROWL extends Mood {val sound = "grr"}
-case object HISS extends Mood {val sound = "kssss"}
-case object PURR extends Mood {val sound = "rrrrr"}
-case object THROWGLASS extends Mood {val sound = "cling bling"}
-case object ROLLONFLOOR extends Mood {val sound = "fffff"}
-case object SCRATCHCHAIRS extends Mood {val sound = "gratgrat"}
-case object LOOKDEEPINEYES extends Mood {val sound = "-o-o-___--"}
 
 /** A simulated cat with a mood
   *
   * @constructor create a new cat with an ID and a randomly selected mood
   * @param catID : the cat ID
   * @attribute mood : the cat mood (see trait Mood)
-  * @attribute alive : Boolean indicating if the Cat is alive or not
   */
-class Cat(catID : Int) {
+class Cat(catID : Int) extends Actor with Timers {
   private val id : Int = catID
-  private var mood : Mood = chooseMood()
-  private var alive : Boolean = true
+  private var mood : Mood = randMood()
 
   /** Randomly choose a mood among the legal ones
-    *
     * @return randomly chosen mood
     */
-  def chooseMood(): Mood = {
+  private def randMood(): Mood = {
     Random.nextInt(7) match {
       case 0 => GROWL
       case 1 => HISS
@@ -46,28 +38,19 @@ class Cat(catID : Int) {
     }
   }
 
-  /** Life cycle of the cat
-    * Each 27 seconds, the cat changes its mood.
-    * The loop is infinite until the kill() call.
-    */
-  def live(): Unit = {
-    implicit val ec = ExecutionContext.global
-    Future {
-      blocking {
-        while (alive) {
-          mood = chooseMood()
-          println(s"Cat $id : ${mood.sound}")
-          //        Thread.sleep(27000)
-          Thread.sleep(3000)
-        }
-      }
-    }(ec)
-  }
+  /** Cat life definition
+    * 1. New random mood every 27 seconds
+    * */
+  import Cat._
+  // Each 27 self-send ChangeMood message
+  timers.startPeriodicTimer(TickKey, ChangeMood, 27.second)
 
-  /** End the life cycle of the cat
-    * Set alive attribute to false to end loop in live()
-    */
-  def kill(): Unit = {
-    alive = false
+  def receive = {
+    // When receiving ChangeMood, randomly select a new mood
+    case ChangeMood => {
+      mood = randMood()
+      println(s"[${System.currentTimeMillis()/1000 % 100}] Cat $id : ${mood.sound}")
+    }
   }
+  /** ----------------------------------- */
 }
