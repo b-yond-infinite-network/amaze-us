@@ -11,21 +11,11 @@ const Responses = {
 
 export function call(url: string) {
   let response: any;
-  console.log("calling mocked call API: ", url);
+
   if (/artist.search/.test(url)) {
     // artist list
     response = Responses.ARTISTS;
   }
-  // } else if (/^team\/[0-9]+$/.test(url)) {
-  //   // team detail
-  //   response = responses.team;
-  // } else if (/user\/$/.test(url)) {
-  //   // users
-  //   response = responses.users;
-  // } else if (/^user\/[0-9]+$/.test(url)) {
-  //   // user detail
-  //   response = responses.user;
-  // }
 
   return Promise.resolve(response);
 }
