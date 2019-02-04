@@ -1,0 +1,13 @@
+.block {
+  border-radius: 5px;
+  margin-top: 3rem;
+  padding: 1rem;
+}
+
+.block-light {
+  border: 1px solid #dfdfdf;
+}
+
+.block-dark {
+  background: #f2f2f2;
+}

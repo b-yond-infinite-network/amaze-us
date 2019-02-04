@@ -1,8 +1,8 @@
 import ArtistType from "../../types/artist";
 
 const ArtistsResponse: ArtistType[] = [
-  { artist_id: 1, artist_name: "foo" },
-  { artist_id: 2, artist_name: "bar" }
+  { artist: { artist_id: 1, artist_name: "foo" } },
+  { artist: { artist_id: 2, artist_name: "bar" } }
 ];
 
 const Responses = {
