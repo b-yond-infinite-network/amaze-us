@@ -10,8 +10,11 @@ class Simulation {
   private val system = ActorSystem("simucat")
 
   def start(n : Int): Unit = {
+    /* Create the saver */
+    val saver = system.actorOf(Props(new Saver()), s"saver")
+
     for (i <- 1 to n) {
-      val cat = system.actorOf(Props(new Cat(i)), s"cat$i")
+      val cat = system.actorOf(Props(new Cat(i, saver)), s"cat$i")
     }
   }
 

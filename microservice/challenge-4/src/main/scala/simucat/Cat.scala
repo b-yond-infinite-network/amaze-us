@@ -2,8 +2,7 @@ package simucat
 
 import scala.util.Random
 import scala.concurrent.duration._
-import akka.actor.Actor
-import akka.actor.Timers
+import akka.actor.{Actor, Timers, ActorRef}
 
 /** Companion object of Cat class
   * Define the event receivable by Cat actor
@@ -19,8 +18,9 @@ object Cat {
   * @param catID : the cat ID
   * @attribute mood : the cat mood (see trait Mood)
   */
-class Cat(catID : Int) extends Actor with Timers {
-  private val id : Int = catID
+class Cat(catID : Int, saverActor : ActorRef) extends Actor with Timers {
+  private val id : String = catID.toString
+  private val saver : ActorRef = saverActor
   private var mood : Mood = randMood()
 
   /** Randomly choose a mood among the legal ones
@@ -49,7 +49,7 @@ class Cat(catID : Int) extends Actor with Timers {
     // When receiving ChangeMood, randomly select a new mood
     case ChangeMood => {
       mood = randMood()
-      println(s"[${System.currentTimeMillis()/1000 % 100}] Cat $id : ${mood.sound}")
+      saver ! Saver.SaveMood(id, System.currentTimeMillis().toString, mood.sound)
     }
   }
   /** ----------------------------------- */
