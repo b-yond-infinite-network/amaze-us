@@ -2,11 +2,11 @@ import { RouteComponentProps } from "@reach/router";
 import React, { FunctionComponent, useEffect, useState } from "react";
 import TrackList from "../features/TrackList";
 import { getArtist } from "../shared/api/artist";
-import { searchTracks } from "../shared/api/tracks";
+import { searchTracks } from "../shared/api/track";
 import Block from "../shared/components/Block";
 import Loader from "../shared/components/Loader";
 import Artist from "../shared/types/artist";
-import Track from "../shared/types/tracks";
+import Track from "../shared/types/track";
 
 type BaseProps = {
   id?: string;
@@ -42,8 +42,8 @@ const ArtistPage: FunctionComponent<Props> = ({
   }, [id]);
 
   return (
-    <main data-testid="page-artist">
-      {artist && <h1>{artist.artist.artist_name}</h1>}
+    <section data-testid="page-artist">
+      {artist && <h2>{artist.artist.artist_name}</h2>}
 
       {loading && <Loader />}
 
@@ -55,7 +55,7 @@ const ArtistPage: FunctionComponent<Props> = ({
           <TrackList items={tracks} initialized={false} />
         </Block>
       )}
-    </main>
+    </section>
   );
 };
 

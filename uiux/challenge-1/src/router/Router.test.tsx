@@ -27,14 +27,21 @@ test("navigate to the Home page", async () => {
   expect(homePage).toBeDefined();
 });
 
-test("navigate to the Artist page", async () => {
-  const { getByTestId } = renderWithRouter(<Router />, {
+test("navigate to the other pages", async () => {
+  const {
+    getByTestId,
+    history: { navigate }
+  } = renderWithRouter(<Router />, {
     route: "/artist/1"
   });
 
   const page = await waitForElement(() => getByTestId("page-artist"));
 
   expect(page).toBeDefined();
+
+  // navigate to the track lyrics page
+  await navigate("/track/1");
+  expect(getByTestId("page-track")).toBeDefined();
 });
 
 test("landing on a bad page", () => {

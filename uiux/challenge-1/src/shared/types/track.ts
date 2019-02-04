@@ -9,3 +9,10 @@ export default interface Track {
     artist_name: string;
   };
 }
+
+export interface Lyrics {
+  lyrics_id: number;
+  explicit: number;
+  lyrics_body: string;
+  lyrics_copyright: string;
+}

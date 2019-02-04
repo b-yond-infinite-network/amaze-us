@@ -1,9 +1,10 @@
 import React, { lazy, Suspense } from "react";
-import { Router, RouteComponentProps } from "@reach/router";
+import { Router, RouteComponentProps, Link } from "@reach/router";
 import Loader from "../shared/components/Loader";
 
 const HomePage = lazy(() => import("../pages/Home"));
 const ArtistPage = lazy(() => import("../pages/Artist"));
+const TrackPage = lazy(() => import("../pages/Track"));
 const NotFound: React.FC<RouteComponentProps> = () => <div>Not found</div>;
 
 const AppRouter = () => (
@@ -11,6 +12,7 @@ const AppRouter = () => (
     <Router>
       <HomePage path="/" />
       <ArtistPage path="/artist/:id" />
+      <TrackPage path="/track/:id" />
       <NotFound default />
     </Router>
   </Suspense>

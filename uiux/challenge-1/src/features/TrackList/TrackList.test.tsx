@@ -1,6 +1,6 @@
 import React from "react";
 import { render, waitForElement } from "react-testing-library";
-import Track from "../../shared/types/tracks";
+import Track from "../../shared/types/track";
 import TrackList from "./TrackList";
 
 const items: Track[] = [

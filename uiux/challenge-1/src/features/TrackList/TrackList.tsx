@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from "react";
-import Track from "../../shared/types/tracks";
+import Track from "../../shared/types/track";
 import { Link } from "@reach/router";
 import Card from "../../shared/components/Card";
 import Block from "../../shared/components/Block";
@@ -17,13 +17,10 @@ const TrackList: FunctionComponent<Props> = ({
         <List>
           {initialItems.map((item: Track, i: number) => (
             <ListItem key={i} style={{ "--i": i } as any}>
-              <Link to={`/artist/${item.track.track_id}`}>
+              <Link to={`/track/${item.track.track_id}`}>
                 <Card title={item.track.track_name}>
                   <p>
                     Album: <strong>{item.track.album_name}</strong>
-                  </p>
-                  <p>
-                    Rating: <strong>{item.track.track_rating}</strong>
                   </p>
                 </Card>
               </Link>

@@ -1,5 +1,5 @@
 import Artist from "../../types/artist";
-import Track from "../../types/tracks";
+import Track, { Lyrics } from "../../types/track";
 
 const ArtistsResponse: Artist[] = [
   { artist: { artist_id: 1, artist_name: "foo" } },
@@ -29,10 +29,19 @@ const TracksResponse: Track[] = [
   }
 ];
 
+const LyricsResponse: Lyrics = {
+  lyrics_body: "hello world",
+  explicit: 0,
+  lyrics_copyright: "foo",
+  lyrics_id: 1
+};
+
 const Responses = {
   ARTISTS: { artist_list: ArtistsResponse },
   ARTIST: ArtistsResponse[0],
-  TRACKS: { track_list: TracksResponse }
+  TRACKS: { track_list: TracksResponse },
+  TRACK: TracksResponse[0],
+  LYRICS: { lyrics: LyricsResponse }
 };
 
 export function call(url: string) {
@@ -47,6 +56,12 @@ export function call(url: string) {
   } else if (/track.search/.test(url)) {
     // artist list
     response = Responses.TRACKS;
+  } else if (/track.get/.test(url)) {
+    // artist list
+    response = Responses.TRACK;
+  } else if (/track.lyrics.get/.test(url)) {
+    // artist list
+    response = Responses.LYRICS;
   }
 
   return Promise.resolve(response);

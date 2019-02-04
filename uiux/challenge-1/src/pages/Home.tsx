@@ -28,8 +28,7 @@ const Home: React.FC<RouteComponentProps> = () => {
   };
 
   return (
-    <main data-testid="page-home">
-      <h1>Karaoke needs words</h1>
+    <section data-testid="page-home">
       <Input value={value} onChange={onChange} placeholder="Type artist" />
 
       {loading && <Loader />}
@@ -37,7 +36,7 @@ const Home: React.FC<RouteComponentProps> = () => {
       {!loading && results.length > 0 && (
         <ArtistList items={results} initialized={debouncedValue !== ""} />
       )}
-    </main>
+    </section>
   );
 };
 
