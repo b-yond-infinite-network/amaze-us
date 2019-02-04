@@ -5,11 +5,12 @@ In four days, I achieved a version with :
 with **sbt**. It was my first project in Scala. I discovered **Akka Actors**, an amazing library to create parallel Scala
 applications.
 + Database : I got some issues setting up Cassandra database (driver to execute queries from Scala, the environment 
-with Spark). Thus I did the simplest version of a database, a CSV file per simulation (as a local database). My first
-attempt was a Cassandra database because of the amount of data.
+with Spark). Thus I did the simplest version of a database, a CSV file per simulation (as a local database). At the beginning
+my intention was to use Cassandra to handle a big amount of data and proceed, in a later step, data streaming.
 + Statistics : I set up a Jupyter Notebook (in *src/main/python*) because I think it is a wonderful tool to interact with
 data : we can load data in one cell and then manipulate it without re-loading it. Moreover, Python has very useful libraries
-such as Pandas, Numpy and Plotly.
+such as Pandas, Numpy and Plotly. I upload a HTML version of the execution **Statistics.html** of the Jupyter Notebook to
+give you on overview of the obtained results.
 
 Some examples of data are available in the *data/* directory (https://drive.google.com/drive/folders/11oDfZjbUPSd-AsQJmtdcbVW_rwlPEjFe?usp=sharing). The smallest one contains 13,300 rows (100cats27sec1hour),
 the biggest contains 3,600,000 rows (1000cats1sec1hour).
@@ -22,7 +23,7 @@ My discoveries
 
 Performance
 -----------
-Akka Actors is very powerful : my Actor System can manage 10.000 cats with a 1 second cycle life. The library deals with
+Akka Actors is very powerful : my Actor System can manage 10.000 cats with a 1 second mood cycle. The library deals with
 the machine properties, such as the number of processors. It is much more efficient than using independent threads because
 the messaging system enables passive waiting : the process is waken up only when it receives a message.
 
@@ -58,6 +59,9 @@ I think the first thing would be to achieve using Cassandra/Spark. I already des
 tools, we can pass to a Streaming process with a Kafka pipeline to feed the database through Spark Streaming. Moreover,
 it would led to a near real-time processing. So it would be necessary to change the statistics process with iterative
 formulas.
+
+Moreover, I proceed manually the tests; I execute and checked by hand the results : counting the rows to check all the cats
+are displayed for example. An improvement should be to create programmatic tests.
 
 # Challenge 4 - Mysteries of the Cats (original post)
 Discovery is upon us! The mystery has to be solved! 

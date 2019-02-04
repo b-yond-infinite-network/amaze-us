@@ -43,7 +43,7 @@ class Cat(catID : Int, saverActor : ActorRef) extends Actor with Timers {
     * 2. Send message SaveMood to saver
     * */
   import Cat._
-  // Each 27 self-send ChangeMood message
+  // Each 27 second self-send ChangeMood message
   timers.startPeriodicTimer(TickKey, ChangeMood, 27.second)
 
   def receive = {
