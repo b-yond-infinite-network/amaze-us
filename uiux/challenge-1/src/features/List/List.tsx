@@ -14,7 +14,7 @@ const List: FunctionComponent<Props> = ({
   return (
     <>
       {initialItems.length > 0 && (
-        <ul className={styles.list}>
+        <ul className={styles.list} data-testid="List-list">
           {initialItems.map((item: Artist, i: number) => (
             <li
               key={item.artist.artist_id}
@@ -24,10 +24,7 @@ const List: FunctionComponent<Props> = ({
               <Link to={`/artist/${item.artist.artist_id}`}>
                 <Card
                   title={item.artist.artist_name}
-                  text={
-                    `Rating: ${(item.artist
-                      .artist_rating as any).toString()}` || ""
-                  }
+                  text={`Rating: ${item.artist.artist_rating as any}` || ""}
                 />
               </Link>
             </li>

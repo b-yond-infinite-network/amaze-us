@@ -1,16 +1,17 @@
 import React, { lazy, Suspense } from "react";
-import { Router } from "@reach/router";
+import { Router, RouteComponentProps } from "@reach/router";
+import Loader from "../shared/components/Loader";
 
 const HomePage = lazy(() => import("../pages/Home"));
+const NotFound: React.FC<RouteComponentProps> = () => <div>Not found</div>;
 
 const AppRouter = () => (
-  <div>
-    <Suspense fallback={<div>loading...</div>}>
-      <Router>
-        <HomePage path="/" />
-      </Router>
-    </Suspense>
-  </div>
+  <Suspense fallback={<Loader />}>
+    <Router>
+      <HomePage path="/" />
+      <NotFound default />
+    </Router>
+  </Suspense>
 );
 
 export default AppRouter;

@@ -28,7 +28,7 @@ const Home: React.FC<RouteComponentProps> = () => {
   };
 
   return (
-    <main>
+    <main data-testid="page-home">
       <h1>Karaoke needs words</h1>
       <Input value={value} onChange={onChange} placeholder="Type artist" />
       {!loading && results.length > 0 && (

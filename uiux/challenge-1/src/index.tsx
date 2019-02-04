@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import Home from "./pages/Home";
+import { Router } from "./router";
 
-ReactDOM.render(<Home />, document.getElementById("root"));
+ReactDOM.render(<Router />, document.getElementById("root"));
