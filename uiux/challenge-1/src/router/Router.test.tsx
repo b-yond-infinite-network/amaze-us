@@ -20,15 +20,21 @@ function renderWithRouter(
 }
 
 test("navigate to the Home page", async () => {
-  const {
-    container,
-    getByTestId,
-    history: { navigate }
-  } = renderWithRouter(<Router />);
+  const { getByTestId } = renderWithRouter(<Router />);
 
   const homePage = await waitForElement(() => getByTestId("page-home"));
 
   expect(homePage).toBeDefined();
+});
+
+test("navigate to the Artist page", async () => {
+  const { getByTestId } = renderWithRouter(<Router />, {
+    route: "/artist/1"
+  });
+
+  const page = await waitForElement(() => getByTestId("page-artist"));
+
+  expect(page).toBeDefined();
 });
 
 test("landing on a bad page", () => {
