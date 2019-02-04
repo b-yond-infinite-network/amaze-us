@@ -1,6 +1,6 @@
 import { RouteComponentProps } from "@reach/router";
 import React, { useEffect, useState } from "react";
-import List from "../features/List";
+import ArtistList from "../features/ArtistList";
 import { artistSearch } from "../shared/api/artist";
 import Input from "../shared/components/Input";
 import Loader from "../shared/components/Loader";
@@ -31,10 +31,12 @@ const Home: React.FC<RouteComponentProps> = () => {
     <main data-testid="page-home">
       <h1>Karaoke needs words</h1>
       <Input value={value} onChange={onChange} placeholder="Type artist" />
-      {!loading && results.length > 0 && (
-        <List items={results} initialized={debouncedValue !== ""} />
-      )}
+
       {loading && <Loader />}
+
+      {!loading && results.length > 0 && (
+        <ArtistList items={results} initialized={debouncedValue !== ""} />
+      )}
     </main>
   );
 };

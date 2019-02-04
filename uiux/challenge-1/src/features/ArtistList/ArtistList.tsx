@@ -1,43 +1,39 @@
 import { Link } from "@reach/router";
 import React, { FunctionComponent } from "react";
-import Card from "../../shared/components/Card";
-import Artist from "../../shared/types/artist";
-import styles from "./List.module.css";
 import Block from "../../shared/components/Block";
+import Card from "../../shared/components/Card";
+import List, { ListItem } from "../../shared/components/List";
+import Artist from "../../shared/types/artist";
 
 type Props = { items: Artist[]; initialized: boolean };
 
-const List: FunctionComponent<Props> = ({
+const ArtistList: FunctionComponent<Props> = ({
   items: initialItems,
   initialized
 }: Props) => {
   return (
     <>
       {initialItems.length > 0 && (
-        <ul className={styles.list} data-testid="List-list">
+        <List>
           {initialItems.map((item: Artist, i: number) => (
-            <li
-              key={item.artist.artist_id}
-              style={{ "--i": i } as any}
-              data-testid="List-listItem"
-            >
+            <ListItem key={item.artist.artist_id} style={{ "--i": i } as any}>
               <Link to={`/artist/${item.artist.artist_id}`}>
                 <Card
                   title={item.artist.artist_name}
-                  text={`Rating: ${item.artist.artist_rating as any}` || ""}
+                  text={`Rating: ${item.artist.artist_rating}` || ""}
                 />
               </Link>
-            </li>
+            </ListItem>
           ))}
-        </ul>
+        </List>
       )}
       {!initialItems.length && initialized && (
         <Block>
-          <p data-testid="List-notFound">Artist Not found</p>
+          <p data-testid="ArtistList-notFound">Artist Not found</p>
         </Block>
       )}
     </>
   );
 };
 
-export default List;
+export default ArtistList;
