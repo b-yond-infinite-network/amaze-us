@@ -6,12 +6,12 @@ import akka.actor.{ActorSystem, Props}
   *
   * @attribute system : actor system according to Akka Actors (https://doc.akka.io)
   */
-class Simulation {
+class Simulation(dataPath : String) {
   private val system = ActorSystem("simucat")
 
   def start(n : Int): Unit = {
     /* Create the saver */
-    val saver = system.actorOf(Props(new Saver()), s"saver")
+    val saver = system.actorOf(Props(new Saver(dataPath)), s"saver")
 
     for (i <- 1 to n) {
       val cat = system.actorOf(Props(new Cat(i, saver)), s"cat$i")

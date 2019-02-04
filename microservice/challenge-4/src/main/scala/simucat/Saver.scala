@@ -18,9 +18,8 @@ object Saver {
   * @attribute dataFile : the CSV file where the Saver will write the Cat moods
   * @attribute csvWriter : the CSV writer
   */
-class Saver extends Actor {
-  // TODO : replace hardcoded solution with config file
-  private val dataFile = new BufferedWriter(new FileWriter(s"D:\\ScalaProjects\\b-yond\\microservice\\challenge-4\\data\\moods_${System.currentTimeMillis()}.csv"))
+class Saver(dataFolder : String) extends Actor {
+  private val dataFile = new BufferedWriter(new FileWriter(s"$dataFolder\\moods_${System.currentTimeMillis()}.csv"))
   private val csvWriter = new CSVWriter(dataFile)
 
   /** Write the row (catID, datetime, mood, prevMood) into dataFile
