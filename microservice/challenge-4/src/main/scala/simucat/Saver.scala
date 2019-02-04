@@ -10,7 +10,7 @@ import au.com.bytecode.opencsv.CSVWriter
   * Define the event receivable by Saver actor
   */
 object Saver {
-  case class SaveMood(catID : String, datetime : String, mood : String)
+  case class SaveMood(catID : String, datetime : String, mood : String, prevMood : String)
 }
 
 /** The writer into CSV file
@@ -23,30 +23,29 @@ class Saver extends Actor {
   private val dataFile = new BufferedWriter(new FileWriter(s"D:\\ScalaProjects\\b-yond\\microservice\\challenge-4\\data\\moods_${System.currentTimeMillis()}.csv"))
   private val csvWriter = new CSVWriter(dataFile)
 
-  /** Write the row (catID, datetime, mood) into dataFile
+  /** Write the row (catID, datetime, mood, prevMood) into dataFile
     *
     * @param catID
     * @param datetime
     * @param mood
     */
-  def saveMoodCSV(catID : String, datetime : String, mood: String): Unit = {
+  def saveMoodCSV(catID : String, datetime : String, mood: String, prevMood : String): Unit = {
     val csvData = new ListBuffer[Array[String]]()
-    csvData += Array(catID, datetime, mood)
+    csvData += Array(catID, datetime, mood, prevMood)
     csvWriter.writeAll(csvData.toList)
   }
 
   import Saver._
   def receive = {
-    // When receiving ChangeMood, randomly select a new mood
-    case SaveMood(catID, datetime, mood) => {
-      saveMoodCSV(catID, datetime, mood)
+    case SaveMood(catID, datetime, mood, prevMood) => {
+      saveMoodCSV(catID, datetime, mood, prevMood)
     }
   }
 
   /* Add head of CSV file when creating the actor */
   override def preStart(): Unit = {
     val csvData = new ListBuffer[Array[String]]()
-    csvData += Array("catID", "datetime", "mood")
+    csvData += Array("catID", "datetime", "mood", "prev")
     csvWriter.writeAll(csvData.toList)
   }
 

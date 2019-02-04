@@ -49,8 +49,9 @@ class Cat(catID : Int, saverActor : ActorRef) extends Actor with Timers {
   def receive = {
     // When receiving ChangeMood, randomly select a new mood
     case ChangeMood => {
+      val prevMood = mood.sound
       mood = randMood()
-      saver ! Saver.SaveMood(id, System.currentTimeMillis().toString, mood.sound)
+      saver ! Saver.SaveMood(id, System.currentTimeMillis().toString, mood.sound, prevMood)
     }
   }
   /** ----------------------------------- */
