@@ -1,7 +1,10 @@
 .input {
-  border: 1px solid #999;
+  background: hsla(0, 0%, 100%, 0.95);
+  border: 1px solid #d8e4e7;
   box-shadow: 0 8px 22px 0 rgba(0, 0, 0, 0.05);
-  border-radius: 13px;
-  font-size: 1.1rem;
+  border-radius: 4px;
+  color: #808b96;
+  font-size: 1.5rem;
   padding: 1rem;
+  min-width: 50%;
 }

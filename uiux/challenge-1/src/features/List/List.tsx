@@ -22,7 +22,13 @@ const List: FunctionComponent<Props> = ({
               data-testid="List-listItem"
             >
               <Link to={`/artist/${item.artist.artist_id}`}>
-                <Card title={item.artist.artist_name} />
+                <Card
+                  title={item.artist.artist_name}
+                  text={
+                    `Rating: ${(item.artist
+                      .artist_rating as any).toString()}` || ""
+                  }
+                />
               </Link>
             </li>
           ))}

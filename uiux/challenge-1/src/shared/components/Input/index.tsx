@@ -16,7 +16,7 @@ const Input: React.FC<InputProps> = ({
   return (
     <input
       placeholder={placeholder}
-      type="text"
+      type="search"
       value={value}
       onChange={onChange}
       className={styles.input}
