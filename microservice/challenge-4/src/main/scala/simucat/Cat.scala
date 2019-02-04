@@ -40,6 +40,7 @@ class Cat(catID : Int, saverActor : ActorRef) extends Actor with Timers {
 
   /** Cat life definition
     * 1. New random mood every 27 seconds
+    * 2. Send message SaveMood to saver
     * */
   import Cat._
   // Each 27 self-send ChangeMood message
