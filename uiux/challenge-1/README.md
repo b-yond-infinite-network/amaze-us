@@ -1,44 +1,94 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Challenge 1 - Karaoke needs words
 
-## Available Scripts
+Solution for the coding challenge.
+
+## Tech Stack
+
+- [React v16.8.0-alpha.1 (hooks)](https://reactjs.org/)
+- [Reach Router](https://reach.tech/router)
+- [Create React App](https://facebook.github.io/create-react-app/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Jest (Testing framework)](https://jestjs.io/)
+- [react-testing-library (unit/integration tests)](https://github.com/kentcdodds/react-testing-library)
+- [cypress.io (e2e tests)](https://www.cypress.io/)
+
+## Build Process
 
 In the project directory, you can run:
+
+### `npm i`
+
+Installs project dependencies
 
 ### `npm start`
 
 Runs the app in the development mode.<br>
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
 ### `npm run build`
 
 Builds the app for production to the `build` folder.<br>
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+### `npm test`
+
+Launches the test runner in the interactive watch mode.
+
+### `npm run test:cov`
+
+Collects code coverage from unit tests.<br>
+See the section about [Coverage Reporting](https://facebook.github.io/create-react-app/docs/running-tests#coverage-reporting) for more information.
+
+### `npm test:e2e`
+
+Launches a cypress instance using Electron<br>
+After that, you will need to click the "Run all specs" button. This way, a new Chrome session is opened with the specs running into the browser.
+
+---
+
+## App Structure
+
+```bash
+|- src/
+|	|- features
+|	|	|- FeatureName
+|   |	|	|- FeatureName.tsx (code)
+|   |	|	|- FeatureName.module.css (css module)
+|   |	|	|- FeatureName.test.tsx (unit test)
+|	|- layouts
+|   |	|	|- App.tsx (main layout)
+|	|- pages
+|   |	|	|- Page1.tsx
+|   |	|	|- Page2.tsx
+|	|- router (App router)
+|	|- shared (common)
+|   |	|	|- api (API connectors)
+|   |	|	|- components (Reusable UI components)
+|   |	|	|- hooks (Custom hooks)
+|   |	|	|- types (Entities/types)
+|	|- index.css (Global CSS styles)
+|	|- index.tsx (entry point)
+|- cypress/ (E2E tests)
+|- package.json
+```
+
+The Web App is organized using the following structure/hierarchy:
+
+```
+Layout > Page > Feature(s) > Component(s)
+```
+
+- **Layout**: Web App layout (master layout)
+- **Page**: Template composed by one or multiple features and loaded using a Router.
+- **Feature**: Self-contained reusable complex building block. A feature is composed by N components.
+- **Component**: Self-contained reusable buiding block.
+
+---
+
+Juan Andrade @ 2019
+
+---
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

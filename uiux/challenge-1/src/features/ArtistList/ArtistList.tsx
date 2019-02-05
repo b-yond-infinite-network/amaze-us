@@ -16,7 +16,7 @@ const ArtistList: FunctionComponent<Props> = ({
       {initialItems.length > 0 && (
         <List>
           {initialItems.map((item: Artist, i: number) => (
-            <ListItem key={item.artist.artist_id} style={{ "--i": i } as any}>
+            <ListItem key={item.artist.artist_id} style={{ "--i": i }}>
               <Link to={`/artist/${item.artist.artist_id}`}>
                 <Card
                   title={item.artist.artist_name}

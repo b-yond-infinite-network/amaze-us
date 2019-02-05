@@ -16,7 +16,7 @@ const TrackList: FunctionComponent<Props> = ({
       {initialItems.length > 0 && (
         <List>
           {initialItems.map((item: Track, i: number) => (
-            <ListItem key={i} style={{ "--i": i } as any}>
+            <ListItem key={i} style={{ "--i": i }}>
               <Link to={`/track/${item.track.track_id}`}>
                 <Card title={item.track.track_name}>
                   <p>
