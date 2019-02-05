@@ -1,0 +1,118 @@
+﻿swagger: '2.0'
+info:
+  description: This API  manage custemers
+  version: 1.0.0
+  title: Customer API
+  contact: {}
+  license:
+    name: Apache 2.0
+    url: 'http://unlicense.org'
+basePath: /api
+tags:
+  - name: customers-api-controller
+    description: the Customer API
+paths:
+  '/customers':
+    get:
+      tags:
+        - Customer
+      summary: Get all customers
+      operationId: getAll
+      produces:
+        - application/json
+      parameters:
+
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/customer'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+  '/customers/{id}':
+    get:
+      tags:
+        - Customer
+      summary: Find a customer by ID
+      operationId: findById
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/customer'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+  '/customers/{id}/recommendations':
+    get:
+      tags:
+        - Recommendation
+      summary: Find customer's recents products recommendations (like Amazon do !)
+      operationId: findRecommendation
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/recommendation'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+
+definitions:
+  customer:
+    type: object
+    properties:
+      customerId:
+        type: string
+      fullname:
+        type: string
+      address:
+        type: string
+      phone:
+        type: string
+      stopEmail:
+        type: boolean
+      stopPhone:
+        type: boolean
+
+  recommendation:
+    type: object
+    properties:
+      customerId:
+        type: string
+      timestamp:
+        type: string
+      products:
+        type: array
+        items:
+          type: string

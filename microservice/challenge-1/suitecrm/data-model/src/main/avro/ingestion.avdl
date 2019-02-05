@@ -1,0 +1,31 @@
+@namespace("com.challenge.suitecrm.datamodel.ingester")
+protocol Ingestion {
+
+  import idl "utils.avdl";
+
+  record RawCustomer {
+    union{ null, string } customerId = null;
+    union{ null, string } fullName = null;
+    union{ null, string } address = null;
+    union{ null, string } phone = null;
+    union{ null, string } email = null;
+
+    //Contacts options
+    union{ null, boolean } stopEmail = null;
+    union{ null, boolean } stopPhone = null;
+  }
+
+  record RawProduct {
+    union{ null, string } productId = null;
+    union{ null, string } description = null;
+    union{ null, string } category = null;
+    union{ null, double } price = null;
+  }
+
+  record ProductRelationShip { // Relation between products
+    union{ null, string } productId = null;
+    union{ null, string } targetProductId = null;
+    union{ null, string} type = null;
+  }
+
+}

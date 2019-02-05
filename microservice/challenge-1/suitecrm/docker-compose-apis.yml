@@ -1,0 +1,21 @@
+version: '3.0'
+services:
+
+  customers-api:
+    image: suitecrm/customers-api
+    container_name: customers-api
+    hostname: customers-api
+    ports:
+      - 8180:8080
+
+  orders-api:
+    image: suitecrm/orders-api
+    container_name: orders-api
+    hostname: orders-api
+    ports:
+      - 8280:8080
+
+networks:
+  default:
+    external:
+      name: suitecrm_default

@@ -1,0 +1,38 @@
+{
+  "topic": {
+
+    "ingest_customers": {
+      "name": "customers-stream",
+      "policy": "delete"
+    },
+
+    "ingest_products": {
+      "name": "products-stream",
+      "policy": "delete"
+    },
+    "ingest_products_relations": {
+      "name": "products-relations-stream",
+      "policy": "delete"
+    },
+
+    "ingest_orders": {
+      "name": "orders-stream",
+      "policy": "delete"
+    },
+
+    "products_events": {
+      "name": "product-events",
+      "policy": "delete"
+    },
+
+    "store_products": {
+      "name": "table-product",
+      "policy": "compact"
+    },
+
+    "recommendation": {
+      "name": "recommendation",
+      "policy": "delete"
+    }
+  }
+}

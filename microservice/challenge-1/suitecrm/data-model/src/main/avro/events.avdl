@@ -1,0 +1,21 @@
+@namespace("com.challenge.suitecrm.datamodel.events")
+protocol Events {
+
+  import idl "ingestion.avdl";
+  import idl "utils.avdl";
+
+
+  enum ProductEventType {
+    product_changed, // add or update of product
+    product_linked // new relationship to others products (complementaries / substitues)
+  }
+
+
+  record ProductEvent {
+    union{ null, string } product_id = null;
+    union{ null, ProductEventType } eventType = null;
+    union{ null, com.challenge.suitecrm.datamodel.ingester.RawProduct } product = null;
+    union{ null, map<com.challenge.suitecrm.datamodel.ingester.ProductRelationShip> } links = null; // Map <target_product_id,ProductRelationShip>
+  }
+
+}

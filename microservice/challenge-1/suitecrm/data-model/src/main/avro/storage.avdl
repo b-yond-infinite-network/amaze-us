@@ -1,0 +1,39 @@
+@namespace("com.challenge.suitecrm.datamodel.storage")
+protocol Storage {
+
+  import idl "utils.avdl";
+
+  // ----- Poroducts -------------------------
+
+  record Link { // Relations with others products
+    union{ null, string } targeProductId = null;
+    union{ null, string } type = null;
+  }
+
+  record Product { // Sink to a Cassandra table
+    union{ null, string } productId = null;
+    union{ null, string } description = null;
+    union{ null, string } category = null;
+    union{ null, double } price = null;
+    union{ null, map<Link> } links = null;
+  }
+
+  // ------- Orders ---------------------------
+  record Order { // Sink to a Cassandra table
+    union{ null, string } customerId = null;
+    union{ null, string } orderId = null;
+    union{ null, string } productId = null;
+    union{ null, string } productDescription = null;
+    union{ null, string } productCategory = null;
+    union{ null, double } amount = null;
+  }
+
+
+  // ------- Recommendation ---------------------------
+  record Recommendation { // Sink to a Cassandra table
+    union{ null, string } customerId = null;
+    union{ null, string} timestamp = null;
+    union{ null, map<string> } products = null; // Map<productId, description>
+  }
+
+}

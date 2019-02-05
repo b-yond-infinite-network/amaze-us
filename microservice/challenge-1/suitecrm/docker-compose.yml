@@ -1,0 +1,30 @@
+version: '3.0'
+services:
+
+  ingester:
+    image: suitecrm/csv-ingester:latest
+    container_name: ingester
+    hostname: ingester
+    volumes:
+      - $PWD/csv-ingester/target/test-classes/datasets:/datasets
+    command:
+      -d /datasets
+
+  processing-customer:
+    image: suitecrm/kafka-processing:latest
+    container_name: processing-customer
+    hostname: processing-customer
+    command:
+      "customers"
+
+  processing-product:
+    image: suitecrm/kafka-processing:latest
+    container_name: processing-product
+    hostname: processing-product
+    command:
+      "products"
+
+networks:
+  default:
+    external:
+      name: suitecrm_default

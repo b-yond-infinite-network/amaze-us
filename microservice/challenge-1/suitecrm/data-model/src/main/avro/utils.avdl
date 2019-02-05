@@ -1,0 +1,27 @@
+@namespace("com.challenge.suitecrm.datamodel.utils")
+protocol Commons {
+
+    enum ProductRelationTypeEnum {
+        COMPLEMENTARY, SUBSTITUE
+    }
+
+
+    record KeyCustomer { // Kafka message key for a customer
+        union{ null, string} customerId = null;
+    }
+
+    record KeyProduct { // Kafka message key for a product
+        union{ null, string} productId = null;
+    }
+
+    record KeyOrder { // Kafka message key for an order
+        union{ null, string} customerId = null;
+        union{ null, string} orderId = null;
+    }
+
+    record KeyRecommendation { // Kafka message key for a recommendation
+        union{ null, string} customerId = null;
+        union{ null, string} timestamp = null;
+    }
+
+}

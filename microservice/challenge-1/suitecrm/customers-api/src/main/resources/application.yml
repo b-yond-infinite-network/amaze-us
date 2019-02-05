@@ -1,0 +1,14 @@
+
+server:
+  port: 8080
+  servlet:
+    context-path: /api
+
+cassandra:
+  contactpoints: @@CASSANDRA_CONTACT_POINTS@@
+  port: @@CASSANDRA_PORT@@
+  keyspace: suitecrm
+
+
+spring.jackson.serialization.WRITE_DATES_AS_TIMESTAMPS: false
+spring.jackson.default-property-inclusion: non_empty
