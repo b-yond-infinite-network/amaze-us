@@ -19,7 +19,7 @@ const Card: React.FC<CardProps> = ({
 
   return (
     <div className={styles.card}>
-      <Heading>{title}</Heading>
+      <Heading data-testid="Card-title">{title}</Heading>
       {text && <p>{text}</p>}
 
       {children}

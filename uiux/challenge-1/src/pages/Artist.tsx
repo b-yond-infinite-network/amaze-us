@@ -7,6 +7,7 @@ import Block from "../shared/components/Block";
 import Loader from "../shared/components/Loader";
 import Artist from "../shared/types/artist";
 import Track from "../shared/types/track";
+import SortableTrackList from "../features/SortableTrackList";
 
 type BaseProps = {
   id?: string;
@@ -49,10 +50,10 @@ const ArtistPage: FunctionComponent<Props> = ({
 
       {!loading && tracks.length > 0 && artist && (
         <Block variation="dark">
-          <h3>
-            Lyrics for top songs by <strong>{artist.artist.artist_name}</strong>
-          </h3>
-          <TrackList items={tracks} initialized={false} />
+          <SortableTrackList
+            artistName={artist.artist.artist_name}
+            tracks={tracks}
+          />
         </Block>
       )}
     </section>
