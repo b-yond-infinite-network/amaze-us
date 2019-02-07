@@ -5,6 +5,8 @@ services:
     image: suitecrm/csv-ingester:latest
     container_name: ingester
     hostname: ingester
+    environment:
+      - UID_USER=${ID}
     volumes:
       - $PWD/csv-ingester/target/test-classes/datasets:/datasets
     command:
@@ -14,6 +16,8 @@ services:
     image: suitecrm/kafka-processing:latest
     container_name: processing-customer
     hostname: processing-customer
+    environment:
+      - UID_USER=${ID}
     command:
       "customers"
 
@@ -21,6 +25,8 @@ services:
     image: suitecrm/kafka-processing:latest
     container_name: processing-product
     hostname: processing-product
+    environment:
+      - UID_USER=${ID}
     command:
       "products"
 

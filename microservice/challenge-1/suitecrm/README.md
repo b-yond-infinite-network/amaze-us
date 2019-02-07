@@ -49,7 +49,7 @@ Open your terminal and go to project basepath and run these steps:
    ``` 
    Check if the topics are created : http://localhost:3030/kafka-topics-ui/#/
 
-3) #### Create kafka connect Cassandra Sink instances****
+3) #### Create kafka connect Cassandra Sink instances
    
    ```
    curl -X POST -H "Content-Type: application/json" --data @cassandra-sink-customers.json http://localhost:8083/connectors
@@ -76,8 +76,23 @@ Open your terminal and go to project basepath and run these steps:
     * products
     * orders
     * recommendation : this table contain products suggestions to a customers (calculated by the kafka-processing app when orders's product have complementary relationship with others products)
+
+5) #### Instructions to connect to Cassandra and view tables 
+   
+   Cassandra is accessible on localhost:9042 (root/root).
+   
+   You can view cassandra tables by connecting to it using these methods:
+   
+   - **Configure an Intellij database connection**
     
-5) #### Run Rest APIs 
+      ![alt text](ConnectToCassandraUsingIntellij.png "title") 
+   
+   - **Using Datastax DevCenter** 
+  
+       Download the Datastax OpsCenter [here](https://academy.datastax.com/quick-downloads)
+    
+    
+6) #### Run Rest APIs 
    
    ```
    docker-compose -f docker-compose-apis.yml  up --force-recreate
