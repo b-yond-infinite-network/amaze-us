@@ -1,0 +1,13 @@
+version: '3.6'
+
+services:
+  postgres:
+    container_name: postgres
+    image: postgres:11.1
+    environment:
+      postgres.setup.default-db-url: "jdbc:postgresql://localhost:5432/cats"
+      POSTGRES_DB: cats
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
+    ports:
+      - "5432:5432"

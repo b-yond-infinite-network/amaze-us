@@ -118,4 +118,5 @@ typings/
 *.out
 *.gz
 
+target/
 results
