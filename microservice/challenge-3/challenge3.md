@@ -9,6 +9,7 @@
 - [ ] Add `.editorconfig` in each project to avoid hard merge.
 - [ ] Add the **right** `tool` in each projet.
 - [ ] Add `Dockerfile` to create a image.
+    - [ ] Add labels http://label-schema.org/rc1/
 - [ ] Add a `docker-compose.yml` in each project and in the global project.
 - [ ] Add `a automatic build (travis, jenkins, ...)` in each project.
 - [ ] Add `a quality tool (coveralls)` in each project.
