@@ -16,5 +16,6 @@
 - [ ] Add `unit test`.
 - [ ] Add `integration test`. 
 - [ ] Add `documentation` in each project and the orchestractor.
+    - [ ] Documentation on code.
     - [ ] How do we build the application?
     - [ ] How do we use the application (https://www.openapis.org/)?
