@@ -1,4 +1,15 @@
 # This is the Booster API
+
+## Requirements
+
+### tools
+
+- go, it uses go modules to manage the dependencies
+- docker
+- docker-compose
+
+## How do we run the application
+
 You fill its tanks with Fuel...seem legit ! :)
 
 Before running API server, you should set the database config with yours or the rocket's...
