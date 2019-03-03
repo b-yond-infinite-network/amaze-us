@@ -20,3 +20,5 @@
     - [ ] Documentation on code.
     - [ ] How do we build the application?
     - [ ] How do we use the application (https://www.openapis.org/)?
+- [ ] Add metrics for each application
+- [ ] Add logs for each application
