@@ -8,7 +8,7 @@ WORKDIR /src
 COPY . .
 
 #Build the application
-RUN CGO_ENABLED=0 go build -installsuffix 'static' -o ./booster .
+RUN make build
 
 FROM scratch
 
@@ -22,6 +22,6 @@ LABEL "maintainer"="stephane.jeandeaux@gmail.com" \
       "org.label-schema.applications.booster.version"=${VERSION} \
       "org.label-schema.build-date"=${BUILD_DATE}
 
-COPY --from=build /src/booster /booster
+COPY --from=build /src/target/booster /booster
 EXPOSE 3000
 ENTRYPOINT ["/booster"] 

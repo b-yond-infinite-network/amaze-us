@@ -51,7 +51,7 @@ func TestDBConfig_GetURI(t *testing.T) {
 	}{
 		{
 			name: "build URI",
-			want: "guest:Guest0000!@tcp(localhost:3306)/todoapp?charset=utf8&parseTime=True",
+			want: "guest:Guest0000!@tcp(db:3306)/todoapp?charset=utf8&parseTime=True",
 			fields: fields{
 				Dialect:  "mysql",
 				Protocol: "tcp",

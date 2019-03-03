@@ -20,6 +20,10 @@ tools: ## install tools to develop
 	go get golang.org/x/oauth2
 	go get github.com/stretchr/testify/assert
 
+.PHONY: build
+build: 	##Build the binaru
+	CGO_ENABLED=0 go build -installsuffix 'static' -o ./target/booster .
+
 .PHONY: fmt
 fmt: ## go fmt on packages
 	go fmt $(PKGGOFILES)
@@ -41,3 +45,7 @@ docker-compose-build: ## builds the application image with docker-compose.
 
 docker-compose-up: ## spawns the containers.
 	VERSION=$(VERSION) BUILD_DATE=$(BUILD_DATE) docker-compose up --build --detach
+
+clean: ## clean the target folder
+	@rm -fr target 
+	@mkdir target

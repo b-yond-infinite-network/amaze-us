@@ -9,6 +9,10 @@
 - docker
 - docker-compose
 
+## How do we develop
+
+It uses the go module.
+
 ## How do we run the application
 
 You fill its tanks with Fuel...seem legit ! :)
