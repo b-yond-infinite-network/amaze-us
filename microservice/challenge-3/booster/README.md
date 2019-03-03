@@ -4,6 +4,7 @@
 
 ### tools
 
+- make
 - go, it uses go modules to manage the dependencies
 - docker
 - docker-compose
