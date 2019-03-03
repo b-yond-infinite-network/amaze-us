@@ -1,7 +1,6 @@
 package app
 
 import (
-	"fmt"
 	"log"
 	"net/http"
 
@@ -20,15 +19,9 @@ type App struct {
 
 // Initialize initializes the app with predefined configuration
 func (a *App) Initialize(config *config.Config) {
-	dbURI := fmt.Sprintf("%s:%s@/%s?charset=%s&parseTime=True",
-		config.DB.Username,
-		config.DB.Password,
-		config.DB.Name,
-		config.DB.Charset)
-
-	db, err := gorm.Open(config.DB.Dialect, dbURI)
+	db, err := gorm.Open(config.DB.Dialect, config.DB.GetURI())
 	if err != nil {
-		log.Fatal("Could not connect database")
+		log.Fatal("Could not connect database", err)
 	}
 
 	a.DB = model.DBMigrate(db)

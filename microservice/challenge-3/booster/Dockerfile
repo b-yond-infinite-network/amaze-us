@@ -1,10 +1,8 @@
-#It uses the multistaging to create image booster
+#It uses the multistaging to create a booster image.
 FROM golang:1.12.0-stretch as build
 
-#go in src, it uses go module to manage dependencies
+#get source
 WORKDIR /src
-COPY ./go.mod ./go.sum ./
-RUN go mod download
 
 #copy the source
 COPY . .
@@ -13,6 +11,9 @@ COPY . .
 RUN CGO_ENABLED=0 go build -installsuffix 'static' -o ./booster .
 
 FROM scratch
+
+ARG VERSION=undefined
+ARG BUILD_DATE=undefined
 
 #http://label-schema.org/rc1/
 LABEL "maintainer"="stephane.jeandeaux@gmail.com" \
@@ -23,4 +24,4 @@ LABEL "maintainer"="stephane.jeandeaux@gmail.com" \
 
 COPY --from=build /src/booster /booster
 EXPOSE 3000
-ENTRYPOINT ["./booster"] 
+ENTRYPOINT ["/booster"] 

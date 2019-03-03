@@ -7,7 +7,7 @@ import (
 
 	"github.com/gorilla/mux"
 	"github.com/jinzhu/gorm"
-	"app/model"
+	"github.com/mingrammer/go-todo-rest-api-example/app/model"
 )
 
 func GetAllFuelParts(db *gorm.DB, w http.ResponseWriter, r *http.Request) {

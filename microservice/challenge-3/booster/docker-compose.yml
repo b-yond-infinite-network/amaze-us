@@ -1,0 +1,32 @@
+version: '3.7'
+services:
+  db:
+    hostname: db
+    image: mysql:8.0.15
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: strongpassword
+      MYSQL_DATABASE: todoapp
+      MYSQL_USER: guest
+      MYSQL_PASSWORD: "Guest0000!"
+    ports:
+      - "3306"
+    #https://github.com/docker-library/mysql/issues/422
+    security_opt:
+      - seccomp:unconfined
+      
+  booster:
+    hostname: booster
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        VERSION: ${VERSION}
+        BUILD_DATE: ${BUILD_DATE}
+    ports:
+       - "3000"
+    restart: always
+    depends_on:
+       - db
+    links:
+       - db:db
