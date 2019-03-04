@@ -1,0 +1,29 @@
+version: '3.7'
+services:
+  cargodb:
+    hostname: cargodb
+    image: mongo
+    restart: always
+    ports:
+       - "27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+      MONGO_INITDB_DATABASE: cargo
+
+  cargodenuit:
+    #https://www.youtube.com/watch?v=e9c1ya90N2M
+    hostname: cargodenuit
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        VERSION: ${VERSION}
+        BUILD_DATE: ${BUILD_DATE}
+    ports:
+       - "8080:8080"
+    restart: always
+    depends_on:
+       - cargodb
+    links:
+       - cargodb:db
