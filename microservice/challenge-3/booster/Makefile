@@ -1,4 +1,3 @@
-DOCKER_IMAGE=booster
 VERSION=1.0.0
 BUILD_DATE=$(shell date +%Y-%m-%dT%H:%M:%S%z)
 
