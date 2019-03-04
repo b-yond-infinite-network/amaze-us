@@ -20,7 +20,15 @@ app.use(bodyParser.json({ type: 'application/vnd.api+json' })); // parse applica
 app.use(methodOverride());
 
 // routes ======================================================================
+var swaggerUi = require('swagger-ui-express'),
+    swaggerDocument = require('./app/swagger.json');
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
 require('./app/routes.js')(app);
+
+
+
 
 // listen (start app with node server.js) ======================================
 app.listen(port);

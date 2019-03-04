@@ -1,0 +1,127 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "version": "1.0.0",
+      "title": "Yet Another Node.js Blogg Application API",
+      "description": "Yet Another Node.js Blogg Application API",
+      "license": {
+        "name": "MIT",
+        "url": "https://opensource.org/licenses/MIT"
+      }
+    },
+    "host": "localhost:8080",
+    "basePath": "/api",
+    "tags": [
+      {
+        "name": "Cargos",
+        "description": "API for cargo in the system"
+      }
+    ],
+    "schemes": [
+      "http", "https"
+    ],
+    "consumes": [
+      "application/json"
+    ],
+    "produces": [
+      "application/json"
+    ],
+    "paths": {
+      "/cargo": {
+        "post": {
+          "tags": [
+            "cargo"
+          ],
+          "description": "Create new cargo",
+          "parameters": [
+            {
+              "name": "cargo",
+              "in": "body",
+              "description": "Cargo that we want to create",
+              "schema": {
+                "$ref": "#/definitions/Cargo"
+              }
+            }
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "description": "New cargo is created",
+              "schema": {
+                "$ref": "#/definitions/Cargo"
+              }
+            }
+          }
+        },
+        "get": {
+          "tags": [
+            "Cargos"
+          ],
+          "summary": "Get all cargos in system",
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/Cargos"
+              }
+            }
+          }
+        }
+      },
+      "/cargo/{cargoId}": {
+        "parameters": [
+            {
+              "name": "cargoId",
+              "in": "path",
+              "required": true,
+              "description": "ID of cargo that we want to find",
+              "type": "string"
+            }
+          ],
+        "delete": {
+          "summary": "Delete cargo with given ID",
+          "tags": [
+            "Cargos"
+          ],
+          "responses": {
+            "200": {
+              "description": "Cargo is deleted",
+              "schema": {
+                "$ref": "#/definitions/Cargo"
+              }
+            }
+          }
+        }
+      }
+    },
+    "definitions": {
+      "Cargo": {
+        "required": [
+          "text",
+          "_id"
+        ], 
+        "properties": {
+          "_id": {
+            "type": "string",
+            "uniqueItems": true
+          },
+          "text": {
+            "type": "string",
+            "uniqueItems": true
+          },
+          "loaded": {
+            "type": "boolean"
+          },
+          "__v": {
+            "type": "integer"
+          }
+        }
+      },
+      "Cargos": {
+        "type": "array",
+        "$ref": "#/definitions/Cargo"
+      }
+    }
+  }

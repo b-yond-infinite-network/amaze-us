@@ -1,0 +1,5 @@
+version: '3.7'
+services:
+  cargodenuit:
+    ports:
+       - "8080:8080"
