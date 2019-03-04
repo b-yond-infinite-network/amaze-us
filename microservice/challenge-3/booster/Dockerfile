@@ -1,5 +1,5 @@
 #It uses the multistaging to create a booster image.
-FROM golang:1.12.0-stretch as build
+FROM golang:1.12.0-stretch as base
 
 #get source
 WORKDIR /src
@@ -7,14 +7,19 @@ WORKDIR /src
 #copy the source
 COPY . .
 
-RUN make tools 
+RUN make dependencies 
 
+## test
+FROM base AS test
+
+RUN make tools 
 RUN make test-coverage
 
 #Build the application
+FROM base AS build
 RUN make build
 
-FROM scratch
+FROM scratch AS release
 
 ARG VERSION=undefined
 ARG BUILD_DATE=undefined

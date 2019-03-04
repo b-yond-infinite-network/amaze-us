@@ -20,6 +20,10 @@ tools: ## install tools to develop
 	go get golang.org/x/oauth2
 	go get github.com/stretchr/testify/assert
 
+.PHONY: dependencies
+dependencies: 	##Build the binaru
+	go mod download
+
 .PHONY: build
 build: 	##Build the binaru
 	CGO_ENABLED=0 go build -installsuffix 'static' -o ./target/booster .
