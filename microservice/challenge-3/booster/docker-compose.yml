@@ -23,6 +23,7 @@ services:
       args:
         VERSION: ${VERSION}
         BUILD_DATE: ${BUILD_DATE}
+      target: release
     ports:
        - "3000"
     restart: always
