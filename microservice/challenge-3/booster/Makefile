@@ -50,5 +50,5 @@ clean: ## clean the target folder
 	@rm -fr target 
 	@mkdir target
 
-it-test: ## spawns the containers.
+it-test: ## run integration test
 	VERSION=$(VERSION) BUILD_DATE=$(BUILD_DATE) docker-compose -f docker-compose.yml -f docker-compose-integration.yml run postman
