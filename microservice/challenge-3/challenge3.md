@@ -2,6 +2,16 @@
 
 > The orchestrator used in this project is `docker-compose` in first step.
 
+## Requirements
+
+- [ ] make
+- [ ] docker
+- [ ] docker-compose
+
+## Architecture
+
+![Architecture](./.misc/architecture.png)
+
 ## Issues (TODO order by priority)
 
 - [ ] Discuss about monorepo or multirepo. Split the projects in four repositories booster, cargo, stage2 and the orchestrator. 
