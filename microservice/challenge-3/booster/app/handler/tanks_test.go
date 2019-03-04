@@ -1,7 +1,7 @@
 package handler_test
 
 import (
-	"io/ioutil"
+	"encoding/json"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -14,15 +14,14 @@ import (
 	_ "github.com/jinzhu/gorm/dialects/sqlite"
 )
 
-//dbGorm generate a database
-func dbGorm(t *testing.T, path string, tanks ...model.Tank) *gorm.DB {
+func dbGorm(t *testing.T, path string, tanks ...*model.Tank) *gorm.DB {
 	db, err := gorm.Open("sqlite3", path)
 	if err != nil {
 		t.Fatal(err)
 	}
-	model.DBMigrate(db)
+	db = db.AutoMigrate(model.Tank{})
 	for _, tank := range tanks {
-		db.Save(tank)
+		db = db.Save(tank)
 	}
 	return db
 }
@@ -34,7 +33,7 @@ func TestGetAllTanks(t *testing.T) {
 		w                   *httptest.ResponseRecorder
 		r                   *http.Request
 		expectedStatus      int
-		expectedBody        string
+		expectedSize        int
 		expectedContentType string
 	}
 	tests := []struct {
@@ -43,22 +42,22 @@ func TestGetAllTanks(t *testing.T) {
 	}{
 		{name: "OK - empty list",
 			args: args{
-				db:                  dbGorm(t, "/tmp/empty-list-tanks.db"),
+				db:                  dbGorm(t, "/tmp/tanks-empty-list.db"),
 				w:                   httptest.NewRecorder(),
 				r:                   httptest.NewRequest("GET", "http://example.com/GetAllTanks", nil),
 				expectedStatus:      200,
-				expectedBody:        "[]",
+				expectedSize:        0,
 				expectedContentType: "application/json",
 			},
 		},
 
 		{name: "OK - list",
 			args: args{
-				db:                  dbGorm(t, "/tmp/list-tanks.db", model.Tank{}),
+				db:                  dbGorm(t, "/tmp/tanks-list.db", &model.Tank{Title: "title"}),
 				w:                   httptest.NewRecorder(),
 				r:                   httptest.NewRequest("GET", "http://example.com/GetAllTanks", nil),
 				expectedStatus:      200,
-				expectedBody:        "[]",
+				expectedSize:        1,
 				expectedContentType: "application/json",
 			},
 		},
@@ -66,12 +65,15 @@ func TestGetAllTanks(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			handler.GetAllTanks(tt.args.db, tt.args.w, tt.args.r)
+			defer tt.args.db.Close()
 			resp := tt.args.w.Result()
-			body, _ := ioutil.ReadAll(resp.Body)
 			assert.EqualValues(t, tt.args.expectedStatus, resp.StatusCode)
 			assert.EqualValues(t, tt.args.expectedContentType, resp.Header.Get("Content-Type"))
+			decoder := json.NewDecoder(resp.Body)
+			var actualTanks []interface{}
+			decoder.Decode(&actualTanks)
 			//TODO better test for json
-			assert.EqualValues(t, tt.args.expectedBody, string(body))
+			assert.EqualValues(t, tt.args.expectedSize, len(actualTanks))
 		})
 	}
 }
