@@ -1,0 +1,10 @@
+version: '3.7'
+services:
+  booster:
+    build:
+      context: ./booster
+      dockerfile: Dockerfile
+  cargodenuit:
+    build:
+      context: ./cargo
+      dockerfile: Dockerfile

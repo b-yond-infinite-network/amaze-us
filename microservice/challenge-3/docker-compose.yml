@@ -1,0 +1,10 @@
+version: '3.7'
+services:
+  haproxy:
+     build: "haproxy"
+     ports:
+      - "80:80"
+      - "8666:8666"
+     links:
+      - "booster:booster"
+      - "cargodenuit:cargo"

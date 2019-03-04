@@ -11,7 +11,7 @@ services:
     #https://www.youtube.com/watch?v=e9c1ya90N2M
     hostname: cargodenuit
     build:
-      context: .
+      context: ./
       dockerfile: Dockerfile
       args:
         VERSION: ${VERSION}
