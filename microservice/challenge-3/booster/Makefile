@@ -36,8 +36,8 @@ vet: ## go vet on packages
 lint: ## go vet on packages
 	golint -set_exit_status=true $(PKGGOFILES)
 
-.PHONY: test-it-test-coverage
-test-it-test-coverage: clean fmt vet ## for jenkins TODO include lint
+.PHONY: test-coverage
+test-coverage: clean fmt vet ## for jenkins TODO include lint
 	gocov test $(PKGGOFILES) -cpu=2 -p=2 -v $(LDFLAGS) | gocov-xml > ./target/coverage-test-it-test.xml
 
 docker-compose-build: ## builds the application image with docker-compose.
@@ -49,3 +49,6 @@ docker-compose-up: ## spawns the containers.
 clean: ## clean the target folder
 	@rm -fr target 
 	@mkdir target
+
+it-test: ## spawns the containers.
+	VERSION=$(VERSION) BUILD_DATE=$(BUILD_DATE) docker-compose -f docker-compose.yml -f docker-compose-integration.yml run postman

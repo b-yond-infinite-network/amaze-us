@@ -9,7 +9,7 @@ COPY . .
 
 RUN make tools 
 
-RUN make test-it-test-coverage
+RUN make test-coverage
 
 #Build the application
 RUN make build
