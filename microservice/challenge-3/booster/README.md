@@ -17,6 +17,7 @@ You should install some go tools:
 
 ```bash
 make tools
+make help
 ```
 
 ## How do we run the application
