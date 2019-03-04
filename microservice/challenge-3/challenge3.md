@@ -8,6 +8,12 @@
 - [ ] docker
 - [ ] docker-compose
 
+## How to start
+
+```bash
+make help
+```
+
 ## Architecture
 
 ![Architecture](./.misc/architecture.png)

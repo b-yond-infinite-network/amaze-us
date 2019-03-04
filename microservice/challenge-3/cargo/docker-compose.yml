@@ -16,6 +16,7 @@ services:
       args:
         VERSION: ${VERSION}
         BUILD_DATE: ${BUILD_DATE}
+      target: release
     ports:
        - "8080"
     restart: always
