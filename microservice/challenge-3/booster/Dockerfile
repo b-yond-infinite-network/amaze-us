@@ -7,6 +7,10 @@ WORKDIR /src
 #copy the source
 COPY . .
 
+RUN make tools 
+
+RUN make test-it-test-coverage
+
 #Build the application
 RUN make build
 

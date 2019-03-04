@@ -13,7 +13,7 @@ help: ## prints help.
 .PHONY: tools
 tools: ## install tools to develop
 	go get -u github.com/golang/lint/golint
-	go get github.com/axw/gocov/...
+	go get github.com/axw/gocov/gocov
 	go get github.com/AlekSi/gocov-xml
 	go get github.com/axw/gocov/gocov
 	go get github.com/mattn/goveralls
@@ -37,7 +37,7 @@ lint: ## go vet on packages
 	golint -set_exit_status=true $(PKGGOFILES)
 
 .PHONY: test-it-test-coverage
-test-it-test-coverage: clean fmt vet ## for jenkins
+test-it-test-coverage: clean fmt vet ## for jenkins TODO include lint
 	gocov test $(PKGGOFILES) -cpu=2 -p=2 -v $(LDFLAGS) | gocov-xml > ./target/coverage-test-it-test.xml
 
 docker-compose-build: ## builds the application image with docker-compose.

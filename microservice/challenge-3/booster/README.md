@@ -13,6 +13,12 @@
 
 It uses the go module.
 
+You should install some go tools:
+
+```bash
+make tools
+```
+
 ## How do we run the application
 
 You fill its tanks with Fuel...seem legit ! :)
