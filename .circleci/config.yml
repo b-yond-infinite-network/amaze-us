@@ -21,9 +21,9 @@ jobs:
               sleep 5 #TODO ahahah find a better way
               make it-test
               make ui-test
-           - run:
 
-      - name: STAGE2 - spawns the container and test
+      - run:
+          - name: STAGE2 - spawns the container and test
           - command: |
               cd microservice/challenge-3/stage2/
               make test
