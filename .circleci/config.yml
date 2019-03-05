@@ -3,6 +3,7 @@ jobs:
   build:
     machine: true
     steps: # TODO we should see explicity the test, integration, ui test results 
+      - checkout
       - run: 
           - name: BOOSTER - spawns the container and test
           - command: |
