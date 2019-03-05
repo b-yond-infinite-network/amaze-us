@@ -6,7 +6,9 @@ services:
     restart: always
     ports:
        - "27017"
-
+    networks:
+       - networks_cargo
+       
   cargodenuit:
     #https://www.youtube.com/watch?v=e9c1ya90N2M
     hostname: cargodenuit
@@ -24,3 +26,8 @@ services:
        - cargodb
     links:
        - cargodb:db
+    networks:
+       - networks_cargo
+
+networks:
+  networks_cargo:

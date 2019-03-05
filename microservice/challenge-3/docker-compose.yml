@@ -8,3 +8,13 @@ services:
      links:
       - "booster:booster"
       - "cargodenuit:cargo"
+     networks:
+      - networks_challenge3
+  booster:
+    networks:
+      - networks_challenge3
+  cargodenuit:
+    networks:
+      - networks_challenge3
+networks:
+  networks_challenge3:

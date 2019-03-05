@@ -12,7 +12,12 @@
 
 ```bash
 make help
+make up-dev
+#TODO find a better way vi /etc/hosts
+#127.0.0.1  cargo.localhost booster.localhost
+#open your browser on cargo.localhost or booster.localhost
 ```
+
 
 ## Architecture
 
@@ -27,14 +32,16 @@ make help
 - [ ] Add `Dockerfile` to create a image.
     - [ ] Add labels http://label-schema.org/rc1/
 - [ ] Add a `docker-compose.yml` in each project and in the global project.
-- [ ] Add `a automatic build (travis, jenkins, ...)` in each project.
+- [ ] Add `a automatic build (travis, jenkins, circleci,...)` in each project.
 - [ ] Add `a quality tool (coveralls)` in each project.
 - [ ] Refactoring to help to test.
-- [ ] Add `unit test`.
-- [ ] Add `integration test`. 
+    - [ ] Add `unit test`.
+    - [ ] Add `integration test`. 
+    - [ ] Add `UI test` (casperjs). 
 - [ ] Add `documentation` in each project and the orchestractor.
     - [ ] Documentation on code.
     - [ ] How do we build the application?
     - [ ] How do we use the application (https://www.openapis.org/)?
 - [ ] Add metrics for each application
+- [ ] Add healthcheck for each application
 - [ ] Add logs for each application
