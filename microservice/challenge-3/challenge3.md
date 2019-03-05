@@ -10,7 +10,7 @@
 - [ ] docker
 - [ ] docker-compose
 
-## How to start
+## How to play with it
 
 ```bash
 make help
@@ -19,6 +19,10 @@ make up-dev
 #TODO find a better way to manage hosts
 #open your browser on cargo.localhost or booster.localhost
 ```
+
+### Integration test
+
+Integration test are based on a postname collection defined [here](https://www.getpostman.com/collections/cc2dae61b13448b14313).
 
 
 ## Architecture

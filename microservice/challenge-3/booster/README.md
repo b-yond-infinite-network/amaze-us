@@ -18,6 +18,10 @@ make tools
 make help
 ```
 
+### Integration test
+
+Integration test are based on a postname collection defined [here](https://www.getpostman.com/collections/cc2dae61b13448b14313).
+
 ## How do we run the application
 
 You fill its tanks with Fuel...seem legit ! :)
