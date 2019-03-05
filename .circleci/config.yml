@@ -1,6 +1,7 @@
 version: 2
 jobs:
   build:
+    machine: true
     steps: # TODO we should see explicity the test, integration, ui test results 
       - setup_remote_docker
       - run:
@@ -11,13 +12,20 @@ jobs:
             sudo mv ~/docker-compose /usr/local/bin/docker-compose
       - checkout
       - run: 
-          name: BOOSTER - spawns the container and test
+          name: BOOSTER - spawns the container
           command: |
               cd microservice/challenge-3/booster/
               make docker-compose-up #TODO refactoring to show explicitly the test and the result
+          background: true 
+      
+      - run: 
+          name: BOOSTER -test
+          command: |
+              cd microservice/challenge-3/booster/
               sleep 5 #TODO ahahah find a better way
-              make test
               make it-test
+              make ui-test  
+              docker ps -qa | xargs docker rm -f
 
       - run:
           name: CARGO - spawns the container and test
