@@ -21,7 +21,7 @@ tools: ## install tools to develop
 
 .PHONY: dependencies
 dependencies: ##Download the dependencies
-	echo go mod download
+	echo go mod download fix circleci
 
 .PHONY: build
 build: 	##Build the binary

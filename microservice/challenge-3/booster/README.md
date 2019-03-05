@@ -5,13 +5,11 @@
 ### tools
 
 - make
-- go, it uses go modules to manage the dependencies
+- go
 - docker
 - docker-compose
 
-## How do we develop
-
-It uses the go module.
+## How do we play with
 
 You should install some go tools:
 
