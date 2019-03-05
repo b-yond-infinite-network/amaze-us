@@ -20,11 +20,11 @@ tools: ## install tools to develop
 	go get github.com/stretchr/testify/assert
 
 .PHONY: dependencies
-dependencies: 	##Build the binaru
-	go mod download
+dependencies: ##Download the dependencies
+	echo go mod download
 
 .PHONY: build
-build: 	##Build the binaru
+build: 	##Build the binary
 	CGO_ENABLED=0 go build -installsuffix 'static' -o ./target/booster .
 
 .PHONY: fmt
@@ -47,7 +47,7 @@ docker-compose-build: ## builds the application image with docker-compose.
 	docker-compose build $(BUILD_ARGS)
 
 docker-compose-up: ## spawns the containers.
-	docker-compose up --build --detach
+	VERSION=$(VERSION) BUILD_DATE=$(BUILD_DATE) docker-compose up --build --detach
 
 clean: ## clean the target folder
 	@rm -fr target 
@@ -57,4 +57,4 @@ test: ## TODO run unit test
 	echo include in build docker, we ought to have a explicite phase 
 
 it-test: ## run integration test
-	docker-compose -f docker-compose.yml -f docker-compose-integration.yml run postman
+	VERSION=$(VERSION) BUILD_DATE=$(BUILD_DATE) docker-compose -f docker-compose.yml -f docker-compose-integration.yml run postman

@@ -11,7 +11,7 @@ docker-compose-build: ## builds the application image with docker-compose.
 	docker-compose build $(BUILD_ARGS)
 
 docker-compose-up: ## spawns the containers.
-	docker-compose -f docker-compose.yml -f docker-compose-dev.yml  up --build --detach
+	VERSION=$(VERSION) BUILD_DATE=$(BUILD_DATE) docker-compose -f docker-compose.yml -f docker-compose-dev.yml  up --build --detach
 
 test: ## TODO run unit test
 	echo test
