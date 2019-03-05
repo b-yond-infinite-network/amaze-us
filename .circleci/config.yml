@@ -1,7 +1,8 @@
 version: 2
 jobs:
   build:
-    machine: true
+    docker:
+      - image: circleci/buildpack-deps:latest
     steps: # TODO we should see explicity the test, integration, ui test results 
       - setup_remote_docker
       - run:
