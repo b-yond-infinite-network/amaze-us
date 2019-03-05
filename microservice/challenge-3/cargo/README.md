@@ -14,7 +14,7 @@ You will need a mongoDB instance though...or something with a moose.
 - docker
 - docker-compose
 
-## How do we play with
+## How do we play with it
 
 You should start with:
 

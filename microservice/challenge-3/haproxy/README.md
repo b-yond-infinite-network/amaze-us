@@ -2,7 +2,9 @@
 
 ## Configuration
 
-The configuration contains the statistics page. 
-The reverse proxy on two backends:
-    * cargo:8080 
-    * booster:3000 
+> The configuration contains the statistics page. 
+
+> The reverse proxy on the two backends:
+
+* cargo:8080 
+* booster:3000 

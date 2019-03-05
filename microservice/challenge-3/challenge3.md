@@ -1,6 +1,8 @@
 # Challenge 3
 
-> The orchestrator used in this project is `docker-compose` in first step.
+[![CircleCI](https://circleci.com/gh/sjeandeaux/amaze-us/tree/feature%2Fstephane-jeandeaux-challenge-3.svg?style=svg)](https://circleci.com/gh/sjeandeaux/amaze-us/tree/feature%2Fstephane-jeandeaux-challenge-3)
+
+> The orchestrator used in this project is `docker-compose` for now.
 
 ## Requirements
 
@@ -13,8 +15,8 @@
 ```bash
 make help
 make up-dev
-#TODO find a better way vi /etc/hosts
-#127.0.0.1  cargo.localhost booster.localhost
+#Edit /etc/hosts and add '127.0.0.1  cargo.localhost booster.localhost'
+#TODO find a better way to manage hosts
 #open your browser on cargo.localhost or booster.localhost
 ```
 
@@ -28,13 +30,13 @@ make up-dev
 - [ ] Discuss about monorepo or multirepo. Split the projects in four repositories booster, cargo, stage2 and the orchestrator. 
 - [ ] Add `.gitignore` in each project to avoid push unnecessary files.
 - [ ] Add `.editorconfig` in each project to avoid hard merge.
-- [ ] Add the **right** `tool` in each projet.
-- [ ] Add `Dockerfile` to create a image.
+- [ ] Add the **right** `buidl tool`in each projet.
+- [ ] Add `Dockerfile` to create an image in each projet.
     - [ ] Add labels http://label-schema.org/rc1/
 - [ ] Add a `docker-compose.yml` in each project and in the global project.
-- [ ] Add `a automatic build (travis, jenkins, circleci,...)` in each project.
-- [ ] Add `a quality tool (coveralls)` in each project.
-- [ ] Refactoring to help to test.
+- [ ] Add `an automatic build (travis, jenkins, circleci,...)` in each project.
+- [ ] Add `a quality tool (coveralls, sonar)` in each project.
+- [ ] Refactoring in order to ease testing.
     - [ ] Add `unit test`.
     - [ ] Add `integration test`. 
     - [ ] Add `UI test` (casperjs). 

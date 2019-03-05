@@ -9,7 +9,7 @@
 - docker
 - docker-compose
 
-## How do we play with
+## How do we play with it
 
 You should start with:
 
