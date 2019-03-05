@@ -47,7 +47,7 @@ docker-compose-build: ## builds the application image with docker-compose.
 	docker-compose build $(BUILD_ARGS)
 
 docker-compose-up: ## spawns the containers.
-	VERSION=$(VERSION) BUILD_DATE=$(BUILD_DATE) docker-compose up --build --detach
+	docker-compose up --build --detach
 
 clean: ## clean the target folder
 	@rm -fr target 
@@ -57,4 +57,4 @@ test: ## TODO run unit test
 	echo include in build docker, we ought to have a explicite phase 
 
 it-test: ## run integration test
-	VERSION=$(VERSION) BUILD_DATE=$(BUILD_DATE) docker-compose -f docker-compose.yml -f docker-compose-integration.yml run postman
+	docker-compose -f docker-compose.yml -f docker-compose-integration.yml run postman
