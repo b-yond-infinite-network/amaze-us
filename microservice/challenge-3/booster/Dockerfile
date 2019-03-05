@@ -7,6 +7,9 @@ WORKDIR /go/src/github.com/mingrammer/go-todo-rest-api-example
 #copy the source
 COPY . .
 
+#TODO fix the build
+RUN rm go.mod go.sum 
+
 RUN make dependencies 
 
 ## test

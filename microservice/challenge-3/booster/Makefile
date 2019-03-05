@@ -11,7 +11,7 @@ help: ## prints help.
 
 .PHONY: tools
 tools: ## install tools to develop
-	go get -u github.com/golang/lint/golint
+	go get -u golang.org/x/lint/golint
 	go get github.com/axw/gocov/gocov
 	go get github.com/AlekSi/gocov-xml
 	go get github.com/axw/gocov/gocov
