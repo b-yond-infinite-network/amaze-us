@@ -13,5 +13,8 @@ docker-compose-build: ## builds the application image with docker-compose.
 docker-compose-up: ## spawns the containers.
 	VERSION=$(VERSION) BUILD_DATE=$(BUILD_DATE) docker-compose -f docker-compose.yml -f docker-compose-dev.yml  up --build --detach
 
-it-test: ## run integration test
+it-test: ## TODO run integration test
 	VERSION=$(VERSION) BUILD_DATE=$(BUILD_DATE) docker-compose -f docker-compose.yml -f docker-compose-integration.yml run postman
+
+ui-test: ## TODO run integration test
+	echo TODO see casperjs

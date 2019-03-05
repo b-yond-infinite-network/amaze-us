@@ -14,6 +14,9 @@ RUN npm install
  
 FROM base AS release
 
+ARG VERSION=undefined
+ARG BUILD_DATE=undefined
+
 #http://label-schema.org/rc1/
 LABEL "maintainer"="stephane.jeandeaux@gmail.com" \
       "org.label-schema.vendor"="sjeandeaux" \
