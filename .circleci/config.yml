@@ -4,6 +4,12 @@ jobs:
     machine: true
     steps: # TODO we should see explicity the test, integration, ui test results 
       - checkout
+      - run:
+          name: Install Docker Compose ahahahahaah
+          command: |
+            curl -L https://github.com/docker/compose/releases/download/1.23.2/docker-compose-`uname -s`-`uname -m` > ~/docker-compose
+            chmod +x ~/docker-compose
+            sudo mv ~/docker-compose /usr/local/bin/docker-compose
       - run: 
           name: BOOSTER - spawns the container and test
           command: |
