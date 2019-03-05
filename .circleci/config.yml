@@ -12,22 +12,3 @@ jobs:
               sleep 5 #TODO ahahah find a better way
               make test
               make it-test
-
-      - run:
-          - name: CARGO - spawns the container and test
-          - command: |
-              cd microservice/challenge-3/cargo/
-              make test
-              make docker-compose-up #TODO refactoring to show explicitly the test and the result
-              sleep 5 #TODO ahahah find a better way
-              make it-test
-              make ui-test
-
-      - run:
-          - name: STAGE2 - spawns the container and test
-          - command: |
-              cd microservice/challenge-3/stage2/
-              make test
-
-        
-
