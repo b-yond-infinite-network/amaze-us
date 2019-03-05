@@ -53,5 +53,8 @@ clean: ## clean the target folder
 	@rm -fr target 
 	@mkdir target
 
+test: ## TODO run unit test
+	echo include in build docker, we ought to have a explicite phase 
+
 it-test: ## run integration test
 	VERSION=$(VERSION) BUILD_DATE=$(BUILD_DATE) docker-compose -f docker-compose.yml -f docker-compose-integration.yml run postman
