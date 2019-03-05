@@ -16,5 +16,11 @@ services:
   cargodenuit:
     networks:
       - networks_challenge3
+  stage2:
+    networks:
+      - networks_challenge3
+    links:
+      - "haproxy:booster.ca"
+    
 networks:
   networks_challenge3:

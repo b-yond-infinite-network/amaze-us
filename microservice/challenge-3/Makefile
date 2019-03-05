@@ -3,4 +3,7 @@ help: ## prints help.
 	@grep -hE '^[a-zA-Z_-]+.*?:.*?## .*$$' ${MAKEFILE_LIST} | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
 up-dev: ## spawn all the containers => http://localhost:8666/haproxy?stats
-	docker-compose -f ./docker-compose.yml -f ./booster/docker-compose.yml -f ./cargo/docker-compose.yml -f ./docker-compose-dev.yml up --detach --build
+	docker-compose -f ./docker-compose.yml -f ./booster/docker-compose.yml -f ./cargo/docker-compose.yml -f ./docker-compose-dev.yml up --detach --build --scale stage2=0
+
+run-stage2: ## run stage2
+	docker-compose -f ./docker-compose.yml -f ./booster/docker-compose.yml -f ./cargo/docker-compose.yml -f ./docker-compose-dev.yml run stage2

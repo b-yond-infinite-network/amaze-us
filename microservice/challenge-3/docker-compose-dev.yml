@@ -8,3 +8,7 @@ services:
     build:
       context: ./cargo
       dockerfile: Dockerfile
+  stage2:
+    build:
+      context: ./stage2
+      dockerfile: Dockerfile
