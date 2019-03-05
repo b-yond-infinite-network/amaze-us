@@ -2,7 +2,7 @@
 FROM golang:1.12.0-stretch as base
 
 #get source
-WORKDIR /src
+WORKDIR /go/src/github.com/mingrammer/go-todo-rest-api-example
 
 #copy the source
 COPY . .
@@ -31,6 +31,6 @@ LABEL "maintainer"="stephane.jeandeaux@gmail.com" \
       "org.label-schema.applications.booster.version"=${VERSION} \
       "org.label-schema.build-date"=${BUILD_DATE}
 
-COPY --from=build /src/target/booster /booster
+COPY --from=build /go/src/github.com/mingrammer/go-todo-rest-api-example/target/booster /booster
 EXPOSE 3000
 ENTRYPOINT ["/booster"] 
