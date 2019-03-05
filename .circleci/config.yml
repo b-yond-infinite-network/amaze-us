@@ -2,12 +2,11 @@ version: 2
 jobs:
   build:
     machine: true
-    
-    steps: # TODO 
+    steps: # TODO we should see explicity the test, integration, ui test results 
       - run: 
           - name: BOOSTER - spawns the container and test
           - command: |
-              cd booster/
+              cd microservice/challenge-3/booster/
               make docker-compose-up #TODO refactoring to show explicitly the test and the result
               sleep 5 #TODO ahahah find a better way
               make test
@@ -16,7 +15,7 @@ jobs:
       - run:
           - name: CARGO - spawns the container and test
           - command: |
-              cd cargo/
+              cd microservice/challenge-3/cargo/
               make test
               make docker-compose-up #TODO refactoring to show explicitly the test and the result
               sleep 5 #TODO ahahah find a better way
@@ -26,7 +25,7 @@ jobs:
 
       - name: STAGE2 - spawns the container and test
           - command: |
-              cd cargo/
+              cd microservice/challenge-3/stage2/
               make test
 
         
