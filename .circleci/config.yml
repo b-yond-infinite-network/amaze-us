@@ -18,9 +18,8 @@ jobs:
               cd microservice/challenge-3/booster/
               make docker-compose-up #TODO refactoring to show explicitly the test and the result
               echo sleep
-              sleep 10 #TODO ahahah find a better way
-              make it-test
-              make ui-test  
+              sleep 20 #TODO ahahah find a better way
+              make it-test 
               docker ps -qa | xargs docker rm -f
 
       - run:
@@ -29,7 +28,8 @@ jobs:
               cd microservice/challenge-3/cargo/
               make test
               make docker-compose-up #TODO refactoring to show explicitly the test and the result
-              sleep 5 #TODO ahahah find a better way
+              echo sleep
+              sleep 20 #TODO ahahah find a better way
               make it-test
               make ui-test
 
@@ -44,7 +44,8 @@ jobs:
           command: |
               cd microservice/challenge-3/
               make up-dev #TODO refactoring to show explicitly the test and the result
-              sleep 5 #TODO ahahah find a better way
+              echo sleep
+              sleep 20 #TODO ahahah find a better way
               make it-test
 
         
