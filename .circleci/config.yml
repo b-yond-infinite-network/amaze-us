@@ -5,7 +5,7 @@ jobs:
     steps: # TODO we should see explicity the test, integration, ui test results 
       - checkout
       - run:
-          name: Install Docker Compose ahahahahaah
+          name: Love Boat docker-compose and circleci
           command: |
             curl -L https://github.com/docker/compose/releases/download/1.23.2/docker-compose-`uname -s`-`uname -m` > ~/docker-compose
             chmod +x ~/docker-compose
@@ -34,6 +34,14 @@ jobs:
           command: |
               cd microservice/challenge-3/stage2/
               make test
+      
+      - run: 
+          name: CHALLENGE-3 - spawns the container and test
+          command: |
+              cd microservice/challenge-3/
+              make up-dev #TODO refactoring to show explicitly the test and the result
+              sleep 5 #TODO ahahah find a better way
+              make it-test
 
         
 

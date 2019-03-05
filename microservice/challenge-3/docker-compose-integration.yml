@@ -1,0 +1,11 @@
+version: '3.7'
+services:
+  postman:
+    image: postman/newman_ubuntu1404
+    command: run "https://www.getpostman.com/collections/cc2dae61b13448b14313"
+    links:
+       - haproxy:booster.ca
+    depends_on:
+       - haproxy
+    networks:
+       - networks_challenge3

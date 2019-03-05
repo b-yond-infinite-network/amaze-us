@@ -10,3 +10,6 @@ up-dev: ## spawn all the containers => http://localhost:8666/haproxy?stats
 
 run-stage2: ## run stage2
 	VERSION=$(VERSION) BUILD_DATE=$(BUILD_DATE) docker-compose -f ./docker-compose.yml -f ./booster/docker-compose.yml -f ./cargo/docker-compose.yml -f ./docker-compose-dev.yml run stage2
+
+it-test: ## run integration test
+	VERSION=$(VERSION) BUILD_DATE=$(BUILD_DATE) docker-compose -f ./docker-compose.yml -f ./booster/docker-compose.yml -f ./cargo/docker-compose.yml -f ./docker-compose-dev.yml -f docker-compose-integration.yml run postman
