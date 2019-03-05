@@ -13,16 +13,10 @@ jobs:
             sudo mv ~/docker-compose /usr/local/bin/docker-compose
       - checkout
       - run: 
-          name: BOOSTER - spawns the container
+          name: BOOSTER - spawns the container and test
           command: |
               cd microservice/challenge-3/booster/
               make docker-compose-up #TODO refactoring to show explicitly the test and the result
-          background: true 
-      
-      - run: 
-          name: BOOSTER -test
-          command: |
-              cd microservice/challenge-3/booster/
               sleep 5 #TODO ahahah find a better way
               make it-test
               make ui-test  
