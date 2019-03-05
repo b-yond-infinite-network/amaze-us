@@ -1,7 +1,7 @@
 version: '3.7'
 services:
   postman:
-    image: postman/newman_ubuntu1404
+    image: postman/newman_ubuntu1404:4.4.0
     command: run "https://www.getpostman.com/collections/4a0bf8d59b6cdbcad9c2"
     links:
        - booster:booster
