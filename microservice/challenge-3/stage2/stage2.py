@@ -1,6 +1,6 @@
 from urllib2 import Request, urlopen, URLError
 
-request = Request('http://localhost.booster/')
+request = Request('http://booster/')
 
 try:
     response = urlopen(request)
