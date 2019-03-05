@@ -1,0 +1,16 @@
+version: '3.7'
+services:
+  stage2:
+    hostname: stage2
+    build:
+      context: ./
+      dockerfile: Dockerfile
+      args:
+        VERSION: ${VERSION}
+        BUILD_DATE: ${BUILD_DATE}
+      target: release
+    networks:
+       - networks_stage2
+
+networks:
+  networks_stage2:
