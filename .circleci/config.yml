@@ -1,15 +1,15 @@
 version: 2
 jobs:
   build:
-    machine: true
     steps: # TODO we should see explicity the test, integration, ui test results 
-      - checkout
+      - setup_remote_docker
       - run:
           name: Love Boat docker-compose and circleci
           command: |
             curl -L https://github.com/docker/compose/releases/download/1.23.2/docker-compose-`uname -s`-`uname -m` > ~/docker-compose
             chmod +x ~/docker-compose
             sudo mv ~/docker-compose /usr/local/bin/docker-compose
+      - checkout
       - run: 
           name: BOOSTER - spawns the container and test
           command: |
