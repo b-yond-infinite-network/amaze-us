@@ -1,0 +1,11 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "RESTful API Service",
+  "main": "server.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "Amir Zade",
+  "license": "ISC"
+}
