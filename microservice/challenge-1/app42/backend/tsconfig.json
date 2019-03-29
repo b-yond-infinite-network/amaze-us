@@ -7,7 +7,7 @@
     "outDir": "./dist",
     "strict": true,
     "noUnusedLocals": true,
-    "noUnusedParameters": true,
+    "noUnusedParameters": false,
     "moduleResolution": "node",
     "esModuleInterop": true
   },

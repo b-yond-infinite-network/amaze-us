@@ -5,6 +5,7 @@
   ],
   "jsRules": {},
   "rules": {
+    "noUnusedParameters": false,
     "no-console": {
       "severity": "warning",
       "options": [
