@@ -2,7 +2,8 @@
 
 const http = require("http");
 const log4js = require("log4js");
-const app = require("./src/App").createApp();
+const appManager = require("./src/AppManager");
+const app = appManager.createApp();
 
 const config = require("./src/config");
 

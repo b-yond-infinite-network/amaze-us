@@ -7,11 +7,7 @@ import UserRouter from "./router/UserRouter";
 const logger = Log4js.getLogger(module.filename);
 logger.level = "debug";
 
-class App {
-
-    public static creattApp(): any {
-        return new App().app;
-    }
+class AppManager {
 
     private static defaultErrorHandler(error: Error, request: Request, response: Response): void {
         logger.error("[x]]");
@@ -21,7 +17,7 @@ class App {
 
     public app: Application;
 
-    private constructor() {
+    public constructor() {
         this.app = express();
         this.initialize();
         this.setRoutes();
@@ -38,9 +34,11 @@ class App {
     }
 
     private setDefaultErrorHandler(): void {
-        this.app.use(App.defaultErrorHandler);
+        this.app.use(AppManager.defaultErrorHandler);
     }
 
 }
 
-export default App;
+export const createApp = () => {
+    return new AppManager().app;
+};
