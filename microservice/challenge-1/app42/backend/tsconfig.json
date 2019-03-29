@@ -12,7 +12,8 @@
     "esModuleInterop": true
   },
   "include": [
-    "server.ts",
+    "server.js",
+    "src/config.json",
     "src/**/*"
   ],
   "exclude": [
