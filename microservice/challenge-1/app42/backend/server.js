@@ -2,7 +2,7 @@
 
 const http = require("http");
 const log4js = require("log4js");
-const app = require("./src/app");
+const app = require("./src/App").createApp();
 
 const config = require("./src/config");
 
