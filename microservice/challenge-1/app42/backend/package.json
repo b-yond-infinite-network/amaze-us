@@ -1,0 +1,22 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "RESTful API Service",
+  "main": "server.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "Amir Zade",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/express": "^4.16.1",
+    "@types/node": "^11.12.1",
+    "tslint": "^5.14.0",
+    "typescript": "^3.3.4000"
+  },
+  "dependencies": {
+    "express": "^4.16.4",
+    "http-errors": "^1.7.2",
+    "log4js": "^4.1.0"
+  }
+}
