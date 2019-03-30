@@ -4,10 +4,10 @@ export default class User {
     private _id: number;
     private _name: string;
 
-    constructor(id: number, name: string, email: string, desc: string) {
+    constructor(name: string, email: string, desc: string, id?: number) {
         this._description = desc;
         this._email = email;
-        this._id = id;
+        this._id = id ? id : -1;
         this._name = name;
     }
 
@@ -41,14 +41,5 @@ export default class User {
 
     set id(value: number) {
         this._id = value;
-    }
-
-    public toJson(): object {
-        return {
-            description: this.description,
-            email: this.email,
-            id: this.id,
-            name: this.name,
-        };
     }
 }

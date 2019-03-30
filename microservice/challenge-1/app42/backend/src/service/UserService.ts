@@ -1,18 +1,21 @@
-import IUserService from "./contract/IUserService";
 import User from "../entity/User";
+import UserRepository from "../repository/UserRepository";
+import IUserService from "./IUserService";
 
 class UserService implements IUserService {
 
-    public getAll(): User[] {
-        return [
-            new User(1, "amir hadi", "ah@gmail.com", "1st"),
-            new User(2, "amir mohsen", "am@gmail.com", "2nd"),
-            new User(3, "amir ahmad", "aa@gmail.com", "3rd"),
-        ];
+    private userRepository: UserRepository;
+
+    constructor() {
+        this.userRepository = new UserRepository();
     }
 
-    public add(): User {
-        return new User(1, "amir", "am@gmail.com", "1st");
+    public getAll(): User[] {
+        return this.userRepository.getAll();
+    }
+
+    public add(user: User): User {
+        return this.userRepository.add(user);
     }
 }
 

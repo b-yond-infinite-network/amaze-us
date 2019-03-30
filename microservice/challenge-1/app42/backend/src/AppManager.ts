@@ -3,6 +3,7 @@ import {Application, Request, Response} from "express";
 import express = require("express");
 import Log4js from "log4js";
 
+import RootRouter from "./router/RootRouter";
 import UserRouter from "./router/UserRouter";
 
 const logger = Log4js.getLogger(module.filename);
@@ -10,9 +11,8 @@ logger.level = "debug";
 
 class AppManager {
 
-    private static defaultErrorHandler(error: Error, request: Request, response: Response): any {
-        logger.error(error);
-        return response.status(500).send("Something broke!");
+    private static defaultErrorHandler(request: Request, response: Response): any {
+        return response.status(500).send("Something went wrong!");
     }
 
     public app: Application;
@@ -32,6 +32,7 @@ class AppManager {
     }
 
     private setRoutes(): void {
+        this.app.use("/", RootRouter.getRouter());
         this.app.use("/users", UserRouter.getRouter());
     }
 
