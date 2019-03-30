@@ -1,18 +1,16 @@
-import {Request, Response, Router} from "express";
+import {Router} from "express";
+
+import UserController from "../controller/UserController";
 
 class UserRouter {
-
-    private router: Router;
+    private readonly router: Router;
 
     constructor() {
         this.router = Router();
     }
 
     public getRouter(): Router {
-        this.router.get("/", (request: Request, response: Response) => {
-            console.log(request.body);
-            response.json("worx");
-        });
+        this.router.get("/", UserController.getHandler);
         return this.router;
     }
 }
