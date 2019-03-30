@@ -1,5 +1,4 @@
 import {Request, Response} from "express";
-import HttpErrors from "http-errors";
 
 import User from "../entity/User";
 import UserUtil from "../utility/UserUtil";
@@ -16,7 +15,7 @@ class UserController {
         if (UserUtil.isValid(user)) {
             response.json(UserUtil.toJson(UserService.add(user)));
         } else {
-            response.json(HttpErrors(400, "error"));
+            response.status(400).send({message: "invalid user"});
         }
     }
 }
