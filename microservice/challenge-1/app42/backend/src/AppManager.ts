@@ -1,3 +1,4 @@
+import BodyParser from "body-parser";
 import {Application, Request, Response} from "express";
 import express = require("express");
 import Log4js from "log4js";
@@ -9,10 +10,9 @@ logger.level = "debug";
 
 class AppManager {
 
-    private static defaultErrorHandler(error: Error, request: Request, response: Response): void {
-        logger.error("[x]]");
-        logger.error(error.stack);
-        response.status(500).send("Something broke!");
+    private static defaultErrorHandler(error: Error, request: Request, response: Response): any {
+        logger.error(error);
+        return response.status(500).send("Something broke!");
     }
 
     public app: Application;
@@ -27,6 +27,8 @@ class AppManager {
     private initialize(): void {
         this.app.use(express.json());
         this.app.use(express.urlencoded({extended: false}));
+        this.app.use(BodyParser.urlencoded({ extended: false }));
+        this.app.use(BodyParser.json());
     }
 
     private setRoutes(): void {
@@ -39,6 +41,8 @@ class AppManager {
 
 }
 
+const app: Application = new AppManager().app;
+
 export const createApp = () => {
-    return new AppManager().app;
+    return app;
 };

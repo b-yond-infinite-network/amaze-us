@@ -15,6 +15,7 @@
     "typescript": "^3.3.4000"
   },
   "dependencies": {
+    "body-parser": "^1.18.3",
     "express": "^4.16.4",
     "http-errors": "^1.7.2",
     "log4js": "^4.1.0"

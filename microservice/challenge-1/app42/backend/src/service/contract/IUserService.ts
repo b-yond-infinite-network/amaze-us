@@ -1,3 +1,7 @@
+import User from "../../entity/User";
+
 export default interface IUserService {
-    getAll(): number;
+    getAll(): User[];
+
+    add(user: User): User;
 }
