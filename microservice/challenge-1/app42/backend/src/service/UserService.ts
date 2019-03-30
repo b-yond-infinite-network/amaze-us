@@ -1,5 +1,5 @@
-import IUserService from "./contract/IUserService";
 import User from "../entity/User";
+import IUserService from "./contract/IUserService";
 
 class UserService implements IUserService {
 

@@ -11,6 +11,7 @@ class UserRouter {
 
     public getRouter(): Router {
         this.router.get("/", UserController.getHandler);
+        this.router.post("/", UserController.postHandler);
         return this.router;
     }
 }
