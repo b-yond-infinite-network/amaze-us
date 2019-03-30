@@ -14,7 +14,7 @@
     "emitDecoratorMetadata": true
   },
   "include": [
-    "server.js",
+    "server.ts",
     "src/config.json",
     "src/**/*"
   ],
