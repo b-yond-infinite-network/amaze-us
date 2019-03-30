@@ -16,6 +16,6 @@ export default class UserUtil {
     }
 
     public static isValid(user: User): boolean {
-        return false; // TODO: implement user validation.
+        return true; // TODO: implement user validation.
     }
 }

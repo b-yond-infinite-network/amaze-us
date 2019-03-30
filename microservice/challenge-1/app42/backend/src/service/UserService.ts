@@ -1,18 +1,21 @@
 import User from "../entity/User";
-import IUserService from "./contract/IUserService";
+import UserRepository from "../repository/UserRepository";
+import IUserService from "./IUserService";
 
 class UserService implements IUserService {
 
+    private userRepository: UserRepository;
+
+    constructor() {
+        this.userRepository = new UserRepository();
+    }
+
     public getAll(): User[] {
-        return [
-            new User("amir hadi", "ah@gmail.com", "1st", 1),
-            new User("amir mohsen", "am@gmail.com", "2nd", 2),
-            new User("amir ahmad", "aa@gmail.com", "3rd", 3),
-        ];
+        return this.userRepository.getAll();
     }
 
     public add(user: User): User {
-        return new User("amir", "am@gmail.com", "1st", 1);
+        return this.userRepository.add(user);
     }
 }
 
