@@ -5,14 +5,14 @@ class UserService implements IUserService {
 
     public getAll(): User[] {
         return [
-            new User(1, "amir hadi", "ah@gmail.com", "1st"),
-            new User(2, "amir mohsen", "am@gmail.com", "2nd"),
-            new User(3, "amir ahmad", "aa@gmail.com", "3rd"),
+            new User("amir hadi", "ah@gmail.com", "1st", 1),
+            new User("amir mohsen", "am@gmail.com", "2nd", 2),
+            new User("amir ahmad", "aa@gmail.com", "3rd", 3),
         ];
     }
 
-    public add(): User {
-        return new User(1, "amir", "am@gmail.com", "1st");
+    public add(user: User): User {
+        return new User("amir", "am@gmail.com", "1st", 1);
     }
 }
 

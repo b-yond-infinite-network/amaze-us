@@ -12,7 +12,7 @@ logger.level = "debug";
 class AppManager {
 
     private static defaultErrorHandler(request: Request, response: Response): any {
-        return response.status(500).send("Something broke!");
+        return response.status(500).send("Something went wrong!");
     }
 
     public app: Application;
