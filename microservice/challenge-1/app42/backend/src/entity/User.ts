@@ -2,8 +2,13 @@ import {Column, Model, Table} from "sequelize-typescript";
 
 @Table
 export default class User extends Model<User> {
+    @Column
     private _description: string;
+
+    @Column
     private _email: string;
+
+    @Column
     private _name: string;
     private _id: number;
 
@@ -15,7 +20,7 @@ export default class User extends Model<User> {
         this._name = name;
     }
 
-    @Column
+    // @Column
     get description(): string {
         return this._description;
     }
@@ -24,7 +29,7 @@ export default class User extends Model<User> {
         this._description = value;
     }
 
-    @Column
+    // @Column
     get name(): string {
         return this._name;
     }
@@ -33,7 +38,7 @@ export default class User extends Model<User> {
         this._name = value;
     }
 
-    @Column
+    // @Column
     get email(): string {
         return this._email;
     }

@@ -10,11 +10,11 @@ class UserService implements IUserService {
         this.userRepository = new UserRepository();
     }
 
-    public getAll(): User[] {
+    public getAll(): Promise<User[]> {
         return this.userRepository.getAll();
     }
 
-    public add(user: User): User {
+    public add(user: User): Promise<User> {
         return this.userRepository.add(user);
     }
 }
