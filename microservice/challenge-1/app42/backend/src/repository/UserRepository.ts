@@ -3,16 +3,17 @@ import IRepository from "./IRepository";
 
 export default class UserRepository implements IRepository<User> {
 
-    public add(model: User): User {
-        return new User("amir", "am@gmail.com", "1st", 1);
+    public add(user: User): Promise<User> {
+        return new Promise<User>((resolve, reject) => {
+            user.save().then((saveUser) => {
+                resolve(saveUser);
+            }).catch((error) => reject(error));
+        });
     }
 
-    public getAll(): User[] {
-        return [
-            new User("amir hadi", "ah@gmail.com", "1st", 1),
-            new User("amir mohsen", "am@gmail.com", "2nd", 2),
-            new User("amir ahmad", "aa@gmail.com", "3rd", 3),
-        ];
+    public getAll(): Promise<User[]> {
+        // @ts-ignore
+        return User.findAll();
     }
 
 }

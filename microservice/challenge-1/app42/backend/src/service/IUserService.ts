@@ -1,7 +1,7 @@
 import User from "../entity/User";
 
 export default interface IUserService {
-    getAll(): User[];
+    getAll(): Promise<User[]>;
 
-    add(user: User): User;
+    add(user: User): Promise<User>;
 }

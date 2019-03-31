@@ -1,5 +1,5 @@
 export default interface IRepository<T> {
-    getAll(): T[];
+    getAll(): Promise<T[]>;
 
-    add(model: T): T;
+    add(entity: T): Promise<T>;
 }

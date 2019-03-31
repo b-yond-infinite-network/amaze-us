@@ -1,45 +1,15 @@
-export default class User {
-    private _description: string;
-    private _email: string;
-    private _id: number;
-    private _name: string;
+import {Column, Model, Table} from "sequelize-typescript";
 
-    constructor(name: string, email: string, desc: string, id?: number) {
-        this._description = desc;
-        this._email = email;
-        this._id = id ? id : -1;
-        this._name = name;
-    }
+@Table
+export default class User extends Model<User> {
 
-    get description(): string {
-        return this._description;
-    }
+    @Column
+    public description: string;
 
-    set description(value: string) {
-        this._description = value;
-    }
+    @Column
+    public email: string;
 
-    get name(): string {
-        return this._name;
-    }
+    @Column
+    public name: string;
 
-    set name(value: string) {
-        this._name = value;
-    }
-
-    get email(): string {
-        return this._email;
-    }
-
-    set email(value: string) {
-        this._email = value;
-    }
-
-    get id(): number {
-        return this._id;
-    }
-
-    set id(value: number) {
-        this._id = value;
-    }
 }

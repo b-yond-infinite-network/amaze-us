@@ -9,16 +9,18 @@
     "noUnusedLocals": true,
     "noUnusedParameters": false,
     "moduleResolution": "node",
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
   },
   "include": [
-    "server.js",
+    "server.ts",
     "src/config.json",
     "src/**/*"
   ],
   "exclude": [
     "dist",
-    "node_modules",
+    "./node_modules",
     "test"
   ]
 }
