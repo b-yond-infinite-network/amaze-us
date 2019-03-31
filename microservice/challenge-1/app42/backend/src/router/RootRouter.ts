@@ -9,7 +9,7 @@ class RootRouter {
     }
 
     public getRouter(): Router {
-        this.router.get(["/", "/heartbeat"], RootController.getHandler);
+        this.router.get(["/", "/healthcheck"], RootController.getHandler);
         return this.router;
     }
 }
