@@ -1,12 +1,13 @@
 import {Sequelize} from "sequelize-typescript";
+import Config from "../config";
 
 const sequelize = new Sequelize({
-    database: "byond",
+    database: Config.db.db,
     dialect: "postgres",
-    host: "localhost",
+    host: Config.db.server,
     modelPaths: [__dirname + "/../entity/"],
-    password: "byond",
-    port: 5431,
-    username: "postgres",
+    password: Config.db.password,
+    port: Config.db.port,
+    username: Config.db.user,
 });
 export default sequelize;

@@ -1,4 +1,4 @@
-import {Column, Model, PrimaryKey, Table} from "sequelize-typescript";
+import {Column, Model, Table} from "sequelize-typescript";
 
 @Table
 export default class User extends Model<User> {
@@ -42,8 +42,6 @@ export default class User extends Model<User> {
         this._email = value;
     }
 
-    @PrimaryKey
-    @Column
     get id(): number {
         return this._id;
     }
