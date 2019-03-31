@@ -13,7 +13,7 @@ logger.level = "debug";
 app.set("port", config.server.port);
 const server = http.createServer(app);
 
-db.sync().then(() => {
+db.sync({force: true}).then(() => {
     logger.info("[i] database connected");
     server.listen(config.server.port);
     server.on("error", (error) => {
