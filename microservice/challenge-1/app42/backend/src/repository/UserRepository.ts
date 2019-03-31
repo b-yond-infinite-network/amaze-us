@@ -12,6 +12,7 @@ export default class UserRepository implements IRepository<User> {
     }
 
     public getAll(): Promise<User[]> {
+        // @ts-ignore
         return User.findAll();
     }
 

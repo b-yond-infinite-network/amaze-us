@@ -14,13 +14,6 @@ export default class User extends Model<User> {
     @Column
     public name: string;
 
-    constructor(name: string, email: string, desc: string, id?: number) {
-        super();
-        this.description = desc;
-        this.email = email;
-        this.name = name;
-    }
-
     // // @Column
     // get description(): string {
     //     return this._description;
