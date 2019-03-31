@@ -8,7 +8,6 @@ import UserService from "../service/UserService";
 class UserController {
     public static getHandler(request: Request, response: Response): any {
         UserService.getAll().then((users) => {
-            console.log(users);
             response.json(users.map((user: User) => UserUtil.toJson(user)));
         });
     }
