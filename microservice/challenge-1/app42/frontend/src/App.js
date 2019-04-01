@@ -5,7 +5,17 @@ import Menu from './components/Menu';
 import Header from './components/Header';
 import Users from './components/Users';
 
+import UserService from './services/UserService';
+
 class App extends Component {
+
+  state = {
+    users: []
+  };
+
+  componentDidMount() {
+    UserService.get().then(users => { this.setState({users}) })
+  }
 
   render() {
     return (
@@ -14,7 +24,7 @@ class App extends Component {
           <Container>
             <Header/>
             <Menu/>
-            <Users/>
+            <Users users={this.state.users} />
           </Container>
         </React.Fragment>
       </Router>
