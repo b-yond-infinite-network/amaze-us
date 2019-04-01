@@ -4,6 +4,9 @@
   "description": "RESTful API Service",
   "main": "server.js",
   "scripts": {
+    "build": "node_modules/typescript/bin/tsc",
+    "clean": "rm -fr ./dist",
+    "start": "node ./dist/server.js",
     "test": "test"
   },
   "author": "Amir Zade",
