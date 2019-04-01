@@ -7,6 +7,6 @@ module.exports = {
     user: "postgres",
     password: "byond",
     db: "byond",
-    port: 8079
+    port: 5431
   }
 };
