@@ -1,0 +1,21 @@
+version: "3.3"
+
+services:
+  pgdb:
+    image: postgres
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "byond"
+      POSTGRES_DB: "byond"
+    restart: always
+    ports:
+      - "8079:5432"
+  backend:
+    build:
+      ./backend
+    links:
+      - pgdb
+    depends_on:
+      - "pgdb"
+    ports:
+      - "8080:3000"
