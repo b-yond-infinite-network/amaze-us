@@ -35,8 +35,8 @@ to services below and manage them by Docker Compose.
      
 ##### Unit Tests Result
  
-![Test Results](/test/utest.png?raw=true "Unit Test Results")
+![Test Results](/microservice/challenge-1/app42/backend/test/utest.png?raw=true "Unit Test Results")
 
 ##### Integration Tests Result
  
-![Test Results](/test/itest.png?raw=true "Integration Test Results")
+![Test Results](/microservice/challenge-1/app42/backend/test/itest.png?raw=true "Integration Test Results")
