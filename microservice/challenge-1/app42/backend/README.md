@@ -26,9 +26,17 @@ to services below and manage them by Docker Compose.
 ### Test
 #### Unit Tests
      cd [root directory of repository]
-     npm run utests
+     npm run utest
 
 #### Integration Tests
      cd [root directory of repository]
      npm start&
-     npm run itests
+     npm run itest
+     
+##### Unit Tests Result
+ 
+![Test Results](/test/utest.png?raw=true "Unit Test Results")
+
+##### Integration Tests Result
+ 
+![Test Results](/test/itest.png?raw=true "Integration Test Results")
