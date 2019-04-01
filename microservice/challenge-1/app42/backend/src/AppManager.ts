@@ -1,5 +1,5 @@
 import BodyParser from "body-parser";
-import {Application, Request, Response} from "express";
+import {Application, Request, Response, NextFunction} from "express";
 import express = require("express");
 import Log4js from "log4js";
 
@@ -29,6 +29,12 @@ class AppManager {
         this.app.use(express.urlencoded({extended: false}));
         this.app.use(BodyParser.urlencoded({ extended: false }));
         this.app.use(BodyParser.json());
+        this.app.use((request: Request, response: Response, next: NextFunction) => {
+            response.header("Access-Control-Allow-Origin", "*");
+            response.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+            next();
+        });
+
     }
 
     private setRoutes(): void {
