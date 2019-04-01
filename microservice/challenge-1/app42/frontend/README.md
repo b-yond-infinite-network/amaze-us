@@ -8,5 +8,5 @@ Frontend service.
     npm start
     // wait for browser to start.
 
-![Frontend](/microservice/challenge-1/app42/img/frontned.png?raw=true "Frontend")
+![Frontend](/microservice/challenge-1/app42/img/front.png?raw=true "Frontend")
 
