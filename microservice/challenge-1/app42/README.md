@@ -21,13 +21,19 @@ to services below and manage them by Docker Compose.
     
     cd backend
     npm i
-    npm start
+    npm run build
+    npm start&
     
-    cd frontend
+    curl -d '{"name":"Amir", "email":"email@domain.com", "description":"FullStack Developer"}' -H "Content-Type: application/json" -X POST http://localhost:3001/users
+    
+    cd ../frontend
     npm i
     npm start
 ```
 Visit http://localhost:3000
+
+**Note:** 'Add user' feature is not implemented in frontend.
+Please send POST request to backend to add a new user.
 
 ### Improvements
 1. Finish Dockerizing services.
@@ -35,6 +41,7 @@ Visit http://localhost:3000
 3. Use Swagger to document the Backend API.
 4. Use Selenium to automate Frontend testing.
 5. Improve test coverage.
-6. Use Typescript to implement tests.
+6. Use Typescript to implement backend tests.
+7. Implement "add user" feature in frontend.
 
 ![Frontend](/microservice/challenge-1/app42/img/front.png?raw=true "Frontend")

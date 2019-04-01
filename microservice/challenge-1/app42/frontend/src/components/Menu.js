@@ -13,7 +13,7 @@ export default class Menu extends Component {
     return (
       <Row>
         <Col style={this.menuStyle} className="p-2">
-          <Button size="sm">
+          <Button size="sm" alt="not implemented">
             <i className="fa fa-plus"/>
           </Button>
         </Col>
