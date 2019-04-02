@@ -20,6 +20,7 @@ to services below and manage them by Docker Compose.
  Note: Requires node.js and npm to be installed.
 
     npm i
+    npm run build
     npm start
     curl http://localhost:3000/healthcheck
 
