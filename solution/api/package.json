@@ -1,0 +1,43 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "description": "karoke",
+  "main": "index.js",
+  "scripts": {
+    "start": "node dist/index.js",
+    "compile": "ts-node build.ts && tsc",
+    "run": "npm-run-all compile start --serial",
+    "dev": "nodemon server/index.ts | pino-pretty",
+    "dev:debug": "nodemon --exec 'node -r ts-node/register --inspect-brk' server/index.ts | pino-pretty"
+  },
+  "dependencies": {
+    "bluebird": "^3.5.3",
+    "body-parser": "^1.18.3",
+    "cookie-parser": "^1.4.4",
+    "dotenv": "^6.2.0",
+    "express": "^4.16.4",
+    "lodash": "^4.17.11",
+    "pino": "^5.11.1",
+    "request": "^2.88.0",
+    "request-promise-native": "^1.0.7",
+    "swagger-express-middleware": "^2.0.1"
+  },
+  "devDependencies": {
+    "@types/bluebird": "^3.5.26",
+    "@types/chai": "^4.1.7",
+    "@types/express": "^4.16.1",
+    "@types/mocha": "^5.2.6",
+    "@types/pino": "^5.8.5",
+    "chai": "^4.2.0",
+    "mocha": "^6.0.2",
+    "nodemon": "^1.18.10",
+    "npm-run-all": "^4.1.5",
+    "pino-pretty": "^2.5.0",
+    "shelljs": "^0.8.3",
+    "ts-lint": "^4.5.1",
+    "ts-node": "^8.0.2",
+    "tslint": "^5.13.1",
+    "typescript": "^3.3.3333"
+  },
+  "author": "Carmine DiMascio <cdimascio@gmail.com> (https://github.com/cdimascio)"
+}

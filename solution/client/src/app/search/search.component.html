@@ -1,0 +1,70 @@
+<div class="hero-body">
+  <div class="container has-text-centered">
+    <div class="columns is-vcentered">
+      <div class="column is-5">
+        <figure class="image is-4by3">
+          <img src="./../assets/karaoke.svg" alt="karaoke on move">
+        </figure>
+      </div>
+      <div class="column is-6 is-offset-1">
+        <h1 class="title is-2">
+          Lets Sing ❤️ 💯
+        </h1>
+        <h2 class="subtitle is-4">
+          Lets find that songs, you always wanted to sing
+        </h2>
+        <br>
+        <div class="field has-addons">
+          <p class="control">
+            <input pInputText class="input is-large is-rounded" [(ngModel)]="query" type="text"
+              placeholder="Search song title, artist or lyrics" [pKeyFilter]="noSpecial">
+          </p>
+          <p class="control is-large ">
+            <button type="button" class="button is-large is-info" (click)="getSearchResults($event)"
+              [disabled]="!query || query.length == 0 ">
+              Go ! {{query && query.length}}
+            </button>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TODO to extract modal separate component  -->
+<div class="modal" [ngClass]="showDialogue ? 'is-active' : ''">
+  <div class="modal-background"> Hey dont tell anyone :) about this secret app</div>
+  <div class="modal-content">
+    <p-table [value]="data" tableStyleClass="table is-bordered is-striped is-narrow is-hoverable is-fullwidth"
+      [paginator]="true" [rows]="10" [totalRecords]="total" [lazy]="true" (onLazyLoad)="getSearchResults($event)">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Name</th>
+          <th>Artist Name</th>
+          <th>Lyrics ?</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-track>
+        <tr>
+          <td>{{track.name}}</td>
+          <td>{{track.artist_name}}</td>
+          <td>
+            <span *ngIf="track.has_lyrics == 1">
+              <a class="button is-success is-rounded"
+              [routerLink]="['/lyric', track.id]"
+              >Get Lyrics</a>
+            </span>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage" let-columns>
+        <tr>
+          <td [attr.colspan]="3">
+            No records found
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+  <button class="modal-close is-large" aria-label="close" (click)="showDialogue = false; query = null"></button>
+</div>

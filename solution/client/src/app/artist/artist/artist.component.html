@@ -1,0 +1,72 @@
+<div class="hero-body">
+  <div class="container has-text-centered">
+    <div class="columns is-vcentered">
+      <div class="column is-5">
+        <figure class="image is-4by3">
+          <img src="./../assets/track.svg" alt="karaoke on move">
+        </figure>
+      </div>
+      <div class="column is-6 is-offset-1">
+        <h1 class="title is-2">
+          Know your artist ? :)
+        </h1>
+        <h2 class="subtitle is-4">
+        Search Artist Rating, their twitter profile etc.
+        </h2>
+        <br>
+        <div class="field has-addons">
+          <p class="control">
+            <input pInputText class="input is-large is-rounded" [(ngModel)]="query" type="text"
+              placeholder="Search song title, artist or lyrics" [pKeyFilter]="noSpecial">
+          </p>
+          <p class="control is-large ">
+            <button type="button" class="button is-large is-info" (click)="getSearchResults($event)"
+              [disabled]="!query || query.length == 0 ">
+              Go ! {{query && query.length}}
+            </button>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TODO to extract modal separate component  -->
+<div class="modal" [ngClass]="showDialogue ? 'is-active' : ''">
+  <div class="modal-background"> Hey dont tell anyone :) about this secret app</div>
+  <div class="modal-content">
+    <p-table [value]="data" tableStyleClass="table is-bordered is-striped is-narrow is-hoverable is-fullwidth"
+      [paginator]="true" [rows]="10" [totalRecords]="total" [lazy]="true" (onLazyLoad)="getSearchResults($event)">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Name</th>
+          <th>Twitter</th>
+          <th>Rating</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-artist>
+        <tr>
+          <td>{{artist.name}}</td>
+          <td>
+            <a *ngIf="artist.twitter" class="button is-primary" href="{{artist.twitter}}">
+              <span>Go Follow</span>
+            </a>
+          </td>
+          <td>{{artist.rating}}</td>
+          <td>
+            <a class="button is-primary" disabled href="#">
+            <span>know more </span>
+          </a></td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage" let-columns>
+        <tr>
+          <td [attr.colspan]="3">
+            No records found
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+  <button class="modal-close is-large" aria-label="close" (click)="showDialogue = false; query = null"></button>
+</div>

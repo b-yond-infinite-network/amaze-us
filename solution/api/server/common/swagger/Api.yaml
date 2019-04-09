@@ -1,0 +1,67 @@
+swagger: "2.0"
+info:
+  version: 1.0.0
+  title: api
+  description: karoke
+basePath: /api/v1
+tags:
+  - name: karoke api specs
+    description: Simple example endpoints
+  - name: Specification
+    description: The swagger API specification
+
+consumes:
+  - application/json
+produces:
+  - application/json
+
+
+paths:
+
+  /search:
+    get:
+      tags:
+        - Search
+      responses:
+        200:
+          description: Return the example with the specified id
+
+  /lyrics/{id}:
+    get:
+      tags:
+        - Get Lyrics by id
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the lyrics to retrieve
+          type: integer
+      responses:
+        200:
+          description: Return the Lyrics with the specified id
+        404:
+          description: Lyrics not found
+
+  /artist/{id}:
+      get:
+        tags:
+          - Get artist by id
+        parameters:
+          - name: id
+            in: path
+            required: true
+            description: The id of the artist to retrieve
+            type: integer
+        responses:
+          200:
+            description: Return the artist with the specified id
+          404:
+            description: artist not found
+
+  /artist:
+    get:
+      tags:
+        - Search
+      responses:
+        200:
+          description: Return the example with the specified id
