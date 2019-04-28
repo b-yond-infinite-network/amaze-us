@@ -1,0 +1,15 @@
+<div class="field has-addons">
+    <div class="control">
+      <input class="input is-medium is-rounded is-loading" type="text"
+        placeholder="looking for lyrics ?? type & ⏎"
+        pInputText [(ngModel)]="query"
+        [pKeyFilter]="noSpecial"
+        (keyup.enter)="search()"
+        >
+    </div>
+    <div class="control">
+      <button class="button is-info  is-medium" (click)="search()" [disabled]="query ? false: true">
+        Search <img src="./../assets/karaoke.svg" width="40px" height="40px" alt="karaoke on move">
+      </button>
+    </div>
+  </div>

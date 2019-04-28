@@ -1,0 +1,49 @@
+<div class="container-fluid">
+  <article class="message is-link">
+    <div class="message-body">
+      Total Results {{total}} found
+      <section class="hero" *ngIf="total === 0">
+        <div class="hero-body">
+          <div class="container">
+            <h3 class="title">
+              ¯ \ _ (ツ) _ / ¯
+            </h3>
+            <h4 class="subtitle">
+              No results found for {{query}} in English.
+            </h4>
+          </div>
+        </div>
+      </section>
+    </div>
+  </article>
+  <div class=" tracks" *ngFor="let track of tracks">
+    <article class="media">
+      <div class="media-left">
+        <figure class="image is-64x64">
+          <img src="./../../../../assets/pic-soon-Copy.png" alt="Not found image">
+        </figure>
+      </div>
+      <div class="media-content">
+        <div class="content">
+          <p>
+            <strong>{{track.artist_name}}</strong>
+            <br> Track:
+            <small> {{track.name}}</small>
+            <br>
+            Lyrics:
+            <span *ngIf="!track.has_lyrics">
+              Not Found :(
+            </span>
+            <span *ngIf="track.has_lyrics">
+              <small>
+                <a class="button is-text" (click)="navigateToLyric(track.id)">Get Lyrics</a>
+              </small>
+            </span>
+          </p>
+        </div>
+      </div>
+    </article>
+  </div>
+  <p-paginator *ngIf="tracks.length > 0" [rows]="10" [totalRecords]="total" (onPageChange)="getResult($event)">
+  </p-paginator>
+</div>

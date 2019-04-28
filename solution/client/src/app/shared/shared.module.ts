@@ -8,13 +8,14 @@ import { FormsModule } from '@angular/forms';
 import { TableModule } from 'primeng/table';
 import { DialogModule } from 'primeng/dialog';
 import { RouterModule } from '@angular/router';
+import { SearchBarComponent } from './search-bar/search-bar.component';
 
 @NgModule({
-  declarations: [HeaderComponent, FooterComponent],
+  declarations: [HeaderComponent, FooterComponent, SearchBarComponent],
   imports: [
     CommonModule, KeyFilterModule, InputTextModule, FormsModule, TableModule, DialogModule, RouterModule
   ],
   exports: [HeaderComponent, FooterComponent, KeyFilterModule, TableModule,
-    InputTextModule, FormsModule, DialogModule]
+    InputTextModule, FormsModule, DialogModule, SearchBarComponent]
 })
 export class SharedModule { }
