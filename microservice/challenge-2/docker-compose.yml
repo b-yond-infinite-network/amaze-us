@@ -1,0 +1,29 @@
+version: '3.2'
+services:
+
+  ### byond-ch2 Service ------------------------------------------------------
+  byond_challenge_2_amir:
+
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    image: byondch2amir
+
+    ports:
+      - 8080:8080
+
+    networks:
+      - backend
+      - frontend
+
+
+### Networks ------------------------------------------------------
+
+networks:
+
+  frontend:
+    internal: false
+
+  backend:
+    internal: true
