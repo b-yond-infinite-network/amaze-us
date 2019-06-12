@@ -20,16 +20,11 @@ class HomeController @Inject()(cc: ControllerComponents)(implicit system: ActorS
 
   val logger = play.api.Logger(getClass)
 
-  // Home page that renders template
-  def index = Action { implicit request: Request[AnyContent] =>
-    Ok(views.html.index())
-  }
-
   /**
     * A web socket handler where clients can connect to stream in cat moods
     * @return
     */
-  def ws: WebSocket = WebSocket.accept[JsValue, JsValue] { request =>
+  def moodtrends: WebSocket = WebSocket.accept[JsValue, JsValue] { request =>
     ActorFlow.actorRef { out =>
       WebSocketActor.props(out, aggrResultsActor)
     }

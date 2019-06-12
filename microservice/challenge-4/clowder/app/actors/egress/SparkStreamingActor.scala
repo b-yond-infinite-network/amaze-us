@@ -49,6 +49,7 @@ class SparkStreamingActor @Inject() (config: Config,
       .option("subscribe", kafkaTopic)
       .load()
       .selectExpr("CAST(value AS STRING) as value", "CAST(timestamp AS TIMESTAMP) as timestamp")
+
     val catMoodsNestedDf: DataFrame =
       df.select(from_json(col("value"), moodStruct).as("catMood"), col("timestamp"))
 
@@ -83,7 +84,9 @@ class SparkStreamingActor @Inject() (config: Config,
   }
 
   override def postStop(): Unit = {
-    topMoodsQuery.stop()
+    if (topMoodsQuery.isActive)
+      topMoodsQuery.stop()
+
     spark.close()
   }
 }

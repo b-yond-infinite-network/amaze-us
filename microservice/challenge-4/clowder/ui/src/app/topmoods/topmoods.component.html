@@ -1,0 +1,10 @@
+<div *ngIf="!moodtrends" class="d-flex justify-content-center align-items-center" style="height:100px;">
+  Loading Cat Mood Trends...
+</div>
+<div *ngIf="moodtrends">
+  <div style="display: block">
+    <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
+      [legend]="barChartLegend" [chartType]="barChartType">
+    </canvas>
+  </div>
+</div>

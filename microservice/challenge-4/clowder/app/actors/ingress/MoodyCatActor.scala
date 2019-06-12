@@ -14,7 +14,6 @@ import scala.util.Random
 object MoodyCatActor {
   object ChangeMoodKey
   object ChangeMood
-  val random = new Random
 
   trait Factory {
     def apply(possibleMoods: Seq[OverlordActor.Mood], moodChangeInterval: Duration): Actor
@@ -32,6 +31,8 @@ class MoodyCatActor @Inject() (@Assisted possibleMoods: Seq[OverlordActor.Mood],
                                @Named("mood-publish-router") moodPublishActor: ActorRef)
 extends Actor with Timers with ActorLogging {
   import MoodyCatActor._
+
+  val random = new Random
 
   override def preStart(): Unit = {
     setupMoodSwings()
