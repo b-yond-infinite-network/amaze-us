@@ -2,7 +2,7 @@ package actors.egress
 
 import java.util.concurrent.TimeUnit
 
-import actors.egress.AggregationResultsActor.{CountResult, RegisterMe, UnRegisterMe}
+import actors.egress.AggregationResultsActor.{AggregationResult, CountResult, RegisterMe, UnRegisterMe}
 import akka.actor.{Actor, ActorLogging, ActorRef, Props}
 import akka.util.Timeout
 import play.api.libs.json._
@@ -25,10 +25,18 @@ object WebSocketActor {
   */
 class WebSocketActor(out: ActorRef, in: ActorRef) extends Actor with ActorLogging {
 
-  implicit val residentWrites = new Writes[CountResult] {
+  implicit val countResultWrites = new Writes[CountResult] {
     def writes(countResult: CountResult): JsObject = Json.obj(
       "mood" -> countResult.mood,
       "count" -> countResult.count,
+    )
+  }
+
+  implicit val aggrResultWrites = new Writes[AggregationResult] {
+    def writes(aggregationResult: AggregationResult): JsObject = Json.obj(
+      "mood" -> aggregationResult.emotionName,
+      "mean" -> aggregationResult.mean,
+      "variance" -> aggregationResult.variance
     )
   }
 
@@ -42,6 +50,13 @@ class WebSocketActor(out: ActorRef, in: ActorRef) extends Actor with ActorLoggin
       val output: JsValue = Json.obj(
         "type" -> JsString("count"),
         "topMoods" -> topMoods
+      )
+      out ! output
+    case aggrResult: Array[AggregationResult] =>
+      val statistics: JsValue = Json.toJson(aggrResult)
+      val output: JsValue = Json.obj(
+        "type" -> JsString("statistics"),
+        "moodStatistics" -> statistics
       )
       out ! output
   }

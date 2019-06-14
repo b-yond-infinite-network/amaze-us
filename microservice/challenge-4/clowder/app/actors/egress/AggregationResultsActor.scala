@@ -1,10 +1,11 @@
 package actors.egress
 
-import actors.egress.AggregationResultsActor.{CountResult, RegisterMe, UnRegisterMe}
+import actors.egress.AggregationResultsActor.{AggregationResult, CountResult, RegisterMe, UnRegisterMe}
 import akka.actor.{Actor, ActorRef}
 
 object AggregationResultsActor {
   case class CountResult(mood: String, count: Long)
+  case class AggregationResult(emotionName: String, mean: Double, variance: Double)
   object RegisterMe
   object UnRegisterMe
 }
@@ -20,11 +21,15 @@ class AggregationResultsActor extends Actor {
   private val registeredWebSocketActors = collection.mutable.Map[String, ActorRef]()
 
   override def receive: Receive = {
-    case result: Array[CountResult] =>
-      registeredWebSocketActors.foreach(entry => entry._2 ! result)
+    case countResult: Array[CountResult] =>
+      registeredWebSocketActors.foreach(entry => entry._2 ! countResult)
+    case aggrResult: Array[AggregationResult] =>
+      registeredWebSocketActors.foreach(entry => entry._2 ! aggrResult)
     case RegisterMe =>
       registeredWebSocketActors += sender().path.name -> sender()
     case UnRegisterMe =>
       registeredWebSocketActors -= sender().path.name
+    case _ =>
+      println("Unknown")
   }
 }

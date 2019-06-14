@@ -1,13 +1,13 @@
 package actors.egress
 
-import actors.egress.AggregationResultsActor.CountResult
+import actors.egress.AggregationResultsActor.{AggregationResult, CountResult}
 import akka.actor.{Actor, ActorLogging, ActorRef}
 import com.typesafe.config.Config
 import javax.inject.{Inject, Named}
 import org.apache.spark.sql.functions._
 import org.apache.spark.sql.streaming.StreamingQuery
 import org.apache.spark.sql.types.{DataTypes, StructType}
-import org.apache.spark.sql.{DataFrame, SparkSession}
+import org.apache.spark.sql.{DataFrame, SparkSession, functions}
 
 object SparkStreamingActor {
   val moodStruct: StructType = new StructType()
@@ -20,11 +20,12 @@ object SparkStreamingActor {
 /**
   * This actor starts a spark session to stream cat moods from kafka.
   * We also start queries from the session and pass results to the AggregationResultsActor
-  * @param config - type safe config
+  *
+  * @param config           - type safe config
   * @param aggrResultsActor - actor to stream aggregation results to.
   */
-class SparkStreamingActor @Inject() (config: Config,
-                                     @Named("aggregation-results-actor") aggrResultsActor: ActorRef)
+class SparkStreamingActor @Inject()(config: Config,
+                                    @Named("aggregation-results-actor") aggrResultsActor: ActorRef)
   extends Actor with ActorLogging {
 
   import SparkStreamingActor._
@@ -39,6 +40,8 @@ class SparkStreamingActor @Inject() (config: Config,
   val df: DataFrame = readCatMoodStream()
 
   val topMoodsQuery: StreamingQuery = startEmittingTopMoods(df)
+
+  startEmittingAverage(df)
 
   def readCatMoodStream(): DataFrame = {
 
@@ -61,21 +64,58 @@ class SparkStreamingActor @Inject() (config: Config,
   }
 
   def startEmittingTopMoods(df: DataFrame): StreamingQuery = {
+
     log.info("Start emitting top moods")
+
     import spark.implicits._
+
     val topMoods = df
       .groupBy("emotionName")
       .count
       .orderBy(col("count").desc)
       .writeStream
       .outputMode("complete")
-      .foreachBatch {(batchDF: DataFrame, _: Long) =>
+      .foreachBatch { (batchDF: DataFrame, _: Long) =>
         val countResults =
           batchDF.map(row => CountResult(row.getString(0), row.getLong(1))).collect()
         aggrResultsActor ! countResults
       }.start()
 
     topMoods
+  }
+
+  def startEmittingAverage(df: DataFrame): Unit = {
+
+    import spark.implicits._
+
+    val windowedDF =
+      df.groupBy(
+        window(col("timestamp"), "2 minutes", "1 minutes"),
+        col("emotionName"))
+        .count().orderBy(col("window").desc, col("count").desc)
+
+    windowedDF
+      .writeStream
+      .outputMode("complete")
+      .foreachBatch { (batchDF: DataFrame, _: Long) =>
+
+        val aggrResultsDF =
+          batchDF
+          .groupBy(col("emotionName"))
+          .agg(
+            functions.mean("count").as("mean"),
+            functions.variance("count").as("variance"))
+
+        val aggrResults =
+          aggrResultsDF.map(row =>
+            AggregationResult(
+              row.getString(0),
+              row.getDouble(1),
+              row.getDouble(2))
+          ).collect()
+
+        aggrResultsActor ! aggrResults
+      }.start()
   }
 
   override def receive: Receive = {

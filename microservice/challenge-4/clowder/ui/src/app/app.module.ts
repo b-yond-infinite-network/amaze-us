@@ -5,11 +5,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ChartsModule } from 'ng2-charts';
 import { TopmoodsComponent } from './topmoods/topmoods.component';
+import { MoodstatisticsComponent } from './moodstatistics/moodstatistics.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    TopmoodsComponent
+    TopmoodsComponent,
+    MoodstatisticsComponent
   ],
   imports: [
     BrowserModule,

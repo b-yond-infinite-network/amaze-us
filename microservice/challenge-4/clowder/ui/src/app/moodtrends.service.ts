@@ -3,6 +3,14 @@ import { environment } from '../environments/environment';
 import { Subject } from "rxjs";
 import { map } from "rxjs/operators";
 import { WebsocketService } from "./websocket.service";
+import { Timestamp } from 'rxjs/internal/operators/timestamp';
+
+export interface MoodStatistic {
+  timestamp: string;
+  mood: string;
+  mean: number;
+  variance: number
+}
 
 export interface TopMood {
   mood: string;
@@ -12,6 +20,7 @@ export interface TopMood {
 export interface Message {
   type: string;
   topMoods?: TopMood[];
+  moodStatistics?: MoodStatistic[]
 }
 
 @Injectable({
@@ -33,7 +42,8 @@ export class MoodtrendsService {
       console.log('received', data);
       return {
         type: data.type,
-        topMoods: data.topMoods
+        topMoods: data.topMoods,
+        moodStatistics: data.moodStatistics
       };
     }));
   }
