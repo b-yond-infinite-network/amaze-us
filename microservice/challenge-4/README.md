@@ -83,9 +83,14 @@ An angular app is included to stream mood trends using a web socket connection b
   sbt run
   ```
   
-  ```You can view results at http://localhost:4200/```
-  ```If you want to integrate stream into your app, WebSocket address ws://localhost:9000/moodtrends```
+  - ```You can view results at http://localhost:4200/```
+  - ```If you want to integrate stream into your app, WebSocket address ws://localhost:9000/moodtrends```
 
 #### Things learnt
+
 Spent time learning about Spark Streaming (basically, asked my wife)
-  
+
+#### Things to do
+
+1. Handle Kafka producer reconnects
+2. Refactor kafka producer and spark streaming actors for unit testing.
