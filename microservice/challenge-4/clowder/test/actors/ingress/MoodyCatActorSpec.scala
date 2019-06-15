@@ -8,10 +8,8 @@ import actors.ingress.OverlordActor.Mood
 import akka.actor.{ActorSystem, Props}
 import akka.testkit.{ImplicitSender, TestKit, TestProbe}
 import org.scalatest.{BeforeAndAfterAll, Matchers, WordSpecLike}
-import play.api.inject.guice.GuiceInjectorBuilder
 
-
-class MoodyCatActorSpec extends TestKit(ActorSystem("MySpec"))
+class MoodyCatActorSpec extends TestKit(ActorSystem("MoodyCatActorSpec"))
   with ImplicitSender
   with WordSpecLike
   with Matchers
@@ -23,9 +21,6 @@ class MoodyCatActorSpec extends TestKit(ActorSystem("MySpec"))
 
   "Moody cat actor" must {
     "setup a timer to change mood" in {
-      val injector = new GuiceInjectorBuilder()
-        .bindings(new TestModule)
-        .injector()
 
       val probe = TestProbe()
       val moods =
@@ -45,5 +40,4 @@ class MoodyCatActorSpec extends TestKit(ActorSystem("MySpec"))
       probe.expectMsg(PublishedMood(actor.path.name, myMood.name, myMood.emotion, Instant.now.getEpochSecond))
     }
   }
-
 }

@@ -29,7 +29,7 @@
 
   <root level="WARN">
     <!--<appender-ref ref="ASYNCFILE" />-->
-    <appender-ref ref="ASYNCSTDOUT" />
+    <appender-ref ref="ASYNCFILE" />
   </root>
 
 </configuration>

@@ -1,5 +1,5 @@
-import { Component, OnInit, OnChanges, Input } from '@angular/core';
-import { MoodtrendsService, MoodStatistic } from '../moodtrends.service';
+import { Component, OnInit, Input } from '@angular/core';
+import { MoodStatistic } from '../moodtrends.service';
 import { Chart } from 'chart.js';
 
 @Component({
@@ -44,7 +44,7 @@ export class MoodstatisticsComponent implements OnInit {
     }
   }
 
-  constructor(private moodtrendsService: MoodtrendsService) { }
+  constructor() { }
 
   ngOnInit() {}
 
@@ -71,15 +71,13 @@ export class MoodstatisticsComponent implements OnInit {
 		};
 
     if (this.moodStatistics) {
-      console.log('this.moodStatistics', this.moodStatistics);
       for (const moodStatistic of this.moodStatistics) {
         lineChartData.labels.push(moodStatistic.mood);
         lineChartData.datasets[0].data.push(moodStatistic.mean);
         lineChartData.datasets[1].data.push(moodStatistic.variance);
       }
-      console.log('linechartdata', lineChartData);
       this.multiLineChartOptions.data = lineChartData;
-      this.chart = new Chart('canvas', this.multiLineChartOptions)
+      this.chart = new Chart('canvas', this.multiLineChartOptions);
     }
   }
 }

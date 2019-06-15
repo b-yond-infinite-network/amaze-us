@@ -1,6 +1,6 @@
 package actors.egress
 
-import actors.egress.AggregationResultsActor.{AggregationResult, CountResult}
+import actors.egress.AggregationResultsActor.{StatisticsResult, CountResult}
 import akka.actor.{Actor, ActorLogging, ActorRef}
 import com.typesafe.config.Config
 import javax.inject.{Inject, Named}
@@ -39,9 +39,9 @@ class SparkStreamingActor @Inject()(config: Config,
 
   val df: DataFrame = readCatMoodStream()
 
+  //Run Queries and Publish Results
   val topMoodsQuery: StreamingQuery = startEmittingTopMoods(df)
-
-  startEmittingAverage(df)
+  val statisticsQuery: StreamingQuery = startEmittingMoodStatistics(df)
 
   def readCatMoodStream(): DataFrame = {
 
@@ -84,7 +84,7 @@ class SparkStreamingActor @Inject()(config: Config,
     topMoods
   }
 
-  def startEmittingAverage(df: DataFrame): Unit = {
+  def startEmittingMoodStatistics(df: DataFrame): StreamingQuery = {
 
     import spark.implicits._
 
@@ -108,7 +108,7 @@ class SparkStreamingActor @Inject()(config: Config,
 
         val aggrResults =
           aggrResultsDF.map(row =>
-            AggregationResult(
+            StatisticsResult(
               row.getString(0),
               row.getDouble(1),
               row.getDouble(2))
@@ -127,6 +127,12 @@ class SparkStreamingActor @Inject()(config: Config,
     if (topMoodsQuery.isActive)
       topMoodsQuery.stop()
 
-    spark.close()
+    if (statisticsQuery.isActive)
+      statisticsQuery.stop()
+
+    if (!spark.sparkContext.isStopped) {
+      spark.sparkContext.stop()
+      spark.stop()
+    }
   }
 }

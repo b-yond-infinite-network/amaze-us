@@ -1,11 +1,11 @@
 package actors.egress
 
-import actors.egress.AggregationResultsActor.{AggregationResult, CountResult, RegisterMe, UnRegisterMe}
+import actors.egress.AggregationResultsActor.{StatisticsResult, CountResult, RegisterMe, UnRegisterMe}
 import akka.actor.{Actor, ActorRef}
 
 object AggregationResultsActor {
   case class CountResult(mood: String, count: Long)
-  case class AggregationResult(emotionName: String, mean: Double, variance: Double)
+  case class StatisticsResult(emotionName: String, mean: Double, variance: Double)
   object RegisterMe
   object UnRegisterMe
 }
@@ -23,13 +23,11 @@ class AggregationResultsActor extends Actor {
   override def receive: Receive = {
     case countResult: Array[CountResult] =>
       registeredWebSocketActors.foreach(entry => entry._2 ! countResult)
-    case aggrResult: Array[AggregationResult] =>
+    case aggrResult: Array[StatisticsResult] =>
       registeredWebSocketActors.foreach(entry => entry._2 ! aggrResult)
     case RegisterMe =>
       registeredWebSocketActors += sender().path.name -> sender()
     case UnRegisterMe =>
       registeredWebSocketActors -= sender().path.name
-    case _ =>
-      println("Unknown")
   }
 }

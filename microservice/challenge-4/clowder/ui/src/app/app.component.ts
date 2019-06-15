@@ -10,8 +10,6 @@ export class AppComponent {
   title = 'loki';
 
   moodtrends = null;
-  //@Output() topMoods = new EventEmitter<TopMood[]>();
-  //@Output() moodStatistics = new EventEmitter<MoodStatistic[]>();
   topMoods = null;
   moodStatistics = null;
 
@@ -22,10 +20,8 @@ export class AppComponent {
       console.log('msg', msg);
       this.moodtrends = msg;
       if (msg.topMoods) {
-        //this.topMoods.emit(msg.topMoods);
         this.topMoods = msg.topMoods;
       } else if (msg.moodStatistics) {
-        //this.moodStatistics.emit(msg.moodStatistics);
         this.moodStatistics = msg.moodStatistics;
       }
     });

@@ -13,17 +13,11 @@ import play.api.libs.concurrent.AkkaGuiceSupport
 
 import scala.concurrent.duration._
 
-class TestModule extends AbstractModule
-  with AkkaGuiceSupport {
-
-  override def configure(): Unit = {
-    bindActorFactory[MockMoodyCatActor, MoodyCatActor.Factory]
-    val config = ConfigFactory.load()
-    bind(classOf[Config]).toInstance(config)
-  }
+object OverlordActorSpec {
+  var NUMBER_OF_CATS_CREATED: AtomicInteger = new AtomicInteger()
 }
 
-class MockMoodyCatActor extends Actor {
+class MockMoodyCatActor() extends Actor {
 
   override def preStart(): Unit = {
     OverlordActorSpec.NUMBER_OF_CATS_CREATED.incrementAndGet()
@@ -34,11 +28,17 @@ class MockMoodyCatActor extends Actor {
   }
 }
 
-object OverlordActorSpec {
-  var NUMBER_OF_CATS_CREATED: AtomicInteger = new AtomicInteger()
+class TestModule() extends AbstractModule
+  with AkkaGuiceSupport {
+
+  override def configure(): Unit = {
+    bindActorFactory[MockMoodyCatActor, MoodyCatActor.Factory]
+    val config = ConfigFactory.load()
+    bind(classOf[Config]).toInstance(config)
+  }
 }
 
-class OverlordActorSpec extends TestKit(ActorSystem("MySpec"))
+class OverlordActorSpec extends TestKit(ActorSystem("OverlordActorSpec"))
   with ImplicitSender
   with WordSpecLike
   with Matchers
@@ -49,20 +49,22 @@ class OverlordActorSpec extends TestKit(ActorSystem("MySpec"))
   }
 
   "Overlord actor" must {
-    "create n cats" in {
+    "creates n cats" in {
       val injector = new GuiceInjectorBuilder()
-        .bindings(new TestModule)
+        .bindings(new TestModule())
         .injector()
 
       val factory = injector.instanceOf[MoodyCatActor.Factory]
       val config = injector.instanceOf[Config]
-      val overlord = system.actorOf(Props(classOf[OverlordActor], factory, config))
+      system.actorOf(Props(new OverlordActor(factory, config) {
+        override def scheduleCatOverlordship(): Unit = {
+          self ! WakeUpCats
+        }
+      }))
 
       val expectedClowderSize = config.getInt("clowder.size")
 
-      overlord ! WakeUpCats
       expectNoMessage(3.seconds)
-
       assert(OverlordActorSpec.NUMBER_OF_CATS_CREATED.get() == expectedClowderSize)
     }
   }

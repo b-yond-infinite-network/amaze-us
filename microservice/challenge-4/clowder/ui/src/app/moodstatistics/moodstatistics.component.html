@@ -1,3 +1,6 @@
-<div *ngIf="chart">
+<div *ngIf="!moodStatistics" class="d-flex justify-content-center align-items-center" style="height:100px;">
+  Waiting for Statistics...
+</div>
+<div *ngIf="moodStatistics">
   <canvas id="canvas">{{ chart }}</canvas>
 </div>

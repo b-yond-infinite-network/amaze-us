@@ -39,7 +39,6 @@ export class MoodtrendsService {
   startMoodTrendStream() {
     this.messages = <Subject<Message>>this.wsService.connect(this.moodTrendsUrl).pipe(map(x => {
       let data = JSON.parse(x.data);
-      console.log('received', data);
       return {
         type: data.type,
         topMoods: data.topMoods,
