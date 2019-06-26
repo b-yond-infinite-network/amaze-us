@@ -1,0 +1,9 @@
+title Mysteries of the cats
+
+cat-mood-producer->kafka:generates cats and every 27 seconds sends new moods
+note over cat-mood-producer:Spring-boot app, scheduling need to be improved\nby using a scalable solution such as Quartz or ShedLock,\ngenerating cats is done in memory, in reality \nit should be another process that will send to another kafka topic
+kafka->cat-mood-consumer:consume messages from kafka
+note over kafka:cats topic with 50 partitions,\nthat could be increased if we want more scalability
+cat-mood-consumer->PostgreSQL(timescaledb):save cat moods
+PostgreSQL(timescaledb)->Grafana:consume PostgreSQL
+note over Grafana:display statistics such as average, variance, median (TBD)
