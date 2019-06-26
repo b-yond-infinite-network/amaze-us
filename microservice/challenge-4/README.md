@@ -367,7 +367,7 @@ $__timeFilter(time)
 - I used Java because it's the language i'm the best at and it really works well for this problem. I don't have experience with Scala
 - I chose SpringBoot because it's the easiest, fastest framework to develop in.
 - The cat-mood-producer uses Java 8 Parallel Stream, it can also use the number of provided threads to have more control about the number of thread, i found the Parallel Stream to be faster so it's the default implementation -Dexecutor.implementation=stream|anything
-- Kafka was a no-brainer because of it's scalability and its stability and maturity.
+- Kafka was a no-brainer because of its scalability and its stability and maturity.
 - The 2 apps can be monitored with JMX using VisualVM for ex, I used Codahale (dropwizard) metrics
 - The use of Timescaledb was because it had good performance and i was familiar with SQL (haven't used PostgreSQL before), I could have used InfluxDB
 - I used Grafana because it's Open Source and popular
@@ -459,6 +459,7 @@ Currently using JSON for ease of use, but using Avro or GPB (Google Protocol Buf
 
 - Currently creating the cats is done in the same project. In real life this would come from another process that would add the creation event in Kafka and we would subscribe to it.
 
+- The single process producer is not resilient, i could have many processes instead of 1.
   
 
 - The scheduling is not scalable at the moment as it's done with only 1 thread in the same application, we can use ShedLock or Quartz in order to spread the work to be done over a cluster of servers
