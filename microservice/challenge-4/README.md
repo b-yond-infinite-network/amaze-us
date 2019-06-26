@@ -407,35 +407,11 @@ Grafana stats
 ](http://www.antaki.ca/cats/grafana.png)
 ### Benchmark
 
-  
-
-50,000 cats every 5 seconds.
-
-  
-
-Producer submitted 50,000 * 4 in:
-
-  
-
-2019-06-25 20:57:40.077 INFO 67993 --- [pool-1-thread-1] c.a.w.c.p.handler.StreamsMoodHandler : changeMood.streams.time.ms = 548 ms
-
-  
-
-2019-06-25 20:57:44.658 INFO 67993 --- [pool-1-thread-1] c.a.w.c.p.handler.StreamsMoodHandler : changeMood.streams.time.ms = 125 ms
-
-  
-
-2019-06-25 20:57:49.608 INFO 67993 --- [pool-1-thread-1] c.a.w.c.p.handler.StreamsMoodHandler : changeMood.streams.time.ms = 78 ms
-
-  
-
-2019-06-25 20:57:54.587 INFO 67993 --- [pool-1-thread-1] c.a.w.c.p.handler.StreamsMoodHandler : changeMood.streams.time.ms = 57 ms
-
-  
-
-  
-
-Consumer consumed 200,000 in 16 seconds with 2 threads at a rate of 12,500 messages per second. Limiting factor was the PostgreSQL DB running in Docker on Mac
+| Nb cats                    | Producer | Consumer 10 threads | Consumer 20 threads | Consumption rate (per second) | Comment                                                              |
+|----------------------------|----------|---------------------|---------------------|-------------------------------|----------------------------------------------------------------------|
+| 5000 = 1000 every 5s       | 392 ms   | 800 ms              | 1.1s                | 6,250                         |                                                                      |
+| 250,000 = 50,000 every 5s  | 808 ms   | 13s                 | 10s                 | 19,230                        |                                                                      |
+| 1,000,000= 200,000 every 5 | 2469     | 37s                 | 37s                 | 27,027                        | This shows bottleneck is from DB side  as it's running on Docker MAC |
 
   
 
