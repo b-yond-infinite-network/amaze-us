@@ -124,7 +124,9 @@ Make sparks, solve the mystery!
 + Push your change inside a Pull Request to our master
 
   
-
+## Architecture
+  ![
+](http://www.antaki.ca/cats/MysteriesOfTheCats.png)
   
 
 ## Prerequisites
@@ -133,39 +135,20 @@ Make sparks, solve the mystery!
 
 1. Install OpenJDK 11
 
-  
-
 2. Install kafka_2.12-2.1.1
-
-  
-
-  
 
 3. Install Docker
 
-  
-
-  
-
 4. Start zookeeper
-
-  
 
 sudo {KAFKA_INSTALL_DIR}bin/zookeeper-server-start.sh config/zookeeper.properties
 
-  
-
-  
 
 5. Start kafka server
 
-  
 
 sudo {KAFKA_INSTALL_DIR}/bin/kafka-server-start.sh config/server.properties
 
-  
-
-  
 
 6. Create cats topic: we're using replication factor 1 as we only have 1 broker, in PROD we would have 3 or more brokers so we can increase it to 2 or 3 or more depending.
 
@@ -173,29 +156,17 @@ sudo {KAFKA_INSTALL_DIR}/bin/kafka-server-start.sh config/server.properties
 
 sudo {KAFKA_INSTALL_DIR}/bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 50 --topic cats
 
-  
-
-  
 
 7. Install grafana
 
   
-
 docker run -d --name=grafana -p 3000:3000 grafana/grafana
-
-  
-
-  
 
 8. Install PostgreSQL with timescaledb
 
-  
 
 docker run -d --name timescaledb -p 5432:5432 -e POSTGRES_PASSWORD=password timescale/timescaledb:latest-pg11
 
-  
-
-  
 
 ## Building the projects
 
@@ -211,43 +182,26 @@ cd microservice/challenge-4/cat-mood-producer
 
 mvn clean package
 
-  
-
-  
 
 2. Start the consumer
 
-  
-
 cd microservice/challenge-4/mood-consumer
-
-  
 
 mvn clean package
 
-  
-
-  
-
 ## Running the projects
 
-  
 
 1. Start the producer:
 
-  
 
 cd microservice/challenge-4/cat-mood-producer
 
-  
 
 java -jar target/cat-mood-producer-0.0.1-SNAPSHOT.jar
 
-  
 
 For more control:
-
-  
 
 java -Dlogging.level.root={LOG_LEVEL} -Dcats={NB_CATS} -Dchange.mood.interval.seconds={SECONDS} -jar target/cat-mood-producer-0.0.1-SNAPSHOT.jar
 
@@ -260,38 +214,22 @@ or
 mvn spring-boot:run
 
   
-
-  
-
 2. Start the consumer:
 
-  
 
 cd microservice/challenge-4/mood-consumer
 
-  
-
 java -jar target/cat-mood-consumer-0.0.1-SNAPSHOT.jar
 
-  
 
 For more control:
 
-  
-
 java -Dlogging.level.root={LOG_LEVEL} -Dconsumer.threads={NB_THREADS} -Dkafka.server.address={SERVER_ADDRESS} -Dkafka.group.id={GROUP_ID} -jar target/cat-mood-consumer-0.0.1-SNAPSHOT.jar
-
-  
 
 or
 
-  
-
 mvn spring-boot:run
 
-  
-
-  
 
 3. Integrate PostgreSQL with Grafana
 
@@ -300,32 +238,15 @@ mvn spring-boot:run
 Go to http://localhost:3000 and add the PostgreSQL data source
 
   
-
 Host: host.docker.internal:5432
-
-  
 
 Database: postgres
 
-  
-
 User: postgres
-
-  
-
 SSL Mode: disable
-
-  
-
 TimescaleDB: enable
 
-  
-
-  
-
 4. Add the dashboard with the following SQL queries:
-
-  
 
 For the average:
 
@@ -342,12 +263,7 @@ WHERE
 $__timeFilter(time)
 
 ```
-
-  
-
 For the variance:
-
-  
 
 ```sql
 
@@ -365,6 +281,7 @@ $__timeFilter(time)
 
 ### Tech choices
 - I used Java because it's the language i'm the best at and it really works well for this problem. I don't have experience with Scala
+Why Java 11 and not 12 it's because the Kafka release notes don't say Java 12 support and I didn't want to risk.
 - I chose SpringBoot because it's the easiest, fastest framework to develop in.
 - The cat-mood-producer uses Java 8 Parallel Stream, it can also use the number of provided threads to have more control about the number of thread, i found the Parallel Stream to be faster so it's the default implementation -Dexecutor.implementation=stream|anything
 - Kafka was a no-brainer because of its scalability and its stability and maturity.
@@ -375,24 +292,16 @@ $__timeFilter(time)
 
 ## Tests
 
-  
-
 ### Functional Test
 
-  
-
 I generated 200,000 moods using the cat-mood-producer then I ran the cat-mood-consumer and then I checked the database to make sure we have 200,000 records.
-
-  
 
 We could have an integration test that does that.
 
   
 
 ### Demo
-Architecture
-  ![
-](http://www.antaki.ca/cats/MysteriesOfTheCats.png)
+
   
   Running cat-mood-producer
 ![
