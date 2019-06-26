@@ -371,6 +371,7 @@ $__timeFilter(time)
 - The 2 apps can be monitored with JMX using VisualVM for ex, I used Codahale (dropwizard) metrics
 - The use of Timescaledb was because it had good performance and i was familiar with SQL (haven't used PostgreSQL before), I could have used InfluxDB
 - I used Grafana because it's Open Source and popular
+- I didn't optimize the JVM: Xmx, Xms, default, max Metaspace size. Starting from Java 9 the default GC algorithm is G1. It's always a good habit to set -XX:MaxMetaspaceSize as it's unlimited by default
 
 ## Tests
 
