@@ -4,7 +4,7 @@ public class Cat {
 
 	private final String name;
 	
-	//using an int (primitive type) in order to save space if we want to have millions of Cats
+	//using a byte (primitive type) in order to save space if we want to have millions of Cats
 	private byte mood = CatMood.MIAW.getId();
 
 	public Cat(String name) {
