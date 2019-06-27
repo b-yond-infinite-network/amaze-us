@@ -6,14 +6,14 @@ Discovery is upon us! The mystery has to be solved!
 After years of research, century of mysticism, we have it.
 Here is the truth, we can say with certainty that cats have 7 moods :
 ```scala
-val GROWL = "grr"
-val HISS = "kssss"
-val PURR = "rrrrr"
-val THROWGLASS = "cling bling"
-val ROLLONFLOOR = "fffff"
-val SCRATCHCHAIRS = "gratgrat"
-val LOOKDEEPINEYES = "-o-o-___--"
-```
+  val GROWL         = "grr"
+  val HISS          = "kssss"
+  val PURR          = "rrrrr"
+  val THROWGLASS    = "cling bling"
+  val ROLLONFLOOR   = "fffff"
+  val SCRATCHCHAIRS = "gratgrat"
+  val LOOKDEEPINEYES = "-o-o-___--"
+``` 
 Not counting of course, there default "Miaw" mood.
 We are on mission. So should you!
 First, let's modelize our cats in Scala.
@@ -38,7 +38,6 @@ Make sparks, solve the mystery!
   ![
 ](http://www.antaki.ca/cats/MysteriesOfTheCats.png)
   
-
 ### Tech choices
 - I used Java because it's the language i'm the best at and it really works well for this problem. I don't have experience with Scala
 Why Java 11 and not 12 it's because the Kafka release notes don't say Java 12 support and I didn't want to risk.
@@ -51,9 +50,6 @@ Why Java 11 and not 12 it's because the Kafka release notes don't say Java 12 su
 - I didn't optimize the JVM: Xmx, Xms, default, max Metaspace size. Starting from Java 9 the default GC algorithm is G1. It's always a good habit to set -XX:MaxMetaspaceSize as it's unlimited by default
 
 ## Prerequisites
-
-  
-
 1. Install OpenJDK 11
 2. Install Maven 3.6
 
@@ -68,70 +64,51 @@ sudo {KAFKA_INSTALL_DIR}bin/zookeeper-server-start.sh config/zookeeper.propertie
 
 6. Start kafka server
 
-
+```
 sudo {KAFKA_INSTALL_DIR}/bin/kafka-server-start.sh config/server.properties
-
+```
 
 7. Create cats topic: we're using replication factor 1 as we only have 1 broker, in PROD we would have 3 or more brokers so we can increase it to 2 or 3 or more depending.
-
-  
-
+```
 sudo {KAFKA_INSTALL_DIR}/bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 50 --topic cats
-
+```
 
 8. Run grafana
-
-  
+```
 docker run -d --name=grafana -p 3000:3000 grafana/grafana
-
+```
 9. Run PostgreSQL with timescaledb
-
-
+```
 docker run -d --name timescaledb -p 5432:5432 -e POSTGRES_PASSWORD=password timescale/timescaledb:latest-pg11
-
+```
 
 ## Building the projects
 
-  
-
 1. Start the producer
-
-  
-
+```
 cd microservice/challenge-4/cat-mood-producer
-
-  
-
 mvn clean package
-
+```
 
 2. Start the consumer
-
+```
 cd microservice/challenge-4/mood-consumer
-
 mvn clean package
+```
 
 ## Running the projects
 
-
 1. Start the producer:
-
-
+```
 cd microservice/challenge-4/cat-mood-producer
-
-
 java -jar target/cat-mood-producer-0.0.1-SNAPSHOT.jar
-
+```
 
 For more control:
 
 java -Dlogging.level.root={LOG_LEVEL} -Dcats={NB_CATS} -Dchange.mood.interval.seconds={SECONDS} -jar target/cat-mood-producer-0.0.1-SNAPSHOT.jar
 
-  
-
 or
-
-  
 
 mvn spring-boot:run
 
