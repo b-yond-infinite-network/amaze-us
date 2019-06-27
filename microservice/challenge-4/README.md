@@ -224,6 +224,7 @@ Grafana stats
 | 250,000 = 50,000 every 5s  | 808 ms   | 13s                 | 10s                 | 19,230                        |                                                                      |
 | 1,000,000= 200,000 every 5 | 2469     | 37s                 | 37s                 | 27,027                        | This shows bottleneck is from DB side  as it's running on Docker MAC |
 
+I've used 5s instead of 27s for speed :)
 ## Improvements
 
 Currently using JSON for ease of use, but using Avro or GPB (Google Protocol Buffer) is faster. Moreover we need to use a common model between the 2 projects. I'm missing the median i didn't find how to do it (need to put more time in it)
