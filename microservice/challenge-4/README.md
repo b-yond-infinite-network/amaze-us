@@ -105,38 +105,34 @@ java -jar target/cat-mood-producer-0.0.1-SNAPSHOT.jar
 ```
 
 For more control:
-
+```
 java -Dlogging.level.root={LOG_LEVEL} -Dcats={NB_CATS} -Dchange.mood.interval.seconds={SECONDS} -jar target/cat-mood-producer-0.0.1-SNAPSHOT.jar
-
+```
 or
-
+```
 mvn spring-boot:run
-
+```
   
 2. Start the consumer:
-
-
+```
 cd microservice/challenge-4/mood-consumer
-
 java -jar target/cat-mood-consumer-0.0.1-SNAPSHOT.jar
-
+```
 
 For more control:
-
+```
 java -Dlogging.level.root={LOG_LEVEL} -Ddb.batch.size={BATCH_SIZE} -Dconsumer.threads={NB_THREADS} -Dkafka.server.address={SERVER_ADDRESS} -Dkafka.group.id={GROUP_ID} -jar target/cat-mood-consumer-0.0.1-SNAPSHOT.jar
-
+```
 or
-
+```
 mvn spring-boot:run
-
+```
 
 3. Integrate PostgreSQL with Grafana
 
-  
-
 Go to http://localhost:3000 and add the PostgreSQL data source
 
-
+```
 Host: host.docker.internal:5432
 
 Database: postgres
@@ -144,7 +140,7 @@ Database: postgres
 User: postgres
 SSL Mode: disable
 TimescaleDB: enable
-
+```
 4. Add the dashboard with the following SQL queries:
 
 For the average:
@@ -217,14 +213,14 @@ Running cat-mood-consumer
 
 Grafana stats
 ![
-](http://www.antaki.ca/cats/grafana.png)
+](http://www.antaki.ca/cats/grafana_new.png)
 ### Benchmark
 
-| Nb cats                    | Producer | Consumer 10 threads, batch=50 | Consumer 20 threads, batch=50 | Consumption rate (per second) | Comment                                                              |
+| Nb cats                    | Producer | Consumer 10 threads | Consumer 20 threads | Consumption rate (per second) | Comment                                                              |
 |----------------------------|----------|---------------------|---------------------|-------------------------------|----------------------------------------------------------------------|
 | 5000 = 1000 every 5s       | 392 ms   | 800 ms              | 1.1s                | 6,250                         |                                                                      |
 | 250,000 = 50,000 every 5s  | 808 ms   | 13s                 | 10s                 | 19,230                        |                                                                      |
-| 1,000,000= 200,000 every 5s | 2469     | 37s                 | 37s                 | 27,027                        | This shows bottleneck is from DB side  as it's running on Docker MAC |
+| 1,000,000= 200,000 every 5 | 2469     | 37s                 | 37s                 | 27,027                        | This shows bottleneck is from DB side  as it's running on Docker MAC |
 
 ## Improvements
 
