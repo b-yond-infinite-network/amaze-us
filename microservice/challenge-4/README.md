@@ -58,9 +58,9 @@ Why Java 11 and not 12 it's because the Kafka release notes don't say Java 12 su
 4. Install Docker
 
 5. Start zookeeper
-
+```
 sudo {KAFKA_INSTALL_DIR}bin/zookeeper-server-start.sh config/zookeeper.properties
-
+```
 
 6. Start kafka server
 
@@ -138,7 +138,9 @@ Host: host.docker.internal:5432
 Database: postgres
 
 User: postgres
+
 SSL Mode: disable
+
 TimescaleDB: enable
 ```
 4. Add the dashboard with the following SQL queries:
