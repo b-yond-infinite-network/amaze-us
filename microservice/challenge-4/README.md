@@ -227,7 +227,7 @@ Grafana stats
 I've used 5s instead of 27s for speed :)
 ## Improvements
 
-Currently using JSON for ease of use, but using Avro or GPB (Google Protocol Buffer) is faster. Moreover we need to use a common model between the 2 projects. I'm missing the median i didn't find how to do it (need to put more time in it)
+Currently using JSON for ease of use, but using Avro or GPB (Google Protocol Buffer) is faster. Moreover we need to use a common model between the 2 projects.
 
 ### cat-mood-producer
 
