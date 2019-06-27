@@ -33,6 +33,9 @@ public class CatMoodConsumerConfig {
 	
 	@Value("${consumer.threads:10}")
 	private int consumerThreads;
+	
+	@Value("${db.batch.size:50}")
+	private int batchSize;
 
 	@Bean
 	public ConsumerFactory<String, String> consumerFactory() {
@@ -41,7 +44,7 @@ public class CatMoodConsumerConfig {
 		props.put(ConsumerConfig.GROUP_ID_CONFIG, kafkaGroupId);
 		props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
 		props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
-		props.put(ConsumerConfig.MAX_POLL_RECORDS_CONFIG, "50");
+		props.put(ConsumerConfig.MAX_POLL_RECORDS_CONFIG, batchSize);
 		return new DefaultKafkaConsumerFactory<>(props);
 	}
 	
@@ -50,6 +53,7 @@ public class CatMoodConsumerConfig {
 		LOG.info("kafkaAddress= {}", kafkaAddress);
 		LOG.info("kafkaGroupId= {}", kafkaGroupId);
 		LOG.info("threads= {}", kafkaGroupId);
+		LOG.info("db.batch.size= {}", batchSize);
 	}
 
 	@Bean
