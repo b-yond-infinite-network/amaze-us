@@ -1,8 +1,24 @@
 package ca.antaki.www.cat.mood.consumer.listener;
 
-//Usually i dont put variables public but for speed
 public final class CatMood {
-	public String name;
-	public byte mood;
-	public long time;
+	private final String name;
+	private final byte mood;
+	private final long time;
+	
+	public CatMood(String name, byte mood, long time) {
+		super();
+		this.name = name;
+		this.mood = mood;
+		this.time = time;
+	}
+	public String getName() {
+		return name;
+	}
+	public byte getMood() {
+		return mood;
+	}
+	public long getTime() {
+		return time;
+	}
+	
 }

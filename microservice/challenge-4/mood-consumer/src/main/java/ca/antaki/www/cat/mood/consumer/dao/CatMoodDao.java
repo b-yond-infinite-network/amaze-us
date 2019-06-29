@@ -17,7 +17,7 @@ import ca.antaki.www.cat.mood.consumer.listener.CatMood;
 public class CatMoodDao {
 	private JdbcTemplate template;  
 	
-	@Autowired
+	@Autowired	
 	public CatMoodDao(JdbcTemplate template) {
 		this.template = template;
 	}
@@ -29,9 +29,9 @@ public class CatMoodDao {
 				@Override
 				public void setValues(PreparedStatement ps, int i) throws SQLException {
 					CatMood catMood = catMoods.get(i);
-					ps.setTimestamp(1, new Timestamp(catMood.time));
-					ps.setString(2, catMood.name);
-					ps.setInt(3, catMood.mood);
+					ps.setTimestamp(1, new Timestamp(catMood.getTime()));
+					ps.setString(2, catMood.getName());
+					ps.setInt(3, catMood.getMood());
 				}
 						
 				@Override
