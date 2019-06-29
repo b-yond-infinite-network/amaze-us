@@ -84,13 +84,13 @@ docker run -d --name timescaledb -p 5432:5432 -e POSTGRES_PASSWORD=password time
 
 ## Building the projects
 
-1. Start the producer
+1. Build the producer
 ```
 cd microservice/challenge-4/cat-mood-producer
 mvn clean package
 ```
 
-2. Start the consumer
+2. Build the consumer
 ```
 cd microservice/challenge-4/mood-consumer
 mvn clean package
@@ -222,7 +222,7 @@ Grafana stats
 |----------------------------|----------|---------------------|---------------------|-------------------------------|----------------------------------------------------------------------|
 | 5000 = 1000 every 5s       | 392 ms   | 800 ms              | 1.1s                | 6,250                         |                                                                      |
 | 250,000 = 50,000 every 5s  | 808 ms   | 13s                 | 10s                 | 19,230                        |                                                                      |
-| 1,000,000= 200,000 every 5 | 2469     | 37s                 | 37s                 | 27,027                        | This shows bottleneck is from DB side  as it's running on Docker MAC |
+| 1,000,000= 200,000 every 5s| 2469     | 37s                 | 37s                 | 27,027                        | This shows bottleneck is from DB side  as it's running on Docker MAC |
 
 I've used 5s instead of 27s for speed :)
 ## Improvements
