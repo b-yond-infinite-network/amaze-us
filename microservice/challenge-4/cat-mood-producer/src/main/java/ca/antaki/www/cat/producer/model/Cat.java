@@ -30,7 +30,7 @@ public class Cat {
 	}
 
 	@Override
-	public int hashCode() {
+	public int hashCode() { //I could use HashCodeBuilder but this is faster
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
@@ -38,7 +38,7 @@ public class Cat {
 	}
 
 	@Override
-	public boolean equals(Object obj) {
+	public boolean equals(Object obj) { //I could use EqualsBuilder but this is faster
 		if (this == obj)
 			return true;
 		if (obj == null)

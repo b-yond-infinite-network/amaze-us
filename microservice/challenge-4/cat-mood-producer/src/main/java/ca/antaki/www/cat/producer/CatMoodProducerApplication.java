@@ -14,6 +14,9 @@ public class CatMoodProducerApplication {
 	public static void main(String[] args) {
 		LOG.info("Running cat-mood-producer");
 		SpringApplication.run(CatMoodProducerApplication.class, args);
+		ProcessHandle processHandle = ProcessHandle.current();
+	    ProcessHandle.Info processInfo = processHandle.info();
+	    LOG.info("PID of current application = {}", processHandle.pid());
 	}
 
 }

@@ -5,7 +5,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.codahale.metrics.MetricRegistry;
 import com.google.gson.JsonObject;
 
 import ca.antaki.www.cat.producer.business.MoodGenerator;
@@ -20,7 +19,7 @@ public class MoodGeneratorAndSender {
 	private final MoodGenerator moodGenerator;
 	
 	@Autowired
-	public MoodGeneratorAndSender(MetricRegistry metricRegistry, MoodGenerator moodGenerator, KafkaSender sender) {
+	public MoodGeneratorAndSender(MoodGenerator moodGenerator, KafkaSender sender) {
 		this.moodGenerator = moodGenerator;
 		this.sender = sender;
 	}

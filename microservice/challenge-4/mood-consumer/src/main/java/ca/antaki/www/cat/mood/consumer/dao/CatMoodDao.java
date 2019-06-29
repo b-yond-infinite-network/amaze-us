@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -16,6 +17,7 @@ import ca.antaki.www.cat.mood.consumer.listener.CatMood;
 public class CatMoodDao {
 	private JdbcTemplate template;  
 	
+	@Autowired
 	public CatMoodDao(JdbcTemplate template) {
 		this.template = template;
 	}
