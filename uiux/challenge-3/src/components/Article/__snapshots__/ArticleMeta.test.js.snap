@@ -1,0 +1,62 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Article Meta Component Should match the snapshot 1`] = `
+<div
+  className="article-meta"
+  id="article-meta"
+>
+  <a
+    href="/@tester96"
+    id="article-meta-author-image"
+    onClick={[Function]}
+  >
+    <img
+      alt="tester96"
+      src=""
+    />
+  </a>
+  <div
+    className="info"
+  >
+    <a
+      className="author"
+      href="/@tester96"
+      id="article-meta-author-info"
+      onClick={[Function]}
+    >
+      tester96
+    </a>
+    <span
+      className="date"
+      id="article-meta-created"
+    >
+      Sat Jun 29 2019
+    </span>
+  </div>
+  <span
+    id="article-actions"
+  >
+    <a
+      className="btn btn-outline-secondary btn-sm"
+      href="/editor/a-title-7ua6fd"
+      id="article-actions-edit"
+      onClick={[Function]}
+    >
+      <i
+        className="ion-edit"
+      />
+       Edit Article
+    </a>
+    <button
+      className="btn btn-outline-danger btn-sm"
+      id="article-actions-delete"
+      onClick={[Function]}
+    >
+      <i
+        className="ion-trash-a"
+      />
+       Delete Article
+    </button>
+  </span>
+</div>
+`;

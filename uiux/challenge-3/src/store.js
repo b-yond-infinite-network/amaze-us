@@ -12,12 +12,18 @@ export const history = createBrowserHistory();
 // Build the middleware for intercepting and dispatching navigation actions
 const myRouterMiddleware = routerMiddleware(history);
 
+export const middlewares = [
+    myRouterMiddleware,
+    promiseMiddleware,
+    localStorageMiddleware
+];
+
 const getMiddleware = () => {
     if (process.env.NODE_ENV === 'production') {
-        return applyMiddleware(myRouterMiddleware, promiseMiddleware, localStorageMiddleware);
+        return applyMiddleware(...middlewares);
     } else {
         // Enable additional logging in non-production environments.
-        return applyMiddleware(myRouterMiddleware, promiseMiddleware, localStorageMiddleware, createLogger())
+        return applyMiddleware(...middlewares, createLogger())
     }
 };
 

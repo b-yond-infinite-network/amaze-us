@@ -16,15 +16,18 @@ const ArticleActions = props => {
   };
   if (props.canModify) {
     return (
-      <span>
+      <span id="article-actions">
 
         <Link
+          id="article-actions-edit"
           to={`/editor/${article.slug}`}
           className="btn btn-outline-secondary btn-sm">
           <i className="ion-edit"></i> Edit Article
         </Link>
 
-        <button className="btn btn-outline-danger btn-sm" onClick={del}>
+        <button
+          id="article-actions-delete"
+          className="btn btn-outline-danger btn-sm" onClick={del}>
           <i className="ion-trash-a"></i> Delete Article
         </button>
 
