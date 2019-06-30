@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Tags Component does not have tags Should match the snapshot 1`] = `
+<div>
+  Loading Tags...
+</div>
+`;
+
+exports[`Tags Component has tags Should match the snapshot 1`] = `
+<div
+  className="tag-list"
+  id="tag-list"
+>
+  <a
+    className="tag-default tag-pill"
+    href=""
+    onClick={[Function]}
+  >
+    tag1
+  </a>
+  <a
+    className="tag-default tag-pill"
+    href=""
+    onClick={[Function]}
+  >
+    tag2
+  </a>
+</div>
+`;

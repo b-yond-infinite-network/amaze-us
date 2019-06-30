@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Banner Component does NOT have token Should match the snapshot 1`] = `
+<div
+  className="banner"
+  id="banner"
+>
+  <div
+    className="container"
+  >
+    <h1
+      className="logo-font"
+    >
+      test name
+    </h1>
+    <p>
+      A place to share your knowledge.
+    </p>
+  </div>
+</div>
+`;
+
+exports[`Banner Component has token Should match the snapshot 1`] = `null`;

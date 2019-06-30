@@ -43,7 +43,7 @@ class Home extends React.Component {
 
   render() {
     return (
-      <div className="home-page">
+      <div id="home-page" className="home-page">
 
         <Banner token={this.props.token} appName={this.props.appName} />
 
