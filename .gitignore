@@ -119,6 +119,3 @@ typings/
 *.gz
 
 results
-
-# npm
-package-lock.json
