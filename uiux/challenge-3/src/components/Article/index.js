@@ -6,10 +6,15 @@ import { connect } from 'react-redux';
 import marked from 'marked';
 import { ARTICLE_PAGE_LOADED, ARTICLE_PAGE_UNLOADED } from '../../constants/actionTypes';
 
-const mapStateToProps = state => ({
-  ...state.article,
-  currentUser: state.common.currentUser
-});
+const mapStateToProps = state => {
+
+  console.log(state);
+  return {
+    ...state.article,
+    currentUser: state.common.currentUser
+  }
+
+}
 
 const mapDispatchToProps = dispatch => ({
   onLoad: payload =>
@@ -39,7 +44,7 @@ class Article extends React.Component {
     const canModify = this.props.currentUser &&
       this.props.currentUser.username === this.props.article.author.username;
     return (
-      <div className="article-page">
+      <div id="article-container" className="article-page">
 
         <div className="banner">
           <div className="container">

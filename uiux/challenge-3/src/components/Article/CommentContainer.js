@@ -6,13 +6,14 @@ import React from 'react';
 const CommentContainer = props => {
   if (props.currentUser) {
     return (
-      <div className="col-xs-12 col-md-8 offset-md-2">
+      <div id="comment-container" className="col-xs-12 col-md-8 offset-md-2">
         <div>
           <list-errors errors={props.errors}></list-errors>
-          <CommentInput slug={props.slug} currentUser={props.currentUser} />
+          <CommentInput id="comment-input" slug={props.slug} currentUser={props.currentUser} />
         </div>
 
         <CommentList
+          id="comment-list"
           comments={props.comments}
           slug={props.slug}
           currentUser={props.currentUser} />
@@ -20,15 +21,16 @@ const CommentContainer = props => {
     );
   } else {
     return (
-      <div className="col-xs-12 col-md-8 offset-md-2">
+      <div id="comment-container" className="col-xs-12 col-md-8 offset-md-2">
         <p>
-          <Link to="/login">Sign in</Link>
+          <Link id="comment-login" to="/login">Sign in</Link>
           &nbsp;or&nbsp;
-          <Link to="/register">sign up</Link>
+          <Link id="comment-register" to="/register">sign up</Link>
           &nbsp;to add comments on this article.
         </p>
 
         <CommentList
+          id="comment-list"
           comments={props.comments}
           slug={props.slug}
           currentUser={props.currentUser} />

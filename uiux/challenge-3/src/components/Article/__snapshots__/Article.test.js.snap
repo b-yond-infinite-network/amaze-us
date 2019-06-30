@@ -1,0 +1,138 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Article Component Should match the snapshot 1`] = `
+<div
+  className="article-page"
+  id="article-container"
+>
+  <div
+    className="banner"
+  >
+    <div
+      className="container"
+    >
+      <h1>
+        Untitled Title
+      </h1>
+      <div
+        className="article-meta"
+        id="article-meta"
+      >
+        <a
+          href="/@tester96"
+          id="article-meta-author-image"
+          onClick={[Function]}
+        >
+          <img
+            alt="tester96"
+            src=""
+          />
+        </a>
+        <div
+          className="info"
+        >
+          <a
+            className="author"
+            href="/@tester96"
+            id="article-meta-author-info"
+            onClick={[Function]}
+          >
+            tester96
+          </a>
+          <span
+            className="date"
+            id="article-meta-created"
+          >
+            Sat Jun 29 2019
+          </span>
+        </div>
+        <span />
+      </div>
+    </div>
+  </div>
+  <div
+    className="container page"
+  >
+    <div
+      className="row article-content"
+    >
+      <div
+        className="col-xs-12"
+      >
+        <div
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "<h1 id=\\"nic\\">Nic</h1>
+<p>bylo nebylo</p>
+",
+            }
+          }
+        />
+        <ul
+          className="tag-list"
+        >
+          <li
+            className="tag-default tag-pill tag-outline"
+          >
+            nothing
+          </li>
+          <li
+            className="tag-default tag-pill tag-outline"
+          >
+            nic
+          </li>
+        </ul>
+      </div>
+    </div>
+    <hr />
+    <div
+      className="article-actions"
+    />
+    <div
+      className="row"
+    >
+      <div
+        className="col-xs-12 col-md-8 offset-md-2"
+        id="comment-container"
+      >
+        <div>
+          <list-errors
+            errors={Array []}
+          />
+          <form
+            className="card comment-form"
+            onSubmit={[Function]}
+          >
+            <div
+              className="card-block"
+            >
+              <textarea
+                className="form-control"
+                onChange={[Function]}
+                placeholder="Write a comment..."
+                rows="3"
+                value=""
+              />
+            </div>
+            <div
+              className="card-footer"
+            >
+              <img
+                alt="test username"
+                className="comment-author-img"
+              />
+              <button
+                className="btn btn-sm btn-primary"
+                type="submit"
+              >
+                Post Comment
+              </button>
+            </div>
+          </form>
+        </div>
+        <div />
+      </div>
+    </div>
+  </div>
+</div>
+`;

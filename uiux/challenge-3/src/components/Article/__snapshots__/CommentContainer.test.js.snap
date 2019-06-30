@@ -1,0 +1,263 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CommentContainer Component does NOT have currentUser Should match the snapshot 1`] = `
+<div
+  className="col-xs-12 col-md-8 offset-md-2"
+  id="comment-container"
+>
+  <p>
+    <a
+      href="/login"
+      id="comment-login"
+      onClick={[Function]}
+    >
+      Sign in
+    </a>
+     or 
+    <a
+      href="/register"
+      id="comment-register"
+      onClick={[Function]}
+    >
+      sign up
+    </a>
+     to add comments on this article.
+  </p>
+  <div>
+    <div
+      className="card"
+      id="comment-card"
+    >
+      <div
+        className="card-block"
+      >
+        <p
+          className="card-text"
+        >
+          Test body
+        </p>
+      </div>
+      <div
+        className="card-footer"
+      >
+        <a
+          className="comment-author"
+          href="/@test username"
+          id="comment-author-image"
+          onClick={[Function]}
+        >
+          <img
+            alt="test username"
+            className="comment-author-img"
+            src=""
+          />
+        </a>
+         
+        <a
+          className="comment-author"
+          href="/@test username"
+          id="comment-author"
+          onClick={[Function]}
+        >
+          test username
+        </a>
+        <span
+          className="date-posted"
+          id="comment-created"
+        >
+          Sat Jun 29 2019
+        </span>
+      </div>
+    </div>
+    <div
+      className="card"
+      id="comment-card"
+    >
+      <div
+        className="card-block"
+      >
+        <p
+          className="card-text"
+        >
+          Test body 2
+        </p>
+      </div>
+      <div
+        className="card-footer"
+      >
+        <a
+          className="comment-author"
+          href="/@test username 2"
+          id="comment-author-image"
+          onClick={[Function]}
+        >
+          <img
+            alt="test username 2"
+            className="comment-author-img"
+            src=""
+          />
+        </a>
+         
+        <a
+          className="comment-author"
+          href="/@test username 2"
+          id="comment-author"
+          onClick={[Function]}
+        >
+          test username 2
+        </a>
+        <span
+          className="date-posted"
+          id="comment-created"
+        >
+          Sun Jun 30 2019
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`CommentContainer Component has currentUser Should match the snapshot 1`] = `
+<div
+  className="col-xs-12 col-md-8 offset-md-2"
+  id="comment-container"
+>
+  <div>
+    <list-errors
+      errors=""
+    />
+    <form
+      className="card comment-form"
+      onSubmit={[Function]}
+    >
+      <div
+        className="card-block"
+      >
+        <textarea
+          className="form-control"
+          onChange={[Function]}
+          placeholder="Write a comment..."
+          rows="3"
+          value=""
+        />
+      </div>
+      <div
+        className="card-footer"
+      >
+        <img
+          alt="test username"
+          className="comment-author-img"
+        />
+        <button
+          className="btn btn-sm btn-primary"
+          type="submit"
+        >
+          Post Comment
+        </button>
+      </div>
+    </form>
+  </div>
+  <div>
+    <div
+      className="card"
+      id="comment-card"
+    >
+      <div
+        className="card-block"
+      >
+        <p
+          className="card-text"
+        >
+          Test body
+        </p>
+      </div>
+      <div
+        className="card-footer"
+      >
+        <a
+          className="comment-author"
+          href="/@test username"
+          id="comment-author-image"
+          onClick={[Function]}
+        >
+          <img
+            alt="test username"
+            className="comment-author-img"
+            src=""
+          />
+        </a>
+         
+        <a
+          className="comment-author"
+          href="/@test username"
+          id="comment-author"
+          onClick={[Function]}
+        >
+          test username
+        </a>
+        <span
+          className="date-posted"
+          id="comment-created"
+        >
+          Sat Jun 29 2019
+        </span>
+        <span
+          className="mod-options"
+          id="delete-button"
+        >
+          <i
+            className="ion-trash-a"
+            onClick={[Function]}
+          />
+        </span>
+      </div>
+    </div>
+    <div
+      className="card"
+      id="comment-card"
+    >
+      <div
+        className="card-block"
+      >
+        <p
+          className="card-text"
+        >
+          Test body 2
+        </p>
+      </div>
+      <div
+        className="card-footer"
+      >
+        <a
+          className="comment-author"
+          href="/@test username 2"
+          id="comment-author-image"
+          onClick={[Function]}
+        >
+          <img
+            alt="test username 2"
+            className="comment-author-img"
+            src=""
+          />
+        </a>
+         
+        <a
+          className="comment-author"
+          href="/@test username 2"
+          id="comment-author"
+          onClick={[Function]}
+        >
+          test username 2
+        </a>
+        <span
+          className="date-posted"
+          id="comment-created"
+        >
+          Sun Jun 30 2019
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+`;

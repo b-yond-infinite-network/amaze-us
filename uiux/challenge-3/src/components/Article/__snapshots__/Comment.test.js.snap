@@ -1,0 +1,106 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Comment Component currentUser !== author Should match the snapshot 1`] = `
+<div
+  className="card"
+  id="comment-card"
+>
+  <div
+    className="card-block"
+  >
+    <p
+      className="card-text"
+    >
+      Test body
+    </p>
+  </div>
+  <div
+    className="card-footer"
+  >
+    <a
+      className="comment-author"
+      href="/@test username"
+      id="comment-author-image"
+      onClick={[Function]}
+    >
+      <img
+        alt="test username"
+        className="comment-author-img"
+        src=""
+      />
+    </a>
+     
+    <a
+      className="comment-author"
+      href="/@test username"
+      id="comment-author"
+      onClick={[Function]}
+    >
+      test username
+    </a>
+    <span
+      className="date-posted"
+      id="comment-created"
+    >
+      Sat Jun 29 2019
+    </span>
+  </div>
+</div>
+`;
+
+exports[`Comment Component currentUser === author Should match the snapshot 1`] = `
+<div
+  className="card"
+  id="comment-card"
+>
+  <div
+    className="card-block"
+  >
+    <p
+      className="card-text"
+    >
+      Test body
+    </p>
+  </div>
+  <div
+    className="card-footer"
+  >
+    <a
+      className="comment-author"
+      href="/@test username"
+      id="comment-author-image"
+      onClick={[Function]}
+    >
+      <img
+        alt="test username"
+        className="comment-author-img"
+        src=""
+      />
+    </a>
+     
+    <a
+      className="comment-author"
+      href="/@test username"
+      id="comment-author"
+      onClick={[Function]}
+    >
+      test username
+    </a>
+    <span
+      className="date-posted"
+      id="comment-created"
+    >
+      Sat Jun 29 2019
+    </span>
+    <span
+      className="mod-options"
+      id="delete-button"
+    >
+      <i
+        className="ion-trash-a"
+        onClick={[Function]}
+      />
+    </span>
+  </div>
+</div>
+`;
