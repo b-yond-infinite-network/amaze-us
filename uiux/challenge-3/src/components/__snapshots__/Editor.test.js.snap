@@ -58,7 +58,28 @@ exports[`Editor Component Should match the snapshot 1`] = `
               />
               <div
                 className="tag-list"
-              />
+              >
+                <span
+                  className="tag-default tag-pill"
+                >
+                  <i
+                    className="ion-close-round"
+                    id="remove-tag-icon"
+                    onClick={[Function]}
+                  />
+                  tag1
+                </span>
+                <span
+                  className="tag-default tag-pill"
+                >
+                  <i
+                    className="ion-close-round"
+                    id="remove-tag-icon"
+                    onClick={[Function]}
+                  />
+                  tag2
+                </span>
+              </div>
             </fieldset>
             <button
               className="btn btn-lg pull-xs-right btn-primary"

@@ -145,7 +145,7 @@ class Editor extends React.Component {
                         (this.props.tagList || []).map(tag => {
                           return (
                             <span className="tag-default tag-pill" key={tag}>
-                              <i  className="ion-close-round"
+                              <i id="remove-tag-icon" className="ion-close-round"
                                   onClick={this.removeTagHandler(tag)}>
                               </i>
                               {tag}
