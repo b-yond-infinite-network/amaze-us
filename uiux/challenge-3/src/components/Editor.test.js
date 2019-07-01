@@ -59,7 +59,7 @@ describe('Editor Component', () => {
         expect(component.length).toBe(1);
     });
 
-    it('Should allow user to update fields', () => {
+    it('Should allow user to update title field', () => {
 
         const expectedActions = [
             { type: 'UPDATE_FIELD_EDITOR', key: 'title', value: 'test title' }
@@ -69,7 +69,32 @@ describe('Editor Component', () => {
         mockStore.clearActions();
         component.simulate('change', { target: { value: 'test title' } });
     
-        console.log(mockStore.getActions());
+        expect(mockStore.getActions()).toEqual(expectedActions);
+    });
+
+    it('Should allow user to update about field', () => {
+
+        const expectedActions = [
+            { type: 'UPDATE_FIELD_EDITOR', key: 'description', value: 'test description' }
+        ];
+
+        const component = wrapper.find('input').find('[placeholder="What\'s this article about?"]');
+        mockStore.clearActions();
+        component.simulate('change', { target: { value: 'test description' } });
+    
+        expect(mockStore.getActions()).toEqual(expectedActions);
+    });
+
+    it('Should allow user to update fields', () => {
+
+        const expectedActions = [
+            { type: 'UPDATE_FIELD_EDITOR', key: 'body', value: 'test body' }
+        ];
+
+        const component = wrapper.find('textarea').find("[placeholder='Write your article (in markdown)']");
+        mockStore.clearActions();
+        component.simulate('change', { target: { value: 'test body' } });
+    
         expect(mockStore.getActions()).toEqual(expectedActions);
     });
 
@@ -97,7 +122,6 @@ describe('Editor Component', () => {
         mockStore.clearActions();
         component.simulate('click');
 
-        console.log(mockStore.getActions());
         expect(mockStore.getActions()).toEqual(expectedActions);
     });
 
