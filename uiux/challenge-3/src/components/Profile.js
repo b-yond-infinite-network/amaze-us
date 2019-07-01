@@ -118,7 +118,7 @@ class Profile extends React.Component {
       this.props.profile.username === this.props.currentUser.username;
 
     return (
-      <div className="profile-page">
+      <div id="profile-page" className="profile-page">
 
         <div className="user-info">
           <div className="container">

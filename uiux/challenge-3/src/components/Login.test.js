@@ -1,0 +1,55 @@
+import Login from './Login';
+import { mount } from 'enzyme';
+import React from 'react';
+import renderer from 'react-test-renderer'
+import { Provider } from 'react-redux';
+import { MemoryRouter } from 'react-router'
+import configureMockStore from 'redux-mock-store'
+import middlewares from './../store'
+
+const initialState = {
+};
+
+describe('Login Component', () => {
+
+    let mockStore;
+
+    let tree;
+    let wrapper;
+    let render;
+
+    let mockOnChangeEmail;
+    let mockOnChangePassword;
+
+    beforeAll(() => {
+
+        mockStore = configureMockStore(middlewares)(initialState);
+        mockOnChangeEmail = jest.fn();
+        mockOnChangePassword = jest.fn();
+
+        const props = {
+            onChangeEmail: mockOnChangeEmail,
+            onChangePassword: mockOnChangePassword
+        };
+
+        tree = <Provider store={mockStore}>
+            <MemoryRouter initialEntries={["/"]}>
+                <Login {...props} />
+            </MemoryRouter>
+        </Provider>;
+        wrapper = mount(tree);
+        console.log(wrapper.debug());
+        render = renderer.create(tree).toJSON();
+
+    });
+
+    it('Should match the snapshot', () => {
+        expect(render).toMatchSnapshot();
+    });
+
+    it('Should render without errors', () => {
+        const component = wrapper.find('#auth-page');
+        expect(component.length).toBe(1);
+    });
+
+});

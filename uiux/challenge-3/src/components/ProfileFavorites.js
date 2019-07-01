@@ -29,7 +29,7 @@ class ProfileFavorites extends Profile {
 
   renderTabs() {
     return (
-      <ul className="nav nav-pills outline-active">
+      <ul id="profile-favorites" className="nav nav-pills outline-active">
         <li className="nav-item">
           <Link
             className="nav-link"

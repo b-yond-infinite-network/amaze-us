@@ -28,7 +28,7 @@ const ListPagination = props => {
 
   return (
     <nav>
-      <ul className="pagination">
+      <ul id="pagination" className="pagination">
 
         {
           range.map(v => {

@@ -1,0 +1,135 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Header Component does NOT hav currentUser Should match the snapshot 1`] = `
+<nav
+  className="navbar navbar-light"
+>
+  <div
+    className="container"
+  >
+    <a
+      className="navbar-brand"
+      href="/"
+      onClick={[Function]}
+    >
+      test appname
+    </a>
+    <ul
+      className="nav navbar-nav pull-xs-right"
+    >
+      <li
+        className="nav-item"
+      >
+        <a
+          className="nav-link"
+          href="/"
+          onClick={[Function]}
+        >
+          Home
+        </a>
+      </li>
+      <li
+        className="nav-item"
+        id="header-login"
+      >
+        <a
+          className="nav-link"
+          href="/login"
+          onClick={[Function]}
+        >
+          Sign in
+        </a>
+      </li>
+      <li
+        className="nav-item"
+        id="header-register"
+      >
+        <a
+          className="nav-link"
+          href="/register"
+          onClick={[Function]}
+        >
+          Sign up
+        </a>
+      </li>
+    </ul>
+  </div>
+</nav>
+`;
+
+exports[`Header Component has currentUser Should match the snapshot 1`] = `
+<nav
+  className="navbar navbar-light"
+>
+  <div
+    className="container"
+  >
+    <a
+      className="navbar-brand"
+      href="/"
+      onClick={[Function]}
+    >
+      test appname
+    </a>
+    <ul
+      className="nav navbar-nav pull-xs-right"
+    >
+      <li
+        className="nav-item"
+      >
+        <a
+          className="nav-link"
+          href="/"
+          onClick={[Function]}
+        >
+          Home
+        </a>
+      </li>
+      <li
+        className="nav-item"
+      >
+        <a
+          className="nav-link"
+          href="/editor"
+          onClick={[Function]}
+        >
+          <i
+            className="ion-compose"
+          />
+           New Post
+        </a>
+      </li>
+      <li
+        className="nav-item"
+      >
+        <a
+          className="nav-link"
+          href="/settings"
+          onClick={[Function]}
+        >
+          <i
+            className="ion-gear-a"
+          />
+           Settings
+        </a>
+      </li>
+      <li
+        className="nav-item"
+      >
+        <a
+          className="nav-link"
+          href="/@Test user"
+          onClick={[Function]}
+        >
+          <img
+            alt="Test user"
+            className="user-pic"
+            src=""
+          />
+          Test user
+        </a>
+      </li>
+    </ul>
+  </div>
+</nav>
+`;

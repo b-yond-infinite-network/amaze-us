@@ -1,0 +1,94 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ProfileFavorites Component Should match the snapshot 1`] = `
+<div
+  className="profile-page"
+  id="profile-page"
+>
+  <div
+    className="user-info"
+  >
+    <div
+      className="container"
+    >
+      <div
+        className="row"
+      >
+        <div
+          className="col-xs-12 col-md-10 offset-md-1"
+        >
+          <img
+            alt="test username"
+            className="user-img"
+            src=""
+          />
+          <h4>
+            test username
+          </h4>
+          <p>
+            test bio
+          </p>
+          <a
+            className="btn btn-sm btn-outline-secondary action-btn"
+            href="/settings"
+            onClick={[Function]}
+          >
+            <i
+              className="ion-gear-a"
+            />
+             Edit Profile Settings
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="container"
+  >
+    <div
+      className="row"
+    >
+      <div
+        className="col-xs-12 col-md-10 offset-md-1"
+      >
+        <div
+          className="articles-toggle"
+        >
+          <ul
+            className="nav nav-pills outline-active"
+            id="profile-favorites"
+          >
+            <li
+              className="nav-item"
+            >
+              <a
+                className="nav-link"
+                href="/@test username"
+                onClick={[Function]}
+              >
+                My Articles
+              </a>
+            </li>
+            <li
+              className="nav-item"
+            >
+              <a
+                className="nav-link active"
+                href="/@test username/favorites"
+                onClick={[Function]}
+              >
+                Favorited Articles
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div
+          className="article-preview"
+        >
+          Loading...
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

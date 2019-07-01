@@ -1,0 +1,173 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Profile Component Should match the snapshot 1`] = `
+<div
+  className="profile-page"
+  id="profile-page"
+>
+  <div
+    className="user-info"
+  >
+    <div
+      className="container"
+    >
+      <div
+        className="row"
+      >
+        <div
+          className="col-xs-12 col-md-10 offset-md-1"
+        >
+          <img
+            alt="test username"
+            className="user-img"
+            src=""
+          />
+          <h4>
+            test username
+          </h4>
+          <p>
+            test bio
+          </p>
+          <a
+            className="btn btn-sm btn-outline-secondary action-btn"
+            href="/settings"
+            onClick={[Function]}
+          >
+            <i
+              className="ion-gear-a"
+            />
+             Edit Profile Settings
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="container"
+  >
+    <div
+      className="row"
+    >
+      <div
+        className="col-xs-12 col-md-10 offset-md-1"
+      >
+        <div
+          className="articles-toggle"
+        >
+          <ul
+            className="nav nav-pills outline-active"
+          >
+            <li
+              className="nav-item"
+            >
+              <a
+                className="nav-link active"
+                href="/@test username"
+                onClick={[Function]}
+              >
+                My Articles
+              </a>
+            </li>
+            <li
+              className="nav-item"
+            >
+              <a
+                className="nav-link"
+                href="/@test username/favorites"
+                onClick={[Function]}
+              >
+                Favorited Articles
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <div
+            className="article-preview"
+            id="article-preview"
+          >
+            <div
+              className="article-meta"
+            >
+              <a
+                href="/@tester96"
+                onClick={[Function]}
+              >
+                <img
+                  alt="tester96"
+                  src=""
+                />
+              </a>
+              <div
+                className="info"
+              >
+                <a
+                  className="author"
+                  href="/@tester96"
+                  onClick={[Function]}
+                >
+                  tester96
+                </a>
+                <span
+                  className="date"
+                >
+                  Sat Jun 29 2019
+                </span>
+              </div>
+              <div
+                className="pull-xs-right"
+              >
+                <button
+                  className="btn btn-sm btn-outline-primary"
+                  onClick={[Function]}
+                >
+                  <i
+                    className="ion-heart"
+                  />
+                   
+                  1
+                </button>
+              </div>
+            </div>
+            <a
+              className="preview-link"
+              href="/article/a-title-7ua6fd"
+              onClick={[Function]}
+            >
+              <h1>
+                Untitled Title
+              </h1>
+              <p>
+                o ničem
+              </p>
+              <span>
+                Read more...
+              </span>
+              <ul
+                className="tag-list"
+              >
+                <li
+                  className="tag-default tag-pill tag-outline"
+                >
+                  nothing
+                </li>
+                <li
+                  className="tag-default tag-pill tag-outline"
+                >
+                  nic
+                </li>
+              </ul>
+            </a>
+          </div>
+          <nav>
+            <ul
+              className="pagination"
+              id="pagination"
+            />
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
