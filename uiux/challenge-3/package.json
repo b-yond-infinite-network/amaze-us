@@ -2,12 +2,6 @@
   "name": "react-redux-realworld-example-app",
   "version": "0.1.0",
   "private": true,
-  "jest": {
-    "verbose": true,
-    "setupFilesAfterEnv": [
-      "<rootDir>src/setupTests.js"
-    ]
-  },
   "devDependencies": {
     "cross-env": "^5.2.0",
     "enzyme": "^3.10.0",

@@ -1,11 +1,11 @@
-import Home from './Home';
+import MainView from './MainView';
 import { mount } from 'enzyme';
 import React from 'react';
 import renderer from 'react-test-renderer'
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router'
 import configureMockStore from 'redux-mock-store'
-import middlewares from './../../store'
+import middlewares from '../../../store'
 
 const initialState = {
     home: {
@@ -17,7 +17,7 @@ const initialState = {
     }
 };
 
-describe('Home Component', () => {
+describe('MainView Component', () => {
 
     let mockStore;
 
@@ -25,21 +25,20 @@ describe('Home Component', () => {
     let wrapper;
     let render;
 
-    let mockOnClickTag;
+    let mockOnTabClick;
 
     beforeAll(() => {
 
         mockStore = configureMockStore(middlewares)(initialState);
-        mockOnClickTag = jest.fn();
+        mockOnTabClick = jest.fn();
 
         const props = {
-            tags: ['tag1', 'tag2'],
-            onClickTag: mockOnClickTag
+            mockOnTabClick: mockOnTabClick
         };
 
         tree = <Provider store={mockStore}>
             <MemoryRouter initialEntries={["/"]}>
-                <Home {...props} />
+                <MainView {...props} />
             </MemoryRouter>
         </Provider>;
         wrapper = mount(tree);
@@ -53,7 +52,7 @@ describe('Home Component', () => {
     });
 
     it('Should render without errors', () => {
-        const component = wrapper.find('#home-page');
+        const component = wrapper.find('#main-view');
         expect(component.length).toBe(1);
     });
 

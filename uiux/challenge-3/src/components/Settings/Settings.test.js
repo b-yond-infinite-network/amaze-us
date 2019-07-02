@@ -1,23 +1,22 @@
-import Home from './Home';
+import Settings from './Settings';
 import { mount } from 'enzyme';
 import React from 'react';
 import renderer from 'react-test-renderer'
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router'
 import configureMockStore from 'redux-mock-store'
-import middlewares from './../../store'
+import middlewares from '../../store'
 
 const initialState = {
-    home: {
-        tags: ['tag1', 'tag2']
-    },
     common: {
-        appName: 'test appName',
-        token: '1234'
+        currentUser: {
+            username: 'test username',
+            image: ''
+        }
     }
 };
 
-describe('Home Component', () => {
+describe('Settings Component', () => {
 
     let mockStore;
 
@@ -25,21 +24,22 @@ describe('Home Component', () => {
     let wrapper;
     let render;
 
-    let mockOnClickTag;
-
     beforeAll(() => {
 
         mockStore = configureMockStore(middlewares)(initialState);
-        mockOnClickTag = jest.fn();
 
         const props = {
-            tags: ['tag1', 'tag2'],
-            onClickTag: mockOnClickTag
+            currentUser: {
+                username: 'test user',
+                image: '',
+                bio: 'test bio',
+                email: 'test email'
+            }
         };
 
         tree = <Provider store={mockStore}>
             <MemoryRouter initialEntries={["/"]}>
-                <Home {...props} />
+                <Settings {...props} />
             </MemoryRouter>
         </Provider>;
         wrapper = mount(tree);
@@ -53,7 +53,7 @@ describe('Home Component', () => {
     });
 
     it('Should render without errors', () => {
-        const component = wrapper.find('#home-page');
+        const component = wrapper.find('form');
         expect(component.length).toBe(1);
     });
 

@@ -1,23 +1,16 @@
-import Home from './Home';
+import ListErrors from './ListErrors';
 import { mount } from 'enzyme';
 import React from 'react';
 import renderer from 'react-test-renderer'
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router'
 import configureMockStore from 'redux-mock-store'
-import middlewares from './../../store'
+import middlewares from '../../store'
 
 const initialState = {
-    home: {
-        tags: ['tag1', 'tag2']
-    },
-    common: {
-        appName: 'test appName',
-        token: '1234'
-    }
 };
 
-describe('Home Component', () => {
+describe('ListErrors Component', () => {
 
     let mockStore;
 
@@ -25,21 +18,20 @@ describe('Home Component', () => {
     let wrapper;
     let render;
 
-    let mockOnClickTag;
-
     beforeAll(() => {
 
         mockStore = configureMockStore(middlewares)(initialState);
-        mockOnClickTag = jest.fn();
 
         const props = {
-            tags: ['tag1', 'tag2'],
-            onClickTag: mockOnClickTag
+            errors: {
+                error1: 'error1Value',
+                error2: 'error2Value'
+            }
         };
 
         tree = <Provider store={mockStore}>
             <MemoryRouter initialEntries={["/"]}>
-                <Home {...props} />
+                <ListErrors {...props} />
             </MemoryRouter>
         </Provider>;
         wrapper = mount(tree);
@@ -53,7 +45,7 @@ describe('Home Component', () => {
     });
 
     it('Should render without errors', () => {
-        const component = wrapper.find('#home-page');
+        const component = wrapper.find('#error-messages');
         expect(component.length).toBe(1);
     });
 
