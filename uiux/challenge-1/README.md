@@ -16,3 +16,10 @@ bother them while singing drunk...
 + Create a branch of this project (or fork it in your github account if you prefer)
 + Do you **_thang_** inside this folder (challenge-1)
 + Push your change inside a Pull Request to our master
+
+## Starting Project
+For this project, I have used `create-react-app` to create boilerplate code so that I can immediately concentrate on building the app.
+
+To start application:
+- Type `npm start`
+- Head to: http://localhost:3000/
