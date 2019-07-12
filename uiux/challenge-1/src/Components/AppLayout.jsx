@@ -21,37 +21,30 @@ export default class AppLayout extends React.Component {
     });
   }
 
-  getSearchResults = () => {
-    const { currentArtist } = this.state;
-    const searchUrl = `track.search?q_artist=${currentArtist}&page_size=10&f_has_lyrics=true&apikey=${apiKey}`;
-    AxiosInstance.get(searchUrl)
-      .then(response => {
-        const trackList = response.data.message.body.track_list;
-        const tracks = trackList.map(track => pick(track.track, trackAttributes));
-      })
-  }
-
-  getLyrics = (tracks) => {
-    const calls = tracks.map(track => (AxiosInstance.get(`track.lyrics.get?track_id=${track.track_id}&apikey=${apiKey}`)));
-    return Promise.all(calls)
-  }
-
   getSearchResultsAsync = async ()=> {
+    // Want to break this down or even move it to a different file.
     const { currentArtist } = this.state;
     const searchUrl = `track.search?q_artist=${currentArtist}&page_size=10&f_has_lyrics=true&apikey=${apiKey}`;
 
     const tracksResult = await AxiosInstance.get(searchUrl);
     const tracks = await tracksResult.data.message.body.track_list;
 
-    await tracks.forEach(async trackObject => {
+    for (const trackObject of tracks) {
+      // Need to do this old style loop in order to get the axios calls to work.
       const trackId = trackObject.track.track_id;
       const lyricsResult = await AxiosInstance.get(`track.lyrics.get?track_id=${trackId}&apikey=${apiKey}`)
       const lyrics = await lyricsResult.data.message.body.lyrics.lyrics_body;
       trackObject.track.lyrics = lyrics;
-    })
-    this.setState({
-      tracks
-    })
+    }
+    // It has this weird track.track structure. So, in order to make things cleaner:
+    const flattened = tracks.map(track => {
+      const realTrack = track.track;
+      realTrack.wordCount = realTrack.lyrics
+        ? realTrack.lyrics.split(' ').length 
+        : 0;
+        return realTrack;
+    });
+    this.setState({ tracks: sortBy(flattened, 'track_name') })
   }
 
   render() {

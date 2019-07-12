@@ -15,9 +15,9 @@ export default class TrackList extends React.Component {
         <hr />
         {tracks.map(track => (
           <Row className="mb-2">
-            <Col sm={6}>{track.track.track_name}</Col>
+            <Col sm={6}>{track.track_name}</Col>
             <Col sm={3}>10</Col>
-            <Col sm={3}>{console.log(track.lyrics)}</Col>
+            <Col sm={3}>{track.wordCount ? `${track.wordCount} Words` : 'No Lyrics'}</Col>
           </Row>
         ))}
       </div>
