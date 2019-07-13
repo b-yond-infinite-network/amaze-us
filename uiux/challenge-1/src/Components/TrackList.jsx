@@ -11,23 +11,31 @@ export default class TrackList extends React.Component {
     }
   }
 
-  changeSelectedTrack = (selectedTrackId) => {
-    this.setState({ selectedTrackId })
+  changeSelectedTrack = (newTrack) => {
+    const { selectedTrackId } = this.state;
+    this.setState({
+      selectedTrackId: newTrack === selectedTrackId ? undefined : newTrack
+    })
   } 
 
   render() {
-    const { tracks, changeSortAttribute } = this.props;
+    const { tracks, changeSortAttribute, sortedBy } = this.props;
     const { selectedTrackId } = this.state;
     return (
-      <div className="container">
+      <div className="container-fluid">
         <Row>
-          <Col className="header-col" onClick={() => changeSortAttribute('track_name')} sm={6}>Track Title</Col>
-          <Col className="header-col" sm={3}>Duration</Col>
-          <Col className="header-col" onClick={() => changeSortAttribute('wordCount')} sm={3}>Lyrics Length</Col>
+          <Col className={`header-col ${sortedBy === 'track_name' ? 'underline' : ''}`} onClick={() => changeSortAttribute('track_name')} sm={3}>Track Title</Col>
+          <Col className={`header-col ${sortedBy === 'artist_name' ? 'underline' : ''}`} onClick={() => changeSortAttribute('artist_name')}sm={3}>Artist</Col>
+          <Col className={`header-col ${sortedBy === 'wordCount' ? 'underline' : ''}`}  onClick={() => changeSortAttribute('wordCount')} sm={3}>Lyrics Length</Col>
         </Row>
         <hr />
         {tracks.map(track => (
-          <TrackRow track={track} onClick={this.changeSelectedTrack} showLyrics={selectedTrackId === track.track_id} />
+          <TrackRow 
+            track={track}
+            key={track.track_id}
+            onClick={this.changeSelectedTrack}
+            showLyrics={selectedTrackId === track.track_id} 
+          />
         ))}
       </div>
     )
@@ -40,6 +48,7 @@ TrackList.propTypes = {
     track_id: PropTypes.number,
   })),
   changeSortAttribute: PropTypes.func.isRequired,
+  sortedBy: PropTypes.string.isRequired,
 };
 
 TrackList.defaultProps = {

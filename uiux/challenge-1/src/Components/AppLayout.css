@@ -13,6 +13,7 @@
   transition: 300ms;
   cursor: pointer;
   border-radius: 5px;
+  padding: 10px 0px 10px 0px
 }
 
 .track-row:hover{
@@ -26,4 +27,8 @@
 
 .lyrics{
   transition: all 1s ease-in-out;
+}
+
+.underline{
+  text-decoration: underline;
 }
