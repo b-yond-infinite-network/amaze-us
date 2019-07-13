@@ -48,7 +48,7 @@ TrackList.propTypes = {
     track_id: PropTypes.number,
   })),
   changeSortAttribute: PropTypes.func.isRequired,
-  sortedBy: PropTypes.string.isRequired,
+  sortedBy: PropTypes.string.isRequired
 };
 
 TrackList.defaultProps = {

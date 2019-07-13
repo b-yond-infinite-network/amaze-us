@@ -4,8 +4,8 @@ import { pick } from 'lodash';
 const trackAttributes = ['track_name', 'artist_name', 'track_id', 'lyrics', 'track_rating', 'wordCount'];
 const apiKey = '064b9c9b7cfedab8d404802c855976cc';
 
-const getTrackData = async (currentArtist) => {
-  const searchUrl = `track.search?q_artist=${currentArtist}&page_size=10&f_has_lyrics=true&s_track_rating=desc&apikey=${apiKey}`;
+const getTrackData = async (currentArtist, page) => {
+  const searchUrl = `track.search?q_artist=${currentArtist}&page_size=10&page=${page}&f_has_lyrics=true&s_track_rating=desc&apikey=${apiKey}`;
 
   const tracksResult = await AxiosInstance.get(searchUrl);
   const tracks = await tracksResult.data.message.body.track_list;

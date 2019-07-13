@@ -20,6 +20,7 @@ bother them while singing drunk...
 ## Starting Project
 For this project, I have used `create-react-app` to create boilerplate code so that I can immediately concentrate on building the app.
 
-To start application:
+#To start application:
 - Type `npm start`
 - Head to: http://localhost:3000/
+

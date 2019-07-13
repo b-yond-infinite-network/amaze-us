@@ -20,16 +20,23 @@ export default class AppLayout extends React.Component {
     this.setState({
       currentArtist: event.target.value,
       tracks: [],
+      pages: 1,
     });
   }
 
   getSearchResults = () => {
     this.toggleButtonLoad();
-    const { currentArtist } = this.state;
-    getTrackData(currentArtist)
-      .then(tracks => {
-        this.setState({ tracks }, () => { this.toggleButtonLoad() })
+    const { currentArtist, pages, tracks } = this.state;
+    getTrackData(currentArtist, pages)
+      .then(newTracks => {
+        const newList = tracks.concat(newTracks);
+        this.setState({ tracks: newList }, () => { this.toggleButtonLoad() })
       })
+  }
+
+  getMoreResults = () => {
+    this.setState(prevState => ({ pages: prevState.pages + 1 }),
+    () => { this.getSearchResults() })
   }
 
   changeSortAttribute = attribute => {
@@ -76,11 +83,25 @@ export default class AppLayout extends React.Component {
           <br />
           {(tracks && tracks.length !== 0) 
           && (
-            <TrackList 
-              tracks={sortedTracks} 
-              changeSortAttribute={this.changeSortAttribute} 
-              sortedBy={sortedBy}
-            />
+            <React.Fragment>
+              <TrackList 
+                tracks={sortedTracks} 
+                changeSortAttribute={this.changeSortAttribute} 
+                sortedBy={sortedBy}
+                getMoreResults={this.getMoreResults}
+              />
+              <Row className="mt-5 text-center">
+                <Col>
+                  <Button 
+                  color="primary" 
+                  onClick={this.getMoreResults}
+                  disabled={isLoading}
+                >
+                  {isLoading ? <Spinner size="sm"/> : 'Get more results'}
+                </Button>
+                </Col>
+              </Row>
+            </React.Fragment>
           )}
         </Col>
       </Row>
