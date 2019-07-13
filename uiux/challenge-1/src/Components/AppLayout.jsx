@@ -58,7 +58,6 @@ export default class AppLayout extends React.Component {
           <Jumbotron>
             <h3>Welcome to my party!</h3>
             <div>To start having some fun, search up the name of an artist below!</div>
-            <div>We'll get you the top 10 highest rated songs from that artist.</div>
             <hr />
             <Row>
               <Col sm='5'>
