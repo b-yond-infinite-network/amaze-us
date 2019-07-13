@@ -22,11 +22,11 @@ export default class TrackList extends React.Component {
     const { tracks, changeSortAttribute, sortedBy } = this.props;
     const { selectedTrackId } = this.state;
     return (
-      <div className="container-fluid">
+      <div className="container">
         <Row>
-          <Col className={`header-col ${sortedBy === 'track_name' ? 'underline' : ''}`} onClick={() => changeSortAttribute('track_name')} sm={3}>Track Title</Col>
-          <Col className={`header-col ${sortedBy === 'artist_name' ? 'underline' : ''}`} onClick={() => changeSortAttribute('artist_name')}sm={3}>Artist</Col>
-          <Col className={`header-col ${sortedBy === 'wordCount' ? 'underline' : ''}`}  onClick={() => changeSortAttribute('wordCount')} sm={3}>Lyrics Length</Col>
+          <Col className={`header-col ${sortedBy === 'track_name' ? 'selected' : ''}`} onClick={() => changeSortAttribute('track_name')}>Track Title</Col>
+          <Col className={`header-col ${sortedBy === 'artist_name' ? 'selected' : ''}`} onClick={() => changeSortAttribute('artist_name')}>Artist</Col>
+          <Col className={`header-col ${sortedBy === 'wordCount' ? 'selected' : ''}`}  onClick={() => changeSortAttribute('wordCount')}>Lyrics Length</Col>
         </Row>
         <hr />
         {tracks.map(track => (

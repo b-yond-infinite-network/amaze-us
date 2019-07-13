@@ -6,17 +6,17 @@ export default function TrackRow(props) {
   return (
     <React.Fragment>
       <Row className="track-row" onClick={() => { onClick(track.track_id) }}>
-        <Col sm={3}>{track.track_name}</Col>
-        <Col sm={3}>{track.artist_name}</Col>
-        <Col sm={3}>{track.wordCount ? `${track.wordCount} Words` : 'No Lyrics'}</Col>
+        <Col>{track.track_name}</Col>
+        <Col>{track.artist_name}</Col>
+        <Col>{track.wordCount ? `${track.wordCount} Words` : 'No Lyrics'}</Col>
       </Row>
       {showLyrics
       && (
         <React.Fragment>
           <hr />
           <div className="lyrics-header mb-1">Lyrics</div>
-          <Row className="lyrics-pane">
-            <Col>
+          <Row>
+            <Col className="lyrics">
               {track.lyrics}
             </Col>
           </Row>
