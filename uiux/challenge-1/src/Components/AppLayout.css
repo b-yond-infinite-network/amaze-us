@@ -1,0 +1,29 @@
+.header-col{
+  color: grey;
+  transition: 300ms;
+}
+
+.header-col:hover{
+  color: black;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.track-row{
+  transition: 300ms;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.track-row:hover{
+  background-color: lightgray;
+}
+
+.lyrics-header{
+  text-decoration: underline;
+  font-weight: bold;
+}
+
+.lyrics{
+  transition: all 1s ease-in-out;
+}

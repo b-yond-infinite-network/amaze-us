@@ -1,24 +1,33 @@
 import React from 'react';
 import PropTypes from 'prop-types'
 import { Row, Col } from 'reactstrap';
+import TrackRow from './TrackRow';
 
 export default class TrackList extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      selectedTrackId: undefined,
+    }
+  }
+
+  changeSelectedTrack = (selectedTrackId) => {
+    this.setState({ selectedTrackId })
+  } 
+
   render() {
-    const { tracks } = this.props;
+    const { tracks, changeSortAttribute } = this.props;
+    const { selectedTrackId } = this.state;
     return (
       <div className="container">
         <Row>
-          <Col sm={6}>Track Title</Col>
-          <Col sm={3}>Duration</Col>
-          <Col sm={3}>Lyrics Length</Col>
+          <Col className="header-col" onClick={() => changeSortAttribute('track_name')} sm={6}>Track Title</Col>
+          <Col className="header-col" sm={3}>Duration</Col>
+          <Col className="header-col" onClick={() => changeSortAttribute('wordCount')} sm={3}>Lyrics Length</Col>
         </Row>
         <hr />
         {tracks.map(track => (
-          <Row className="mb-2">
-            <Col sm={6}>{track.track_name}</Col>
-            <Col sm={3}>10</Col>
-            <Col sm={3}>{track.wordCount ? `${track.wordCount} Words` : 'No Lyrics'}</Col>
-          </Row>
+          <TrackRow track={track} onClick={this.changeSelectedTrack} showLyrics={selectedTrackId === track.track_id} />
         ))}
       </div>
     )
@@ -29,7 +38,8 @@ TrackList.propTypes = {
   tracks: PropTypes.arrayOf(PropTypes.shape({
     track_name: PropTypes.string,
     track_id: PropTypes.number,
-  }))
+  })),
+  changeSortAttribute: PropTypes.func.isRequired,
 };
 
 TrackList.defaultProps = {

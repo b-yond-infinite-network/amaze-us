@@ -1,10 +1,12 @@
 import React from 'react';
-import { Jumbotron, Button, Input, Row, Col } from 'reactstrap';
-import { pick, sortBy, forEach } from 'lodash';
+import { Jumbotron, Button, Input, Row, Col, Spinner } from 'reactstrap';
+import { pick, sortBy } from 'lodash';
 import TrackList from './TrackList';
 import { AxiosInstance } from '../services/AxiosInstance';
+import './AppLayout.css';
 
-const trackAttributes = ['track_name', 'track_id', 'lyrics'];
+// These would be in dot.env file.
+const trackAttributes = ['track_name', 'track_id', 'lyrics', 'track_rating', 'wordCount'];
 const apiKey = '064b9c9b7cfedab8d404802c855976cc';
 
 export default class AppLayout extends React.Component {
@@ -12,19 +14,24 @@ export default class AppLayout extends React.Component {
     super(props);
     this.state = {
       currentArtist: '',
+      tracks: [],
+      sortedBy: 'track_name',
+      isLoading: false,
     }
   }
 
   onArtistChange = (event) => {
     this.setState({
       currentArtist: event.target.value,
+      tracks: [],
     });
   }
 
   getSearchResultsAsync = async ()=> {
+    this.toggleButtonLoad();
     // Want to break this down or even move it to a different file.
     const { currentArtist } = this.state;
-    const searchUrl = `track.search?q_artist=${currentArtist}&page_size=10&f_has_lyrics=true&apikey=${apiKey}`;
+    const searchUrl = `track.search?q_artist=${currentArtist}&page_size=10&f_has_lyrics=true&s_track_rating=desc&apikey=${apiKey}`;
 
     const tracksResult = await AxiosInstance.get(searchUrl);
     const tracks = await tracksResult.data.message.body.track_list;
@@ -42,13 +49,24 @@ export default class AppLayout extends React.Component {
       realTrack.wordCount = realTrack.lyrics
         ? realTrack.lyrics.split(' ').length 
         : 0;
-        return realTrack;
+        return pick(realTrack, trackAttributes);
     });
-    this.setState({ tracks: sortBy(flattened, 'track_name') })
+    this.setState({ tracks: flattened }, () => { this.toggleButtonLoad() })
+  }
+
+  changeSortAttribute = attribute => {
+    this.setState({ sortedBy: attribute })
+  }
+
+  toggleButtonLoad = () => {
+    this.setState(prevState => ({
+      isLoading: !prevState.isLoading,
+    }))
   }
 
   render() {
-    const { tracks } = this.state;
+    const { tracks, sortedBy, isLoading, currentArtist } = this.state;
+    const sortedTracks = sortBy(tracks, sortedBy)
     return(
       <Row>
         <Col>
@@ -59,17 +77,26 @@ export default class AppLayout extends React.Component {
             <Input 
               name="artist"
               label="Search Artist"
-              value={this.state.currentArtist}
+              value={currentArtist}
               placeholder="ex. Red Hot Chili Peppers"
               onChange={this.onArtistChange}
             />
             <br />
-            <Button color="primary" onClick={this.getSearchResultsAsync}>Search!</Button>
+            <Button 
+              color="primary" 
+              onClick={this.getSearchResultsAsync}
+              disabled={isLoading}
+            >
+              {isLoading ? <Spinner size="sm"/> : 'Search'}
+            </Button>
           </Jumbotron>
           <br />
-          {(tracks && tracks.length) 
+          {(tracks && tracks.length !== 0) 
           && (
-            <TrackList tracks={tracks}/>
+            <TrackList 
+              tracks={sortedTracks} 
+              changeSortAttribute={this.changeSortAttribute} 
+            />
           )}
         </Col>
       </Row>
