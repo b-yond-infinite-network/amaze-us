@@ -1,6 +1,6 @@
 import React from 'react';
 import { Jumbotron, Button, Input, Row, Col, Spinner } from 'reactstrap';
-import { sortBy } from 'lodash';
+import { sortBy, reverse } from 'lodash';
 import TrackList from './TrackList';
 import getTrackData from '../services/getTrackData';
 import './AppLayout.css';
@@ -13,6 +13,7 @@ export default class AppLayout extends React.Component {
       tracks: [],
       sortedBy: 'track_name',
       isLoading: false,
+      sortOrder: 'asc'
     }
   }
 
@@ -40,7 +41,12 @@ export default class AppLayout extends React.Component {
   }
 
   changeSortAttribute = attribute => {
-    this.setState({ sortedBy: attribute })
+    this.setState(prevState => ({ 
+      sortedBy: attribute,
+      sortOrder: attribute === prevState.sortedBy 
+        ? prevState.sortOrder === 'desc' ? 'asc' : 'desc'
+        : 'desc',
+    }));
   }
 
   toggleButtonLoad = () => {
@@ -50,8 +56,11 @@ export default class AppLayout extends React.Component {
   }
 
   render() {
-    const { tracks, sortedBy, isLoading, currentArtist } = this.state;
+    const { tracks, sortedBy, isLoading, currentArtist, sortOrder } = this.state;
     const sortedTracks = sortBy(tracks, sortedBy)
+    if (sortOrder === 'desc') {
+      reverse(sortedTracks);
+    }
     return(
       <Row>
         <Col>
