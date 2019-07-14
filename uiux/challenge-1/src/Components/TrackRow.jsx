@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types';
 import { Row, Col } from 'reactstrap';
 
 export default function TrackRow(props) {
@@ -25,4 +26,15 @@ export default function TrackRow(props) {
       )}
     </React.Fragment>
   )
+}
+
+TrackRow.propTypes = {
+  track: PropTypes.shape({
+    track_name: PropTypes.string,
+    track_id: PropTypes.number,
+    artist_name: PropTypes.string,
+    wordCount: PropTypes.number
+  }).isRequired,
+  showLyrics: PropTypes.bool.isRequired,
+  onClick: PropTypes.func.isRequired,
 }

@@ -46,6 +46,8 @@ TrackList.propTypes = {
   tracks: PropTypes.arrayOf(PropTypes.shape({
     track_name: PropTypes.string,
     track_id: PropTypes.number,
+    artist_name: PropTypes.string,
+    wordCount: PropTypes.number
   })),
   changeSortAttribute: PropTypes.func.isRequired,
   sortedBy: PropTypes.string.isRequired
