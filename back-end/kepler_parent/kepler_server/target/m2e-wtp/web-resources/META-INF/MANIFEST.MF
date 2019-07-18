@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Title: kepler_server
+Implementation-Version: 0.0.1
+Built-By: jean
+Implementation-Vendor-Id: com.kepler
+Build-Jdk: 1.8.0_201
+Implementation-URL: https://projects.spring.io/spring-boot/#/spring-bo
+ ot-starter-parent/kepler_server
+Created-By: Maven Integration for Eclipse
+

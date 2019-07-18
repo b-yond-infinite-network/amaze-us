@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <artifactId>kepler_parent</artifactId>
+	<description>BYOND project - development of Kepler Project (SERVER)</description>
+	<groupId>com.curriculum</groupId>		 
+    <modelVersion>4.0.0</modelVersion>
+    <name>kepler_parent</name>	
+    <packaging>pom</packaging>
+    <version>3.2.6</version>
+
+	<parent>
+	
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>1.2.5.RELEASE</version>
+		<relativePath />
+		
+	</parent>  
+
+	<dependencies>
+	    
+	    <dependency>
+	        <groupId>org.webjars</groupId>
+	        <artifactId>jquery</artifactId>
+	        <version>3.2.0</version>
+	    </dependency>
+	     
+	</dependencies>	
+	
+	<build>
+	
+		<pluginManagement>
+		
+			<plugins>
+			
+				<plugin> 
+				
+                    <groupId>org.apache.maven.plugins</groupId> 
+                    <artifactId>maven-release-plugin</artifactId> 
+					
+                </plugin> 
+				
+			</plugins>
+			
+		</pluginManagement>
+		
+	</build>
+	
+	<modules>
+		
+		<module>kepler_server</module>
+		
+	</modules>
+   
+</project>
