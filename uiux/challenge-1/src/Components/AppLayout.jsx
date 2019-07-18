@@ -21,23 +21,25 @@ export default class AppLayout extends React.Component {
     this.setState({
       currentArtist: event.target.value,
       tracks: [],
-      pages: 1,
+      pages: 0,
     });
+  }
+
+  onEnterPress = (event) => {
+    if (event.key === 'Enter') {
+      this.getSearchResults();
+    }
   }
 
   getSearchResults = () => {
     this.toggleButtonLoad();
-    const { currentArtist, pages, tracks } = this.state;
-    getTrackData(currentArtist, pages)
+    let { currentArtist, pages, tracks } = this.state;
+    var nextPage = pages + 1;
+    getTrackData(currentArtist, nextPage)
       .then(newTracks => {
         const newList = tracks.concat(newTracks);
-        this.setState({ tracks: newList }, () => { this.toggleButtonLoad() })
+        this.setState({ tracks: newList, pages: nextPage }, () => { this.toggleButtonLoad() })
       })
-  }
-
-  getMoreResults = () => {
-    this.setState(prevState => ({ pages: prevState.pages + 1 }),
-    () => { this.getSearchResults() })
   }
 
   changeSortAttribute = attribute => {
@@ -76,6 +78,7 @@ export default class AppLayout extends React.Component {
                 value={currentArtist}
                 placeholder="ex. Red Hot Chili Peppers"
                 onChange={this.onArtistChange}
+                onKeyPress={this.onEnterPress}
                 />
               </Col>
             </Row>
@@ -96,13 +99,12 @@ export default class AppLayout extends React.Component {
                 tracks={sortedTracks} 
                 changeSortAttribute={this.changeSortAttribute} 
                 sortedBy={sortedBy}
-                getMoreResults={this.getMoreResults}
               />
               <Row className="mt-5 text-center">
                 <Col>
                   <Button 
                   color="primary" 
-                  onClick={this.getMoreResults}
+                  onClick={this.getSearchResults}
                   disabled={isLoading}
                 >
                   {isLoading ? <Spinner size="sm"/> : 'Get more results'}
