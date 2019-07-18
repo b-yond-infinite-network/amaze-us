@@ -1,0 +1,371 @@
+.forgot_limiter {
+
+    width: 70%;
+    margin: 0 auto;
+
+    position: fixed;
+    left: 30vh;
+    top: 12.5vh;
+
+    display: none;
+    opacity: 0;
+}
+
+.forgot_limiter.active {
+  
+  display: block!important;
+
+  -webkit-animation: anim-forgot-form-fadeIn 1s linear forwards;
+  animation: anim-forgot-form-fadeIn 1s linear forwards;    
+
+  animation-delay: 0.75s;
+}
+
+@-webkit-keyframes anim-forgot-form-fadeIn {
+  0% { opacity: 0;}
+  100% { opacity: 1;}
+}
+
+@keyframes anim-forgot-form-fadeIn {
+  0% { opacity: 0;}
+  100% { opacity: 1;}
+}
+
+.forgot_sub_limiter {
+
+    width: 100%;  
+    padding: 2.5vh 0.5vh;
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 1.5vh;
+
+    background: rgb(200, 170, 110);
+
+    background: -webkit-linear-gradient(-135deg, rgb(200, 200, 200, 0.9), rgb(200, 170, 110));
+    background: -o-linear-gradient(-135deg, rgb(200, 200, 200, 0.9), rgb(200, 170, 110));
+    background: -moz-linear-gradient(-135deg, rgb(200, 200, 200, 0.9), rgb(200, 170, 110));
+    background: linear-gradient(-135deg, rgb(200, 200, 200, 0.9), rgb(200, 170, 110));
+    
+}
+
+.forgot_sub_limiter_container {
+
+    width: 80%;
+
+    background: rgb(255, 255, 255);
+    border-radius: 1.5vh;
+
+    overflow: hidden;
+
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    padding: 2vh 2.5vh;
+}
+
+.forgot_form {
+
+    width: 100%;
+}
+  
+.forgot_form_title {
+
+    display: block;
+
+    font-size: 2em;
+    font-weight: bold;
+    text-align: center;
+
+    color: rgb(190, 160, 100);
+
+    padding: 0;
+    margin: 2vh auto 7vh auto;
+}
+
+.forgot_form_input_field_container {
+
+    position: relative;
+
+    width: 85%;
+    z-index: 1;
+    
+    margin-bottom: 1vh;
+}
+
+.forgot_form_input_field {
+
+	outline: none;
+  border: none;
+
+  display: block;
+
+  font-size: 1.75vh;
+  line-height: 1.5;
+  color: rgb(100, 100, 100);
+
+  width: 70%;
+  background: rgb(230, 230, 230);
+
+  height: 5vh;
+  border-radius: 2em;
+  margin: 0 15% 3vh 15%;
+  padding: 0 0 0 15%;
+    
+}
+
+.forgot_form_input_field:focus::-webkit-input-placeholder { color:transparent; }
+.forgot_form_input_field:focus:-moz-placeholder { color:transparent; }
+.forgot_form_input_field:focus::-moz-placeholder { color:transparent; }
+.forgot_form_input_field:focus:-ms-input-placeholder { color:transparent; }
+
+.forgot_form_input_field::-webkit-input-placeholder { color: #999999; }
+.forgot_form_input_field:-moz-placeholder { color: #999999; }
+.forgot_form_input_field::-moz-placeholder { color: #999999; }
+.forgot_form_input_field:-ms-input-placeholder { color: #999999; }
+
+.forgot_form_input_focus {
+
+    display: block;
+
+    position: absolute;
+    border-radius: 2em;
+
+    bottom: 0;
+    left: 0;
+
+    z-index: -1;
+
+    width: 85%;
+    height: 100%;
+
+    margin: 0 15% 0 15%;
+
+    box-shadow: 0px 0px 0px 0px;
+
+    color: rgb(200, 170, 110, 0.8);
+
+}
+
+.forgot_form_input_symbol {
+
+  font-size: 15px;
+
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  align-items: center;
+  position: absolute;
+  border-radius: 25px;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding-left: 35px;
+  pointer-events: none;
+  color: #666666;
+
+  -webkit-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  transition: all 0.4s;
+}
+
+.forgot_form_input_field:focus + .forgot_form_input_focus {
+
+    -webkit-animation: anim-forgot-form-input-shadow 0.5s ease-in-out forwards;
+    animation: anim-forgot-form-input-shadow 0.5s ease-in-out forwards;
+
+}
+
+@-webkit-keyframes anim-forgot-form-input-shadow {
+    to {
+        box-shadow: 0px 0px 70px 25px;
+        opacity: 0;
+    }
+}
+
+@keyframes anim-forgot-form-input-shadow {
+    to {
+        box-shadow: 0px 0px 70px 25px;
+        opacity: 0;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+.forgot_form_checks_container {
+
+  width: 70%;
+  margin: 0 auto;
+
+}
+
+.forgot_form_checks_container > .checkbox > input {
+
+  -ms-transform: scale(1.5); /* IE */
+  -moz-transform: scale(1.5); /* FF */
+  -webkit-transform: scale(1.5); /* Safari and Chrome */
+  -o-transform: scale(1.5); /* Opera */
+  transform: scale(1.5);
+
+  background-color: yellow;
+}
+
+
+.forgot_form_checks_container > .checkbox > label {
+
+  /*font-family: Poppins-Regular;*/
+  font-size: 1.75vh;
+  line-height: 1.5;
+  color: rgb(153, 153, 153);
+
+  padding-left: 1.5vh;
+
+}
+
+
+
+
+
+
+.forgot_form_button_container {
+
+  width: 100%;
+
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+
+  flex-wrap: wrap;
+  justify-content: center;
+
+  padding: 3vh 0;
+  margin: 0 auto;
+}
+
+.forgot_form_button {
+
+  outline: none !important;
+  border: none;
+  background: transparent;
+  
+  font-size: 1.75vh;
+  line-height: 1.5;
+  
+  color: rgb(255, 255, 255);
+  text-transform: uppercase;
+
+  width: 20%;
+  
+  color: rgb(200, 170, 110);
+  border: 1px solid rgb(200, 170, 110);
+  background-color: rgb(230, 230, 230);
+
+  display: inline-block;
+
+  justify-content: center;
+  align-items: center;
+
+  margin: 1vh 5vh;
+  padding: 0.75em 0em;
+
+  -webkit-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  transition: all 0.4s;
+}
+
+.forgot_form_button:hover {
+	
+  background-color: rgb(200, 170, 110);
+  color: rgb(255, 255, 255);
+
+  cursor: pointer;
+  text-decoration: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+.login_form_missing_container {
+
+  text-align: center;
+
+  margin: 0 0 2vh 0;
+}
+.login_form_text_1 {
+  font-size: 0.75em;
+  line-height: 1.5;
+  color: rgb(153, 153, 153);
+}
+
+.login_form_text_2 {
+  font-size: 0.75em;
+  line-height: 1.5;
+  color: rgb(100, 100, 100);
+}
+
+.login_form_missing_container > a {
+
+  line-height: 1.7;
+
+  color: rgb(100, 100, 100);
+
+  transition: all 0.4s;
+  -webkit-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  
+  text-decoration: none;
+}
+  
+.login_form_missing_container > a:focus {
+
+  outline: none !important;
+
+}
+  
+.login_form_missing_container > a:hover {
+
+  color: rgb(200, 170, 110);
+
+}*/

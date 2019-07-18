@@ -1,0 +1,130 @@
+/* style of the container for the main button */
+.enter_button_container {
+
+	width: 100%;
+	
+	margin-top: 40vh;
+    text-align: center; 
+
+    display: block;
+    opacity: 1;
+}
+.enter_button_container.active {
+
+    -webkit-animation: anim-enter-button-fadeOut 1s linear forwards;
+    animation: anim-enter-button-fadeOut 1s linear forwards;    
+}
+
+
+@-webkit-keyframes anim-enter-button-fadeOut {
+    0% { opacity: 1;}
+    100% { opacity: 0; display: none;}
+}
+
+@keyframes anim-enter-button-fadeOut {
+    0% { opacity: 1;}
+    100% { opacity: 0; display: none;}
+}
+
+
+
+
+
+
+
+
+
+/* style of the button */
+.enter_button {
+    
+    position: relative;
+    
+    /* color & border */
+    color: rgb(200, 170, 110);
+    border: 1px solid rgb(200, 170, 110);
+    background-color: rgb(128, 128, 128, 0.7);
+    
+    /* margin & padding of the buttons */
+    padding: 0.5em 2em;
+    margin: 0em 0.85em 0em 0.85em;
+       
+    font-weight: 600;
+    font-size: 1.5em;
+
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    
+    transition: transform 0.5s ease, opacity 0.5s ease;
+
+	z-index: 3000;
+}
+@media only screen and (min-width: 2560px) {
+    
+    .enter_button {
+             
+        font-weight: 1200 !important;
+        font-size: 2.5em !important;
+
+    }
+  }
+
+/* change the background-color and the color of the button on mouse hover */
+.enter_button:hover {
+	
+    background-color: rgb(200, 170, 110);
+    color: rgb(255, 255, 255);
+
+    cursor: pointer;
+    
+    text-decoration: none;
+}
+
+/* define the right line */
+.enter_button:before {
+    
+    /* force the line to be display (nothing inside) */
+    content: '';
+    
+    /* position of the line on the left side of the buttons */
+    position: absolute;
+    left: -1em;
+    top: 1.25em;
+    
+    width: 2em;
+    height: 1px;
+    
+    background-color: rgb(200, 170, 110);
+    transition: transform 0.5s ease, opacity 0.5s ease;
+}
+/* define the animation on mouse hover for the right line */
+.enter_button:hover:before {
+	/* define the animation to the right and mask */
+    transform: translate3d(1.5em, 0, 0);
+    opacity: 0;
+}
+
+/* define the animation on mouse hover for the left line */
+.enter_button:hover:after {
+	/* define the animation to the right and mask */
+    transform: translate3d(-1.5em, 0, 0);
+    opacity: 0;
+}
+/* define the left line */
+.enter_button:after {
+    
+    /* force the line to be display (nothing inside) */
+    content: '';
+    
+    /* position of the line on the left side of the buttons */
+    position: absolute;
+    right: -1em;
+    top: 1.25em;
+    
+    width: 2em;
+    height: 1px;
+    
+    background-color: rgb(200, 170, 110);
+    transition: transform 0.5s ease, opacity 0.5s ease;
+}
+

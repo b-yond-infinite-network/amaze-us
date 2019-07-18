@@ -1,0 +1,67 @@
+/* style of the container for the main button */
+.not_login_in_label_container {
+
+	width: 100%;
+	
+	margin-top: 15vh;
+    text-align: center; 
+
+    opacity: 0;
+}
+.not_login_in_label_container.show {
+
+    opacity: 1!important; 
+}
+.not_login_in_label_container.active {
+
+    -webkit-animation: anim-not-login-label-fadeOut 1s linear forwards;
+    animation: anim-not-login-label-fadeOut 1s linear forwards;    
+}
+
+@-webkit-keyframes anim-not-login-label-fadeOut {
+    0% {}
+    100% { opacity: 0; display: none;}
+}
+
+@keyframes anim-not-login-label-fadeOut {
+    0% {}
+    100% { opacity: 0; display: none;}
+}
+
+
+/* style of the button */
+.not_login_in_label {
+    
+    position: relative;
+    
+    /* color & border */
+    color: rgb(50, 50, 50);
+    border-radius: 10em;
+    background-color: rgba(200, 200, 200);
+    
+    /* margin & padding of the buttons */
+    padding: 1em 5em;
+    margin: 0em 0.85em 0em 0.85em;
+       
+    font-weight: 600;
+    font-size: 1em;
+
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    
+    transition: transform 0.5s ease, opacity 0.5s ease;
+
+	z-index: 3000;
+}
+
+/* change the background-color and the color of the button on mouse hover */
+.not_login_in_label:hover {
+	
+    background-color: rgb(200, 170, 110);
+    color: rgb(255, 255, 255);
+
+    cursor: pointer;
+    
+    text-decoration: none;
+}
