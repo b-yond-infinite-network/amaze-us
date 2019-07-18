@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types';
 import { Row, Col } from 'reactstrap';
 
-export default function TrackRow(props) {
+const TrackRow = (props) => {
   const { track, onClick, showLyrics } = props;
   return (
     <React.Fragment>
@@ -38,3 +38,5 @@ TrackRow.propTypes = {
   showLyrics: PropTypes.bool.isRequired,
   onClick: PropTypes.func.isRequired,
 }
+
+export default TrackRow;
