@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { Row, Col } from 'reactstrap';
 import TrackRow from './TrackRow';
 
-const  TrackList = (props) => {
+const TrackList = (props) => {
 
   const [selectedTrackId, setSelectedTrack] = useState(undefined);
 
@@ -38,7 +38,8 @@ TrackList.propTypes = {
     track_name: PropTypes.string,
     track_id: PropTypes.number,
     artist_name: PropTypes.string,
-    wordCount: PropTypes.number
+    wordCount: PropTypes.number,
+    lyrics: PropTypes.string,
   })),
   changeSortAttribute: PropTypes.func.isRequired,
   sortedBy: PropTypes.string.isRequired
