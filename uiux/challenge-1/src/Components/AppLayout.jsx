@@ -2,9 +2,7 @@ import React, { useState } from 'react';
 import { Jumbotron, Button, Input, Row, Col, Spinner } from 'reactstrap';
 import { sortBy, reverse } from 'lodash';
 import TrackList from './TrackList';
-import injectSheet from 'react-jss'
 import getTrackData from '../services/getTrackData';
-import styles from './styles';
 
 const AppLayout = ({ classes }) => {
   const [currentArtist, setCurrentArtist] = useState('');
@@ -58,7 +56,7 @@ const AppLayout = ({ classes }) => {
           <hr />
           <Row>
             <Col sm='5'>
-              <Input 
+              <Input
               name="artist"
               label="Search Artist"
               value={currentArtist}
@@ -105,4 +103,4 @@ const AppLayout = ({ classes }) => {
   )
 }
 
-export default injectSheet(styles)(AppLayout)
+export default AppLayout
