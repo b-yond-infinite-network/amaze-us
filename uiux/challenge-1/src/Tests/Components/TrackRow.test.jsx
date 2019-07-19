@@ -1,8 +1,8 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { Row } from 'reactstrap';
-import TrackRow from '../Components/TrackRow';
-import { track } from './testData';
+import TrackRow from '../../Components/TrackRow';
+import { track } from '../testData';
 
 const onClick = jest.fn();
 

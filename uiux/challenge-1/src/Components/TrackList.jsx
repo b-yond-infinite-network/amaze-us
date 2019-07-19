@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types'
 import { Row, Col } from 'reactstrap';
 import TrackRow from './TrackRow';
 
 const TrackList = (props) => {
 
-  const [selectedTrackId, setSelectedTrack] = useState(undefined);
+  const [selectedTrackId, setSelectedTrack] = React.useState(undefined);
 
   const changeSelectedTrack = (newTrack) => {
     setSelectedTrack(newTrack === selectedTrackId ? undefined : newTrack)

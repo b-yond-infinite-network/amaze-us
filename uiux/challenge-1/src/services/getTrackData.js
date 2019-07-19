@@ -13,8 +13,7 @@ const getTrackData = async (currentArtist, page) => {
   for (const trackObject of tracks) {
     // Need to do this old style loop in order to get the axios calls to work.
     const trackId = trackObject.track.track_id;
-    const lyricsResult = await AxiosInstance.get(`track.lyrics.get?track_id=${trackId}&apikey=${apiKey}`)
-    const lyrics = await lyricsResult.data.message.body.lyrics.lyrics_body;
+    const lyrics = await getLyrics(trackId);
     trackObject.track.lyrics = lyrics;
   }
   // It has this weird track.track structure. So, in order to make things cleaner:
@@ -26,6 +25,12 @@ const getTrackData = async (currentArtist, page) => {
       return pick(realTrack, trackAttributes);
   });
   return flattened;
+}
+
+const getLyrics = async(trackId) => {
+  const lyricsResult = await AxiosInstance.get(`track.lyrics.get?track_id=${trackId}&apikey=${apiKey}`)
+  const lyrics = await lyricsResult.data.message.body.lyrics.lyrics_body;
+  return lyrics;
 }
 
 export default getTrackData;

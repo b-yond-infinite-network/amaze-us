@@ -2,34 +2,20 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "Debug CRA Tests",
       "type": "node",
       "request": "launch",
-      "name": "Jest All",
-      "program": "${workspaceFolder}/node_modules/.bin/jest",
-      "args": ["--runInBand"],
-      "console": "integratedTerminal",
-      "internalConsoleOptions": "neverOpen",
-      "disableOptimisticBPs": true,
-      "windows": {
-        "program": "${workspaceFolder}/node_modules/jest/bin/jest",
-      }
-    },
-    {
-      "type": "node",
-      "request": "launch",
-      "name": "Jest Current File",
-      "program": "${workspaceFolder}/uiux/challenge1/node_modules/.bin/jest",
+      "runtimeExecutable": "${workspaceRoot}/uiux/challenge-1/node_modules/.bin/react-scripts",
       "args": [
-        "${fileBasenameNoExtension}",
-        "--config",
-        "jest.config.js"
+        "test",
+        "--runInBand",
+        "--no-cache",
+        "--watchAll=false"
       ],
+      "cwd": "${workspaceRoot}/uiux/challenge-1",
+      "protocol": "inspector",
       "console": "integratedTerminal",
-      "internalConsoleOptions": "neverOpen",
-      "disableOptimisticBPs": true,
-      "windows": {
-        "program": "${workspaceFolder}/uiux/challenge1/node_modules/jest/bin/jest",
-      }
+      "internalConsoleOptions": "neverOpen"
     }
   ]
 }

@@ -1,8 +1,8 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import TrackList from '../Components/TrackList';
-import TrackRow from '../Components/TrackRow';
-import { track } from './testData';
+import TrackList from '../../Components/TrackList';
+import TrackRow from '../../Components/TrackRow';
+import { track } from '../testData';
 import { Col } from 'reactstrap'; 
 
 const tracks = [
@@ -21,21 +21,36 @@ const getComponent = () => (
 )
 
 describe('TrackList tests', () => {
+  let wrapper;
+  const setState = jest.fn();
+  const useStateSpy = jest.spyOn(React, 'useState')
+  useStateSpy.mockImplementation((init) => [init, setState]);
+
+  beforeEach(() => {
+    wrapper = shallow(getComponent());
+  })
+
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   it('Will render without any issues', () => {
-    const wrapper = shallow(getComponent());
     expect(wrapper).toBeDefined();
   });
   it ('Should have 3 Cols for headers and same number of TrackRows as Tracks', () => {
-    const wrapper = shallow(getComponent());
     const headers = wrapper.find(Col);
     const trackRows = wrapper.find(TrackRow);
     expect(headers).toHaveLength(3);
     expect(trackRows).toHaveLength(tracks.length);
   })
   it("Will call changeSortAttribute when a header row is clicked on", () => {
-    const wrapper = shallow(getComponent());
     const selectedCol = wrapper.find(Col).first();
     selectedCol.simulate('click');
     expect(changeSortAttribute).toHaveBeenCalled();
   });
+  it('Should set state with track when track is clicked on', () => {
+    const track = wrapper.find(TrackRow).first();
+    track.props().onClick(1);
+    expect(setState).toHaveBeenCalledWith(1);
+  })
 })

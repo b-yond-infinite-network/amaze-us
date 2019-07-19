@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Jumbotron, Button, Input, Row, Col, Spinner } from 'reactstrap';
 import { sortBy, reverse } from 'lodash';
 import TrackList from './TrackList';
 import getTrackData from '../services/getTrackData';
 
 const AppLayout = ({ classes }) => {
-  const [currentArtist, setCurrentArtist] = useState('');
-  const [tracks, setTracks] = useState([]);
-  const [sortedBy, setSortedBy] = useState('track_name');
-  const [isLoading, toggleLoad] = useState(false);
-  const [sortOrder, setSortOrder] = useState('asc');
-  const [pages, setPages] = useState(0);
+  const [currentArtist, setCurrentArtist] = React.useState('');
+  const [tracks, setTracks] = React.useState([]);
+  const [sortedBy, setSortedBy] = React.useState('track_name');
+  const [isLoading, toggleLoad] = React.useState(false);
+  const [sortOrder, setSortOrder] = React.useState('asc');
+  const [pages, setPages] = React.useState(0);
 
   const onArtistChange = (event) => {
     setCurrentArtist(event.target.value);
