@@ -11,13 +11,13 @@ const  TrackList = (props) => {
     setSelectedTrack(newTrack === selectedTrackId ? undefined : newTrack)
   } 
 
-  const { tracks, changeSortAttribute, sortedBy } = props;
+  const { tracks, changeSortAttribute, sortedBy, classes } = props;
   return (
     <div className="container">
       <Row>
-        <Col className={`header-col ${sortedBy === 'track_name' ? 'selected' : ''}`} onClick={() => changeSortAttribute('track_name')}>Track Title</Col>
-        <Col className={`header-col ${sortedBy === 'artist_name' ? 'selected' : ''}`} onClick={() => changeSortAttribute('artist_name')}>Artist</Col>
-        <Col className={`header-col ${sortedBy === 'wordCount' ? 'selected' : ''}`}  onClick={() => changeSortAttribute('wordCount')}>Lyrics Length</Col>
+        <Col className={`${classes.headerCol} ${sortedBy === 'track_name' ? classes.selected : ''}`} onClick={() => changeSortAttribute('track_name')}>Track Title</Col>
+        <Col className={`${classes.headerCol} ${sortedBy === 'artist_name' ? classes.selected : ''}`} onClick={() => changeSortAttribute('artist_name')}>Artist</Col>
+        <Col className={`${classes.headerCol} ${sortedBy === 'wordCount' ? classes.selected : ''}`}  onClick={() => changeSortAttribute('wordCount')}>Lyrics Length</Col>
       </Row>
       <hr />
       {tracks.map(track => (
@@ -26,6 +26,7 @@ const  TrackList = (props) => {
           key={track.track_id}
           onClick={changeSelectedTrack}
           showLyrics={selectedTrackId === track.track_id} 
+          classes={classes}
         />
       ))}
     </div>

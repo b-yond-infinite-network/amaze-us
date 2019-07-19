@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import { Jumbotron, Button, Input, Row, Col, Spinner } from 'reactstrap';
 import { sortBy, reverse } from 'lodash';
 import TrackList from './TrackList';
+import injectSheet from 'react-jss'
 import getTrackData from '../services/getTrackData';
-import './AppLayout.css';
+import styles from './styles';
 
-const AppLayout = () => {
+const AppLayout = ({ classes }) => {
   const [currentArtist, setCurrentArtist] = useState('');
   const [tracks, setTracks] = useState([]);
   const [sortedBy, setSortedBy] = useState('track_name');
@@ -84,8 +85,9 @@ const AppLayout = () => {
               tracks={sortedTracks} 
               changeSortAttribute={changeSortAttribute} 
               sortedBy={sortedBy}
+              classes={classes} 
             />
-            <Row className="mt-5 text-center">
+            <Row className={classes.getMoreResultsButton}>
               <Col>
                 <Button 
                 color="primary" 
@@ -103,4 +105,4 @@ const AppLayout = () => {
   )
 }
 
-export default AppLayout
+export default injectSheet(styles)(AppLayout)

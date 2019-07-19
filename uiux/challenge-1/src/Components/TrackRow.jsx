@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import { Row, Col } from 'reactstrap';
 
 const TrackRow = (props) => {
-  const { track, onClick, showLyrics } = props;
+  const { track, onClick, showLyrics, classes } = props;
   return (
     <React.Fragment>
-      <Row className="track-row" onClick={() => { onClick(track.track_id) }}>
+      <Row className={classes.trackRow} onClick={() => { onClick(track.track_id) }}>
         <Col>{track.track_name}</Col>
         <Col>{track.artist_name}</Col>
         <Col>{track.wordCount ? `${track.wordCount} Words` : 'No Lyrics'}</Col>
@@ -15,9 +15,9 @@ const TrackRow = (props) => {
       && (
         <React.Fragment>
           <hr />
-          <div className="lyrics-header mb-1">Lyrics</div>
+          <div className={classes.lyricsHeader}>Lyrics</div>
           <Row>
-            <Col className="lyrics">
+            <Col className={classes.lyrics}>
               {track.lyrics}
             </Col>
           </Row>
