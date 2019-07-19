@@ -19,7 +19,7 @@ const AppLayout = ({ classes }) => {
   }
 
   const onEnterPress = (event) => {
-    if (event.key === 'Enter') {
+    if (event.key === 'Enter' && !isLoading) {
       getSearchResults();
     }
   }

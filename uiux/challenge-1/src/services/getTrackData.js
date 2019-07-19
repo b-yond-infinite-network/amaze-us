@@ -7,8 +7,16 @@ const apiKey = '064b9c9b7cfedab8d404802c855976cc';
 const getTrackData = async (currentArtist, page) => {
   const searchUrl = `track.search?q_artist=${currentArtist}&page_size=10&page=${page}&f_has_lyrics=true&s_track_rating=desc&apikey=${apiKey}`;
 
-  const tracksResult = await AxiosInstance.get(searchUrl);
-  const tracks = await tracksResult.data.message.body.track_list;
+  let tracksResult;
+  let tracks;
+
+  try {
+    tracksResult = await AxiosInstance.get(searchUrl);
+    tracks = await tracksResult.data.message.body.track_list;
+  }
+  catch(err) {
+    return [];
+  }
 
   for (const trackObject of tracks) {
     // Need to do this old style loop in order to get the axios calls to work.
