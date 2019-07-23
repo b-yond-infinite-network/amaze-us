@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { MusixmatchService } from 'src/app/musixmatch.service';
+import { FormGroup, FormBuilder } from '@angular/forms';
+import { distinctUntilChanged, debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-lyric-search-bar',
@@ -7,9 +10,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LyricSearchBarComponent implements OnInit {
 
-  constructor() { }
+  searchLyricsForm: FormGroup;
+
+  constructor(private musixmatch:MusixmatchService, private fb:FormBuilder) { }
 
   ngOnInit() {
+    this.searchLyricsForm = this.fb.group({
+      searchLyricsTerm: ''
+    });
+
+    this.searchLyricsForm.get('searchLyricsTerm').valueChanges.pipe(
+      debounceTime(1000),
+      distinctUntilChanged()
+    ).subscribe(term => this.musixmatch.search(term));
   }
 
 }
