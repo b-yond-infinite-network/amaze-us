@@ -15,8 +15,8 @@ export class LyricsSearchResultsComponent implements OnInit {
 
   ngOnInit() {
 
-    let results$ = this.musixmatch.subscribe(results => {
-      this.results = results;
+    let results$ = this.musixmatch.subscribe(data => {
+      this.results = data.track_list;
     });    
   }
 

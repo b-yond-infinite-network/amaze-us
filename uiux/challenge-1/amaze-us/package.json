@@ -19,6 +19,8 @@
     "@angular/platform-browser": "~8.0.0",
     "@angular/platform-browser-dynamic": "~8.0.0",
     "@angular/router": "~8.0.0",
+    "lodash": "^4.17.15",
+    "ngx-webstorage-service": "^4.0.1",
     "rxjs": "~6.4.0",
     "ts-md5": "^1.2.4",
     "tslib": "^1.9.0",
