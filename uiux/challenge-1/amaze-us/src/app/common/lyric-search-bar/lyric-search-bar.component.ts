@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { MusixmatchService } from 'src/app/musixmatch.service';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { distinctUntilChanged, debounceTime } from 'rxjs/operators';
+
+import { MusixmatchService } from 'src/app/musixmatch.service';
 
 @Component({
   selector: 'app-lyric-search-bar',
@@ -24,5 +25,4 @@ export class LyricSearchBarComponent implements OnInit {
       distinctUntilChanged()
     ).subscribe(term => this.musixmatch.search(term));
   }
-
 }

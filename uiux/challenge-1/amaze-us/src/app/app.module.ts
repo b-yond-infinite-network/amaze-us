@@ -8,12 +8,14 @@ import { AppComponent } from './app.component';
 
 import { LyricSearchBarComponent } from './common/lyric-search-bar/lyric-search-bar.component';
 import { MusixmatchService } from './musixmatch.service';
+import { LyricsSearchResultsComponent } from './common/lyrics-search-results/lyrics-search-results.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    LyricSearchBarComponent
+    LyricSearchBarComponent,
+    LyricsSearchResultsComponent
   ],
   imports: [
     BrowserModule,
