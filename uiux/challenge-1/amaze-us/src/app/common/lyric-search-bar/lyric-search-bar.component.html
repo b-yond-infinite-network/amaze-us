@@ -1,4 +1,14 @@
+<mat-toolbar color="primary">
+    <mat-toolbar-row>
+        <span>B-Lyrics</span>
+    </mat-toolbar-row>
+</mat-toolbar>
+
 <form [formGroup]="searchLyricsForm">
-    <input type="text" placeholder="Type song title, artist or lyrics" formControlName="searchLyricsTerm">
-    <button>Search</button>
+    <mat-form-field class="search-input-full-width">
+        <input matInput type="text" placeholder="" formControlName="searchLyricsTerm">
+        <mat-hint align="start"><strong>Type song title, artist or lyrics</strong> </mat-hint>
+    </mat-form-field>
+    <button mat-flat-button color="primary">Search</button>
 </form>
+

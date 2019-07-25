@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 
 import { MusixmatchService } from 'src/app/musixmatch.service';
 
@@ -9,15 +11,18 @@ import { MusixmatchService } from 'src/app/musixmatch.service';
 })
 export class LyricsSearchResultsComponent implements OnInit {
 
-  results = [];
-  
-  constructor(private musixmatch:MusixmatchService) { }
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
+
+  displayedColumns: string[] = ['has_lyrics', 'track_name', 'artist_name', 'album_name'];
+  results = new MatTableDataSource([]);
+
+  constructor(private musixmatch: MusixmatchService) { }
 
   ngOnInit() {
-
     let results$ = this.musixmatch.subscribe(data => {
-      this.results = data.track_list;
-    });    
+      this.results = new MatTableDataSource(data);
+      this.results.sort = this.sort;
+    });
   }
 
 }

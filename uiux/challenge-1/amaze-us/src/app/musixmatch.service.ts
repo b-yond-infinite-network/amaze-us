@@ -43,6 +43,9 @@ export class MusixmatchService {
     ).subscribe(
       (data: any) => {
 
+        // Remove extra track key
+        data = data.track_list.map( d => d.track );
+        
         this.cacheSearchTerm(term, data);
         this.results$.next(data);
       },
