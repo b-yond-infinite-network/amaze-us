@@ -1,4 +1,4 @@
-<table mat-table [dataSource]="results" matSort class="mat-elevation-z8">
+<table mat-table [dataSource]="results" matSort class="mat-elevation-z8" *ngIf="results.data.length">
 
   <ng-container matColumnDef="has_lyrics">
     <th mat-header-cell *matHeaderCellDef mat-sort-header> Lyrics </th>
@@ -23,3 +23,5 @@
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
+
+<div *ngIf="!results.data.length" class="welcome-text">B-Lyrics your lyrics source.</div>

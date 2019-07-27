@@ -2,6 +2,15 @@ table {
   width: 100%;
 }
   
-tr.mat-footer-row {
-  font-weight: bold;
+tr{
+  .mat-footer-row {
+    font-weight: bold;
+  }
+}
+
+.welcome-text{
+  text-align: center;
+  font-size: 3em;
+  margin: 2em;
+  color: lightgray;
 }
