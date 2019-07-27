@@ -3,6 +3,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { pluck } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { Md5 } from 'ts-md5/dist/md5';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 import { LOCAL_STORAGE, StorageService } from 'ngx-webstorage-service';
 
@@ -14,14 +15,15 @@ export class MusixmatchService {
   private storageKey = 'lyrics_search_cache';
   private results$ = new Subject();
 
-  constructor(@Inject(LOCAL_STORAGE) private storage: StorageService, private http: HttpClient) {}
+  constructor(@Inject(LOCAL_STORAGE) private storage: StorageService, 
+    private http: HttpClient,
+    private snackBar: MatSnackBar) {}
 
   subscribe(subscriberFn) {
     return this.results$.subscribe(subscriberFn);
   }
 
   search(term: string = '') {
-
     if (!term || term === '') {
       return;
     }
@@ -38,6 +40,7 @@ export class MusixmatchService {
     const apikey = 'fcf949768093a50b3c8603f003b6d3ea';
     const url = `http://api.musixmatch.com/ws/1.1/track.search?format=jsonp&callback=callback&q=${term}&s_track_rating=desc&apikey=${apikey}`;
 
+    // Getting the data from the api, and trims the data object
     this.http.jsonp(url, 'callback').pipe(
       pluck('message', 'body')
     ).subscribe(
@@ -45,11 +48,11 @@ export class MusixmatchService {
 
         // Remove extra track key
         data = data.track_list.map( d => d.track );
-        
+
         this.cacheSearchTerm(term, data);
         this.results$.next(data);
       },
-      (e: HttpErrorResponse) => console.log(e)
+      (e: HttpErrorResponse) => this.snackBar.open('Ups... something went wrong!', 'Try again later')
     );
   }
 

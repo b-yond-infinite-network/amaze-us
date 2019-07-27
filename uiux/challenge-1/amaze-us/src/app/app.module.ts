@@ -12,7 +12,8 @@ import { MatButtonModule,
   MatSortModule,
   MatProgressSpinnerModule, 
   MatPaginatorModule, 
-  MatIconModule} from '@angular/material';
+  MatIconModule,
+  MatSnackBarModule} from '@angular/material';
 
 import { LyricSearchBarComponent } from './common/lyric-search-bar/lyric-search-bar.component';
 import { MusixmatchService } from './musixmatch.service';
@@ -40,7 +41,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MatSortModule,
     MatProgressSpinnerModule,
     MatPaginatorModule,
-    MatIconModule
+    MatIconModule,
+    MatSnackBarModule
   ],
   providers: [
     MusixmatchService,
