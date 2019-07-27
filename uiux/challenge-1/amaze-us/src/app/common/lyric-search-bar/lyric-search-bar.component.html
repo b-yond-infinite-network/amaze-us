@@ -9,6 +9,7 @@
         <input matInput type="text" placeholder="" formControlName="searchLyricsTerm">
         <mat-hint align="start"><strong>Type song title, artist or lyrics</strong> </mat-hint>
     </mat-form-field>
-    <button mat-flat-button color="primary">Search</button>
+    <button mat-flat-button color="primary" (click)="search()">Search</button>
 </form>
 
+<mat-progress-bar mode="indeterminate" *ngIf="isSearching"></mat-progress-bar> 

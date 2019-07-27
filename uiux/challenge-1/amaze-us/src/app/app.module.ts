@@ -10,7 +10,7 @@ import { MatButtonModule,
   MatToolbarModule,
   MatTableModule,
   MatSortModule,
-  MatProgressSpinnerModule, 
+  MatProgressBarModule, 
   MatPaginatorModule, 
   MatIconModule,
   MatSnackBarModule} from '@angular/material';
@@ -39,10 +39,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MatToolbarModule,
     MatTableModule,
     MatSortModule,
-    MatProgressSpinnerModule,
     MatPaginatorModule,
     MatIconModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatProgressBarModule
   ],
   providers: [
     MusixmatchService,

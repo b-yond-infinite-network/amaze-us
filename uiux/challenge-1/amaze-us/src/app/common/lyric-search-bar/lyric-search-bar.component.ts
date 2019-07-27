@@ -12,17 +12,29 @@ import { MusixmatchService } from 'src/app/musixmatch.service';
 export class LyricSearchBarComponent implements OnInit {
 
   searchLyricsForm: FormGroup;
+  isSearching: boolean;
 
-  constructor(private musixmatch:MusixmatchService, private fb:FormBuilder) { }
+  constructor(private musixmatch: MusixmatchService, private fb: FormBuilder) { }
 
   ngOnInit() {
+    // Defining reactive search form
     this.searchLyricsForm = this.fb.group({
       searchLyricsTerm: ''
     });
 
+    // Auto search by typing
     this.searchLyricsForm.get('searchLyricsTerm').valueChanges.pipe(
       debounceTime(1000),
       distinctUntilChanged()
     ).subscribe(term => this.musixmatch.search(term));
+
+    // Is loading status
+    this.musixmatch.isSearching(status => this.isSearching = status);
+  }
+
+  // Search by clicking on button
+  search() {
+    let term = (this.searchLyricsForm.get('searchLyricsTerm').value);
+    this.musixmatch.search(term);
   }
 }

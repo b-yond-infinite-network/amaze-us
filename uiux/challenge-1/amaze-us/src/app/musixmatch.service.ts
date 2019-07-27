@@ -1,6 +1,6 @@
 import { Injectable, OnInit, Inject } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { pluck } from 'rxjs/operators';
+import { pluck, defaultIfEmpty } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { Md5 } from 'ts-md5/dist/md5';
 import {MatSnackBar} from '@angular/material/snack-bar';
@@ -14,6 +14,7 @@ export class MusixmatchService {
 
   private storageKey = 'lyrics_search_cache';
   private results$ = new Subject();
+  private isSearching$ = new Subject();
 
   constructor(@Inject(LOCAL_STORAGE) private storage: StorageService, 
     private http: HttpClient,
@@ -23,16 +24,29 @@ export class MusixmatchService {
     return this.results$.subscribe(subscriberFn);
   }
 
-  search(term: string = '') {
-    if (!term || term === '') {
+  isSearching(subscriberFn){
+    return this.isSearching$.pipe(
+      defaultIfEmpty(false)
+    ).subscribe(subscriberFn);
+  }
+
+  search(term: string = '') {   
+    if (!term || term === '' || term.trim() === '') {
       return;
     }
 
+    // Trim white spaces
+    term = term.trim();
+
+    // Notify that we are searching
+    this.isSearching$.next(true);
+
     if (this.isTermInCache(term)) {
-      console.log('Cached result...')
+      this.snackBar.open('Displaying cached values', 'Ok', { duration: 1500 });
       
       const data = this.getCachedTerm(term);
       this.results$.next(data.data);
+      this.isSearching$.next(false);
       return;
     }
 
@@ -50,9 +64,13 @@ export class MusixmatchService {
         data = data.track_list.map( d => d.track );
 
         this.cacheSearchTerm(term, data);
+        this.isSearching$.next(false);
         this.results$.next(data);
       },
-      (e: HttpErrorResponse) => this.snackBar.open('Ups... something went wrong!', 'Try again later')
+      (e: HttpErrorResponse) => {
+        this.isSearching$.next(false);
+        this.snackBar.open('Ups... something went wrong!', 'Try again later');
+      }
     );
   }
 
