@@ -1,5 +1,12 @@
-<app-lyric-search-bar></app-lyric-search-bar>
+<mat-toolbar color="primary">
+    <mat-toolbar-row>
+        <div class="main-app-container">
+            <span>B-Lyrics</span>
+        </div>
+    </mat-toolbar-row>
+</mat-toolbar>
 
-<app-lyrics-search-results></app-lyrics-search-results>
-
-<router-outlet></router-outlet>
+<section class="main-app-container">
+    <app-lyric-search-bar></app-lyric-search-bar>
+    <app-lyrics-search-results></app-lyrics-search-results>
+</section>

@@ -1,15 +1,11 @@
-<mat-toolbar color="primary">
-    <mat-toolbar-row>
-        <span>B-Lyrics</span>
-    </mat-toolbar-row>
-</mat-toolbar>
-
-<form [formGroup]="searchLyricsForm">
+<form [formGroup]="searchLyricsForm" class="search-bar">
     <mat-form-field class="search-input-full-width">
         <input matInput type="text" placeholder="" formControlName="searchLyricsTerm">
         <mat-hint align="start"><strong>Type song title, artist or lyrics</strong> </mat-hint>
     </mat-form-field>
-    <button mat-flat-button color="primary" (click)="search()">Search</button>
+    <div class="search-col">
+        <button mat-flat-button color="primary" (click)="search()">Search</button>
+    </div>
 </form>
 
-<mat-progress-bar mode="indeterminate" *ngIf="isSearching"></mat-progress-bar> 
+<mat-progress-bar mode="indeterminate" *ngIf="isSearching"></mat-progress-bar>
