@@ -1,0 +1,14 @@
+image: gradle:jdk12
+stages:
+  - build
+
+build spring:
+    stage: build
+    script:
+          gradle clean build -x test
+    artifacts:
+        paths:
+        - build/libs/backend-latest.jar
+        expire_in: 60 minutes
+    except:
+        - tags
