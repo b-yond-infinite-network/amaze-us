@@ -4,6 +4,7 @@ before_script:
 stages:
   - build
   - unit-tests
+  - docker build
 
 cache:
   paths:
@@ -26,5 +27,14 @@ unit test:
     stage: unit-tests
     image: gradle:jdk12
     script:
-        - cd $CI_PROJECT_DIR
+        - cd $CI_PROJECT_DIR/microservice/challenge-1/backend
         - gradle unitTest
+
+docker build:
+    stage: docker build
+    image: docker:stable
+    services:
+      - docker:dind
+    script:
+      - docker build -t my-docker-image $CI_PROJECT_DIR/microservice/challenge-1/backend
+

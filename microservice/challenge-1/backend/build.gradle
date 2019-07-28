@@ -9,11 +9,6 @@ group = 'igor.beyond.backend'
 version = 'latest'
 archivesBaseName = 'backend'
 
-jar {
-    manifest {
-        attributes 'Main-Class': 'igor.beyond.backend.BackendApplication'
-    }
-}
 sourceCompatibility = '12'
 
 
