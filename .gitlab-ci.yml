@@ -16,9 +16,9 @@ cache:
     stage: build
     image: gradle:jdk12
     script:
-        - cd $CI_PROJECT_DIR/microservice/challenge-1/backend
-        - gradle clean build -x test
-        - ls -la $CI_PROJECT_DIR/microservice/challenge-1/backend/build/libs
+      - cd $CI_PROJECT_DIR/microservice/challenge-1/backend
+      - gradle clean build -x test
+      - ls -la $CI_PROJECT_DIR/microservice/challenge-1/backend/build/libs
     artifacts:
       paths:
         - $CI_PROJECT_DIR/microservice/challenge-1/backend/build/libs/backend-latest.jar
@@ -30,8 +30,8 @@ cache:
     stage: unit-tests
     image: gradle:jdk12
     script:
-        - cd $CI_PROJECT_DIR/microservice/challenge-1/backend
-        - gradle unitTest
+      - cd $CI_PROJECT_DIR/microservice/challenge-1/backend
+      - gradle unitTest
 
 .docker build:
     stage: docker build
@@ -55,11 +55,10 @@ deploy to k8s:
     image: google/cloud-sdk:latest
     stage: deploy
     script:
-        # Authenticate with GKE
-        — echo "$SERVICE_ACCOUNT_KEY" > key.json
-        — gcloud auth activate-service-account --key-file=key.json
-        — gcloud config set project byond-project
-        — gcloud config set container/cluster beyond-cluster
-        — gcloud config set compute/zone us-central1-a
-        — gcloud container clusters get-credentials beyond-cluster --zone us-central1-a
-        - kubectl apply -f $CI_PROJECT_DIR/microservice/challenge-1/backend/k8s/${COMPONENT_MANIFEST}
+      - echo "$SERVICE_ACCOUNT_KEY" > key.json
+      - gcloud auth activate-service-account --key-file=key.json
+      - gcloud config set project byond-project
+      - gcloud config set container/cluster beyond-cluster
+      - gcloud config set compute/zone us-central1-a
+      - gcloud container clusters get-credentials beyond-cluster --zone us-central1-a
+      - kubectl apply -f $CI_PROJECT_DIR/microservice/challenge-1/backend/k8s/${COMPONENT_MANIFEST}
