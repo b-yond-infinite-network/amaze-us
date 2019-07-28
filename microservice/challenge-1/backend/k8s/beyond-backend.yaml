@@ -1,0 +1,51 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: beyond-backend
+spec:
+  selector:
+    name: beyond-backend
+  ports:
+     - protocol: TCP
+       port: 80
+       targetPort: 8088
+       nodePort: 30001
+  type: NodePort
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: beyond-backend
+  labels:
+    app: beyond-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: beyond-backend
+  template:
+    metadata:
+      labels:
+        app: beyond-backend
+    spec:
+      containers:
+      - name: beyond-backend
+        image: gcr.io/byond-project/beyond-backend:latest
+        env:
+          - name: DB_USER
+            valueFrom:
+                configMapKeyRef:
+                  name: config
+                  key: db.username
+          - name: DB_PASSWORD
+            valueFrom:
+                configMapKeyRef:
+                  name: config
+                  key: db.password
+        imagePullPolicy: Always
+        args:
+          - --spring.profiles.active=clustered
+          - --spring.datasource.username=$(DB_USER)
+          - --spring.datasource.password=$(DB_PASSWORD)
+        ports:
+          - containerPort: 8088

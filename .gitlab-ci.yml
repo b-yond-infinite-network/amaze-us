@@ -5,6 +5,7 @@ stages:
   - build
  # - unit-tests
   - docker build
+ # - deploy
 
 cache:
   paths:
@@ -39,39 +40,30 @@ docker build:
       - docker:dind
     variables:
       DOCKER_DRIVER: overlay2
-      #SHARED_PATH: /builds/shared/$CI_PROJECT_PATH
     script:
-      - pwd
-      - ls -la /builds/stormbringerdp/amaze-us/
       - mkdir -p /builds/stormbringerdp/amaze-us/build/
-      - ls -la /builds/stormbringerdp/amaze-us/build
-      - ls -la $CI_PROJECT_DIR/microservice/challenge-1/backend/build/libs/
       - cp $CI_PROJECT_DIR/microservice/challenge-1/backend/build/libs/backend-latest.jar /builds/stormbringerdp/amaze-us/build/
       - cp $CI_PROJECT_DIR/microservice/challenge-1/backend/Dockerfile /builds/stormbringerdp/amaze-us/build/
-      - ls -la /builds/stormbringerdp/amaze-us/build/
-      - ls -la /builds/stormbringerdp/amaze-us/
-      - echo ${DOCKER_IMAGE_TAG}
       - docker build -t ${DOCKER_IMAGE_TAG} /builds/stormbringerdp/amaze-us/build/
       - echo "$SERVICE_ACCOUNT_KEY" > key.json
       - docker login -u _json_key --password-stdin https://gcr.io < key.json
       - docker push ${DOCKER_IMAGE_TAG}
-      #- echo $CI_PROJECT_PATH
-      #- mkdir -p ${SHARED_PATH}
-      #- echo ${SHARED_PATH}
-      #- cp $CI_PROJECT_DIR/microservice/challenge-1/backend/Dockerfile ${SHARED_PATH}/Dockerfile
-      #- ls -la ${SHARED_PATH}
-      #- docker run -v ${SHARED_PATH}:/mnt ubuntu ls /mnt
-      #- ls -la ${SHARED_PATH}
-      #- docker build -t hren ${SHARED_PATH}/
-       #- docker build -t hren /builds/stormbringerdp/amaze-us/microservice/challenge-1/backend
-       #- docker cp /builds/stormbringerdp/amaze-us/microservice/challenge-1/backend/
-    #  - ls -la /builds/stormbringerdp/amaze-us/microservice/challenge-1/backend/build/libs/
-    #  - ls -la $CI_PROJECT_DIR/microservice/challenge-1/backend/build/libs/
-     # - mkdir -p ${SHARED_PATH}
-     # - cp $CI_PROJECT_DIR/microservice/challenge-1/backend/Dockerfile ${SHARED_PATH}/Dockerfile
-     # - docker run -v ${SHARED_PATH}:/mnt ubuntu ls /mnt
-      #- docker run -v $CI_PROJECT_DIR/microservice/challenge-1/backend/build/libs/:/mnt
-      #- docker build -t my-docker-image $CI_PROJECT_DIR/microservice/challenge-1/backend
     tags:
       - docker
+
+.deploy to k8s:
+    image: google/cloud-sdk:latest
+    stage: deploy
+    variables:
+      DOCKER_IMAGE_TAG: 'eu.gcr.io/my-project/my-application:latest'
+    script:
+        # Authenticate with GKE
+        — echo "$SERVICE_ACCOUNT_KEY" > key.json
+        — gcloud auth activate-service-account --key-file=key.json
+        — gcloud config set project byond-project
+        — gcloud config set container/cluster beyond-cluster
+        — gcloud config set compute/zone us-central1-a
+        — gcloud container clusters get-credentials beyond-cluster --zone us-central1-a
+        # Do the deployment
+        #— cat kubernetes/my-application-deployment.yaml | envsubst | kubectl apply -f -
 
