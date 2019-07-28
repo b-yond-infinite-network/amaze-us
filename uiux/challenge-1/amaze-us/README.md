@@ -1,27 +1,15 @@
-# AmazeUs
+# Considerations
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.0.1.
+Some things i would improve about this code is the http calls, and the cache handling. I would certainly improve the overall design and make it responsive, but I just didn't have enought time. And write some unit testing. I know thats an important subject for you.
 
-## Development server
+# Getting started
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+1. Clone the repo
+2. Run `npm install`
+3. From the folder amaze-us/uiux/challenge-1/amaze-us run `ng serve`
 
-## Code scaffolding
+**Voila!**
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
 
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
