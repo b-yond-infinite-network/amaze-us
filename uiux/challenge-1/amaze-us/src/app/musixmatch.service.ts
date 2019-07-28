@@ -41,15 +41,18 @@ export class MusixmatchService {
     // Notify that we are searching
     this.isSearching$.next(true);
 
-    if (this.isTermInCache(term)) {
+    // Seek for the term in the cache and return it if found
+    let cachedTerm = this.getCachedTerm(term);
+
+    if (cachedTerm !== null) {
       this.snackBar.open('Displaying cached values', 'Ok', { duration: 1500 });
       
-      const data = this.getCachedTerm(term);
-      this.results$.next(data.data);
+      this.results$.next(cachedTerm.data);
       this.isSearching$.next(false);
       return;
     }
 
+    // Hash search term to use it as storage key
     const termHash = this.hashSearchTerm(term);
     const apikey = 'fcf949768093a50b3c8603f003b6d3ea';
     const url = `http://api.musixmatch.com/ws/1.1/track.search?format=jsonp&callback=callback&q=${term}&s_track_rating=desc&apikey=${apikey}`;
@@ -74,10 +77,12 @@ export class MusixmatchService {
     );
   }
 
+  // A common method to hash a search term
   private hashSearchTerm(term: string): string {
     return Md5.hashStr(term.toLowerCase()).toString();
   }
 
+  // Gets the cached search terms
   private getCachedTerm(term: string = ''){
     if (!term || term === '') {
       return [];
@@ -89,28 +94,9 @@ export class MusixmatchService {
       return obj.termHash === termHash
     })
 
-    return cachedValue || [];
+    return cachedValue || null;
   }
-
-  private isTermInCache(term: string = ''): boolean {
-
-    if (!term || term === '') {
-      return false;
-    }
-
-    const termHash = this.hashSearchTerm(term);
-    const cacheObj = this.storage.get(this.storageKey) || [];
-    const cachedValue = cacheObj.find(obj => {
-      return obj.termHash === termHash
-    })
-
-    if (cachedValue) {
-      return true;
-    }
-
-    return false;
-  }
-
+  
   private cacheSearchTerm(term, data) {
     const storage = this.storage;
     const termHash = this.hashSearchTerm(term);
