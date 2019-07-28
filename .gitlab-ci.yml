@@ -2,17 +2,17 @@ before_script:
   - export GRADLE_USER_HOME=`pwd`/.gradle
 
 stages:
-  - build
+ # - build
  # - unit-tests
-  - docker build
- # - deploy
+ # - docker build
+  - deploy
 
 cache:
   paths:
     - .gradle/wrapper
     - .gradle/caches
 
-build spring:
+.build spring:
     stage: build
     image: gradle:jdk12
     script:
@@ -33,7 +33,7 @@ build spring:
         - cd $CI_PROJECT_DIR/microservice/challenge-1/backend
         - gradle unitTest
 
-docker build:
+.docker build:
     stage: docker build
     image: docker:stable
     services:
@@ -51,11 +51,9 @@ docker build:
     tags:
       - docker
 
-.deploy to k8s:
+deploy to k8s:
     image: google/cloud-sdk:latest
     stage: deploy
-    variables:
-      DOCKER_IMAGE_TAG: 'eu.gcr.io/my-project/my-application:latest'
     script:
         # Authenticate with GKE
         — echo "$SERVICE_ACCOUNT_KEY" > key.json
@@ -64,6 +62,4 @@ docker build:
         — gcloud config set container/cluster beyond-cluster
         — gcloud config set compute/zone us-central1-a
         — gcloud container clusters get-credentials beyond-cluster --zone us-central1-a
-        # Do the deployment
-        #— cat kubernetes/my-application-deployment.yaml | envsubst | kubectl apply -f -
-
+        - kubectl apply -f $CI_PROJECT_DIR/microservice/challenge-1/backend/k8s/${COMPONENT_MANIFEST}
