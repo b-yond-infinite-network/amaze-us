@@ -8,10 +8,9 @@ build spring:
           - cd microservice/challenge-1/backend
           - gradle clean build -x test
           - ls -la build/libs/
-          - ls -la microservice/challenge-1/backend/build/libs/
-    #artifacts:
-    #    paths:
-    #    - build/libs/backend-latest.jar
-    #    expire_in: 60 minutes
-    #except:
-    #    - tags
+    artifacts:
+        paths:
+        - build/libs/
+        expire_in: 60 minutes
+    except:
+        - tags
