@@ -11,7 +11,7 @@ sourceCompatibility = '12'
 
 jar {
 	baseName = 'backend'
-	version = 'v1.0'
+	version = 'latest'
 }
 
 configurations {
