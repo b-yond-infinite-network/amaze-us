@@ -35,6 +35,11 @@ docker build:
     image: docker:stable
     services:
       - docker:dind
+    variables:
+      DOCKER_DRIVER: overlay2
+
     script:
+      - ls -la /builds/stormbringerdp/amaze-us/microservice/challenge-1/backend/build/libs/
+      - ls -la $CI_PROJECT_DIR/microservice/challenge-1/backend/build/libs/
       - docker build -t my-docker-image $CI_PROJECT_DIR/microservice/challenge-1/backend
 
