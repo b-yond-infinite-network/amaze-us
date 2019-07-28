@@ -1,16 +1,22 @@
 image: gradle:jdk12
+before_script:
+  - export GRADLE_USER_HOME=`pwd`/.gradle
+
 stages:
   - build
+
+cache:
+  paths:
+    - .gradle/wrapper
+    - .gradle/caches
 
 build spring:
     stage: build
     script:
-          - cd microservice/challenge-1/backend
-          - gradle clean build -x test
-          - ls -la build/libs/
+        - cd microservice/challenge-1/backend
+        - gradle clean build -x test
+        - ls -la build/libs/
     artifacts:
-        paths:
-        - build/libs/
-        expire_in: 60 minutes
-    except:
-        - tags
+      paths:
+        - build/libs/*.jar
+      expire_in: 60 minutes
