@@ -14,17 +14,17 @@ build spring:
     stage: build
     image: gradle:jdk12
     script:
-        - cd microservice/challenge-1/backend
+        - cd $CI_PROJECT_DIR
         - gradle clean build -x test
-        - ls -la build/libs/
+        - ls -la $CI_PROJECT_DIR/build/libs/
     artifacts:
       paths:
-        - ./build/libs/*.jar
+        - $CI_PROJECT_DIR/build/libs/backend-latest.jar
       expire_in: 60 minutes
 
 unit test:
     stage: unit-tests
     image: gradle:jdk12
     script:
-        - cd microservice/challenge-1/backend
+        - cd $CI_PROJECT_DIR
         - gradle unitTest
