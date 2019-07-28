@@ -1,4 +1,3 @@
-image: gradle:jdk12
 before_script:
   - export GRADLE_USER_HOME=`pwd`/.gradle
 
@@ -12,6 +11,7 @@ cache:
 
 build spring:
     stage: build
+    image: gradle:jdk12
     script:
         - cd microservice/challenge-1/backend
         - gradle clean build -x test
@@ -20,3 +20,9 @@ build spring:
       paths:
         - build/libs/*.jar
       expire_in: 60 minutes
+
+unit test:
+    stage: unit-test
+    image: gradle:jdk12
+    script:
+        - gradle unitTest
