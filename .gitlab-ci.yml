@@ -3,7 +3,7 @@ before_script:
 
 stages:
   - build
-  - unit-tests
+ # - unit-tests
   - docker build
 
 cache:
@@ -23,7 +23,7 @@ build spring:
         - $CI_PROJECT_DIR/microservice/challenge-1/backend/build/libs/backend-latest.jar
       expire_in: 10 minutes
 
-unit test:
+.unit test:
     stage: unit-tests
     image: gradle:jdk12
     script:
