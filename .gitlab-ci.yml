@@ -2,9 +2,9 @@ before_script:
   - export GRADLE_USER_HOME=`pwd`/.gradle
 
 stages:
- # - build
+  - build
  # - unit-tests
- # - docker build
+  - docker build
   - deploy
 
 cache:
@@ -32,6 +32,8 @@ cache:
     script:
       - cd $CI_PROJECT_DIR/microservice/challenge-1/backend
       - gradle unitTest
+    tags:
+      - gitlab-org
 
 .docker build:
     stage: docker build
@@ -62,3 +64,5 @@ deploy to k8s:
       - gcloud config set compute/zone us-central1-a
       - gcloud container clusters get-credentials beyond-cluster --zone us-central1-a
       - kubectl apply -f $CI_PROJECT_DIR/microservice/challenge-1/backend/k8s/${COMPONENT_MANIFEST}
+    tags:
+      - gitlab-org
