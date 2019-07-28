@@ -4,7 +4,10 @@
 
   <ng-container matColumnDef="has_lyrics">
     <th mat-header-cell *matHeaderCellDef mat-sort-header> Lyrics </th>
-    <td mat-cell *matCellDef="let track"> {{track.has_lyrics}} </td>
+    <td mat-cell *matCellDef="let track">
+        <i *ngIf="track.has_lyrics" class="material-icons">done</i>
+        <i *ngIf="!track.has_lyrics" class="material-icons">clear</i>
+    </td>
   </ng-container>
 
   <ng-container matColumnDef="track_name">
@@ -23,7 +26,7 @@
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row (click)="displayLyric(row)" *matRowDef="let row; columns: displayedColumns;"></tr>
+  <tr mat-row [ngClass]="{'has-lyric': row.has_lyrics}" (click)="displayLyric(row)" *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
 
 <div *ngIf="!results.data.length" class="welcome-text">B-Lyrics your #1 lyrics source.</div>
