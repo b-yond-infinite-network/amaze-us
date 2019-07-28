@@ -37,10 +37,13 @@ docker build:
       - docker:dind
     variables:
       DOCKER_DRIVER: overlay2
-
+      SHARED_PATH: /builds/shared/$CI_PROJECT_PATH
     script:
-      - ls -la /builds/stormbringerdp/amaze-us/microservice/challenge-1/backend/build/libs/
-      - ls -la $CI_PROJECT_DIR/microservice/challenge-1/backend/build/libs/
-      - docker run -v $CI_PROJECT_DIR/microservice/challenge-1/backend/build/libs/:/mnt
+    #  - ls -la /builds/stormbringerdp/amaze-us/microservice/challenge-1/backend/build/libs/
+    #  - ls -la $CI_PROJECT_DIR/microservice/challenge-1/backend/build/libs/
+      - mkdir -p ${SHARED_PATH}
+      - touch ${SHARED_PATH}/test_file
+      - docker run -v ${SHARED_PATH}:/mnt ubuntu ls /mnt
+      #- docker run -v $CI_PROJECT_DIR/microservice/challenge-1/backend/build/libs/:/mnt
       - docker build -t my-docker-image $CI_PROJECT_DIR/microservice/challenge-1/backend
 
