@@ -13,18 +13,21 @@ import { MatButtonModule,
   MatProgressBarModule, 
   MatPaginatorModule, 
   MatIconModule,
-  MatSnackBarModule} from '@angular/material';
+  MatSnackBarModule,
+  MatDialogModule} from '@angular/material';
 
 import { LyricSearchBarComponent } from './common/lyric-search-bar/lyric-search-bar.component';
 import { MusixmatchService } from './musixmatch.service';
 import { LyricsSearchResultsComponent } from './common/lyrics-search-results/lyrics-search-results.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { LyricViewerComponent } from './common/lyric-viewer/lyric-viewer.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LyricSearchBarComponent,
-    LyricsSearchResultsComponent
+    LyricsSearchResultsComponent,
+    LyricViewerComponent
   ],
   imports: [
     BrowserModule,
@@ -42,10 +45,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MatPaginatorModule,
     MatIconModule,
     MatSnackBarModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatDialogModule
   ],
   providers: [
     MusixmatchService,
+  ],
+  entryComponents: [
+    LyricViewerComponent
   ],
   bootstrap: [AppComponent]
 })
