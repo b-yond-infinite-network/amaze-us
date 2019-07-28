@@ -43,11 +43,11 @@ docker build:
     script:
       - pwd
       - ls -la /builds/stormbringerdp/amaze-us/
-      - mkdir /builds/stormbringerdp/amaze-us/build/libs
-      - cp /builds/stormbringerdp/amaze-us/microservice/challenge-1/backend/buil/libs/backend-latest.jar /builds/stormbringerdp/amaze-us/build/libs/
-      - cp /builds/stormbringerdp/amaze-us/microservice/challenge-1/backend/Dockerfile /builds/stormbringerdp/amaze-us/build/libs/
-      - ls -la /builds/stormbringerdp/amaze-us/build/libs/
-      - docker build -t hren /builds/stormbringerdp/amaze-us/build/libs/
+      - mkdir -p /builds/stormbringerdp/amaze-us/build/
+      - cp /builds/stormbringerdp/amaze-us/microservice/challenge-1/backend/buil/libs/backend-latest.jar /builds/stormbringerdp/amaze-us/build/
+      - cp /builds/stormbringerdp/amaze-us/microservice/challenge-1/backend/Dockerfile /builds/stormbringerdp/amaze-us/build/
+      - ls -la /builds/stormbringerdp/amaze-us/build/
+      - docker build -t hren /builds/stormbringerdp/amaze-us/build/
       #- echo $CI_PROJECT_PATH
       #- mkdir -p ${SHARED_PATH}
       #- echo ${SHARED_PATH}
