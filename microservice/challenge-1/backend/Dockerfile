@@ -2,8 +2,9 @@ FROM openjdk:12-alpine
 
 MAINTAINER Igor Tcherniavski <igor.tcherniavski@ericsson.com>
 
-RUN pwd
-RUN ls -la
+VOLUME /builds/stormbringerdp/amaze-us/microservice/challenge-1/backend/build/libs/
+
+RUN ls -la /builds/stormbringerdp/amaze-us/microservice/challenge-1/backend/build/libs/
 ADD /builds/stormbringerdp/amaze-us/microservice/challenge-1/backend/build/libs/backend-latest.jar /backend/backend-latest.jar
 
 ENTRYPOINT ["java", "-jar", "/backend/backend-latest.jar"]
