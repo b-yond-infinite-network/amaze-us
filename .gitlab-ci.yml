@@ -19,11 +19,12 @@ build spring:
         - ls -la build/libs/
     artifacts:
       paths:
-        - build/libs/*.jar
+        - ./build/libs/*.jar
       expire_in: 60 minutes
 
 unit test:
     stage: unit-tests
     image: gradle:jdk12
     script:
+        - cd microservice/challenge-1/backend
         - gradle unitTest
