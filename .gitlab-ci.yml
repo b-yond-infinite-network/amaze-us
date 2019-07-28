@@ -22,6 +22,8 @@ build spring:
       paths:
         - $CI_PROJECT_DIR/microservice/challenge-1/backend/build/libs/backend-latest.jar
       expire_in: 10 minutes
+    tags:
+      - gitlab-org
 
 .unit test:
     stage: unit-tests
@@ -63,4 +65,6 @@ docker build:
      # - docker run -v ${SHARED_PATH}:/mnt ubuntu ls /mnt
       #- docker run -v $CI_PROJECT_DIR/microservice/challenge-1/backend/build/libs/:/mnt
       #- docker build -t my-docker-image $CI_PROJECT_DIR/microservice/challenge-1/backend
+    tags:
+      - gitlab-org
 
