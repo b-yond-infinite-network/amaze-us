@@ -50,7 +50,11 @@ docker build:
       - cp $CI_PROJECT_DIR/microservice/challenge-1/backend/Dockerfile /builds/stormbringerdp/amaze-us/build/
       - ls -la /builds/stormbringerdp/amaze-us/build/
       - ls -la /builds/stormbringerdp/amaze-us/
-      - docker build -t hren /builds/stormbringerdp/amaze-us/build/
+      - echo ${DOCKER_IMAGE_TAG}
+      - docker build -t ${DOCKER_IMAGE_TAG} /builds/stormbringerdp/amaze-us/build/
+      - echo "$SERVICE_ACCOUNT_KEY" > key.json
+      - docker login -u _json_key --password-stdin https://gcr.io < key.json
+      - docker push ${DOCKER_IMAGE_TAG}
       #- echo $CI_PROJECT_PATH
       #- mkdir -p ${SHARED_PATH}
       #- echo ${SHARED_PATH}
