@@ -2,7 +2,7 @@ FROM openjdk:12-alpine
 
 MAINTAINER Igor Tcherniavski <igor.tcherniavski@ericsson.com>
 
-ADD $CI_PROJECT_DIR/microservice/challenge-1/backend/build/libs/backend-latest.jar /backend/backend-latest.jar
+ADD /builds/stormbringerdp/amaze-us/microservice/challenge-1/backend/build/libs/backend-latest.jar /backend/backend-latest.jar
 
 ENTRYPOINT ["java", "-jar", "/backend/backend-latest.jar"]
 # Document that the service listens on port 8088.
