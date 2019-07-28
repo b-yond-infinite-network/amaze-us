@@ -39,7 +39,7 @@ docker build:
       - docker:dind
     variables:
       DOCKER_DRIVER: overlay2
-      SHARED_PATH: /builds/shared/$CI_PROJECT_PATH
+      #SHARED_PATH: /builds/shared/$CI_PROJECT_PATH
     script:
       - pwd
       - ls -la /builds/stormbringerdp/amaze-us/
@@ -49,6 +49,7 @@ docker build:
       - cp $CI_PROJECT_DIR/microservice/challenge-1/backend/build/libs/backend-latest.jar /builds/stormbringerdp/amaze-us/build/
       - cp $CI_PROJECT_DIR/microservice/challenge-1/backend/Dockerfile /builds/stormbringerdp/amaze-us/build/
       - ls -la /builds/stormbringerdp/amaze-us/build/
+      - ls -la /builds/stormbringerdp/amaze-us/
       - docker build -t hren /builds/stormbringerdp/amaze-us/build/
       #- echo $CI_PROJECT_PATH
       #- mkdir -p ${SHARED_PATH}
@@ -68,5 +69,5 @@ docker build:
       #- docker run -v $CI_PROJECT_DIR/microservice/challenge-1/backend/build/libs/:/mnt
       #- docker build -t my-docker-image $CI_PROJECT_DIR/microservice/challenge-1/backend
     tags:
-      - gitlab-org
+      - docker
 
