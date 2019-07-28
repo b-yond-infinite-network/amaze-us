@@ -33,17 +33,19 @@ build spring:
 docker build:
     stage: docker build
     image: docker:stable
-    services:
-      - docker:dind
+    #services:
+    #  - docker:dind
     variables:
       DOCKER_DRIVER: overlay2
       SHARED_PATH: /builds/shared/$CI_PROJECT_PATH
     script:
+      - docker version
+      - docker build -t hren .
     #  - ls -la /builds/stormbringerdp/amaze-us/microservice/challenge-1/backend/build/libs/
     #  - ls -la $CI_PROJECT_DIR/microservice/challenge-1/backend/build/libs/
-      - mkdir -p ${SHARED_PATH}
-      - cp $CI_PROJECT_DIR/microservice/challenge-1/backend/Dockerfile ${SHARED_PATH}/Dockerfile
-      - docker run -v ${SHARED_PATH}:/mnt docker build -t my-docker-image /mnt
+     # - mkdir -p ${SHARED_PATH}
+      #- cp $CI_PROJECT_DIR/microservice/challenge-1/backend/Dockerfile ${SHARED_PATH}/Dockerfile
+      #- docker run -v ${SHARED_PATH}:/mnt docker build -t my-docker-image /mnt
       #- docker run -v $CI_PROJECT_DIR/microservice/challenge-1/backend/build/libs/:/mnt
       #- docker build -t my-docker-image $CI_PROJECT_DIR/microservice/challenge-1/backend
 
