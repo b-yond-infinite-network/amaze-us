@@ -4,7 +4,8 @@ MAINTAINER Igor Tcherniavski <igor.tcherniavski@ericsson.com>
 
 #VOLUME /builds/stormbringerdp/amaze-us/microservice/challenge-1/backend/build/libs/
 WORKDIR /backend
-ADD /builds/stormbringerdp/amaze-us/build/ /backend
+ADD . /backend
+RUN ls -la .
 #RUN ls -la /builds/stormbringerdp/amaze-us/microservice/challenge-1/backend/build/libs/backend-latest.jar
 #ADD /builds/stormbringerdp/amaze-us/microservice/challenge-1/backend/build/libs/backend-latest.jar /backend/backend-latest.jar
 #RUN ls -la /mnt
