@@ -41,5 +41,6 @@ docker build:
     script:
       - ls -la /builds/stormbringerdp/amaze-us/microservice/challenge-1/backend/build/libs/
       - ls -la $CI_PROJECT_DIR/microservice/challenge-1/backend/build/libs/
+      - docker run -v $CI_PROJECT_DIR/microservice/challenge-1/backend/build/libs/:/mnt
       - docker build -t my-docker-image $CI_PROJECT_DIR/microservice/challenge-1/backend
 
