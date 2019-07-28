@@ -42,12 +42,12 @@ docker build:
       SHARED_PATH: /builds/shared/$CI_PROJECT_PATH
     script:
       - pwd
-      - mkdir build/libs
-      - cp /builds/stormbringerdp/amaze-us/microservice/challenge-1/backend/buil/libs/backend-latest.jar build/libs/
-      - cp /builds/stormbringerdp/amaze-us/microservice/challenge-1/backend/Dockerfile build/libs/
-      - ls -la build/libs/
-      - ls -la /
-      - docker build -t hren build/libs/
+      - ls -la /builds/stormbringerdp/amaze-us/
+      - mkdir /builds/stormbringerdp/amaze-us/build/libs
+      - cp /builds/stormbringerdp/amaze-us/microservice/challenge-1/backend/buil/libs/backend-latest.jar /builds/stormbringerdp/amaze-us/build/libs/
+      - cp /builds/stormbringerdp/amaze-us/microservice/challenge-1/backend/Dockerfile /builds/stormbringerdp/amaze-us/build/libs/
+      - ls -la /builds/stormbringerdp/amaze-us/build/libs/
+      - docker build -t hren /builds/stormbringerdp/amaze-us/build/libs/
       #- echo $CI_PROJECT_PATH
       #- mkdir -p ${SHARED_PATH}
       #- echo ${SHARED_PATH}
