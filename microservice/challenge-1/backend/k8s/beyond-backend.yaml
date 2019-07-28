@@ -7,10 +7,9 @@ spec:
     app: beyond-backend
   ports:
      - protocol: TCP
-       port: 8088
+       port: 80
        targetPort: 8088
-       nodePort: 30001
-  type: NodePort
+  type: LoadBalancer
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -49,3 +48,9 @@ spec:
           - --spring.datasource.password=$(DB_PASSWORD)
         ports:
           - containerPort: 8088
+        readinessProbe:
+          httpGet:
+            path: /api/v1/actuator/health
+            port: 8088
+          initialDelaySeconds: 30
+          periodSeconds: 6
