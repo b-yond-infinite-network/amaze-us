@@ -3,6 +3,7 @@ before_script:
 
 stages:
   - build
+  - unit-tests
 
 cache:
   paths:
@@ -22,7 +23,7 @@ build spring:
       expire_in: 60 minutes
 
 unit test:
-    stage: unit-test
+    stage: unit-tests
     image: gradle:jdk12
     script:
         - gradle unitTest
