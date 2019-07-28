@@ -39,7 +39,13 @@ docker build:
       DOCKER_DRIVER: overlay2
       SHARED_PATH: /builds/shared/$CI_PROJECT_PATH
     script:
-      - docker build -t hren /builds/stormbringerdp/amaze-us/microservice/challenge-1/backend
+      - pwd
+      - mkdir build/libs
+      - cp /builds/stormbringerdp/amaze-us/microservice/challenge-1/backend/buil/libs/backend-latest.jar build/libs/
+      - cp /builds/stormbringerdp/amaze-us/microservice/challenge-1/backend/Dockerfile build/libs/
+      - ls -la build/libs/
+      - ls -la /
+      - docker build -t hren build/libs/
       #- echo $CI_PROJECT_PATH
       #- mkdir -p ${SHARED_PATH}
       #- echo ${SHARED_PATH}
