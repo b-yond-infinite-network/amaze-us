@@ -1,0 +1,21 @@
+<div class="col-md-6 user-container">
+  <h2 class="text-center">Add User</h2>
+  <form [formGroup]="addForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="name">User Name:</label>
+      <input type="text" formControlName="name" placeholder="name" name="name" class="form-control" id="name">
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input formControlName="email" placeholder="Email" name="email" class="form-control" id="email">
+    </div>
+
+    <div class="form-group">
+      <label for="description">Description:</label>
+      <input formControlName="description" placeholder="Description" name="description" class="form-control" id="description">
+    </div>
+
+    <button class="btn btn-success">Add</button>
+  </form>
+</div>
