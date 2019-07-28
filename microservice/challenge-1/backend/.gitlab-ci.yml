@@ -5,7 +5,8 @@ stages:
 build spring:
     stage: build
     script:
-          gradle clean build -x test
+          - cd microservice/challenge-1/backend
+          - gradle clean build -x test
     artifacts:
         paths:
         - build/libs/backend-latest.jar
