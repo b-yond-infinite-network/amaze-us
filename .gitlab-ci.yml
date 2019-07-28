@@ -16,11 +16,11 @@ build spring:
     script:
         - cd $CI_PROJECT_DIR/microservice/challenge-1/backend
         - gradle clean build -x test
-        - ls -la $CI_PROJECT_DIR/build/libs/
+        - ls -la $CI_PROJECT_DIR/microservice/challenge-1/backend/build/libs
     artifacts:
       paths:
-        - $$CI_PROJECT_DIR/microservice/challenge-1/backend/build/libs/backend-latest.jar
-      expire_in: 60 minutes
+        - $CI_PROJECT_DIR/microservice/challenge-1/backend/build/libs/backend-latest.jar
+      expire_in: 10 minutes
 
 unit test:
     stage: unit-tests
