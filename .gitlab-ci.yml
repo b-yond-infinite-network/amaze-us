@@ -3,7 +3,7 @@ before_script:
 
 stages:
   - build
- # - unit-tests
+  - unit-tests
   - docker build
   - deploy
 
