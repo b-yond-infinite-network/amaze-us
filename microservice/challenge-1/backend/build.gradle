@@ -51,8 +51,8 @@ task integrationTest(type: Test) {
     useJUnitPlatform {
         includeTags 'integration'
     }
-    check.dependsOn it
-    shouldRunAfter test
+    //check.dependsOn it
+    //shouldRunAfter test
     
     testLogging {
         events 'PASSED', 'FAILED', 'SKIPPED'
