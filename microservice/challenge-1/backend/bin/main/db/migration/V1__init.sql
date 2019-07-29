@@ -44,3 +44,7 @@ ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('public.users_id_seq'
 
 ALTER TABLE ONLY users
     ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+INSERT INTO users VALUES (default, 'Igor', 'igor@gmail.com', 'first user in');
+INSERT INTO users VALUES (default, 'integration test', 'test@gmal.com', 'Used for integration testing, do not delete');
+INSERT INTO users VALUES (default, 'Jack', 'jack@gmail.com', 'third user in');
