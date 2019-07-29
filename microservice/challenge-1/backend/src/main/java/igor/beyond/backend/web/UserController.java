@@ -56,7 +56,7 @@ public class UserController {
 	          LOGGER.warn("User with Id " + userId + " does not exist in database");
 	          apiRes.setStatus(HttpStatus.BAD_REQUEST.value());
 	          apiRes.setMessage("User with id " + userId + " does not exist in database");
-	          apiRes.setResult(dbUser.get());
+	          apiRes.setResult(null);
 	          
 	          return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(apiRes);
 	      }
@@ -84,7 +84,7 @@ public class UserController {
 	          LOGGER.warn("User with Id " + userId + " does not exist in database");
 	          apiRes.setStatus(HttpStatus.BAD_REQUEST.value());
 	          apiRes.setMessage("User with Id " + userId + " does not exist in database");
-	          apiRes.setResult(dbUser);
+	          apiRes.setResult(null);
 	          
 	          return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(apiRes);
 	      }
@@ -107,13 +107,13 @@ public class UserController {
 	          LOGGER.warn("User with Id " + userId + " does not exist in database");
 	          apiRes.setStatus(HttpStatus.BAD_REQUEST.value());
 	          apiRes.setMessage("User with Id " + userId + " does not exist in database");
-	          apiRes.setResult(dbUser);
+	          apiRes.setResult(null);
 	          
 	          return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(apiRes);
 	      }
 		
 		apiRes.setStatus(HttpStatus.OK.value());
-		apiRes.setMessage("Successfully updated user with id " + userId);
+		apiRes.setMessage("Successfully deleted user with id " + userId);
 		apiRes.setResult(dbUser.get());
         
         userService.deleteByUserId(userId);

@@ -8,7 +8,7 @@ import {ApiResponse} from "../model/api.response";
 export class ApiService {
 
   constructor(private http: HttpClient) { }
-  baseUrl: string = 'http://beyond-backend/api/v1/users/';
+  baseUrl: string = 'http://35.238.25.85:80/api/v1/users/';
 
   getUsers() : Observable<ApiResponse> {
     return this.http.get<ApiResponse>(this.baseUrl);
