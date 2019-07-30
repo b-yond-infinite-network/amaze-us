@@ -13,23 +13,90 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+		<cucumber.version>3.0.2</cucumber.version>
+		<spring.version>5.1.6.RELEASE</spring.version>
+		<httpcore.version>4.4.5</httpcore.version>
+		<httpclient.version>4.5.2</httpclient.version>
+<!--		<commons-lang3.version>3.9</commons-lang3.version>-->
 	</properties>
 
 	<dependencies>
+<!--		<dependency>-->
+<!--			<groupId>org.springframework</groupId>-->
+<!--			<artifactId>spring-webmvc</artifactId>-->
+<!--			<version>${spring.version}</version>-->
+<!--		</dependency>-->
+		<!-- Cucumber (cucumber.io) -->
+		<dependency>
+			<groupId>io.cucumber</groupId>
+			<artifactId>cucumber-java8</artifactId>
+			<version>${cucumber.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.cucumber</groupId>
+			<artifactId>cucumber-junit</artifactId>
+			<version>${cucumber.version}</version>
+			<scope>test</scope>
+		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>io.cucumber</groupId>-->
+<!--			<artifactId>cucumber-spring</artifactId>-->
+<!--			<version>${cucumber.version}</version>-->
+<!--			<scope>test</scope>-->
+<!--		</dependency>-->
+
+		<!-- http client -->
+
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>${httpclient.version}</version>
+
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpcore</artifactId>
+			<version>${httpcore.version}</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.json/json -->
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20180813</version>
+		</dependency>
+
+
+		<!-- utils -->
+
+<!--		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>${commons-io.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>${commons-lang3.version}</version>
+		</dependency>-->
 
 		<!-- https://mvnrepository.com/artifact/info.cukes/cucumber-java -->
-		<dependency>
-			<groupId>info.cukes</groupId>
-			<artifactId>cucumber-java</artifactId>
-			<version>1.2.5</version>
-		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>info.cukes</groupId>-->
+<!--			<artifactId>cucumber-java</artifactId>-->
+<!--			<version>1.2.5</version>-->
+<!--		</dependency>-->
 		<!-- https://mvnrepository.com/artifact/info.cukes/cucumber-junit -->
-		<dependency>
+<!--		<dependency>
 			<groupId>info.cukes</groupId>
 			<artifactId>cucumber-junit</artifactId>
 			<version>1.2.5</version>
 			<scope>test</scope>
-		</dependency>
+		</dependency>-->
 
 
 		<dependency>

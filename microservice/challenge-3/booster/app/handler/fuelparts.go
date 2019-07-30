@@ -7,7 +7,7 @@ import (
 
 	"github.com/gorilla/mux"
 	"github.com/jinzhu/gorm"
-	"app/model"
+	"../model"
 )
 
 func GetAllFuelParts(db *gorm.DB, w http.ResponseWriter, r *http.Request) {

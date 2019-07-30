@@ -1,0 +1,19 @@
+version: '3'
+services:
+
+  booster-service:
+    build: ./boosterservice
+    restart: "no"
+    volumes:
+      - m2-repo:/root/.m2/repository
+
+  cargo-service:
+    build: ./cargoservice
+    restart: on-failure
+    depends_on:
+      - booster-service
+    volumes:
+      - m2-repo:/root/.m2/repository
+
+volumes:
+  m2-repo:

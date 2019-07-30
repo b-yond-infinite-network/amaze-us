@@ -6,7 +6,7 @@ import (
 
 	"github.com/gorilla/mux"
 	"github.com/jinzhu/gorm"
-	"app/model"
+	"../model"
 )
 
 func GetAllTanks(db *gorm.DB, w http.ResponseWriter, r *http.Request) {

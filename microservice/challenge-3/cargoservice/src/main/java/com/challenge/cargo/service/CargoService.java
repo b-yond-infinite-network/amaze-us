@@ -4,10 +4,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import com.challenge.cargo.gateway.BoosterGateway;
-import com.challenge.cargo.model.BoosterResponse;
-import com.challenge.cargo.model.CreateTankRequest;
-import com.challenge.cargo.model.CreateTankResponse;
+import com.challenge.cargo.contracts.booster.gateway.BoosterGateway;
+import com.challenge.cargo.contracts.booster.model.BoosterResponse;
+import com.challenge.cargo.contracts.booster.model.CreateTankRequest;
+import com.challenge.cargo.contracts.booster.model.CreateTankResponse;
 
 @Component
 public class CargoService {
@@ -21,7 +21,7 @@ public class CargoService {
 
 	public CreateTankResponse createBoosterTank(CreateTankRequest createTankRequest) {
 		LOGGER.info("Sending a request through booster gateway to create a tank, {}", createTankRequest.toString());
-		final BoosterResponse boosterResponse = boosterGateway.createBoosterTank(createTankRequest.getTitle());
+		final BoosterResponse boosterResponse = boosterGateway.createBoosterTank(createTankRequest.getTitle(), createTankRequest.isArchived(), createTankRequest.getFuel());
 		final String uuid = boosterResponse.getUuid();
 		return new CreateTankResponse(uuid);
 	}

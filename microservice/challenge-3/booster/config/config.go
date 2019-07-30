@@ -6,6 +6,7 @@ type Config struct {
 
 type DBConfig struct {
 	Dialect  string
+	ServerAdd  string
 	Username string
 	Password string
 	Name     string
@@ -16,9 +17,10 @@ func GetConfig() *Config {
 	return &Config{
 		DB: &DBConfig{
 			Dialect:  "mysql",
+			ServerAdd: "tcp(mysql)",
 			Username: "guest",
 			Password: "Guest0000!",
-			Name:     "todoapp",
+			Name:     "booster",
 			Charset:  "utf8",
 		},
 	}

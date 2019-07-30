@@ -1,0 +1,62 @@
+version: '3'
+services:
+
+  test-automation:
+    build: ./test-automation
+    restart: "no"
+    depends_on:
+      - booster
+      - cargo
+    command: dockerize -wait tcp://booster:3000 -wait tcp://cargo:8080 -timeout 60s mvn test
+
+  booster:
+    build: ./booster
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mysql-db
+    links:
+      - mysql-db
+    command: dockerize -wait tcp://mysql:3306 -timeout 60s ./booster
+
+  cargo:
+    build: ./cargo
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mongo-db
+    links:
+      - mongo-db
+    command: dockerize -wait tcp://mongodb:27017 -timeout 60s node server.js
+
+  mysql-db:
+    image: mysql
+    restart: always
+    container_name: mysql
+    ports:
+      - "3306:3306"
+    healthcheck:
+      test: ["CMD", "mysql" ,"-h", "mysql", "-P", "3306", "-u", "root", "-e", "SELECT 1", "cache"]
+      interval: 1s
+      timeout: 3s
+      retries: 5
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: booster
+      MYSQL_USER: guest
+      MYSQL_PASSWORD: Guest0000!
+
+  mongo-db:
+    image: mongo
+    restart: always
+    container_name: mongodb
+    ports:
+      - 27017:27017
+    healthcheck:
+          test: ["CMD", "curl", "-f", "http://localhost:27017"]
+          interval: 1s
+          timeout: 3s
+          retries: 5
+
