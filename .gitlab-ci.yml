@@ -67,8 +67,8 @@ deploy to k8s:
       - gcloud config set container/cluster beyond-cluster
       - gcloud config set compute/zone us-central1-a
       - gcloud container clusters get-credentials beyond-cluster --zone us-central1-a
-      - export LATEST=$(cat ${COMPONENT_MANIFEST} | grep  'byond-project/beyond-backend:' | sed 's/[^,:]*://g')
-      - sed -i -e "s/${LATEST}/${TAG}/g" ${COMPONENT_MANIFEST}
+      - export LATEST=$(cat $CI_PROJECT_DIR/microservice/challenge-1/backend/k8s/${COMPONENT_MANIFEST} | grep  'byond-project/beyond-backend:' | sed 's/[^,:]*://g')
+      - sed -i -e "s/${LATEST}/${TAG}/g" $CI_PROJECT_DIR/microservice/challenge-1/backend/k8s/${COMPONENT_MANIFEST}
       - kubectl apply -f $CI_PROJECT_DIR/microservice/challenge-1/backend/k8s/${COMPONENT_MANIFEST}
     tags:
       - gitlab-org
