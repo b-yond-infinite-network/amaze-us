@@ -37,7 +37,7 @@ unit test:
 
 docker build:
     stage: docker build
-    image: docker:stable
+    image: docker:git
     services:
       - docker:dind
     variables:
