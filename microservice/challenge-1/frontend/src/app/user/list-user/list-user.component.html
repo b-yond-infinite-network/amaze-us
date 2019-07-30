@@ -12,8 +12,7 @@
     </thead>
     <tbody>
     <tr *ngFor="let user of users">
-      <td class="hidden">{{user.id}}</td>
-      <td>{{user.name}}</td>
+      <td class="hidden">{{user.name}}</td>
       <td>{{user.email}}</td>
       <td>{{user.description}}</td>
       <td><button class="btn btn-success" (click)="deleteUser(user)"> Delete</button>

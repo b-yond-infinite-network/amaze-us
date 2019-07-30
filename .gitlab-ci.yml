@@ -43,13 +43,16 @@ docker build:
     variables:
       DOCKER_DRIVER: overlay2
     script:
+      - export TAG=$(git log | head -n 1 | awk '{print $2}')
+      - echo ${TAG}
       - mkdir -p /builds/stormbringerdp/amaze-us/build/
       - cp $CI_PROJECT_DIR/microservice/challenge-1/backend/build/libs/backend-latest.jar /builds/stormbringerdp/amaze-us/build/
       - cp $CI_PROJECT_DIR/microservice/challenge-1/backend/Dockerfile /builds/stormbringerdp/amaze-us/build/
-      - docker build -t ${DOCKER_IMAGE_TAG} /builds/stormbringerdp/amaze-us/build/
+      - docker build -t ${DOCKER_IMAGE}:${TAG} /builds/stormbringerdp/amaze-us/build/
       - echo "$SERVICE_ACCOUNT_KEY" > key.json
       - docker login -u _json_key --password-stdin https://gcr.io < key.json
-      - docker push ${DOCKER_IMAGE_TAG}
+      - echo ${DOCKER_IMAGE}:${TAG}
+      - docker push ${DOCKER_IMAGE}:${TAG}
     tags:
       - docker
 
@@ -57,12 +60,15 @@ deploy to k8s:
     image: google/cloud-sdk:latest
     stage: deploy
     script:
+      - export TAG=$(git log | head -n 1 | awk '{print $2}')
       - echo "$SERVICE_ACCOUNT_KEY" > key.json
       - gcloud auth activate-service-account --key-file=key.json
       - gcloud config set project byond-project
       - gcloud config set container/cluster beyond-cluster
       - gcloud config set compute/zone us-central1-a
       - gcloud container clusters get-credentials beyond-cluster --zone us-central1-a
+      - export LATEST=$(cat ${COMPONENT_MANIFEST} | grep  'byond-project/beyond-backend:' | sed 's/[^,:]*://g')
+      - sed -i -e "s/${LATEST}/${TAG}/g" ${COMPONENT_MANIFEST}
       - kubectl apply -f $CI_PROJECT_DIR/microservice/challenge-1/backend/k8s/${COMPONENT_MANIFEST}
     tags:
       - gitlab-org
