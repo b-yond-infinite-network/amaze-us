@@ -46,6 +46,7 @@ when the tests are finished, running the following is necessary to
 stop and remove generated containers.
 ```
 docker-compose -f docker-compose.automated.yml down
+
 ```
 
 NOTE: Using CTRL+c to stop docker-compose results into a failure in the next 
