@@ -1,6 +1,3 @@
-/**
- * 
- */
 package igor.beyond.backend.entities;
 
 import javax.persistence.Column;
