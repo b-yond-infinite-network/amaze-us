@@ -17,6 +17,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import igor.beyond.backend.entities.User;
 import igor.beyond.backend.exception.DuplicateEmailException;
 import igor.beyond.backend.repositories.UserRepository;
+import igor.beyond.backend.service.impl.UserServiceImpl;
 import igor.beyond.backend.utils.DataProvider;
 
 @ExtendWith(SpringExtension.class)
@@ -27,7 +28,7 @@ public class UserServiceTest {
 	
 	
 	@InjectMocks
-    private UserService userService = new UserService();
+    private UserService userService = new UserServiceImpl();
  
     @Mock
     private UserRepository userRepository;
@@ -54,6 +55,6 @@ public class UserServiceTest {
     	
     	DuplicateEmailException exception = assertThrows(DuplicateEmailException.class, () ->
     													 userService.createUser(DataProvider.getDbUser()));
-    	assertEquals("User with email " + DataProvider.getDbUser().getEmail() + " already exists. Please enter another email.", exception.getMessage());
+    	assertEquals("User with email " + DataProvider.getDbUser().getEmail() + " already exists. Please enter another email", exception.getMessage());
     }
 }

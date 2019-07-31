@@ -4,6 +4,7 @@ before_script:
 stages:
   - build
   - unit-tests
+  - integration-tests
   - docker build
   - deploy
 
@@ -26,12 +27,21 @@ build spring:
     tags:
       - gitlab-org
 
-unit test:
+unit tests:
     stage: unit-tests
     image: gradle:jdk12
     script:
       - cd $CI_PROJECT_DIR/microservice/challenge-1/backend
       - gradle unitTest
+    tags:
+      - gitlab-org
+
+integration tests:
+    stage: integration-tests
+    image: gradle:jdk12
+    script:
+      - cd $CI_PROJECT_DIR/microservice/challenge-1/backend
+      - gradle integrationTest
     tags:
       - gitlab-org
 

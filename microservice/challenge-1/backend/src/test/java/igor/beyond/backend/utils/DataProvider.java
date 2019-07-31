@@ -35,7 +35,7 @@ public class DataProvider {
 		realDbUser.setId(1l);
 		realDbUser.setName("Igor");
 		realDbUser.setEmail("igor@gmail.com");
-		realDbUser.setDescription("Do not delete or modify! Used for integration testing");
+		realDbUser.setDescription("Integration! Do not Delete!");
 		
 	    return realDbUser;
 	  }

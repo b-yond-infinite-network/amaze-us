@@ -74,7 +74,7 @@ public class UserController {
 	}
 	
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<ApiResponse<User>> updateUser(@PathVariable("id") Long userId, @Valid @RequestBody User user) {
+	public ResponseEntity<ApiResponse<User>> updateUser(@PathVariable("id") Long userId, @Valid @RequestBody User user) throws DuplicateEmailException {
 		
 		Optional<User> dbUser = userService.getUserById(userId);
 		ApiResponse<User> apiRes = new ApiResponse<>();

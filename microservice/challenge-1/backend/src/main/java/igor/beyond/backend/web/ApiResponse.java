@@ -36,7 +36,5 @@ public class ApiResponse<T> {
 
 	public void setResult(Object result) {
 		this.result = result;
-	}
-    
-    
+	}   
 }
