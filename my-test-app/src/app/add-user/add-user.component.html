@@ -1,0 +1,28 @@
+<form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+
+  <label>
+    Name:
+    <input type="text" formControlName="name">
+  </label>
+  <br/>
+
+  <label>
+    Email:
+    <input type="text" formControlName="email">
+  </label>
+  <br/>
+
+  <label>
+    Description:
+    <input type="text" formControlName="description">
+  </label>
+  <br/>
+
+  <button type="submit" [disabled]="!userForm.valid">Submit</button>
+
+</form>
+
+<div *ngIf="error">
+  <h2 align='center'>Error occured. See Logs.</h2><br/><br/>
+  <br/><a href='/' style='font-size: 18px;'>Back</a>
+</div>

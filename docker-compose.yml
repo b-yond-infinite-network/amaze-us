@@ -1,0 +1,32 @@
+version: "3"
+services:
+  user-front-end:
+    image: piyalidockerhub/audela-assesment:user-angular-app
+    ports:
+      - "4200:80"
+    networks:
+      - user-app-network
+
+  user-service:
+    image: piyalidockerhub/audela-assesment:user-service
+    deploy:
+      replicas: 2
+    ports:
+      - "3000:3000"
+    networks:
+      - user-app-network
+    depends_on:
+      - mysqldb
+ 
+  mysqldb:
+    image: piyalidockerhub/audela-assesment:my-database
+    ports:
+      - "3306:3306"
+    networks:
+      - user-app-network
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=user_management  
+
+networks:
+  user-app-network:

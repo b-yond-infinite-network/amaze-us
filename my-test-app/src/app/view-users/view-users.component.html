@@ -1,0 +1,47 @@
+<div class='App42PaaS_header_wrapper'>
+  <div class='App42PaaS_header_inner'>
+    <div class='App42PaaS_header'>
+      <div class='logo'><a href='http://app42paas.shephertz.com'><img border='0' alt='App42PaaS'
+                                                                      src='assets/logo.png'/></a></div>
+    </div>
+  </div>
+</div>
+<div *ngIf="!loading">
+  <div *ngIf="!error">
+    <div class='App42PaaS_body_wrapper'>
+      <div class='App42PaaS_body'>
+        <div class='App42PaaS_body_inner'>
+          <div *ngIf="userList?.length > 0" class='contactPage_title'>
+            <table>
+              <thead class='table-head'>
+              <tr>
+                <td>Name</td>
+                <td>Email</td>
+                <td>Description</td>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let user of userList">
+                <td>{{user.name}}</td>
+                <td>{{user.email}}</td>
+                <td>{{user.description}}</td>
+              </tr>
+              </tbody>
+            </table>
+
+          </div>
+          <div *ngIf="!userList?.length > 0">
+            <h1>No data</h1><br/><br/>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="error">
+    <h2 align='center'>Error occured. See Logs.</h2><br/><br/>
+    <br/><a href='/' style='font-size: 18px;'>Back</a>
+  </div>
+
+</div>
+
