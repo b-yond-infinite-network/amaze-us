@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset='utf-8'>
+  <title>App42 Sample Java-MySql Application</title>
+</head>
+
+<body>
+  <div class='App42PaaS_header_wrapper'>
+    <div class='App42PaaS_header_inner'>
+      <div class='App42PaaS_header'>
+        <div class='logo'>
+          <a routerLink='http://app42paas.shephertz.com'><img border='0' alt='App42PaaS' src='assets/img/logo.png'></a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="!exception">
+    <div class='App42PaaS_body_wrapper'>
+      <div class='App42PaaS_body'>
+        <div class='App42PaaS_body_inner'>
+          <div *ngIf="formdata?.length > 0" class='contactPage_title'>
+            <table>
+              <thead class='table-head'>
+                <tr>
+                  <td>Name</td>
+                  <td>Email</td>
+                  <td>Description</td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let data of formdata">
+                  <td>{{data.name}}</td>
+                  <td>{{data.email}}</td>
+                  <td>{{data.description}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div *ngIf="!formdata?.length > 0">
+            <h1>No data</h1>
+            <br /> <br /> <br />
+            <a routerLink='/contactus' style='font-size: 18px;'>Create Post</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="exception">
+    <h2 align='center'>Error occured. See Logs.</h2><br /><br />
+    <br /><a routerLink='/' style='font-size: 18px;'>Back</a>
+  </div>
+</body>
+
+</html>

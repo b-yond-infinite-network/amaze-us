@@ -1,0 +1,13 @@
+spring.datasource.url=jdbc:mysql://remotemysql.com:3306/IVKMD9q7pZ
+spring.datasource.username=IVKMD9q7pZ
+spring.datasource.password=PiTDofgf3G
+spring.datasource.driver-class-name=com.mysql.jdbc.Driver
+spring.jpa.database-platform=org.hibernate.dialect.MySQL5Dialect
+spring.jpa.hibernate.ddl-auto=none
+spring.jpa.show-sql=false
+
+# logging level
+logging.level.org.springframework=ERROR
+logging.level.com.cathedral=INFO
+logging.pattern.file=%d %p %c{1.} [%t] %m%n
+logging.pattern.console=%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n

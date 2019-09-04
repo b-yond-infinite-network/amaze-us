@@ -1,0 +1,104 @@
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>App42 Sample Java-MySql Application</title>
+</head>
+
+<body>
+  <div class="App42PaaS_header_wrapper">
+    <div class="App42PaaS_header_inner">
+      <div class="App42PaaS_header">
+        <div class="logo">
+          <a href="http://paas.shephertz.com"><img border="0" alt="App42PaaS" src="assets/img/logo.png"></a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!------------------------------------Header Closed------------------------------------------->
+  <div class="App42PaaS_body_wrapper">
+    <div class="App42PaaS_body">
+      <div class="App42PaaS_body_inner">
+        <div class="contactPage_title">User Input Form</div>
+        <div *ngIf="!exception">
+          <div class="form_wrapper">
+            <form [formGroup]="contactUsForm" (ngSubmit)="submittingForm()">
+              <fieldset>
+                <legend>Personal Particular</legend>
+                <div class="contactForm_tr">
+                  <div class="contactForm_td1">Name</div>
+                  <div class="contactForm_tdMiddle">:</div>
+                  <div class="contactForm_td2">
+                    <input formControlName="name" type="text" class="Personal-input" id="contactPerson" value="">
+                  </div>
+                  <div class="contactForm_td2" style="color: red; padding-left: 90px; display: none;"
+                    id="contactPersonErr">Name is mandatory</div>
+                </div>
+                <div class="contactForm_tr">
+                  <div class="contactForm_td1">Email</div>
+                  <div class="contactForm_tdMiddle">:</div>
+                  <div class="contactForm_td2">
+                    <input formControlName="email" type="text" id="email" class="Personal-input" maxlength="30">
+                  </div>
+                  <div class="contactForm_td2" style="color: red; padding-left: 90px; display: none;" id="emailErr">
+                    Email is mandatory</div>
+                </div>
+              </fieldset>
+              <fieldset>
+                <legend>What do you like about this Page :</legend>
+                <div class="massage-box">
+                  <textarea formControlName="description" cols="30" rows="5" id="description"
+                    class="massage-textFild">Enter your instruction here...</textarea>
+                </div>
+              </fieldset>
+
+              <div class="form-button" style="margin-left: 100px; margin-right: 10px;">
+
+                <button class="button" mat-raised-button type="submit">Submit</button>
+
+              </div>
+              <div class="form-button">
+
+                <button class="button" mat-raised-button type="submit" (click)="reset()">Clear</button>
+
+              </div>
+            </form>
+          </div>
+
+          <div class="reachus_wrapper">
+            <div class="reach_icon">
+              <img border="0" alt="REACH US AT" src="assets/img/reach_icon.png">
+            </div>
+            <div class="reach_txt">
+              <div class="reachusTitle">REACH US AT:</div>
+              <div class="reachuslable">Sales Enquiries:</div>
+              <div class="reachusLink">
+                <a href="mailto:sales@shephertz.com">sales@shephertz.com</a>
+              </div>
+              <div class="reachuslable">Feedback:</div>
+              <div class="reachusLink">
+                <a href="mailto:feedback@shephertz.com">feedback@shephertz.com</a>
+              </div>
+              <div class="reachuslable">Customer Support:</div>
+              <div class="reachusLink">
+                <a href="mailto:support@shephertz.com">support@shephertz.com</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="reachus_wrapper_vcard">
+            <div class="vcard_txt">ShepHertz Technologies Pvt. Ltd. Spaze
+              I-Tech Park, Tower-A, 11th floor - 1128, sector-49, Sohna Road,
+              Gurgaon - 122001 INDIA</div>
+          </div>
+        </div>
+       <!--<div *ngIf="exception">
+          <h2 align='center'>Error occured. See Logs.</h2><br /><br />
+          <br /><a routerLink='/' style='font-size: 18px;'>Back</a>
+        </div>-->
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
