@@ -1,0 +1,36 @@
+version: "3"
+services:
+  client:
+    container_name: cargo_client
+    build: ./client
+    restart: always
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./client:/client
+      - /client/node_modules
+    networks:
+      - cargonetwork
+  server:
+    container_name: cargo_server
+    build: ./server
+    restart: always
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mongo
+    networks:
+      - cargonetwork
+  mongo:
+    image: mongo
+    restart: always
+    container_name: mongo
+    volumes:
+        - ./server/data:/data/db
+    ports:
+        - "27017:27017"
+    networks:
+        - cargonetwork
+networks:
+  cargonetwork:
+    driver: bridge
