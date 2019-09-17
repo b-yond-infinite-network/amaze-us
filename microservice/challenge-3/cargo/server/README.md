@@ -1,6 +1,10 @@
 # Cargo App
 
-You can list and remove cargo items in this!
-It's amazzzing ! Humans!
+environments variables are needed to run the project. 
+mkdir config , inside that add test-integration.env and docker.env with variables for HOST and DB_NAME. 
 
-You will need a mongoDB instance though...or something with a moose.
+To run the Tests:
+npm run test:integration
+npm run test
+
+To use use the docker-compose file  run docker-compose up!
