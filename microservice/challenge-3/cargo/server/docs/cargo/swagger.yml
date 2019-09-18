@@ -1,0 +1,100 @@
+swagger: '2.0'
+info:
+  description: |
+    This is the documentation of the Admin of Cargo API whcih is also used for generating the mock server.
+  version: 1.0.0
+  title: Cargo
+  contact:
+    email: apiteam@swagger.io
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+tags:
+- name: cargo
+
+paths:
+  /:
+    get:
+      tags:
+      - cargo
+      summary: list of todo items in database
+      produces:
+        - application/json
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/todoItems'
+    post:
+      tags:
+      - cargo
+      summary: load a cargo
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+      - in: body
+        name: body
+        description: todo item to be added
+        schema:
+          $ref: '#/definitions/todoItem'
+      responses:
+        201:
+          description: Created
+          schema:
+            $ref: '#/definitions/todoItems'
+        400:
+          description: Bad Request
+  /{cargoId}:
+    delete:
+      tags:
+      - cargo
+      summary: remove a cargo
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: cargoId
+          required: true
+          type: string
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/todoItems'
+        400:
+          description: bad request
+        404:
+          description: Not Found
+definitions:
+  todoItem:
+    type: object
+    required:
+      - text
+    properties:
+      text:
+        type: string
+        example: cargo
+  todoItems:
+    type: array
+    items:
+      properties:
+        text:
+          type: string
+        _id:
+          type: string
+    example:
+      - _id: sdjcnds567675675jcndsjcs
+        text: first cargo
+      - _id : lkmc7633723csdcsvrdvsdv
+        text: second cargo
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io
+host: localhost:3000
+basePath: /api/cargo/v0
+schemes:
+ - http

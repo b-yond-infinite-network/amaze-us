@@ -6,9 +6,9 @@
   "scripts": {
     "start": "env $(cat ./config/test-integration.env) NODE_ENV=default nodemon index.js ",
     "test:integration": "env $(cat ./config/test-integration.env) NODE_ENV=test-integration mocha './integrationTests/**/*.js' ",
-    "test": "mocha './services/**/test*.js'",
+    "test": "mocha './src/services/**/test*.js'",
     "docker": "env $(cat ./config/docker.env) NODE_ENV=docker node index.js ",
-    "eslint:fix": "./node_modules/.bin/eslint ./index.js ./lib/**/*.js ./services/**/*.js ./routes/**/*.js  --fix  "
+    "eslint:fix": "./node_modules/.bin/eslint ./index.js ./src/**/**/*.js ./integrationTests/**/*.js  --fix  "
   },
   "author": "Scotch",
   "dependencies": {
@@ -23,11 +23,16 @@
   "devDependencies": {
     "chai": "^4.2.0",
     "eslint": "^6.4.0",
+    "eslint-config-prettier": "^6.0.0",
+    "eslint-config-prettier-standard": "^3.0.1",
+    "eslint-plugin-prettier": "^3.1.0",
     "eslint-config-standard": "^14.1.0",
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-node": "^10.0.0",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.1",
+    "eslint-plugin-mocha": "^6.0.0",
+    "eslint-plugin-chai-friendly": "^0.4.1",
     "mocha": "^6.2.0",
     "nodemon": "^1.19.2",
     "prettier": "1.18.2",

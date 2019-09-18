@@ -22,7 +22,7 @@ services:
     networks:
       - cargonetwork
   mongo:
-    image: mongo
+    image: mvertes/alpine-mongo
     restart: always
     container_name: mongo
     volumes:

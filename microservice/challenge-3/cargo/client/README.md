@@ -1,8 +1,9 @@
 
-## Front 
+# Cargo App-Client
 
-In the project directory, you can run:
+In the project directory :
 
-### `npm start`
+## To run the client:
+- `npm run start`
 
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.

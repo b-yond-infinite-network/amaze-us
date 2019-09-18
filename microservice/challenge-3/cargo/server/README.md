@@ -1,10 +1,17 @@
-# Cargo App
+# Cargo App-Server
 
-environments variables are needed to run the project. 
-mkdir config , inside that add test-integration.env and docker.env with variables for HOST and DB_NAME. 
+__environments variables are needed to run the project.__
+- `mkdir config` , inside that add `test-integration.env` and `docker.env` with variables for `HOST` and `DB_NAME`.
 
-To run the Tests:
-`npm run test:integration`
-`npm run test`
+In the server directory :
 
-To use use the docker-compose file  run docker-compose up!
+## To run the server:
+- `npm i`
+- `npm run start`
+
+## To run the Tests:
+- `npm run test:integration`
+- `npm run test`
+
+## To check the API documentation :
+`-  docker run -d -p 80:8080 swaggerapi/swagger-editor`

@@ -8,5 +8,9 @@ try:
     print booster
 
 except URLError, e:
+    # print urlopen(request)
     print 'Booster still has fuel, not released', e
 
+# //python
+# //pydoc
+# // mention that endpoint is subject to chnage //
