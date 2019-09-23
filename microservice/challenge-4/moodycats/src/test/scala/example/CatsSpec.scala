@@ -33,7 +33,7 @@ class CatsSpec extends Specification {
 
   "Mood swings are timed like clockwork" >> {
 
-    val future = Cats.change(20.milliseconds).takeWithin(110.milliseconds).runWith(Sink.fold(Seq.empty[Int])(_ :+ _))
+    val future = Cats.change(50.milliseconds).takeWithin(280.milliseconds).runWith(Sink.fold(Seq.empty[Int])(_ :+ _))
 
     val result = Await.result(future, 1.second)
 
@@ -43,12 +43,12 @@ class CatsSpec extends Specification {
   "Mood swings should be random and repeated for every cat" >> {
     implicit val rnd = new Random(0)
 
-    val future = Cats.moodSwings(3, 20.milliseconds).takeWithin(110.milliseconds).runWith(Sink.fold(Seq.empty[MoodSwing])(_ :+ _))
+    val future = Cats.moodSwings(3, 40.milliseconds).takeWithin(135.milliseconds).runWith(Sink.fold(Seq.empty[MoodSwing])(_ :+ _))
 
     val result = Await.result(future, 1.second)
 
-    // 3 cats, changing moods 6 times
-    result should have length(18)
+    // 3 cats, changing moods 4 times
+    result should have length(12)
 
     result.map(_.id).take(5) should equalTo(Seq(1,2,3,1,2))
 
