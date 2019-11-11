@@ -1,0 +1,23 @@
+
+import React from 'react';
+import { configure, mount, shallow } from "enzyme";
+import Adapter from 'enzyme-adapter-react-16';
+
+import { Router } from './../router';
+import { MemoryRouter } from "react-router-dom";
+import Home from '../../pages/Home';
+
+configure({ adapter: new Adapter() });
+
+describe("Router ", () => {
+    it("Should Redirect to Home page if not found", () => {
+        const wrapper = mount(
+            <MemoryRouter initialEntries={['/rounte/not/hanldeled']}>
+                <Router />
+            </MemoryRouter>
+        )
+        console.log(wrapper.debug());
+
+        expect(wrapper.find(Router).dive().find(Home)).toHaveLength(1);
+    });
+});

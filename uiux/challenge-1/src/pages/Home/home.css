@@ -1,0 +1,9 @@
+.home-container {
+    height: 100%;
+}
+
+.home-container .searchBar-container-position {
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}

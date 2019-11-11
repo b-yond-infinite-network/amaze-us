@@ -1,0 +1,22 @@
+.lyrics-wrapper {
+    font-size: 17px;
+    width: 400px;
+    height: 75vh;
+    overflow: auto;
+    text-align: center;
+    margin: 5% auto;
+    color: #000;
+}
+
+.lyrics-container .searchBar-container-position {
+    padding: 5px;
+    left: 30%;
+}
+
+.lyrics-container .search-button {
+    top: 15px;
+}
+
+.lyrics-container .search-input {
+    top: 20px;
+}

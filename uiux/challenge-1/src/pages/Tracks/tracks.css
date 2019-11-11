@@ -1,0 +1,19 @@
+.tracks-wrapper {
+    width: 800px;
+    height: 75vh;
+    overflow: auto;
+    margin: 5% auto;
+}
+
+.tracks-container .searchBar-container-position {
+    padding: 5px;
+    left: 30%;
+}
+
+.tracks-container .search-button {
+    top: 15px;
+}
+
+.tracks-container .search-input {
+    top: 20px;
+}

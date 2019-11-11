@@ -1,0 +1,509 @@
+{
+    "message": {
+        "header": {
+            "status_code": 200,
+            "execute_time": 0.10225081443787,
+            "available": 835
+        },
+        "body": {
+            "artist_list": [
+                {
+                    "artist": {
+                        "artist_id": 426,
+                        "artist_name": "Eminem",
+                        "artist_name_translation_list": [],
+                        "artist_comment": "",
+                        "artist_country": "US",
+                        "artist_alias_list": [
+                            {
+                                "artist_alias": "\u3048\u307f\u306d\u3080"
+                            },
+                            {
+                                "artist_alias": "Ominem"
+                            },
+                            {
+                                "artist_alias": "The Real Slim Shady"
+                            }
+                        ],
+                        "artist_rating": 99,
+                        "artist_twitter_url": "https:\/\/twitter.com\/eminem",
+                        "artist_credits": {
+                            "artist_list": []
+                        },
+                        "restricted": 0,
+                        "updated_time": "2014-05-28T14:19:26Z"
+                    }
+                },
+                {
+                    "artist": {
+                        "artist_id": 27810504,
+                        "artist_name": "Eminem Featuring P!nk",
+                        "artist_name_translation_list": [
+                            {
+                                "artist_name_translation": {
+                                    "language": "JA",
+                                    "translation": "\u30a8\u30df\u30cd\u30e0"
+                                }
+                            }
+                        ],
+                        "artist_comment": "",
+                        "artist_country": "",
+                        "artist_alias_list": [
+                            {
+                                "artist_alias": "\u30a8\u30df\u30cd\u30e0"
+                            },
+                            {
+                                "artist_alias": "Eminem"
+                            }
+                        ],
+                        "artist_rating": 1,
+                        "artist_twitter_url": "",
+                        "artist_credits": {
+                            "artist_list": []
+                        },
+                        "restricted": 0,
+                        "updated_time": "2014-05-19T10:07:29Z"
+                    }
+                },
+                {
+                    "artist": {
+                        "artist_id": 57568,
+                        "artist_name": "Bad Meets Evil",
+                        "artist_name_translation_list": [
+                            {
+                                "artist_name_translation": {
+                                    "language": "JA",
+                                    "translation": "\u30d0\u30c3\u30c9\u30fb\u30df\u30fc\u30c4\u30fb\u30a4\u30f4\u30a3\u30eb"
+                                }
+                            }
+                        ],
+                        "artist_comment": "",
+                        "artist_country": "US",
+                        "artist_alias_list": [
+                            {
+                                "artist_alias": "\u30d0\u30c3\u30c9\u30fb\u30df\u30fc\u30c4\u30fb\u30a4\u30f4\u30a3\u30eb"
+                            },
+                            {
+                                "artist_alias": "Eminem & Royce 5\u20199"
+                            },
+                            {
+                                "artist_alias": "Bad Meets Evil (Eminem and Royce 5-9)"
+                            },
+                            {
+                                "artist_alias": "Eminem & Royce DA 5-9"
+                            },
+                            {
+                                "artist_alias": "Bad Meets Evil (Eminem & Royce Da 5'9'')"
+                            },
+                            {
+                                "artist_alias": "Eminem & Royce DA 59"
+                            },
+                            {
+                                "artist_alias": "Royce da 5'9\" & Eminem"
+                            }
+                        ],
+                        "artist_rating": 64,
+                        "artist_twitter_url": "",
+                        "artist_credits": {
+                            "artist_list": []
+                        },
+                        "restricted": 0,
+                        "updated_time": "2015-11-26T22:25:19Z"
+                    }
+                },
+                {
+                    "artist": {
+                        "artist_id": 28436410,
+                        "artist_name": "Eminem (Ft. Kobe)",
+                        "artist_name_translation_list": [],
+                        "artist_comment": "",
+                        "artist_country": "",
+                        "artist_alias_list": [],
+                        "artist_rating": 30,
+                        "artist_twitter_url": "",
+                        "artist_credits": {
+                            "artist_list": []
+                        },
+                        "restricted": 0,
+                        "updated_time": "2015-09-03T15:10:37Z"
+                    }
+                },
+                {
+                    "artist": {
+                        "artist_id": 13812293,
+                        "artist_name": "Eminem feat. Rihanna",
+                        "artist_name_translation_list": [],
+                        "artist_comment": "",
+                        "artist_country": "",
+                        "artist_alias_list": [],
+                        "artist_rating": 51,
+                        "artist_twitter_url": "",
+                        "artist_credits": {
+                            "artist_list": [
+                                {
+                                    "artist": {
+                                        "artist_id": 426,
+                                        "artist_name": "Eminem",
+                                        "artist_name_translation_list": [],
+                                        "artist_comment": "",
+                                        "artist_country": "US",
+                                        "artist_alias_list": [
+                                            {
+                                                "artist_alias": "\u3048\u307f\u306d\u3080"
+                                            },
+                                            {
+                                                "artist_alias": "Ominem"
+                                            },
+                                            {
+                                                "artist_alias": "The Real Slim Shady"
+                                            }
+                                        ],
+                                        "artist_rating": 99,
+                                        "artist_twitter_url": "https:\/\/twitter.com\/eminem",
+                                        "artist_credits": {
+                                            "artist_list": []
+                                        },
+                                        "restricted": 0,
+                                        "updated_time": "2014-05-28T14:19:26Z"
+                                    }
+                                },
+                                {
+                                    "artist": {
+                                        "artist_id": 33491890,
+                                        "artist_name": "Rihanna",
+                                        "artist_name_translation_list": [],
+                                        "artist_comment": "",
+                                        "artist_country": "GB",
+                                        "artist_alias_list": [
+                                            {
+                                                "artist_alias": "\u308a\u3042\u30fc\u306a"
+                                            },
+                                            {
+                                                "artist_alias": "Rihanna"
+                                            },
+                                            {
+                                                "artist_alias": "\u857e\u54c8\u5a1c"
+                                            },
+                                            {
+                                                "artist_alias": "Rhianna"
+                                            },
+                                            {
+                                                "artist_alias": "Riannah"
+                                            },
+                                            {
+                                                "artist_alias": "Robyn Rihanna Fenty"
+                                            }
+                                        ],
+                                        "artist_rating": 95,
+                                        "artist_twitter_url": "https:\/\/twitter.com\/rihanna",
+                                        "artist_credits": {
+                                            "artist_list": []
+                                        },
+                                        "restricted": 0,
+                                        "updated_time": "2018-10-15T20:32:58Z"
+                                    }
+                                }
+                            ]
+                        },
+                        "restricted": 0,
+                        "updated_time": "2015-12-09T16:27:07Z"
+                    }
+                },
+                {
+                    "artist": {
+                        "artist_id": 34921043,
+                        "artist_name": "Eminem feat. Phresher",
+                        "artist_name_translation_list": [],
+                        "artist_comment": "",
+                        "artist_country": "",
+                        "artist_alias_list": [],
+                        "artist_rating": 37,
+                        "artist_twitter_url": "",
+                        "artist_credits": {
+                            "artist_list": [
+                                {
+                                    "artist": {
+                                        "artist_id": 426,
+                                        "artist_name": "Eminem",
+                                        "artist_name_translation_list": [],
+                                        "artist_comment": "",
+                                        "artist_country": "US",
+                                        "artist_alias_list": [
+                                            {
+                                                "artist_alias": "\u3048\u307f\u306d\u3080"
+                                            },
+                                            {
+                                                "artist_alias": "Ominem"
+                                            },
+                                            {
+                                                "artist_alias": "The Real Slim Shady"
+                                            }
+                                        ],
+                                        "artist_rating": 99,
+                                        "artist_twitter_url": "https:\/\/twitter.com\/eminem",
+                                        "artist_credits": {
+                                            "artist_list": []
+                                        },
+                                        "restricted": 0,
+                                        "updated_time": "2014-05-28T14:19:26Z"
+                                    }
+                                },
+                                {
+                                    "artist": {
+                                        "artist_id": 26825038,
+                                        "artist_name": "PHRESHER",
+                                        "artist_name_translation_list": [],
+                                        "artist_comment": "",
+                                        "artist_country": "",
+                                        "artist_alias_list": [],
+                                        "artist_rating": 26,
+                                        "artist_twitter_url": "",
+                                        "artist_credits": {
+                                            "artist_list": []
+                                        },
+                                        "restricted": 0,
+                                        "updated_time": "2014-03-01T07:29:49Z"
+                                    }
+                                }
+                            ]
+                        },
+                        "restricted": 0,
+                        "updated_time": "2017-12-15T05:00:39Z"
+                    }
+                },
+                {
+                    "artist": {
+                        "artist_id": 13833118,
+                        "artist_name": "Rihanna feat. Eminem",
+                        "artist_name_translation_list": [],
+                        "artist_comment": "",
+                        "artist_country": "",
+                        "artist_alias_list": [],
+                        "artist_rating": 48,
+                        "artist_twitter_url": "",
+                        "artist_credits": {
+                            "artist_list": [
+                                {
+                                    "artist": {
+                                        "artist_id": 426,
+                                        "artist_name": "Eminem",
+                                        "artist_name_translation_list": [],
+                                        "artist_comment": "",
+                                        "artist_country": "US",
+                                        "artist_alias_list": [
+                                            {
+                                                "artist_alias": "\u3048\u307f\u306d\u3080"
+                                            },
+                                            {
+                                                "artist_alias": "Ominem"
+                                            },
+                                            {
+                                                "artist_alias": "The Real Slim Shady"
+                                            }
+                                        ],
+                                        "artist_rating": 99,
+                                        "artist_twitter_url": "https:\/\/twitter.com\/eminem",
+                                        "artist_credits": {
+                                            "artist_list": []
+                                        },
+                                        "restricted": 0,
+                                        "updated_time": "2014-05-28T14:19:26Z"
+                                    }
+                                },
+                                {
+                                    "artist": {
+                                        "artist_id": 33491890,
+                                        "artist_name": "Rihanna",
+                                        "artist_name_translation_list": [],
+                                        "artist_comment": "",
+                                        "artist_country": "GB",
+                                        "artist_alias_list": [
+                                            {
+                                                "artist_alias": "\u308a\u3042\u30fc\u306a"
+                                            },
+                                            {
+                                                "artist_alias": "Rihanna"
+                                            },
+                                            {
+                                                "artist_alias": "\u857e\u54c8\u5a1c"
+                                            },
+                                            {
+                                                "artist_alias": "Rhianna"
+                                            },
+                                            {
+                                                "artist_alias": "Riannah"
+                                            },
+                                            {
+                                                "artist_alias": "Robyn Rihanna Fenty"
+                                            }
+                                        ],
+                                        "artist_rating": 95,
+                                        "artist_twitter_url": "https:\/\/twitter.com\/rihanna",
+                                        "artist_credits": {
+                                            "artist_list": []
+                                        },
+                                        "restricted": 0,
+                                        "updated_time": "2018-10-15T20:32:58Z"
+                                    }
+                                }
+                            ]
+                        },
+                        "restricted": 0,
+                        "updated_time": "2015-12-09T20:48:19Z"
+                    }
+                },
+                {
+                    "artist": {
+                        "artist_id": 24777518,
+                        "artist_name": "Eminem feat. Sia",
+                        "artist_name_translation_list": [],
+                        "artist_comment": "",
+                        "artist_country": "",
+                        "artist_alias_list": [],
+                        "artist_rating": 46,
+                        "artist_twitter_url": "",
+                        "artist_credits": {
+                            "artist_list": [
+                                {
+                                    "artist": {
+                                        "artist_id": 426,
+                                        "artist_name": "Eminem",
+                                        "artist_name_translation_list": [],
+                                        "artist_comment": "",
+                                        "artist_country": "US",
+                                        "artist_alias_list": [
+                                            {
+                                                "artist_alias": "\u3048\u307f\u306d\u3080"
+                                            },
+                                            {
+                                                "artist_alias": "Ominem"
+                                            },
+                                            {
+                                                "artist_alias": "The Real Slim Shady"
+                                            }
+                                        ],
+                                        "artist_rating": 99,
+                                        "artist_twitter_url": "https:\/\/twitter.com\/eminem",
+                                        "artist_credits": {
+                                            "artist_list": []
+                                        },
+                                        "restricted": 0,
+                                        "updated_time": "2014-05-28T14:19:26Z"
+                                    }
+                                },
+                                {
+                                    "artist": {
+                                        "artist_id": 41659,
+                                        "artist_name": "Sia",
+                                        "artist_name_translation_list": [
+                                            {
+                                                "artist_name_translation": {
+                                                    "language": "JA",
+                                                    "translation": "\u30b7\u30fc\u30a2"
+                                                }
+                                            }
+                                        ],
+                                        "artist_comment": "",
+                                        "artist_country": "PT",
+                                        "artist_alias_list": [
+                                            {
+                                                "artist_alias": "\u30b7\u30fc\u30a2"
+                                            },
+                                            {
+                                                "artist_alias": "Sia Furler"
+                                            },
+                                            {
+                                                "artist_alias": "Sia Kate Isobelle Furler"
+                                            }
+                                        ],
+                                        "artist_rating": 91,
+                                        "artist_twitter_url": "https:\/\/twitter.com\/Sia",
+                                        "artist_credits": {
+                                            "artist_list": []
+                                        },
+                                        "restricted": 0,
+                                        "updated_time": "2016-06-30T10:06:44Z"
+                                    }
+                                }
+                            ]
+                        },
+                        "restricted": 0,
+                        "updated_time": "2015-12-01T16:31:40Z"
+                    }
+                },
+                {
+                    "artist": {
+                        "artist_id": 34921044,
+                        "artist_name": "Eminem feat. Ed Sheeran",
+                        "artist_name_translation_list": [],
+                        "artist_comment": "",
+                        "artist_country": "",
+                        "artist_alias_list": [],
+                        "artist_rating": 53,
+                        "artist_twitter_url": "",
+                        "artist_credits": {
+                            "artist_list": [
+                                {
+                                    "artist": {
+                                        "artist_id": 426,
+                                        "artist_name": "Eminem",
+                                        "artist_name_translation_list": [],
+                                        "artist_comment": "",
+                                        "artist_country": "US",
+                                        "artist_alias_list": [
+                                            {
+                                                "artist_alias": "\u3048\u307f\u306d\u3080"
+                                            },
+                                            {
+                                                "artist_alias": "Ominem"
+                                            },
+                                            {
+                                                "artist_alias": "The Real Slim Shady"
+                                            }
+                                        ],
+                                        "artist_rating": 99,
+                                        "artist_twitter_url": "https:\/\/twitter.com\/eminem",
+                                        "artist_credits": {
+                                            "artist_list": []
+                                        },
+                                        "restricted": 0,
+                                        "updated_time": "2014-05-28T14:19:26Z"
+                                    }
+                                },
+                                {
+                                    "artist": {
+                                        "artist_id": 38620990,
+                                        "artist_name": "Ed Sheeran",
+                                        "artist_name_translation_list": [],
+                                        "artist_comment": "",
+                                        "artist_country": "GB",
+                                        "artist_alias_list": [
+                                            {
+                                                "artist_alias": "\u30a8\u30c9 \u30b7\u30fc\u30e9\u30f3"
+                                            },
+                                            {
+                                                "artist_alias": "ai de xi lan"
+                                            },
+                                            {
+                                                "artist_alias": "Ed shiran"
+                                            }
+                                        ],
+                                        "artist_rating": 98,
+                                        "artist_twitter_url": "https:\/\/twitter.com\/edsheeran",
+                                        "artist_credits": {
+                                            "artist_list": []
+                                        },
+                                        "restricted": 0,
+                                        "updated_time": "2019-05-29T08:45:18Z"
+                                    }
+                                }
+                            ]
+                        },
+                        "restricted": 0,
+                        "updated_time": "2017-12-15T05:00:39Z"
+                    }
+                }
+            ]
+        }
+    }
+}

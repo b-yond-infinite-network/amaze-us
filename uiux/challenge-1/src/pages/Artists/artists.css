@@ -1,0 +1,24 @@
+.artists-wrapper {
+    width: 800px;
+    height: 75vh;
+    overflow: auto;
+    margin: 5% auto;
+}
+
+.spinner svg {
+    display: block;
+    margin: 5% auto;
+}
+
+.artists-container .searchBar-container-position {
+    padding: 5px;
+    left: 30%;
+}
+
+.artists-container .search-button {
+    top: 15px;
+}
+
+.artists-container .search-input {
+    top: 20px;
+}

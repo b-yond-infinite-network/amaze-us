@@ -1,0 +1,42 @@
+.k-grid-table {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    background: inherit;
+}
+
+.k-header {
+    background-color: #6c7ae0;
+}
+
+.k-header, .k-master-row td {
+    text-align: left;
+    width: 250px;
+}
+
+.k-grid-table tr:nth-child(odd) {
+    background-color: #f2f2f2;
+}
+
+.k-master-row td {
+    height: 15px;
+    color: black;
+}
+
+.k-grid-table tr:hover {
+    background-color: #C9C9C9;
+    cursor: pointer;
+}
+
+.k-master-row td, .k-header {
+    padding: 8px;
+}
+
+.k-grid-table td, .k-grid-table th {
+    padding: 8px;
+}
+
+table {
+    background:  #6c7ae0;
+    padding-left: 2px;
+    border-spacing: 0px;
+}

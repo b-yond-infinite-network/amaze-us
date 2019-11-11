@@ -1,0 +1,47 @@
+/*
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #09d3ac;
+}
+*/
+
+/*--------------------
+Body
+--------------------*/
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+/* This is to ensure the chain of height is 100% */
+html, body, #root {
+  height: 100vh;
+}
+
+body {
+  background: #DEDEDE;
+  color: #5a6674;
+  font-size: 13px;
+  font-family: 'Roboto', sans-serif;
+  overflow: hidden;
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+}
