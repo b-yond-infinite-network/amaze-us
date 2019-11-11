@@ -1,68 +1,107 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Intro
 
-## Available Scripts
+Hello fellow reviewers and welcome to my birthday!
+
+This is my solution to the first UIUX challenge, Karaoke needs words, the solution is not complete to 100%, but it is fully functional.
+
+Due to limitation of time, there is a couple of things I would've wanted to do, but I did not have the time for (Will mention them later)
+
+## Live demo of the app
+[http://mehdi-hamidi-challenge-1.tk/](http://mehdi-hamidi-challenge-1.tk/)  
+
+DNS changes might not propagate quickly, if site not not available use direct IP:
+[35.232.187.57](35.232.187.57)
+# Tech Stack
+
+## Developement 
+- "react": "^16.11.0"
+- "react-router-dom": "^5.1.2"
+- "@progress/kendo-react-grid": "^3.6.0"
+- "axios": "^0.19.0"
+- "react-redux": "^7.1.1"
+- "redux-saga": "^1.1.1"
+
+## Testing
+- "jest": "^24.9.0"
+- "enzyme": "^3.10.0"
+- "enzyme-adapter-react-16": "^1.15.1"
+- "redux-mock-store": "^1.5.3"
+- "redux-saga-test-plan": "^4.0.0-rc.3"
+
+# Architecture
+
+## Folder structure
+```
+|- src/
+|	|- app
+|	|- components
+|	|- pages
+|	|- router
+|	|- redux
+|	|- services
+|	|- utils
+|- package.json
+```
+- Components: shared and reusable react components
+- Pages: app pages that use one or multiple components
+- Router: logic and history for routing inside the app
+- Redux: redux store and root reducer and saga
+- Services: apis, actions, reducers, sagas per domain (services are not directly related to pages)
+- Utils: modules or functions that can be used anywhere in the app
+
+# Available Scripts
 
 In the project directory, you can run:
 
-### `npm start`
+## npm install
+
+Installs the project's dependencies
+
+## `npm start`
 
 Runs the app in the development mode.<br />
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
-
-### `npm test`
+## `npm test`
 
 Launches the test runner in the interactive watch mode.<br />
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+## Deployment
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+I have deployed the version of the app to a cluster on GKE based on the latest image (tag:1.0)
+The app can be accessed [HERE](http://mehdi-hamidi-challenge-1.tk) 
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+# Improvements and next steps
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Things I wish I did from the begining 
 
-### `npm run eject`
+- Using typescript for writing the application
+- Using hooks instead of the classes. I refactored the app mid developement, since I had no use case where classes were needed
+- Using css-modules or a naming convention (BEM) for css to avoid the messy .css files
+- Using scss instead of regular css
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Next steps
+- General
+    - Consistency for the developement  of the app: naming variable, file structure, etc. i.e: Setting some guidelines  and following them in all scenarios 
+- Developement
+    - Add default props to every component that uses them
+    - Add maintenance page if the service is down
+    - Error management for API calls and crashes
+    - Use dynamic routing instead of hard-coded history.push("/location")
+    - Use throttle or debounce with useEffect to git rid of onClick and launch search automatically  once the user is done typing
+    - Make the design responsive for Mobile and small screens
+    - Store the results of the API in the redux store to prevent calls for the same data (Clear store after a delay)
+- Testing
+    - Clear console from warnings
+    - Improve coverage to at least 70%
+    - Test react hooks state (useState)
+    - Added test plans for redux-saga
+    - Use mocked data for API calls to simulate real world scenarios
+    - Add integration and E2E tests
+- Scaling 
+    - The version is deployed on GKE is easily scalable without issues, however if we add user session we might run into some issues (Sticky Sessions)
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+# Conclusions
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+Looking forward to your feedback!
