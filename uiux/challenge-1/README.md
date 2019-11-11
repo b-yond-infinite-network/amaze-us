@@ -10,7 +10,7 @@ Due to limitation of time, there is a couple of things I would've wanted to do, 
 [http://mehdi-hamidi-challenge-1.tk/](http://mehdi-hamidi-challenge-1.tk/)  
 
 DNS changes might not propagate quickly, if site not not available use direct IP:
-[35.232.187.57](35.232.187.57)
+[35.232.187.57](http://35.232.187.57)
 # Tech Stack
 
 ## Developement 
