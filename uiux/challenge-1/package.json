@@ -1,0 +1,53 @@
+{
+  "name": "karaoke-app",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@progress/kendo-data-query": "^1.5.2",
+    "@progress/kendo-drawing": "^1.6.0",
+    "@progress/kendo-react-dateinputs": "^3.6.0",
+    "@progress/kendo-react-dropdowns": "^3.6.0",
+    "@progress/kendo-react-grid": "^3.6.0",
+    "@progress/kendo-react-inputs": "^3.6.0",
+    "@progress/kendo-react-intl": "^3.6.0",
+    "axios": "^0.19.0",
+    "history": "^4.10.1",
+    "prop-types": "^15.7.2",
+    "react": "^16.11.0",
+    "react-dom": "^16.11.0",
+    "react-loader-spinner": "^3.1.4",
+    "react-redux": "^7.1.1",
+    "react-router-dom": "^5.1.2",
+    "react-scripts": "3.2.0",
+    "redux-saga": "^1.1.1"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.15.1",
+    "jest": "^24.9.0",
+    "react-test-renderer": "^16.11.0",
+    "redux-mock-store": "^1.5.3",
+    "redux-saga-test-plan": "^4.0.0-rc.3"
+  }
+}
