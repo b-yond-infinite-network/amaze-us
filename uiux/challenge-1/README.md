@@ -7,18 +7,19 @@ This is my solution to the first UIUX challenge, Karaoke needs words, the soluti
 Due to limitation of time, there is a couple of things I would've wanted to do, but I did not have the time for (Will mention them later)
 
 ## Live demo of the app
-[http://mehdi-hamidi-challenge-1.tk/](http://mehdi-hamidi-challenge-1.tk/) 
+[http://mehdi-hamidi-challenge-1.tk/](http://mehdi-hamidi-challenge-1.tk/)   
+
+DNS changes might not propagate quickly, if site not not available use direct IP:  
+[35.232.187.57](http://35.232.187.57)
 
 ## Flow 
- 1 - The user enters the name of an artist in a search bar.
- 2 - A list of artists is displayed to the user.
- 3 - The user selects the artist he wants the lyrics of.
- 4 - A sortable list of songs from the selected artist is displayed to the user.
- 5 - The user selects his desired song.
+ 1 - The user enters the name of an artist in a search bar.  
+ 2 - A list of artists is displayed to the user.  
+ 3 - The user selects the artist he wants the lyrics of.  
+ 4 - A sortable list of songs from the selected artist is displayed to the user.  
+ 5 - The user selects his desired song.  
  6 - The lyrics of the selected song are displayed to the user.
 
-DNS changes might not propagate quickly, if site not not available use direct IP:
-[35.232.187.57](http://35.232.187.57)
 # Tech Stack
 
 ## Developement 
@@ -99,6 +100,7 @@ The app can be accessed [HERE](http://mehdi-hamidi-challenge-1.tk)
     - Use dynamic routing instead of hard-coded history.push("/location")
     - Use throttle or debounce with useEffect to git rid of onClick and launch search automatically  once the user is done typing
     - Make the design responsive for Mobile and small screens
+    - Drop the use of kendo grid in favor of custom made table   
     - Store the results of the API in the redux store to prevent calls for the same data (Clear store after a delay)
 - Testing
     - Clear console from warnings

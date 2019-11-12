@@ -1,3 +1,6 @@
+/* This is more of a last minute css hack to have an OKAY design.
+*  This is not how I should be styling the kendo grid (According to their documentation).
+*/
 .k-grid-table {
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     border-collapse: collapse;
