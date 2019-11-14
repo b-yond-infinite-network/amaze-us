@@ -33,3 +33,22 @@ Make sparks, solve the mystery!
 + Create a branch of this project (or fork it in your github account if you prefer)
 + Do you **_thang_** inside this folder (challenge-4)
 + Push your change inside a Pull Request to our master
+
+
+## How to run the apps:
++ Setup a Kafka server on localhost:9092 
++ Create topic "cats"
++ In amaze-us\microservice\challenge-4\cats 
+	- Launch the producer with: sbt runMain example.CatsProducerApp
+	- Launch the consumer with: sbt runMain example.CatsConsumerApp
+
+## Comments:
+This was a fun exercise and a good opportunity for me to learn about the SMACK stack (or at least get hands-on with Kafka and Spark). 
+This was also my first time using sbt as a build tool (instead of gradle), and I ended up spending quite a bit of time 
+fiddling around with dependencies. In the end, I still had to manually add the jars for streaming-kafka-0-10 since sbt did 
+not seem to able to resolve it. 
+
+If I had more time, I would have tried to implement more parts of the SMACK stack and would've tried to design something along the lines of:
+Live data feed -> Kafka -> Spark Streaming -> Cassandra -> Reactive Akka App
+
+
