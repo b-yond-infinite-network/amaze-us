@@ -34,5 +34,6 @@ We'll get back to you as soon as your Pull Request has been reviewed (hopefully 
 
 + ![Progress](http://progressed.io/bar/0)   [Microservice Developer](/microservice) 
 + ![Progress](http://progressed.io/bar/0)   [UI/UX Developer](/uiux) 
++ ![Progress](http://progressed.io/bar/0)   [Data Scientist](/datascience/time-series) 
 
 If you have any questions, comments or suggestion, please don't hesitate to get in touch with Lorraine or Galyna.
