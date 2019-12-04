@@ -1,0 +1,18 @@
+rootProject.name = 'micros-gradle'
+
+include "common"
+//include "image"
+//include "gallery"
+include "auth"
+include "eureka"
+include "zuul"
+
+include "timeline"
+
+include "ui"
+
+include "tweet"
+
+include "social"
+
+include "fanout"

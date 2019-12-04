@@ -1,0 +1,19 @@
+
+apply plugin: 'org.springframework.boot'
+
+
+project(':fanout') {
+
+
+	dependencies {
+
+		implementation project(':common')
+
+		implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-redis'
+		implementation group: 'org.apache.commons', name: 'commons-pool2', version: '2.7.0'
+
+		implementation('org.springframework.cloud:spring-cloud-starter-netflix-eureka-client')
+		implementation('org.springframework.boot:spring-boot-starter-web')
+
+	}
+}

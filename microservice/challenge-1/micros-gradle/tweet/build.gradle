@@ -1,0 +1,26 @@
+
+apply plugin: 'org.springframework.boot'
+
+
+project(':tweet') {
+
+
+    dependencies {
+
+        implementation project(':common')
+
+
+        implementation group: 'com.datastax.oss', name: 'java-driver-core', version: '4.1.0'
+
+        implementation group: 'com.datastax.cassandra', name: 'cassandra-driver-mapping', version: '3.7.1'
+
+        implementation('org.springframework.cloud:spring-cloud-starter-netflix-eureka-client')
+
+        implementation('org.springframework.boot:spring-boot-starter-web')
+
+        implementation('org.springframework.cloud:spring-cloud-starter-netflix-hystrix')
+
+        implementation('org.springframework.cloud:spring-cloud-starter-sleuth')
+
+    }
+}

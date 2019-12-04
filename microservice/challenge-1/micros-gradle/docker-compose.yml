@@ -1,0 +1,49 @@
+version: '3.5'
+services:
+  cassandra:
+    image: cassandra:latest
+    container_name: cassandra
+    ports:
+      - "9042:9042"
+    environment:
+      - "MAX_HEAP_SIZE=256M"
+      - "HEAP_NEWSIZE=128M"
+    restart: always
+    volumes:
+      - ./out/cassandra_data:/var/lib/cassandra
+  redis:
+    image: redis
+    ports:
+      - 6379:6379
+  mysql:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'users'
+      # So you don't have to use root, but you can if you like
+      MYSQL_USER: 'test'
+      # You can use whatever password you like
+      MYSQL_PASSWORD: 'password123'
+      # Password for root access
+      MYSQL_ROOT_PASSWORD: 'password12345'
+    ports:
+      # <Port exposed> : < MySQL Port running inside container>
+      - '3306:3306'
+    expose:
+      # Opens port 3306 on the container
+      - '3306'
+      # Where our data will be persisted
+    volumes:
+      - my-db:/var/lib/mysql
+  # Names our volume
+  postgres:
+    container_name: test_db
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: password1234
+      POSTGRES_USER: social
+    ports:
+      - 5432:5432
+volumes:
+  my-db:

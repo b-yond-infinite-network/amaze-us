@@ -1,0 +1,84 @@
+buildscript {
+	ext {
+		projectVersion = '0.0.1.SNAPSHOT'
+		springCloudVersion = 'Greenwich.RELEASE'
+		springBootVersion =  '2.1.1.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
+	}
+}
+
+subprojects {
+
+
+    apply plugin: 'java'
+    apply plugin: 'idea'
+    apply plugin: 'eclipse'
+	apply plugin: 'io.spring.dependency-management'
+	apply plugin: 'java-library'
+
+	configurations {
+		developmentOnly
+		runtimeClasspath {
+			extendsFrom developmentOnly
+		}
+	}
+
+	dependencies {
+		implementation 'org.springframework.boot:spring-boot-starter'
+		testImplementation('org.springframework.boot:spring-boot-starter-test') {
+			exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+		}
+		compile group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.1'
+
+		implementation group: 'org.glassfish.jaxb', name: 'jaxb-runtime', version: '2.3.1'
+		developmentOnly("org.springframework.boot:spring-boot-devtools")
+
+	}
+
+	repositories {
+		mavenCentral()
+		jcenter()
+	}
+
+	dependencyManagement {
+		imports {
+			mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+			mavenBom("org.springframework.boot:spring-boot-dependencies:${springBootVersion}")
+		}
+	}
+
+	eclipse {
+	    classpath {
+	        containers.remove("org.eclipse.jdt.launching.JRE_CONTAINER")
+	        containers "org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"
+	    }
+	}
+
+	test {
+
+		//we want display the following test events
+		testLogging {
+			events "PASSED", "STARTED", "FAILED", "SKIPPED"
+		}
+
+		testLogging.showStandardStreams = true
+
+	}
+
+
+
+}
+
+
+allprojects {
+	gradle.projectsEvaluated {
+		tasks.withType(JavaCompile) {
+			options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
+		}
+	}
+}

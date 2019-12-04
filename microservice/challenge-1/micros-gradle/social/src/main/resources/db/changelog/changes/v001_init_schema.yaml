@@ -1,0 +1,83 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: magg
+      changes:
+        - createTable:
+            tableName: forward
+            columns:
+              - column:
+                  name: source_id
+                  type: bigint
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: destination_id
+                  type: bigint
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: updated_at
+                  type: timestamp
+                  defaultValue: now()
+      rollback:
+        - dropTable:
+          tableName: forward
+  - changeSet:
+      id: 2
+      author: magg
+      changes:
+        - createTable:
+            tableName: backward
+            columns:
+              - column:
+                  name: destination_id
+                  type: bigint
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: source_id
+                  type: bigint
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: updated_at
+                  type: timestamp
+                  defaultValue: now()
+      rollback:
+        - dropTable:
+          tableName: backward
+  - changeSet:
+      id: 3
+      author: magg
+      changes:
+        - createIndex:
+            tableName: forward
+            indexName: forward_updated_idx
+            columns:
+              - column:
+                  name: updated_at
+                  type: timestamp
+      rollback:
+        - dropIndex:
+            indexName: forward_updated_idx
+            tableName: forward
+  - changeSet:
+      id: 4
+      author: magg
+      changes:
+        - createIndex:
+            tableName: backward
+            indexName: backward_updated_idx
+            columns:
+              - column:
+                  name: updated_at
+                  type: timestamp
+      rollback:
+        - dropIndex:
+            indexName: backward_updated_idx
+            tableName: backward
