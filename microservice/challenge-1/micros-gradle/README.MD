@@ -1,7 +1,14 @@
 
 ## Usage
 
-It uses Java 11
+It uses Java 11, here's my java version
+
+```
+java -version
+java version "11.0.3" 2019-04-16 LTS
+Java(TM) SE Runtime Environment 18.9 (build 11.0.3+12-LTS)
+Java HotSpot(TM) 64-Bit Server VM 18.9 (build 11.0.3+12-LTS, mixed mode)
+```
 
 ### Installing from source
 
@@ -29,3 +36,59 @@ I created the following micros:
 
 Note: not all functionality was completed, this week was a very busy week and home and at work. Sorry for that
 I still needed to add unit tests and integrations tests
+
+
+### how to RUN
+
+You will have to run multiple terminals and first run the docker file to bring up databases (cassandra, mysql, postgres and redis)
+
+`docker-compose up`
+
+1. First startup Eureka server, in one terminal
+
+```
+cd eureka 
+gradle bootRun
+
+```
+
+2. Then startup Zuul server, in one terminal
+
+```
+cd zuul 
+gradle bootRun
+
+```
+
+3. Then startup the Auth server, in one terminal
+
+```
+cd auth 
+gradle bootRun
+
+```
+
+4. The you can start these services in any order, in different terminals
+
+```
+cd social 
+gradle bootRun
+
+cd tweet
+gradle bootRun
+
+cd fanout
+gradle bootRun
+
+cd timeline
+gradle bootRun
+```
+
+5. Last step is to run the UI server
+
+```
+cd ui
+gradle bootRun
+```
+
+
