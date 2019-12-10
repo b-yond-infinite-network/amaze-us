@@ -92,3 +92,9 @@ gradle bootRun
 ```
 
 
+UI listens on port 3000, you can go and open up the browser and hit
+
+`http://localhost:3000`
+
+
+
