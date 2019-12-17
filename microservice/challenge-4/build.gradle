@@ -1,0 +1,29 @@
+plugins {
+  id 'java'
+  id 'scala'
+  id 'application'
+}
+
+repositories {
+  jcenter()
+  mavenCentral()
+}
+
+dependencies {
+  runtime 'org.slf4j:slf4j-simple:2.0.0-alpha1'
+
+  implementation 'org.scala-lang:scala-library:2.13.1'
+  implementation 'com.google.guava:guava:28.0-jre'
+  implementation 'com.typesafe.akka:akka-actor-typed_2.13:2.6.1'
+
+  testImplementation 'org.scalatest:scalatest_2.13:3.1.0'
+  testImplementation 'org.junit.jupiter:junit-jupiter:5.5.2'
+}
+
+application {
+  mainClassName = 'org.joaogsma.App'
+}
+
+test {
+  useJUnitPlatform()
+}
