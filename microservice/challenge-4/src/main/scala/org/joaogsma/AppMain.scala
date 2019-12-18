@@ -12,10 +12,18 @@ import org.joaogsma.actors.metrics.MetricActor
 
 import scala.util.Random
 
-object App {
-  private val NUMBER_OF_CATS: Int = 5
-  private val MOOD_CHANGES_PER_CAT: Int = 3
+/** Entrypoint of the application, and user guardian actor. This actor is responsible for spawning
+  * all other actors and then waiting for the completion of all metrics.
+  */
+object AppMain extends App {
+  /** Number of cats to simulate */
+  private val NUMBER_OF_CATS: Int = 1000
+  /** Number of mood changes per cat in the simulation */
+  private val MOOD_CHANGES_PER_CAT: Int = 3200
 
+  ActorSystem(apply(), "App")
+
+  /** Spawns all other actors */
   def apply(): Behavior[ActorRef[MetricActor.MetricMessage]] = Behaviors.setup { context =>
     val metricActors: Set[ActorRef[MetricActor.MetricMessage]] =
         Set(context.spawn(HistogramActor(context.self), "HistogramMetric"))
@@ -32,6 +40,7 @@ object App {
     waitForMetrics(metricActors)
   }
 
+  /** Waits for all the metric actors to finish executing */
   def waitForMetrics(
       remaining: Set[ActorRef[MetricActor.MetricMessage]])
     : Behavior[ActorRef[MetricActor.MetricMessage]] = {
@@ -39,9 +48,5 @@ object App {
       return Behaviors.stopped
     }
     Behaviors.receiveMessage(metricActor => waitForMetrics(remaining - metricActor))
-  }
-
-  def main(args: Array[String]): Unit = {
-    ActorSystem(apply(), "App")
   }
 }

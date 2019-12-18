@@ -21,7 +21,7 @@ dependencies {
 }
 
 application {
-  mainClassName = 'org.joaogsma.App'
+  mainClassName = 'org.joaogsma.AppMain'
 }
 
 test {
