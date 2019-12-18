@@ -16,12 +16,9 @@ object App {
   private val NUMBER_OF_CATS: Int = 5
   private val MOOD_CHANGES_PER_CAT: Int = 3
 
-  final case class Start()
-  final case class Finished()
-
-  def apply(): Behavior[Nothing] = Behaviors.setup[Nothing] { context =>
-    val metricActors: Seq[ActorRef[MetricActor.MetricMessage]] =
-      Seq(context.spawn(HistogramActor(), "Histogram"))
+  def apply(): Behavior[ActorRef[MetricActor.MetricMessage]] = Behaviors.setup { context =>
+    val metricActors: Set[ActorRef[MetricActor.MetricMessage]] =
+        Set(context.spawn(HistogramActor(context.self), "HistogramMetric"))
 
     val moodHistoryActor: ActorRef[MoodHistoryActor.Message] =
         context.spawn(MoodHistoryActor(metricActors), "MoodHistory")
@@ -32,10 +29,19 @@ object App {
 
     context.spawn[Nothing](ClockActor(catActors, MOOD_CHANGES_PER_CAT), "ClockActor")
 
-    Behaviors.unhandled
+    waitForMetrics(metricActors)
+  }
+
+  def waitForMetrics(
+      remaining: Set[ActorRef[MetricActor.MetricMessage]])
+    : Behavior[ActorRef[MetricActor.MetricMessage]] = {
+    if (remaining.isEmpty) {
+      return Behaviors.stopped
+    }
+    Behaviors.receiveMessage(metricActor => waitForMetrics(remaining - metricActor))
   }
 
   def main(args: Array[String]): Unit = {
-    ActorSystem[Nothing](apply(), "App")
+    ActorSystem(apply(), "App")
   }
 }
