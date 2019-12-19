@@ -24,8 +24,8 @@ object AppMain extends App {
   ActorSystem(apply(), "App")
 
   /** Spawns all other actors */
-  def apply(): Behavior[ActorRef[MetricActor.MetricMessage]] = Behaviors.setup { context =>
-    val metricActors: Set[ActorRef[MetricActor.MetricMessage]] =
+  def apply(): Behavior[ActorRef[MetricActor.Message]] = Behaviors.setup { context =>
+    val metricActors: Set[ActorRef[MetricActor.Message]] =
         Set(context.spawn(HistogramActor(context.self), "HistogramMetric"))
 
     val moodHistoryActor: ActorRef[MoodHistoryActor.Message] =
@@ -42,8 +42,7 @@ object AppMain extends App {
 
   /** Waits for all the metric actors to finish executing */
   def waitForMetrics(
-      remaining: Set[ActorRef[MetricActor.MetricMessage]])
-    : Behavior[ActorRef[MetricActor.MetricMessage]] = {
+      remaining: Set[ActorRef[MetricActor.Message]]): Behavior[ActorRef[MetricActor.Message]] = {
     if (remaining.isEmpty) {
       return Behaviors.stopped
     }

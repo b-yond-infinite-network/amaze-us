@@ -18,7 +18,7 @@ import scala.collection.mutable
   */
 class MoodHistoryActor(
     context: ActorContext[MoodHistoryActor.Message],
-    private val metricActors: Iterable[ActorRef[MetricActor.MetricMessage]])
+    private val metricActors: Iterable[ActorRef[MetricActor.Message]])
     extends AbstractBehavior[MoodHistoryActor.Message](context) {
 
   /** Mutable map containing the mood history of each cat */
@@ -61,6 +61,6 @@ object MoodHistoryActor {
   final case class Close(catId: Int) extends Message
 
   /** Factory method for `MoodHistoryActor` instances */
-  def apply(metricActors: Iterable[ActorRef[MetricActor.MetricMessage]]): Behavior[Message] =
+  def apply(metricActors: Iterable[ActorRef[MetricActor.Message]]): Behavior[Message] =
       Behaviors.setup(context => new MoodHistoryActor(context, metricActors))
 }

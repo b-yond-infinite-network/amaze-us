@@ -4,7 +4,7 @@ import akka.actor.typed.Behavior
 import akka.actor.typed.scaladsl.ActorContext
 import akka.actor.typed.scaladsl.Behaviors
 import org.joaogsma.actors.metrics.MetricActor.Close
-import org.joaogsma.actors.metrics.MetricActor.MetricMessage
+import org.joaogsma.actors.metrics.MetricActor.Message
 import org.joaogsma.actors.metrics.MetricActor.Occurred
 import org.joaogsma.models.Mood.Mood
 
@@ -16,8 +16,8 @@ import scala.collection.mutable
   * @param notifyOnClose  actor to be notified when this actor finished its execution.
   */
 class HistogramActor(
-    context: ActorContext[MetricMessage],
-    notifyOnClose: ActorRef[ActorRef[MetricMessage]])
+    context: ActorContext[Message],
+    notifyOnClose: ActorRef[ActorRef[Message]])
     extends MetricActor(context, notifyOnClose) {
 
   /** Mutable map containing the mood histogram */
@@ -28,7 +28,7 @@ class HistogramActor(
     *
     * @param msg  the message received by this actor.
     */
-  override def onMessage(msg: MetricMessage): Behavior[MetricMessage] = msg match {
+  override def onMessage(msg: Message): Behavior[Message] = msg match {
     case Occurred(moods) =>
       moods.foreach(mood => histogram.put(mood, histogram.getOrElseUpdate(mood, 0) + 1))
       this
@@ -53,6 +53,6 @@ class HistogramActor(
 /** Companion object defining a factory method for `HistogramActor` */
 object HistogramActor {
   /** Factory method for `HistogramActor` instances */
-  def apply(notifyOnClose: ActorRef[ActorRef[MetricMessage]]): Behavior[MetricMessage] =
+  def apply(notifyOnClose: ActorRef[ActorRef[Message]]): Behavior[Message] =
       Behaviors.setup(new HistogramActor(_, notifyOnClose))
 }
