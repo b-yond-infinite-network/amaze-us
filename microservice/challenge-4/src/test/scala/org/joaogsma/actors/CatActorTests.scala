@@ -46,7 +46,10 @@ class CatActorTests {
       val catActor = createCatActor()
       catActor.run(CatActor.Close)
 
-      MOOD_HISTORY_ACTOR.selfInbox().expectMessage(MoodHistoryActor.Close(0))
+      val expectedMessages: Seq[MoodHistoryActor.Message] =
+          Seq(MoodHistoryActor.MoodChange(0, Mood.MIAW), MoodHistoryActor.Close(0))
+
+      assertThat(MOOD_HISTORY_ACTOR.selfInbox().receiveAll).isEqualTo(expectedMessages)
       verify(RANDOM, never).nextDouble()
       verify(RANDOM, never).nextInt(anyInt())
     }
@@ -61,7 +64,10 @@ class CatActorTests {
       val catActor = createCatActor(Mood.PURR)
       catActor.run(CatActor.ChangeMood)
 
-      MOOD_HISTORY_ACTOR.selfInbox().expectMessage(MoodHistoryActor.MoodChange(0, Mood.PURR))
+      val expectedMessages: Seq[MoodHistoryActor.Message] =
+          Seq(MoodHistoryActor.MoodChange(0, Mood.MIAW), MoodHistoryActor.MoodChange(0, Mood.PURR))
+
+      assertThat(MOOD_HISTORY_ACTOR.selfInbox().receiveAll).isEqualTo(expectedMessages)
       verify(RANDOM, never).nextInt(anyInt())
       assertThat(catActor.hasEffects()).isFalse
     }
@@ -74,7 +80,11 @@ class CatActorTests {
       val catActor = createCatActor()
       catActor.run(CatActor.ChangeMood)
 
-      MOOD_HISTORY_ACTOR.selfInbox().expectMessage(MoodHistoryActor.MoodChange(0, Mood.THROWGLASS))
+      val expectedMessages: Seq[MoodHistoryActor.Message] = Seq(
+        MoodHistoryActor.MoodChange(0, Mood.MIAW),
+        MoodHistoryActor.MoodChange(0, Mood.THROWGLASS))
+
+      assertThat(MOOD_HISTORY_ACTOR.selfInbox().receiveAll).isEqualTo(expectedMessages)
       assertThat(catActor.hasEffects()).isFalse
     }
 
@@ -85,7 +95,10 @@ class CatActorTests {
       val catActor = createCatActor(Mood.HISS)
       catActor.run(CatActor.ChangeMood)
 
-      MOOD_HISTORY_ACTOR.selfInbox().expectMessage(MoodHistoryActor.MoodChange(0, Mood.MIAW))
+      val expectedMessages: Seq[MoodHistoryActor.Message] =
+          Seq(MoodHistoryActor.MoodChange(0, Mood.MIAW), MoodHistoryActor.MoodChange(0, Mood.MIAW))
+
+      assertThat(MOOD_HISTORY_ACTOR.selfInbox().receiveAll).isEqualTo(expectedMessages)
       verify(RANDOM, never).nextInt(anyInt())
       assertThat(catActor.hasEffects()).isFalse
     }

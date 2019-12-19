@@ -27,6 +27,8 @@ class CatActor(
 
   protected var currentMood: Mood = Mood.MIAW
 
+  moodHistoryActor ! MoodHistoryActor.MoodChange(id, currentMood)
+
   /** Handles messages received by the actor. On a `CatActor.ChangeMood` message, the actor changes
     * the current mood and then updates the `MoodHistoryActor`. On a `CatActor.Closed` message, the actor
     * updates the `MoodHistoryActor` and then stops.
