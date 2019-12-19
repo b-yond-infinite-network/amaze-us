@@ -16,8 +16,11 @@ dependencies {
   implementation 'com.google.guava:guava:28.0-jre'
   implementation 'com.typesafe.akka:akka-actor-typed_2.13:2.6.1'
 
-  testImplementation 'org.scalatest:scalatest_2.13:3.1.0'
+  testImplementation 'com.typesafe.akka:akka-actor-testkit-typed_2.13:2.6.1'
   testImplementation 'org.junit.jupiter:junit-jupiter:5.5.2'
+  testImplementation 'org.mockito:mockito-core:3.1.0'
+  testImplementation 'org.mockito:mockito-junit-jupiter:3.1.0'
+  testImplementation 'org.assertj:assertj-core:3.14.0'
 }
 
 application {
