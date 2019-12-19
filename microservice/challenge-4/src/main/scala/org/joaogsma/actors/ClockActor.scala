@@ -11,16 +11,18 @@ object ClockActor {
   /** Returns a `Behavior[Nothing]` which doesn't accept any messages, but sends all messages to the
     * cat actors and then stops.
     *
-    * @param cats           actors which to send messages
+    * @param catActors      actors which to send messages
     * @param changesPerCat  number of times the message should be sent to each actor
     * @return
     */
-  def apply(cats: Iterable[ActorRef[CatActor.Message]], changesPerCat: Int): Behavior[Nothing] = {
+  def apply(
+      catActors: Iterable[ActorRef[CatActor.Message]],
+      changesPerCat: Int): Behavior[Nothing] = {
     Behaviors.setup[Nothing] { _ =>
       for (i <- 0 until changesPerCat) {
-        cats.foreach(_ ! CatActor.ChangeMood)
+        catActors.foreach(_ ! CatActor.ChangeMood)
       }
-      cats.foreach(_ ! CatActor.Close)
+      catActors.foreach(_ ! CatActor.Close)
       Behaviors.stopped
     }
   }
