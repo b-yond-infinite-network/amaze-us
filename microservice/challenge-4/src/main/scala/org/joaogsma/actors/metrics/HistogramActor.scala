@@ -21,7 +21,7 @@ class HistogramActor(
     extends MetricActor(context, notifyOnClose) {
 
   /** Mutable map containing the mood histogram */
-  private val histogram: mutable.Map[Mood, Int] = mutable.Map.empty
+  protected val histogram: mutable.Map[Mood, Int] = mutable.Map.empty
 
   /** Handles messages received by this actor. On a `MetricActor.Occurred` message, the histogram is
     * updated. On a `MetricActor.Close` message, this actor closes.
