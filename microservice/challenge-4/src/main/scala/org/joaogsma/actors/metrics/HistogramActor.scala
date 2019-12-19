@@ -42,7 +42,7 @@ class HistogramActor(
         .append(
           histogram
               .toSeq
-              .sortBy(_._1.id)
+              .sortBy(_._2 * -1)
               .map { case (mood, count) => "   %s: %d".format(mood, count)}
               .mkString("\n"))
         .toString()
