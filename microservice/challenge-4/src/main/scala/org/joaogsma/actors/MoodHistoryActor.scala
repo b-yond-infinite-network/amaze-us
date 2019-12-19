@@ -44,7 +44,7 @@ class MoodHistoryActor(
             .getOrElse(throw new IllegalArgumentException("Unknown cat index %d".format(catId)))
         metricActors.foreach(_ ! MetricActor.Occurred(moods.iterator))
         if (moodHistory.isEmpty) {
-          metricActors.iterator.foreach(_ ! MetricActor.Close())
+          metricActors.iterator.foreach(_ ! MetricActor.Close)
           return Behaviors.stopped
         }
     }

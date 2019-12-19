@@ -18,9 +18,9 @@ object ClockActor {
   def apply(cats: Iterable[ActorRef[CatActor.Message]], changesPerCat: Int): Behavior[Nothing] = {
     Behaviors.setup[Nothing] { _ =>
       for (i <- 0 until changesPerCat) {
-        cats.foreach(_ ! CatActor.ChangeMood())
+        cats.foreach(_ ! CatActor.ChangeMood)
       }
-      cats.foreach(_ ! CatActor.Close())
+      cats.foreach(_ ! CatActor.Close)
       Behaviors.stopped
     }
   }

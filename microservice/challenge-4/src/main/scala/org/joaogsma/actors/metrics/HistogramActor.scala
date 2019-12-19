@@ -32,7 +32,7 @@ class HistogramActor(
     case Occurred(moods) =>
       moods.foreach(mood => histogram.put(mood, histogram.getOrElseUpdate(mood, 0) + 1))
       this
-    case Close() => close()
+    case Close => close()
   }
 
   /** Logs the metric through `ActorContext[MetricActor.MetricMessage].log` */

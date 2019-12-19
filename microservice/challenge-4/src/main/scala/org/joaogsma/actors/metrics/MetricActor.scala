@@ -33,5 +33,5 @@ abstract class MetricActor(
 object MetricActor {
   trait MetricMessage
   final case class Occurred(moods: Iterator[Mood]) extends MetricMessage
-  final case class Close() extends MetricMessage
+  case object Close extends MetricMessage
 }

@@ -34,11 +34,11 @@ class CatActor(
     * @param msg  the message received by this actor.
     */
   override def onMessage(msg: Message): Behavior[Message] = msg match {
-    case ChangeMood() =>
+    case ChangeMood =>
       currentMood = maybeChangeMood
       moodHistoryActor ! MoodHistoryActor.MoodChange(id, currentMood)
       this
-    case Close() =>
+    case Close =>
       moodHistoryActor ! MoodHistoryActor.Close(id)
       Behaviors.stopped
   }
@@ -67,8 +67,8 @@ class CatActor(
   */
 object CatActor {
   trait Message
-  final case class ChangeMood() extends Message
-  final case class Close() extends Message
+  case object ChangeMood extends Message
+  case object Close extends Message
 
   private val PROB_KEEPING_MOOD: Double = 0.5
 
