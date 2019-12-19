@@ -32,6 +32,6 @@ abstract class MetricActor(
 /** Companion object defining the messages accepted by `MetricActor` instances */
 object MetricActor {
   trait Message
-  final case class Occurred(moods: Iterator[Mood]) extends Message
+  final case class Occurred(moods: Iterable[Mood]) extends Message
   case object Close extends Message
 }

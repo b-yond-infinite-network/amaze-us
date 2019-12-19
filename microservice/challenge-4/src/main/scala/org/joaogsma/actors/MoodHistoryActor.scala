@@ -22,7 +22,7 @@ class MoodHistoryActor(
     extends AbstractBehavior[MoodHistoryActor.Message](context) {
 
   /** Mutable map containing the mood history of each cat */
-  private val moodHistory: mutable.Map[Int, mutable.ArrayBuffer[Mood]] = mutable.Map.empty
+  protected val moodHistory: mutable.Map[Int, mutable.ArrayBuffer[Mood]] = mutable.Map.empty
 
   /** Handles messages received by this actor. On a `MoodHistoryActor.MoodChange` message, the
     * `moodHistory` is updated. On a `MoodHistoryActor.Close` message, the cat's mood history is sent
@@ -42,7 +42,7 @@ class MoodHistoryActor(
             .remove(catId)
             .map(_.toSeq)
             .getOrElse(throw new IllegalArgumentException("Unknown cat index %d".format(catId)))
-        metricActors.foreach(_ ! MetricActor.Occurred(moods.iterator))
+        metricActors.foreach(_ ! MetricActor.Occurred(moods))
         if (moodHistory.isEmpty) {
           metricActors.iterator.foreach(_ ! MetricActor.Close)
           return Behaviors.stopped

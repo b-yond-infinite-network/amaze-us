@@ -25,7 +25,7 @@ class CatActorTests {
   private val MOOD_HISTORY_ACTOR: BehaviorTestKit[MoodHistoryActor.Message] =
       BehaviorTestKit(Behaviors.empty)
 
-  final class TestableCatActor(
+  private final class TestableCatActor(
       mood: Mood,
       context: ActorContext[Message],
       id: Int,
