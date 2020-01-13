@@ -1,5 +1,162 @@
 version: '3.5'
 services:
+
+  eureka-server:
+    build:
+      context: eureka
+    ports:
+      - "8761:8761"
+    networks:
+      - frontend
+      - net-spring-db
+    container_name: eureka-server
+
+  auth:
+    build:
+      context: auth
+    ports:
+      - "9100:9100"
+    networks:
+      - net-spring-db
+      - auth-db
+    container_name: auth
+    environment:
+      - "EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka/"
+      - "SPRING_PROFILES_ACTIVE=docker"
+      - "DB_MYSQL_SOURCE=jdbc:mysql://mysql-server:3306/users?useSSL=false"
+    depends_on:
+      - eureka-server
+      - zuul
+      - mysql-server
+    links:
+      - eureka-server
+      - zuul
+      - mysql-server
+
+  social:
+    build:
+      context: social
+    ports:
+      - "9987:9987"
+    networks:
+      - net-spring-db
+      - social-db
+    container_name: social
+    environment:
+      - "EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka/"
+      - "SPRING_PROFILES_ACTIVE=docker"
+      - "POSTGRES_URL=postgres"
+    depends_on:
+      - eureka-server
+      - zuul
+      - postgres
+    links:
+      - eureka-server
+      - zuul
+      - postgres
+
+  tweet:
+    build:
+      context: tweet
+    ports:
+      - "8001:8001"
+    networks:
+      - net-spring-db
+      - tweet-db
+    container_name: tweet
+    environment:
+      - "EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka/"
+      - "SPRING_PROFILES_ACTIVE=docker"
+      - "CASSANDRA_HOST=cassandra"
+    depends_on:
+      - eureka-server
+      - zuul
+      - cassandra
+    links:
+      - eureka-server
+      - zuul
+      - cassandra
+
+  timeline:
+    build:
+      context: timeline
+    ports:
+      - "8400:8400"
+    networks:
+      - net-spring-db
+      - redis-db
+    container_name: timeline
+    environment:
+      - "EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka/"
+      - "SPRING_PROFILES_ACTIVE=docker"
+      - "REDIS_HOST=redis"
+    depends_on:
+      - eureka-server
+      - zuul
+      - redis
+    links:
+      - eureka-server
+      - zuul
+      - redis
+
+  fanout:
+    build:
+      context: fanout
+    ports:
+      - "6666:6666"
+    networks:
+      - net-spring-db
+      - redis-db
+    container_name: fanout
+    environment:
+      - "EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka/"
+      - "SPRING_PROFILES_ACTIVE=docker"
+      - "REDIS_HOST=redis"
+    depends_on:
+      - eureka-server
+      - zuul
+      - redis
+      - social
+    links:
+      - eureka-server
+      - zuul
+      - redis
+      - social
+
+  ui:
+    build:
+      context: ui
+    ports:
+      - "8080:8080"
+    networks:
+      - frontend
+    container_name: ui
+    environment:
+      - "EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka/"
+    depends_on:
+      - eureka-server
+      - zuul
+    links:
+      - eureka-server
+      - zuul
+
+  zuul:
+    build:
+      context: zuul
+    ports:
+      - "8762:8762"
+    networks:
+      - net-spring-db
+      - frontend
+    container_name: zuul
+    environment:
+      - "EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka/"
+      - "SPRING_PROFILES_ACTIVE=docker"
+    depends_on:
+      - eureka-server
+    links:
+      - eureka-server
+
   cassandra:
     image: cassandra:latest
     container_name: cassandra
@@ -11,33 +168,44 @@ services:
     restart: always
     volumes:
       - ./out/cassandra_data:/var/lib/cassandra
+    networks:
+      - tweet-db
+
   redis:
     image: redis
     ports:
       - 6379:6379
-  mysql:
+    networks:
+      - redis-db
+    container_name: redis
+
+  mysql-server:
     image: mysql:5.7
     restart: always
+    networks:
+      - auth-db
     environment:
       MYSQL_DATABASE: 'users'
-      # So you don't have to use root, but you can if you like
+        # So you don't have to use root, but you can if you like
       MYSQL_USER: 'test'
-      # You can use whatever password you like
+        # You can use whatever password you like
       MYSQL_PASSWORD: 'password123'
-      # Password for root access
+        # Password for root access
       MYSQL_ROOT_PASSWORD: 'password12345'
     ports:
-      # <Port exposed> : < MySQL Port running inside container>
+        # <Port exposed> : < MySQL Port running inside container>
       - '3306:3306'
     expose:
-      # Opens port 3306 on the container
+        # Opens port 3306 on the container
       - '3306'
-      # Where our data will be persisted
+        # Where our data will be persisted
     volumes:
       - my-db:/var/lib/mysql
-  # Names our volume
+    container_name: mysql-server
+
+    # Names our volume
   postgres:
-    container_name: test_db
+    container_name: postgres
     image: postgres
     restart: always
     environment:
@@ -45,5 +213,23 @@ services:
       POSTGRES_USER: social
     ports:
       - 5432:5432
+    networks:
+      - social-db
+
+
 volumes:
   my-db:
+
+networks:
+  net-spring-db:
+    driver: "bridge"
+  auth-db:
+    driver: "bridge"
+  social-db:
+    driver: "bridge"
+  tweet-db:
+    driver: "bridge"
+  redis-db:
+    driver: "bridge"
+  frontend:
+    driver: "bridge"

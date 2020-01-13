@@ -9,8 +9,6 @@ import com.eureka.common.web.NoSuchDataException;
 import com.eureka.common.web.WebPost;
 import com.eureka.ui.RetwisSecurity;
 import com.eureka.ui.service.UiService;
-import com.eureka.ui.web.CookieInterceptor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -257,7 +255,7 @@ public class RetwisController {
         Optional <TweetDTO> res = checkPost(pid);
         WebPost post = retwis.getPost(res);
         model.addAttribute("posts", post);
-        return "status";
+        return "statis";
     }
 
     private Optional <TweetDTO> checkPost(String pid) {

@@ -27,7 +27,7 @@ import org.springframework.util.StringUtils;
  */
 public abstract class RetwisSecurity {
 
-    private static class UserInfo {
+    public static class UserInfo {
         String name;
         String uid;
         String token;

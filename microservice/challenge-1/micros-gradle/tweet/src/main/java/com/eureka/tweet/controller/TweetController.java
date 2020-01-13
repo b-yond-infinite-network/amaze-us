@@ -47,7 +47,7 @@ public class TweetController {
 
         if (!newTweet.isPresent()) throw new TweetException("Couldn't create tweet");
 
-        return new ResponseEntity<>(newTweet.get(), HttpStatus.OK);
+        return new ResponseEntity<>(newTweet.get(), HttpStatus.CREATED);
 
     }
 
@@ -65,7 +65,7 @@ public class TweetController {
     }
 
     @PostMapping(value = "/tweets")
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.FOUND)
     public ResponseEntity<?> getTweets(@RequestBody TweetList list) {
         List<Tweet> result =  tweetService.findTweetsByIds(list.getList());
         if (result.isEmpty()) throw new TweetException(NOT_FOUND.getReasonPhrase());
@@ -73,7 +73,7 @@ public class TweetController {
     }
 
     @PostMapping(value = "/tweet/{pid}/mention/{id}")
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<?> createMention(@PathVariable Long id,@PathVariable UUID pid) {
         Optional<Mention> m = mentionService.createMention(id, pid);
         if (m.isEmpty()) throw new TweetException("Couldn't create mention");

@@ -24,7 +24,7 @@ public class FollowersService {
         return followersRepository.save(newFollower);
     }
 
-    private Optional<Followers> find(FollowDTO followDTO){
+    public Optional<Followers> find(FollowDTO followDTO){
         return followersRepository.findBySourceIdAndDestinationId(followDTO.getSourceId(), followDTO.getDestinationId());
     }
 

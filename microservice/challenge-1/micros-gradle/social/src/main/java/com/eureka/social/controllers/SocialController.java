@@ -80,9 +80,8 @@ public class SocialController {
     @ResponseStatus(HttpStatus.OK)
     @GetMapping(value = "/social/common/{sourceId}/{destinationId}")
     public Set<Long> commonFollowers(@PathVariable Long sourceId, @PathVariable Long destinationId){
-        Set<Long> set = new HashSet<>();
 
-       List<Followers> sourceFollowers = followersService.getFollowers(sourceId);
+        List<Followers> sourceFollowers = followersService.getFollowers(sourceId);
        List<Followers> destFollowers = followersService.getFollowers(destinationId);
 
         List<Long> source = sourceFollowers.stream()
@@ -94,7 +93,7 @@ public class SocialController {
                 .map(Followers::getSourceId)
                 .collect(Collectors.toList());
 
-        set.addAll(source);
+        Set<Long> set = new HashSet<>(source);
 
         set.retainAll(dest);
         return set;

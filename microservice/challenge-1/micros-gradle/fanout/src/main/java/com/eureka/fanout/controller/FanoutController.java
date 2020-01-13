@@ -20,8 +20,6 @@ public class FanoutController {
     @PostMapping(value = "/fanout")
     @ResponseStatus(HttpStatus.OK)
     public void tweetFanout(@RequestBody TweetDTO tweetDTO){
-        System.out.println("LOL "+ tweetDTO.toString());
-
         fanoutService.fanout(tweetDTO);
     }
 }

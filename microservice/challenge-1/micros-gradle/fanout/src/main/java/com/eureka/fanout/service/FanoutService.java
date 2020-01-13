@@ -30,8 +30,6 @@ public class FanoutService {
 
         HttpHeaders header = new HttpHeaders();
 
-        System.out.println( "LOL " + tweetDTO.toString());
-
         HttpEntity<?> entity = new HttpEntity<>(header);
         ParameterizedTypeReference<List<FollowDTO>> typeRef = new ParameterizedTypeReference<List<FollowDTO>>() {};
         ResponseEntity<List<FollowDTO>> response = restTemplate.exchange("http://social-service/social/"+tweetDTO.getUserId()+"/followers", HttpMethod.GET, entity,typeRef);

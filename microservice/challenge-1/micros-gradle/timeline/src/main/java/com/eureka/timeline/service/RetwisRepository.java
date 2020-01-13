@@ -121,6 +121,16 @@ public class RetwisRepository {
         }
     }
 
+    public boolean lSet(String key, String value) {
+        try {
+            valueOps.getOperations().opsForList().rightPush(key, value);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
 
     public boolean hasMoreTimeline(Range range) {
         return timeline.size() > range.end + 1;

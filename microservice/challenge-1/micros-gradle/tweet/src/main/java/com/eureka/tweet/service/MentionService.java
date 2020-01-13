@@ -36,7 +36,7 @@ public class MentionService {
     }
 
     public Optional<Mention> find(Long id){
-        return Optional.of(mentionRepository.findByID(id));
+        return Optional.ofNullable(mentionRepository.findByID(id));
     }
 
 }

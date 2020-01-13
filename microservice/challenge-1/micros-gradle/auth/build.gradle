@@ -17,5 +17,11 @@ project(':auth') {
         runtimeOnly 'mysql:mysql-connector-java'
 
         compile group: 'org.liquibase', name: 'liquibase-core'
+
+        compileOnly('org.projectlombok:lombok')
+
+        annotationProcessor 'org.projectlombok:lombok'
+
+        testCompile("com.h2database:h2")
     }
 }

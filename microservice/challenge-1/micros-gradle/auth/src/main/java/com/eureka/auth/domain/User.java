@@ -2,6 +2,10 @@ package com.eureka.auth.domain;
 
 import com.eureka.common.security.UserRole;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -18,6 +22,10 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "users")
+@ToString
+@AllArgsConstructor
+@EqualsAndHashCode
+@NoArgsConstructor
 public class User {
 
     @Id
