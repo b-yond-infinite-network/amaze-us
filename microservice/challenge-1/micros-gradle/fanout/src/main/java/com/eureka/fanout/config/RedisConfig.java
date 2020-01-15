@@ -12,6 +12,12 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 import java.net.UnknownHostException;
 
+/**
+ * Redis config
+ *
+ * @author Miguel Gonzalez (maggonzz@gmail.com)
+ * @since 0.0.1
+ */
 @Configuration
 public class RedisConfig {
 

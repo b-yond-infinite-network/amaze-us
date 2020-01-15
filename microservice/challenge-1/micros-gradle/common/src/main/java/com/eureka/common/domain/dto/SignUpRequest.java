@@ -3,6 +3,12 @@ package com.eureka.common.domain.dto;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+/**
+ * SignUp Request used by Auth.
+ *
+ * @author Miguel Gonzalez (maggonzz@gmail.com)
+ * @since 0.0.1
+ */
 public class SignUpRequest {
 
     @NotBlank

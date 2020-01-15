@@ -17,6 +17,13 @@ import javax.servlet.descriptor.TaglibDescriptor;
 import java.util.ArrayList;
 import java.util.Collection;
 
+
+/**
+ * Custom container config class - replaces web.xml
+ *
+ * @author Miguel Gonzalez (maggonzz@gmail.com)
+ * @since 0.0.1
+ */
 @Component
 public class CustomContainer implements
         WebServerFactoryCustomizer<TomcatServletWebServerFactory> {

@@ -5,6 +5,13 @@ import org.springframework.beans.factory.annotation.Value;
 import lombok.Getter;
 import lombok.ToString;
 
+
+/**
+ * JwtConfig used by Zuul and Auth
+ *
+ * @author Miguel Gonzalez (maggonzz@gmail.com)
+ * @since 0.0.1
+ */
 // To use this class outside. You have to 
 	// 1. Define it as a bean, either by adding @Component or use @Bean to instantiate an object from it
 	// 2. Use the @Autowire to ask spring to auto create it for you, and inject all the values.

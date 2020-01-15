@@ -20,6 +20,13 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+
+/**
+ * Social controller.
+ *
+ * @author Miguel Gonzalez (maggonzz@gmail.com)
+ * @since 0.0.1
+ */
 @RestController
 public class SocialController {
 

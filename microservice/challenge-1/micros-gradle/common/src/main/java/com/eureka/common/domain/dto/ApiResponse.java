@@ -1,5 +1,11 @@
 package com.eureka.common.domain.dto;
 
+/**
+ * Api Response class used by AUTH
+ *
+ * @author Miguel Gonzalez (maggonzz@gmail.com)
+ * @since 0.0.1
+ */
 public class ApiResponse {
     private Boolean success;
     private String message;

@@ -4,6 +4,12 @@ import javax.persistence.Column;
 import java.io.Serializable;
 import java.util.Objects;
 
+/**
+ * Following compound pk.
+ *
+ * @author Miguel Gonzalez (maggonzz@gmail.com)
+ * @since 0.0.1
+ */
 public class FollowingId implements Serializable {
 
     @Column(name = "source_id")

@@ -13,6 +13,14 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import com.eureka.common.security.JwtConfig;
 
+
+
+/**
+ * SecurityTokenConfig - WebSecurityConfigurerAdapter from Spring Security
+ *
+ * @author Miguel Gonzalez (maggonzz@gmail.com)
+ * @since 0.0.1
+ */
 @EnableWebSecurity 	// Enable security config. This annotation denotes config for spring security.
 public class SecurityTokenConfig extends WebSecurityConfigurerAdapter {
 	@Autowired

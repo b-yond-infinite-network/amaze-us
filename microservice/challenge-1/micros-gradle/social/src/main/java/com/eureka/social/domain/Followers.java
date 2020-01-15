@@ -10,6 +10,13 @@ import javax.persistence.IdClass;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
 
+/**
+ * Followers entity.
+ *
+ * @author Miguel Gonzalez (maggonzz@gmail.com)
+ * @since 0.0.1
+ */
+
 @Entity
 @Table(name = "backward")
 @IdClass(FollowersId.class)

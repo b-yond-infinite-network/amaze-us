@@ -10,6 +10,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.UUID;
 
 
+/**
+ * Tweet entity in cassandra
+ *
+ * @author Miguel Gonzalez (maggonzz@gmail.com)
+ * @since 0.0.1
+ */
+
 @Table(keyspace = "tweets", name = "tweets",
         readConsistency = "QUORUM",
         writeConsistency = "QUORUM",

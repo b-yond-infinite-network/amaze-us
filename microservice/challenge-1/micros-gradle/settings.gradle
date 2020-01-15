@@ -1,8 +1,6 @@
 rootProject.name = 'micros-gradle'
 
 include "common"
-//include "image"
-//include "gallery"
 include "auth"
 include "eureka"
 include "zuul"

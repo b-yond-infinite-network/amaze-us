@@ -15,6 +15,12 @@ import static com.datastax.driver.core.DataType.set;
 import static com.datastax.driver.core.DataType.text;
 import static com.datastax.driver.core.DataType.uuid;
 
+/**
+ * Mention repository - uses datasax driver
+ *
+ * @author Miguel Gonzalez (maggonzz@gmail.com)
+ * @since 0.0.1
+ */
 @Repository
 public class MentionRepository {
 

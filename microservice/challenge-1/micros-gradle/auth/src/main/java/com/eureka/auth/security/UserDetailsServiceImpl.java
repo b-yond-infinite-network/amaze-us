@@ -14,6 +14,13 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+
+/**
+ * User details implementation
+ *
+ * @author Miguel Gonzalez (maggonzz@gmail.com)
+ * @since 0.0.1
+ */
 @Service   // It has to be annotated with @Service.
 public class UserDetailsServiceImpl implements UserDetailsService  {
 	

@@ -19,6 +19,13 @@ import com.eureka.common.security.JwtConfig;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 
+
+/**
+ * Spring security onceperreqyestfilter
+ *
+ * @author Miguel Gonzalez (maggonzz@gmail.com)
+ * @since 0.0.1
+ */
 public class JwtTokenAuthenticationFilter extends  OncePerRequestFilter {
     
 	private final JwtConfig jwtConfig;

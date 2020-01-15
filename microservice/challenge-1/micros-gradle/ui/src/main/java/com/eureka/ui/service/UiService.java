@@ -31,6 +31,13 @@ import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+
+/**
+ * UI service class
+ *
+ * @author Miguel Gonzalez (maggonzz@gmail.com)
+ * @since 0.0.1
+ */
 @Service
 public class UiService {
 
@@ -228,7 +235,7 @@ public class UiService {
         HttpHeaders header = new HttpHeaders();
         header.put("Authorization", Collections.singletonList(token));
         header.put(HttpHeaders.CONTENT_TYPE, Collections.singletonList("application/json"));
-        HttpEntity<?> entity = new HttpEntity<>(newPost, header);
+        HttpEntity<TweetDTO> entity = new HttpEntity<>(newPost, header);
         ResponseEntity<TweetDTO> response = restTemplate.exchange("http://ZUUL-SERVER/tweet/", HttpMethod.POST, entity,TweetDTO.class);
 
 
@@ -320,7 +327,7 @@ public class UiService {
         HttpHeaders header = new HttpHeaders();
         header.put("Authorization", Collections.singletonList(RetwisSecurity.getToken()));
 
-        HttpEntity<?> entity = new HttpEntity<>(header);
+        HttpEntity entity = new HttpEntity<>(header);
 
         String url = "http://ZUUL-SERVER/social/"+sourceId+"/"+destinationId;
 

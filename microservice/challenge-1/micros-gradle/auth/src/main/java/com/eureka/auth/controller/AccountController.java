@@ -20,6 +20,12 @@ import javax.validation.Valid;
 import java.net.URI;
 import java.util.Optional;
 
+/**
+ *  AccountController.
+ *
+ * @author Miguel Gonzalez (maggonzz@gmail.com)
+ * @since 0.0.1
+ */
 @RestController
 public class AccountController {
 

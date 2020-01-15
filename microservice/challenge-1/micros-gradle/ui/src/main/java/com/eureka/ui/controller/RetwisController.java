@@ -236,7 +236,7 @@ public class RetwisController {
             model.addAttribute("follows", retwis.isFollowing(RetwisSecurity.getUid(), targetUid));
         }
 
-        return "mentions";
+        return "mention";
     }
 
 

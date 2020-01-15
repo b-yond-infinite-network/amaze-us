@@ -18,6 +18,13 @@ import static com.datastax.driver.core.DataType.uuid;
 import static com.datastax.driver.core.querybuilder.QueryBuilder.eq;
 import static com.datastax.driver.core.querybuilder.QueryBuilder.select;
 
+
+/**
+ * Tweet repository, uses datasax driver
+ *
+ * @author Miguel Gonzalez (maggonzz@gmail.com)
+ * @since 0.0.1
+ */
 @Repository
 public class TweetRepository {
     private Mapper<Tweet> mapper;

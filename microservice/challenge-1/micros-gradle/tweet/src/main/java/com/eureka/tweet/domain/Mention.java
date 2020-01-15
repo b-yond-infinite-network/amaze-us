@@ -8,6 +8,13 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import java.util.Set;
 import java.util.UUID;
 
+
+/**
+ * Mention entity in canssandra.
+ *
+ * @author Miguel Gonzalez (maggonzz@gmail.com)
+ * @since 0.0.1
+ */
 @Table(keyspace = "tweets", name = "mentions",
         readConsistency = "QUORUM",
         writeConsistency = "QUORUM",

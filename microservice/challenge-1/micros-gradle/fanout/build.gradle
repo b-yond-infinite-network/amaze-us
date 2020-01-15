@@ -15,5 +15,8 @@ project(':fanout') {
 		implementation('org.springframework.cloud:spring-cloud-starter-netflix-eureka-client')
 		implementation('org.springframework.boot:spring-boot-starter-web')
 
+		testCompile group: 'it.ozimov', name: 'embedded-redis', version: '0.7.1'
+
+
 	}
 }

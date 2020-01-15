@@ -3,7 +3,7 @@
 	  <c:when test="${follows}"><a href="<c:url value="/!${name}/stopfollowing"/>"><fmt:message key="follow.stop"/></a></c:when>
 	  <c:otherwise><a href="<c:url value="/!${name}/follow"/>"><fmt:message key="follow"/></a></c:otherwise>
 	</c:choose>
-	<c:if test="${!no_mentions}"> | <a href="<c:url value="/!${name}/mentions"/>"><fmt:message key="Mentions"/></a></c:if>
+	<c:if test="${!no_mentions}"> | <a href="<c:url value="/!${name}/mention"/>"><fmt:message key="Mentions"/></a></c:if>
 </div>
 
    <c:if test="${!empty also_followed}">

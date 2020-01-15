@@ -6,7 +6,12 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 
-
+/**
+ * UI service app
+ *
+ * @author Miguel Gonzalez (maggonzz@gmail.com)
+ * @since 0.0.1
+ */
 @SpringBootApplication
 @EnableEurekaClient
 public class UiApplication extends SpringBootServletInitializer {

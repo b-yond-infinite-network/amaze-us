@@ -27,6 +27,13 @@ import java.util.UUID;
 
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 
+
+/**
+ * Tweet controller.
+ *
+ * @author Miguel Gonzalez (maggonzz@gmail.com)
+ * @since 0.0.1
+ */
 @RestController
 public class TweetController {
 

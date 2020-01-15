@@ -323,6 +323,7 @@ public class UiControllerTests {
 
         when(RetwisSecurity.isSignedIn()).thenReturn(true);
         when(RetwisSecurity.getUid()).thenReturn("2");
+        when(RetwisSecurity.getToken()).thenReturn("AUTH-testUser1");
 
         final Cookie someInformationCookie = new Cookie(RETWIS_COOKIE, "AUTH-testUser1");
         String name = "testUser1";
@@ -341,8 +342,31 @@ public class UiControllerTests {
 
     }
 
+    @Test
+    public void testMentions() throws Exception {
+        when(RetwisSecurity.isSignedIn()).thenReturn(true);
+        when(RetwisSecurity.getUid()).thenReturn("2");
+
+        when(RetwisSecurity.getToken()).thenReturn("AUTH-testUser1");
+
+        final Cookie someInformationCookie = new Cookie(RETWIS_COOKIE, "AUTH-testUser1");
+        String name = "testUser1";
+        mockMvc.perform(get("/!" + name+"/mentions")
+                .cookie(someInformationCookie))
+                .andExpect(status().isOk())
+                .andExpect(view().name("mention"))
+                .andExpect(model().attribute("name", name))
+                .andExpect(model().attribute("followers", hasItem(
+                        "google"
+                )))
+                .andExpect(model().attribute("following", hasItem(
+                        "google"
+                )));
+
+    }
 
 
 
 
-}
+
+    }

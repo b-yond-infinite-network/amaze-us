@@ -19,6 +19,13 @@ import static com.datastax.driver.core.schemabuilder.SchemaBuilder.createKeyspac
 import static com.datastax.driver.mapping.NamingConventions.LOWER_CAMEL_CASE;
 import static com.datastax.driver.mapping.NamingConventions.LOWER_SNAKE_CASE;
 
+
+/**
+ * Cassandra config.
+ *
+ * @author Miguel Gonzalez (maggonzz@gmail.com)
+ * @since 0.0.1
+ */
 @Configuration
 public class CassandraConfig {
 
