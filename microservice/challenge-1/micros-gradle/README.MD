@@ -176,6 +176,14 @@ In theory you only need to use ensure the following:
  One improvement could to be convert the docker-compose file to a docker swarm file and test on multiples nodes using docker-machine or 
  create Kubernetes compliant files and deploy on Kubernetes, but this exercise would cost ($$$) too much for a simple test project
   
+  
+### How to run Tests
+
+You can run tests in the parent project or in each individual project
+
+`gradle test`
+
+
 
 
 
