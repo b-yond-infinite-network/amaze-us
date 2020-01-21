@@ -96,6 +96,9 @@ npm install
 # run
 npm start
 
+# create a user called thiago
+# as I did not develop Spring Security, all requests need user thiago
+
 # clean up
 docker-compose down
 docker-compose rm
@@ -134,6 +137,9 @@ helm upgrade --install --namespace challenge backend helm/backend/
 helm upgrade --install --force --recreate-pods --namespace challenge \
   frontend helm/frontend/ \
   --set configValues="window.REACT_APP_API_URL='http://192.168.99.100:30200'"
+
+# create a user called thiago
+# as I did not develop Spring Security, all requests need user thiago
 
 # check Helm releases
 helm --namespace challenge ls
