@@ -35,6 +35,9 @@ Choose one; choose the orchestrator you want to use; and make it scale!
 * React (Frontend)
 * Spring Boot, Spring Data Redis (backend)
 * Redis (Database)
+* Docker 19.03.5
+* Kubernetes 1.17
+* minikube v1.6.2
 
 ## Plan
 
