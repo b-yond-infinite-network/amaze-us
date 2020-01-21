@@ -59,6 +59,7 @@ Choose one; choose the orchestrator you want to use; and make it scale!
 * Improve microservice (frontend): *Incomplete*
   * pages: login, home (list and create posts), timeline (list posts), mentions
 * Improve microservice (backend): *Incomplete*
+* Spring security + login, logout, signup pages: TODO
 * Draw Architecture Diagram: attached to email
 * Jenkins build: TODO
 * Jenkins unit test: TODO
