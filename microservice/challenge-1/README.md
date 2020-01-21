@@ -143,7 +143,7 @@ kubectl -n challenge get services
 # wait untill all services are up
 
 # delete helm chart deployment (optional)
-helm delete frontend backend redis
+helm -n challenge delete frontend backend redis
 ```
 
 ## Kubernetes
