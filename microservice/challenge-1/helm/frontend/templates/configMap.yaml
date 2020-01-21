@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-config
+  annotations:
+    # https://helm.sh/docs/topics/charts_hooks/
+    "helm.sh/hook-delete-policy": "before-hook-creation"
+    "helm.sh/hook": pre-install, pre-upgrade
+data:
+  config.js: {{ toYaml .Values.configValues | indent 4 }}
