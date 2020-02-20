@@ -1,0 +1,9 @@
+version: '3'
+services:
+  todo-db:
+    build: .
+    ports:
+      - "27017:27017"
+      - "28017:28017"
+
+

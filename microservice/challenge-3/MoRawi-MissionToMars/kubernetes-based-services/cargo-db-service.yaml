@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f ../docker-compose.yaml
+    kompose.version: 1.7.0 (HEAD)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: cargo-db
+  name: cargo-db
+spec:
+  ports:
+  - name: "27017"
+    port: 27017
+    targetPort: 27017
+  - name: "28018"
+    port: 28018
+    targetPort: 28018
+  selector:
+    io.kompose.service: cargo-db
+status:
+  loadBalancer: {}

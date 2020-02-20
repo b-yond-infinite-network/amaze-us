@@ -1,0 +1,54 @@
+version: '3'
+services:
+    todo-db:
+        image: morawi/missiontomars.tododb:0.1
+        container_name: todo-db
+        build: 
+          context: .
+          dockerfile: todoapp-db/Dockerfile
+        ports:
+          - "3306:3306"
+        environment:
+          MYSQL_USER: guest
+          MYSQL_PASSWORD: Guest0000!
+          MYSQL_DATABASE: todoapp   
+    booster:
+        image: morawi/missiontomars.booster:0.1
+        container_name: booster
+        build: 
+          context: .
+          dockerfile: Booster/Dockerfile
+        ports:
+          - "3000:3000"
+   
+    stage2:
+        image: morawi/missiontomars.stage2:0.1
+        container_name: stage2
+        build: 
+          context: .
+          dockerfile: stage2/Dockerfile
+        ports:
+          - "80:80"
+  
+    cargo-db:
+        image: morawi/missiontomars.cargo-db:0.1
+        container_name: cargo-db
+        environment: 
+          MONGO_INITDB_DATABASE: "cargo"
+        build: 
+          context: .
+          dockerfile: cargo-db/Dockerfile
+        ports:
+          - "27017:27017"
+          - "28018:28018"  
+  
+    cargo:
+        image: morawi/missiontomars.cargo:0.1
+        container_name: cargo
+        build: 
+          context: .
+          dockerfile: cargo/Dockerfile
+        ports:
+          - "8080:8080"
+
+       

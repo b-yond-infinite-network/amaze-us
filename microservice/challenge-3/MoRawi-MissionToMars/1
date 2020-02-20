@@ -1,0 +1,22 @@
+From golang:latest
+
+LABEL maintainer="Mo Rawi <morawi-cg@github.com>"
+
+RUN mkdir /booster
+
+COPY /home/vagrant/go/src/challenge-3/booster/* /booster/
+
+WORKDIR /booster
+
+RUN go get github.com/mingrammer/go-todo-rest-api-example
+
+RUN go build -o main .
+
+EXPOSE 3000
+
+RUN go build -o main .
+CMD ["/booster/main"]
+#docker build -t Booster .
+# can build using this syntax
+
+# docker build --squash  -t morawi/missiontomarsbooster:latest -f Dockerfile

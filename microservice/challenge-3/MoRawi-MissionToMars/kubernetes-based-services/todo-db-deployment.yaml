@@ -1,0 +1,34 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f ../docker-compose.yaml
+    kompose.version: 1.7.0 (HEAD)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: todo-db
+  name: todo-db
+spec:
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: todo-db
+    spec:
+      containers:
+      - env:
+        - name: MYSQL_DATABASE
+          value: todoapp
+        - name: MYSQL_PASSWORD
+          value: Guest0000!
+        - name: MYSQL_USER
+          value: guest
+        image: morawi/missiontomars.tododb:0.1
+        name: todo-db
+        ports:
+        - containerPort: 3306
+        resources: {}
+      restartPolicy: Always
+status: {}

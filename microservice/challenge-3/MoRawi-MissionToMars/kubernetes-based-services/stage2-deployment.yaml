@@ -1,0 +1,27 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f ../docker-compose.yaml
+    kompose.version: 1.7.0 (HEAD)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: stage2
+  name: stage2
+spec:
+  replicas: 1
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: stage2
+    spec:
+      containers:
+      - image: morawi/missiontomars.stage2:0.1
+        name: stage2
+        ports:
+        - containerPort: 80
+        resources: {}
+      restartPolicy: Always
+status: {}

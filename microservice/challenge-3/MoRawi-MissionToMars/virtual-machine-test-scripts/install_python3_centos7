@@ -1,0 +1,8 @@
+#!/bin/bash
+
+sudo yum -y install centos-release-scl
+sudo yum -y install rh-python36
+sudo scl enable rh-python36 bash
+
+
+exit 0
