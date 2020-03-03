@@ -1,0 +1,37 @@
+version: "3.3"
+services:
+  nginx:
+    build:
+      context: .
+      dockerfile: "Dockerfile-nginx"
+    image: nginx:local
+    ports:
+      - "8090:8090"
+    links:
+      - retwisj
+    networks:
+      - somenet
+
+  retwisj:
+    networks:
+      - somenet
+    build:
+      context: .
+      dockerfile: "Dockerfile"
+    image: retwisj:local
+    environment:
+      - APP_REDIS_HOST=redis
+    links:
+      - redis
+    depends_on:
+      - redis
+
+  redis:
+    networks:
+      - somenet
+    image: redis
+
+networks:
+  somenet:
+    driver: bridge
+

@@ -1,0 +1,293 @@
+{
+  "id": "292b74a1-a60b-4d50-b786-63eef5bb5ba4",
+  "version": "2.0",
+  "name": "retwisj",
+  "url": "http://localhost:8090/retwisj/",
+  "tests": [{
+    "id": "29be2252-060f-40f8-bf72-d72e88a2e144",
+    "name": "signup",
+    "commands": [{
+      "id": "65685446-da05-4d1e-934e-17779742be52",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:8090/retwisj/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "c4b535c6-5460-4c25-8468-66313d9cf215",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Sign In",
+      "targets": [
+        ["linkText=Sign In", "linkText"],
+        ["css=.span-8 > a", "css:finder"],
+        ["xpath=//a[contains(text(),'Sign In')]", "xpath:link"],
+        ["xpath=//a[contains(@href, 'signIn')]", "xpath:href"],
+        ["xpath=//div[2]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Sign In')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "bb07452a-8908-4890-a460-58af89b29d7f",
+      "comment": "",
+      "command": "click",
+      "target": "css=.last tr:nth-child(1) input",
+      "targets": [
+        ["css=.last tr:nth-child(1) input", "css:finder"],
+        ["xpath=(//input[@name='name'])[2]", "xpath:attributes"],
+        ["xpath=//div[2]/form/table/tbody/tr/td[2]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "2f4421ab-b77e-4478-a369-887b1321f588",
+      "comment": "",
+      "command": "type",
+      "target": "css=.last tr:nth-child(1) input",
+      "targets": [
+        ["css=.last tr:nth-child(1) input", "css:finder"],
+        ["xpath=(//input[@name='name'])[2]", "xpath:attributes"],
+        ["xpath=//div[2]/form/table/tbody/tr/td[2]/input", "xpath:position"]
+      ],
+      "value": "${user}"
+    }, {
+      "id": "0850906a-5886-40eb-bebf-25457860521f",
+      "comment": "",
+      "command": "type",
+      "target": "css=.last tr:nth-child(2) input",
+      "targets": [
+        ["css=.last tr:nth-child(2) input", "css:finder"],
+        ["xpath=(//input[@name='pass'])[2]", "xpath:attributes"],
+        ["xpath=//div[2]/form/table/tbody/tr[2]/td[2]/input", "xpath:position"]
+      ],
+      "value": "${pass}"
+    }, {
+      "id": "ea0ca136-0d1d-4dbf-8b98-5146a27f8217",
+      "comment": "",
+      "command": "type",
+      "target": "name=pass2",
+      "targets": [
+        ["name=pass2", "name"],
+        ["css=tr:nth-child(3) input", "css:finder"],
+        ["xpath=//input[@name='pass2']", "xpath:attributes"],
+        ["xpath=//tr[3]/td[2]/input", "xpath:position"]
+      ],
+      "value": "${pass2}"
+    }, {
+      "id": "2821465a-279d-4e1b-b4a0-46c4a53e903a",
+      "comment": "",
+      "command": "click",
+      "target": "css=.last > form > input",
+      "targets": [
+        ["css=.last > form > input", "css:finder"],
+        ["xpath=//input[@value='Sign Up']", "xpath:attributes"],
+        ["xpath=//div[2]/form/input", "xpath:position"]
+      ],
+      "value": ""
+    }]
+  }, {
+    "id": "482accaf-2792-4a84-b47a-f573605db770",
+    "name": "post",
+    "commands": [{
+      "id": "59030901-6eaa-4697-8134-4bd0f16046f2",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:8090/retwisj/!${user}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "6f7895f2-877a-4646-9570-33ff6ecb7904",
+      "comment": "",
+      "command": "click",
+      "target": "name=content",
+      "targets": [
+        ["name=content", "name"],
+        ["css=textarea", "css:finder"],
+        ["xpath=//textarea[@name='content']", "xpath:attributes"],
+        ["xpath=//div[@id='updateform']/form/textarea", "xpath:idRelative"],
+        ["xpath=//textarea", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "b3b07d05-2913-49ec-b3b1-a7ea924790b0",
+      "comment": "",
+      "command": "type",
+      "target": "name=content",
+      "targets": [
+        ["name=content", "name"],
+        ["css=textarea", "css:finder"],
+        ["xpath=//textarea[@name='content']", "xpath:attributes"],
+        ["xpath=//div[@id='updateform']/form/textarea", "xpath:idRelative"],
+        ["xpath=//textarea", "xpath:position"]
+      ],
+      "value": "Hi!"
+    }, {
+      "id": "1ac9be24-9242-4b71-aecc-a2b1c4a3da4c",
+      "comment": "",
+      "command": "click",
+      "target": "css=input:nth-child(6)",
+      "targets": [
+        ["css=input:nth-child(6)", "css:finder"],
+        ["xpath=//input[@value='Post']", "xpath:attributes"],
+        ["xpath=//div[@id='updateform']/form/input[3]", "xpath:idRelative"],
+        ["xpath=//input[3]", "xpath:position"]
+      ],
+      "value": ""
+    }]
+  }, {
+    "id": "409afaa0-08b2-4f4f-a93b-098655173559",
+    "name": "post with reference",
+    "commands": [{
+      "id": "4f7ce0ee-f281-4f17-b290-941213908243",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:8090/retwisj/!${user}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "b164806d-9322-469c-9710-782defdfc537",
+      "comment": "",
+      "command": "click",
+      "target": "name=content",
+      "targets": [
+        ["name=content", "name"],
+        ["css=textarea", "css:finder"],
+        ["xpath=//textarea[@name='content']", "xpath:attributes"],
+        ["xpath=//div[@id='updateform']/form/textarea", "xpath:idRelative"],
+        ["xpath=//textarea", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "f4710cd2-3a78-4e67-95c1-4e37d7e17d99",
+      "comment": "",
+      "command": "type",
+      "target": "name=content",
+      "targets": [
+        ["name=content", "name"],
+        ["css=textarea", "css:finder"],
+        ["xpath=//textarea[@name='content']", "xpath:attributes"],
+        ["xpath=//div[@id='updateform']/form/textarea", "xpath:idRelative"],
+        ["xpath=//textarea", "xpath:position"]
+      ],
+      "value": "@${other-user} Hi ${other-user}!"
+    }, {
+      "id": "62f76f6d-0169-41bd-9534-fee1bd72ae43",
+      "comment": "",
+      "command": "click",
+      "target": "css=input:nth-child(6)",
+      "targets": [
+        ["css=input:nth-child(6)", "css:finder"],
+        ["xpath=//input[@value='Post']", "xpath:attributes"],
+        ["xpath=//div[@id='updateform']/form/input[3]", "xpath:idRelative"],
+        ["xpath=//input[3]", "xpath:position"]
+      ],
+      "value": ""
+    }]
+  }, {
+    "id": "67fe3136-ac94-4c1c-8ea7-f53f56d6d4cc",
+    "name": "logout",
+    "commands": [{
+      "id": "259619a1-1919-46e8-a91c-3c2f9d6232ff",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:8090/retwisj/!${user}",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "538518a7-3d56-4553-afb8-b9f94ed32f10",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=logout",
+      "targets": [
+        ["linkText=logout", "linkText"],
+        ["css=.span-8 > a:nth-child(3)", "css:finder"],
+        ["xpath=//a[contains(text(),'logout')]", "xpath:link"],
+        ["xpath=//a[contains(@href, '/retwisj/logout')]", "xpath:href"],
+        ["xpath=//a[3]", "xpath:position"],
+        ["xpath=//a[contains(.,'logout')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }]
+  }, {
+    "id": "a7d12842-f18a-4e7f-9300-f07a503320bf",
+    "name": "singin",
+    "commands": [{
+      "id": "22a79e11-f7a4-4067-883c-eed0fd1c41c1",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:8090/retwisj/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "a0e48944-3c38-478d-8421-b51ace221747",
+      "comment": "",
+      "command": "click",
+      "target": "linkText=Sign In",
+      "targets": [
+        ["linkText=Sign In", "linkText"],
+        ["css=.span-8 > a", "css:finder"],
+        ["xpath=//a[contains(text(),'Sign In')]", "xpath:link"],
+        ["xpath=//a[contains(@href, 'signIn')]", "xpath:href"],
+        ["xpath=//div[2]/a", "xpath:position"],
+        ["xpath=//a[contains(.,'Sign In')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "dfdf7454-0a03-4be9-9b96-5f274042eeca",
+      "comment": "",
+      "command": "click",
+      "target": "name=name",
+      "targets": [
+        ["name=name", "name"],
+        ["css=.span-11:nth-child(2) tr:nth-child(1) input", "css:finder"],
+        ["xpath=//input[@name='name']", "xpath:attributes"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "0d65e8a7-0a8f-4288-a800-032ff7cace75",
+      "comment": "",
+      "command": "type",
+      "target": "name=name",
+      "targets": [
+        ["name=name", "name"],
+        ["css=.span-11:nth-child(2) tr:nth-child(1) input", "css:finder"],
+        ["xpath=//input[@name='name']", "xpath:attributes"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": "${user}"
+    }, {
+      "id": "d19c9608-13f9-4685-b84f-23764a2c7943",
+      "comment": "",
+      "command": "type",
+      "target": "name=pass",
+      "targets": [
+        ["name=pass", "name"],
+        ["css=.span-11:nth-child(2) tr:nth-child(2) input", "css:finder"],
+        ["xpath=//input[@name='pass']", "xpath:attributes"],
+        ["xpath=//tr[2]/td[2]/input", "xpath:position"]
+      ],
+      "value": "${pass}"
+    }, {
+      "id": "1aedaecb-0bff-4800-ae23-521b8c00d3cc",
+      "comment": "",
+      "command": "click",
+      "target": "css=.span-11:nth-child(2) > form > input",
+      "targets": [
+        ["css=.span-11:nth-child(2) > form > input", "css:finder"],
+        ["xpath=//input[@value='Sign In']", "xpath:attributes"],
+        ["xpath=//form/input", "xpath:position"]
+      ],
+      "value": ""
+    }]
+  }],
+  "suites": [{
+    "id": "5f208f9c-4ff2-47c5-a8ed-f07e60c168b5",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["29be2252-060f-40f8-bf72-d72e88a2e144"]
+  }],
+  "urls": ["http://localhost:8090/", "http://localhost:8090/retwisj", "http://localhost:8090/retwisj/"],
+  "plugins": []
+}

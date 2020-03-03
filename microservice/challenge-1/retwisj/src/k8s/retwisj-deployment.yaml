@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: retwisj
+  name: retwisj
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: retwisj
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: retwisj
+    spec:
+      containers:
+      - image: retwisj:local
+        imagePullPolicy: Never
+        name: retwisj
+        resources: {}
+        env:
+          - name: APP_REDIS_HOST
+            value: redis
+        livenessProbe:
+          initialDelaySeconds: 30
+          httpGet:
+            path: /retwisj
+            port: http
+        readinessProbe:
+          successThreshold: 1
+          failureThreshold: 3
+          httpGet:
+            path: /retwisj
+            port: http
