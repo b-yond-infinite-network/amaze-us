@@ -26,7 +26,11 @@ export default (app: Server) => {
         .query({ name: "justin" })
         .end((err, res) => {
           expect(res.status).to.be.equal(400);
-          assert.isObject(res.body, "Response body should be an object");
+          assert.isObject(JSON.parse(res.text), "Response should be an Object");
+          expect(JSON.parse(res.text)).to.have.property("message");
+          expect(JSON.parse(res.text).message).to.be.equal(
+            "Bad request. All queries must be present"
+          );
         });
       done();
     });
