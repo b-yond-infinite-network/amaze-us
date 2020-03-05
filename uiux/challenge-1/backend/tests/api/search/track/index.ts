@@ -1,6 +1,7 @@
 import { Server } from "http";
 import chai, { assert, expect } from "chai";
 import chaiHTTP from "chai-http";
+import { ITrack } from "../../../../src/models/track";
 
 chai.use(chaiHTTP);
 
@@ -20,6 +21,40 @@ export default (app: Server) => {
           expect(res.status).to.be.equal(200);
           assert.isArray(res.body, "Response body should be an Array");
           expect(res.body.length).to.be.equal(20);
+          const trackObject: ITrack = res.body[0];
+          expect(trackObject).to.have.property("name");
+          expect(trackObject).to.have.property("rating");
+          expect(trackObject).to.have.property("explicit");
+          expect(trackObject).to.have.property("artistID");
+          expect(trackObject).to.have.property("artistName");
+          expect(trackObject).to.have.property("hasLyrics");
+          expect(trackObject).to.have.property("numFavorite");
+        });
+      done();
+    });
+
+    it("Should return 200 status and response body as an array, when a valid request (only artistID) is made", done => {
+      chai
+        .request(app)
+        .get("/api/search/track")
+        .query({
+          artistID: "118",
+          lyricsRequired: true,
+          page: 1,
+          pageSize: 5
+        })
+        .end((err, res) => {
+          expect(res.status).to.be.equal(200);
+          assert.isArray(res.body, "Response body should be an Array");
+          expect(res.body.length).to.be.equal(5);
+          const trackObject: ITrack = res.body[0];
+          expect(trackObject).to.have.property("name");
+          expect(trackObject).to.have.property("rating");
+          expect(trackObject).to.have.property("explicit");
+          expect(trackObject).to.have.property("artistID");
+          expect(trackObject).to.have.property("artistName");
+          expect(trackObject).to.have.property("hasLyrics");
+          expect(trackObject).to.have.property("numFavorite");
         });
       done();
     });
