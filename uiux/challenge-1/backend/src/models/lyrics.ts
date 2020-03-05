@@ -1,6 +1,6 @@
 export interface ILyrics {
   lyricsContent: string;
-  language: string;
+  language?: string;
 }
 
 export interface ILyricsMusixMatchAPIParams {
