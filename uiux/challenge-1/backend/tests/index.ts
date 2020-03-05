@@ -7,6 +7,7 @@ import "../src/handlers/dotenv";
 import lyricsAPITests from "./api/lyrics";
 import artistAPITests from "./api/search/artist";
 import trackAPITests from "./api/search/track";
+import utilTests from "./utils";
 
 chai.use(chaiHTTP);
 
@@ -29,6 +30,10 @@ describe("Initializing tests", () => {
     lyricsAPITests(testServer);
     artistAPITests(testServer);
     trackAPITests(testServer);
+  });
+
+  describe("Testing Util methods", () => {
+    utilTests();
   });
 
   after(done => {
