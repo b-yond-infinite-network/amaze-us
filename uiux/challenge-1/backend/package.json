@@ -4,24 +4,35 @@
   "description": "Backend sevice for UI UX challange 1 by B-YOND",
   "main": "main/index.ts",
   "scripts": {
-    "dev": "tsc-watch --onSuccess \"node ./dist/index.js\""
+    "dev": "tsc-watch --onSuccess \"node ./dist/src/index.js\"",
+    "test": "mocha -r ts-node/register tests/index.ts"
   },
   "author": "Vishnu Vardhan Dhanabalan <vishnudhanabalan@outlook.com> (https://github.com/Vishnu-Dhanabalan)",
   "license": "ISC",
   "devDependencies": {
     "@types/body-parser": "^1.19.0",
+    "@types/chai": "^4.2.10",
+    "@types/compression": "^1.7.0",
     "@types/cors": "^2.8.6",
+    "@types/dotenv": "^8.2.0",
     "@types/express": "^4.17.3",
+    "@types/mocha": "^7.0.2",
+    "@types/node": "^13.7.7",
     "@types/request": "^2.48.4",
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
+    "mocha": "^7.1.0",
+    "ts-node": "^8.6.2",
     "tsc-watch": "^4.2.3",
     "typescript": "^3.8.3"
   },
   "dependencies": {
-    "@types/compression": "^1.7.0",
-    "@types/node": "^13.7.7",
+    "@types/axios": "^0.14.0",
+    "axios": "^0.19.2",
     "body-parser": "^1.19.0",
     "compression": "^1.7.4",
     "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
     "express": "^5.0.0-alpha.7",
     "request": "^2.88.2"
   }
