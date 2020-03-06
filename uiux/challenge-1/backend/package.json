@@ -4,7 +4,7 @@
   "description": "Backend sevice for UI UX challange 1 by B-YOND",
   "main": "main/index.ts",
   "scripts": {
-    "dev": "tsc-watch --onSuccess \"node ./dist/src/index.js\"",
+    "dev": "tsc-watch --onSuccess \"node ./dist/index.js\"",
     "test": "mocha -r ts-node/register tests/index.ts"
   },
   "author": "Vishnu Vardhan Dhanabalan <vishnudhanabalan@outlook.com> (https://github.com/Vishnu-Dhanabalan)",
