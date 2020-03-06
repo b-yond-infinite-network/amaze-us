@@ -1,0 +1,14 @@
+@font-face {
+  font-family: "BitterRegular";
+  src: url("./Bitter/Bitter-Regular.ttf");
+}
+
+@font-face {
+  font-family: "BitterItalic";
+  src: url("./Bitter/Bitter-Italic.ttf");
+}
+
+@font-face {
+  font-family: "BitterBold";
+  src: url("./Bitter/Bitter-Bold.ttf");
+}
