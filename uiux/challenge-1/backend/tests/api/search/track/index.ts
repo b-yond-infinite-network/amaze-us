@@ -1,7 +1,7 @@
 import { Server } from "http";
 import chai, { assert, expect } from "chai";
 import chaiHTTP from "chai-http";
-import { ITrack } from "../../../../src/models/track";
+import { ITrack } from "../../../../../shared/";
 
 chai.use(chaiHTTP);
 

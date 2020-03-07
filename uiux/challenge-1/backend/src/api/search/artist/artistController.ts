@@ -1,6 +1,6 @@
 import axios from "axios";
 import { Request, Response } from "express";
-import { IArtist, IArtistMusixMatchAPIParams } from "../../../models/artist";
+import { IArtist, IArtistMusixMatchAPIParams } from "../../../../../shared";
 import { HTTP500Error } from "../../../utils/httpErrors";
 import { artistAPIBuilder } from "../../../utils";
 

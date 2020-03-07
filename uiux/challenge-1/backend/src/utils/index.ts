@@ -1,7 +1,7 @@
 import { Router, Express } from "express";
-import { ILyricsMusixMatchAPIParams } from "../models/lyrics";
-import { ITrackMusixMatchAPIParams } from "../models/track";
-import { IArtistMusixMatchAPIParams } from "../models/artist";
+import { ILyricsMusixMatchAPIParams } from "../../../shared";
+import { ITrackMusixMatchAPIParams } from "../../../shared";
+import { IArtistMusixMatchAPIParams } from "../../../shared";
 
 type Wrapper = (router: Router) => void;
 

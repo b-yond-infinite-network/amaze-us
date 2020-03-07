@@ -3,7 +3,7 @@ import { Request, Response } from "express";
 import { HTTP500Error } from "../../utils/httpErrors";
 
 import { lyricsAPIBuilder } from "../../utils";
-import { ILyrics, ILyricsMusixMatchAPIParams } from "../../models/lyrics";
+import { ILyrics, ILyricsMusixMatchAPIParams } from "../../../../shared";
 
 const lyricsController = async (req: Request, res: Response) => {
   const lyricsAPIParams: ILyricsMusixMatchAPIParams = {
