@@ -1,6 +1,6 @@
 import axios from "axios";
 import { Request, Response } from "express";
-import { ITrack, ITrackMusixMatchAPIParams } from "../../../models/track";
+import { ITrack, ITrackMusixMatchAPIParams } from "../../../../../shared";
 import { HTTP500Error } from "../../../utils/httpErrors";
 import { trackAPIBuilder } from "../../../utils";
 

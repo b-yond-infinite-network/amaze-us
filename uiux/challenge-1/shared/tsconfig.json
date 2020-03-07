@@ -1,0 +1,7 @@
+{
+  "compilerOptions": {
+    "module": "system",
+    "composite": true,
+  },
+  "files": ["index.d.ts"]
+}

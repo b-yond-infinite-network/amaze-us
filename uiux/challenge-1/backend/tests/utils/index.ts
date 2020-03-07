@@ -1,8 +1,8 @@
 import chai, { assert, expect } from "chai";
 
-import { IArtistMusixMatchAPIParams } from "../../src/models/artist";
-import { ITrackMusixMatchAPIParams } from "../../src/models/track";
-import { ILyricsMusixMatchAPIParams } from "../../src/models/lyrics";
+import { IArtistMusixMatchAPIParams } from "../../../shared/";
+import { ITrackMusixMatchAPIParams } from "../../../shared/";
+import { ILyricsMusixMatchAPIParams } from "../../../shared/";
 
 import {
   artistAPIBuilder,

@@ -1,3 +1,27 @@
+export interface IArtist {
+  artistID: number;
+  artistName: string;
+  artistCountry: string;
+  artistRating: number;
+  artistTwitterURL?: string;
+}
+
+export interface IArtistMusixMatchAPIParams {
+  name: string;
+  page: string;
+  pageSize: string;
+}
+
+export interface ILyrics {
+  lyricsContent: string;
+  language?: string;
+}
+
+export interface ILyricsMusixMatchAPIParams {
+  // trackID is mandatory
+  trackID: string;
+}
+
 export interface ITrack {
   name: string;
   rating: number;

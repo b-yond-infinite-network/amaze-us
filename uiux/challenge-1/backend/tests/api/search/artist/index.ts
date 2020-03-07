@@ -1,7 +1,7 @@
 import { Server } from "http";
 import chai, { assert, expect } from "chai";
 import chaiHTTP from "chai-http";
-import { IArtist } from "../../../../src/models/artist";
+import { IArtist } from "../../../../../shared/";
 
 chai.use(chaiHTTP);
 
