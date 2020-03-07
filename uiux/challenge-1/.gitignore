@@ -1,0 +1,12 @@
+# node_modules
+node_modules
+
+# todos
+todo
+
+# ts-build
+tsconfig.tsbuildinfo
+
+# dist
+./backend/dist
+./frontend/dist
