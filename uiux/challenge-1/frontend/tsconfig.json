@@ -1,21 +1,26 @@
 {
   "compilerOptions": {
-    "outDir": "./built/",
-    "module": "esnext",
-    "target": "es5",
-    "lib": ["dom", "dom.iterable", "es5", "es2015", "es2016"],
-    "sourceMap": true,
+    "noImplicitAny": false,
+    "emitDecoratorMetadata": true,
+    "removeComments": false,
+    "module": "commonjs",
+    "diagnostics": false,
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "sourceMap": false,
+    "target": "ES6",
     "allowJs": true,
     "jsx": "react",
-    "moduleResolution": "node",
-    "rootDir": "src",
-    "noImplicitReturns": true,
-    "noImplicitThis": true,
-    "noImplicitAny": true,
-    "strictNullChecks": true,
-    "noUnusedLocals": true,
-    "allowSyntheticDefaultImports": true
+    "experimentalDecorators": true,
+    "allowUnusedLabels": true,
+    "moduleResolution": "Node",
+    "esModuleInterop": true
   },
-  "include": ["./src/**/*"],
-  "exclude": ["node_modules"]
+  "include": ["src/**/*.ts"],
+  "exclude": ["test/**/*.ts"],
+  "references": [
+    {
+      "path": "../shared"
+    }
+  ]
 }
