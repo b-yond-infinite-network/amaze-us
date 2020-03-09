@@ -3,7 +3,6 @@ import { expect } from "chai";
 import { shallow, ShallowWrapper } from "enzyme";
 import { Select } from "antd";
 import Search from "../../src/components/Search";
-import { render, fireEvent } from "@testing-library/react";
 import { renderHook, act } from "@testing-library/react-hooks";
 import { useSearchType } from "../../src/components/Search";
 
@@ -17,8 +16,6 @@ export default () => {
       expect(wrapper.find("SearchAreaWrapper")).to.have.length(1);
 
       // Testing search option
-      const SelectComponent = render(<Search></Search>).container.firstChild;
-      fireEvent.select(SelectComponent);
       expect(wrapper.find("Select")).to.have.length(1);
       expect(wrapper.find("Option")).to.have.length(2);
       expect(
