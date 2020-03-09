@@ -47,11 +47,10 @@ export default () => {
       done();
     });
     it("should return valid musixmatch track.search api url when valid query paramters (only artistID) are passed", done => {
-      const expectedURL = `${process.env.MUSIXMATCH_API_BASE_URL}/track.search?f_artist_id=12345&f_lyrics=true&page=1&page_size=20&json=true&apikey=${process.env.MUSIXMATCH_SECRET_API}`;
+      const expectedURL = `${process.env.MUSIXMATCH_API_BASE_URL}/track.search?f_artist_id=12345&f_lyrics=true&page_size=20&json=true&apikey=${process.env.MUSIXMATCH_SECRET_API}`;
       const validParamObject: ITrackMusixMatchAPIParams = {
         artistID: "12345",
         lyricsRequired: "true",
-        page: "1",
         pageSize: "20"
       };
       const actualURL = trackAPIBuilder(validParamObject);

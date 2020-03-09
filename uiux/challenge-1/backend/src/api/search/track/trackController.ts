@@ -33,7 +33,8 @@ const trackController = async (req: Request, res: Response) => {
         artistID: trackObject.artist_id,
         artistName: trackObject.artist_name,
         hasLyrics: trackObject.has_lyrics,
-        numFavorite: trackObject.num_favourite
+        numFavorite: trackObject.num_favourite,
+        totalAvailable: response.data.message.header.available
       });
     });
     // All good

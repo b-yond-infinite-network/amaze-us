@@ -33,7 +33,8 @@ const artistController = async (req: Request, res: Response) => {
         artistName: artistObject.artist_name,
         artistCountry: artistObject.artist_country,
         artistRating: artistObject.artist_rating,
-        artistTwitterURL: artistObject.artist_twitter_url
+        artistTwitterURL: artistObject.artist_twitter_url,
+        totalAvailable: response.data.message.header.available
       });
     });
 

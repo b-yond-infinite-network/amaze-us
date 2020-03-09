@@ -27,8 +27,11 @@ export const trackAPIBuilder = (params: ITrackMusixMatchAPIParams): string => {
   if (params.lyricsRequired) {
     result += "&f_lyrics=true";
   }
-
-  result += `&page=${params.page}&page_size=${params.pageSize}&json=true`;
+  if (params.page !== undefined) {
+    result += `&page=${params.page}`;
+  }
+  result += `&page_size=${params.pageSize}`;
+  result += `&json=true`;
   result += `&apikey=${process.env.MUSIXMATCH_SECRET_API}`;
   return result;
 };
@@ -37,7 +40,12 @@ export const artistAPIBuilder = (
   params: IArtistMusixMatchAPIParams
 ): string => {
   let result = `${process.env.MUSIXMATCH_API_BASE_URL}/artist.search?`;
-  result += `q_artist=${params.name}&page=${params.page}&page_size=${params.pageSize}&json=true`;
+  result += `q_artist=${params.name}`;
+  if (params.page !== undefined) {
+    result += `&page=${params.page}`;
+  }
+  result += `&page_size=${params.pageSize}`;
+  result += `&json=true`;
   result += `&apikey=${process.env.MUSIXMATCH_SECRET_API}`;
   return result;
 };
