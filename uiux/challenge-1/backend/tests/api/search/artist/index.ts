@@ -22,6 +22,7 @@ export default (app: Server) => {
           expect(artistObject).to.have.property("artistCountry");
           expect(artistObject).to.have.property("artistRating");
           expect(artistObject).to.have.property("artistTwitterURL");
+          expect(artistObject).to.have.property("totalAvailable");
         });
       done();
     });

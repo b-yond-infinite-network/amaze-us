@@ -4,12 +4,13 @@ export interface IArtist {
   artistCountry: string;
   artistRating: number;
   artistTwitterURL?: string;
+  totalAvailable: number;
 }
 
 export interface IArtistMusixMatchAPIParams {
   name: string;
-  page: string;
-  pageSize: string;
+  page?: string;
+  pageSize?: string;
 }
 
 export interface ILyrics {
@@ -30,6 +31,7 @@ export interface ITrack {
   artistName: string;
   hasLyrics: boolean;
   numFavorite: number;
+  totalAvailable: number;
 }
 
 export interface ITrackMusixMatchAPIParams {
@@ -42,6 +44,6 @@ export interface ITrackMusixMatchAPIParams {
   // filter out results based on the availability of lyrics
   lyricsRequired: string;
 
-  page: string;
-  pageSize: string;
+  page?: string;
+  pageSize?: string;
 }

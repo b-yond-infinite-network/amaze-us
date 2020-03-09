@@ -29,6 +29,7 @@ export default (app: Server) => {
           expect(trackObject).to.have.property("artistName");
           expect(trackObject).to.have.property("hasLyrics");
           expect(trackObject).to.have.property("numFavorite");
+          expect(trackObject).to.have.property("totalAvailable");
         });
       done();
     });
