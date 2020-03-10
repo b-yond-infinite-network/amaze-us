@@ -26,7 +26,7 @@ const MetaData = styled.div`
 
 const GetLyrics = styled.div`
   font-size: 15px;
-  margin: 10px 0;
+  margin: 10px 10px;
   color: ${colorCodes.sandTanShadow};
   cursor: pointer;
 `;
@@ -57,7 +57,7 @@ const TrackCardComponent: React.FC<TrackCardProps> = (
         {props.hasLyrics ? (
           <GetLyrics
             onClick={() => {
-              props.handleGetLyrics(props.trackID);
+              props.handleGetLyrics(props.trackID, props.name);
             }}
           >
             Get lyrics
