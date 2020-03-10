@@ -31,6 +31,7 @@ export default () => {
             expect(each).to.have.property("artistCountry");
             expect(each).to.have.property("artistRating");
             expect(each).to.have.property("artistTwitterURL");
+            expect(each).to.have.property("totalAvailable");
           });
         });
         done();
@@ -51,10 +52,11 @@ export default () => {
             expect(each).to.have.property("name");
             expect(each).to.have.property("rating");
             expect(each).to.have.property("explicit");
-            expect(each).to.have.property("artistID");
+            expect(each).to.have.property("trackID");
             expect(each).to.have.property("artistName");
             expect(each).to.have.property("hasLyrics");
             expect(each).to.have.property("numFavorite");
+            expect(each).to.have.property("totalAvailable");
           });
         });
         done();
@@ -65,7 +67,7 @@ export default () => {
         const validParams: ILyricsMusixMatchAPIParams = {
           trackID: "15953433"
         };
-        searchForLyrics(validParams).then(response => {
+        searchForLyrics(validParams).then((response: ILyrics) => {
           expect(response).to.have.property("lyricsContent");
         });
         done();
