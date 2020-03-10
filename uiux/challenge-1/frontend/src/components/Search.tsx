@@ -127,11 +127,13 @@ const SearchComponent: React.FC<SearchComponentProps> = props => {
               if (searchType === "artist") {
                 param = {
                   name: value,
+                  page: "0",
                   pageSize: "30"
                 };
               } else {
                 param = {
                   name: value,
+                  page: "0",
                   pageSize: "30",
                   lyricsRequired: true
                 };
