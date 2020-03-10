@@ -11,6 +11,7 @@ const Wrapper = styled.div`
 `;
 
 const Title = styled.div`
+  margin: 5px;
   font-size: 20px;
   text-align: center;
   color: ${colorCodes.areYaYellow};
