@@ -25,7 +25,7 @@ export default (app: Server) => {
           expect(trackObject).to.have.property("name");
           expect(trackObject).to.have.property("rating");
           expect(trackObject).to.have.property("explicit");
-          expect(trackObject).to.have.property("artistID");
+          expect(trackObject).to.have.property("trackID");
           expect(trackObject).to.have.property("artistName");
           expect(trackObject).to.have.property("hasLyrics");
           expect(trackObject).to.have.property("numFavorite");
