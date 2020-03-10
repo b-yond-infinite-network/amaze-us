@@ -12,7 +12,9 @@ export default () => {
   describe("Testing <Search /> component", () => {
     let wrapper: ShallowWrapper;
     it("should render correctly", () => {
-      wrapper = shallow(<Search></Search>);
+      wrapper = shallow(
+        <Search searchTriggered={() => {}} setSortType={() => {}}></Search>
+      );
       expect(wrapper.find("SearchAreaWrapper")).to.have.length(1);
 
       // Testing search option

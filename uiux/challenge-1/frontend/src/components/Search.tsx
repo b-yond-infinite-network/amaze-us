@@ -29,41 +29,62 @@ const SearchAreaWrapper = styled.div`
 
 SearchAreaWrapper.displayName = "SearchAreaWrapper";
 
-const ArtistSortOptions = (
-  <Menu style={{ fontFamily: "BitterRegular" }} id="artistSortOptions">
-    <SubMenu title="Popularity" style={{ width: 150 }}>
-      <Menu.Item style={{ fontFamily: "BitterRegular" }}>Low to high</Menu.Item>
-      <Menu.Item style={{ fontFamily: "BitterRegular" }}>High to low</Menu.Item>
-    </SubMenu>
-    <SubMenu title="Name">
-      <Menu.Item style={{ fontFamily: "BitterRegular" }}>A - Z</Menu.Item>
-      <Menu.Item style={{ fontFamily: "BitterRegular" }}>Z - A</Menu.Item>
-    </SubMenu>
-  </Menu>
-);
+const ArtistSortOptions = (setSortType: Function) => {
+  const items = {
+    Popularity: ["Low to High", "High to low"],
+    Name: ["A - Z", "Z - A"]
+  };
 
-const TrackSortOptions = (
-  <Menu style={{ fontFamily: "BitterRegular" }} id="trackSortOptions">
-    <Menu.Item>Title</Menu.Item>
-    <Menu.Item>Number of lyrics</Menu.Item>
-    <SubMenu title="Duration">
-      <Menu.Item style={{ fontFamily: "BitterRegular" }}>
-        Longer to shorter
-      </Menu.Item>
-      <Menu.Item style={{ fontFamily: "BitterRegular" }}>
-        Shorter to longer
-      </Menu.Item>
-    </SubMenu>
-    <SubMenu title="Popularity">
-      <Menu.Item style={{ fontFamily: "BitterRegular" }}>Low to high</Menu.Item>
-      <Menu.Item style={{ fontFamily: "BitterRegular" }}>High to low</Menu.Item>
-    </SubMenu>
-    <SubMenu title="Name">
-      <Menu.Item style={{ fontFamily: "BitterRegular" }}>A - Z</Menu.Item>
-      <Menu.Item style={{ fontFamily: "BitterRegular" }}>Z - A</Menu.Item>
-    </SubMenu>
-  </Menu>
-);
+  const itemkeys = Object.keys(items);
+  return (
+    <Menu style={{ fontFamily: "BitterRegular" }} id="artistSortOptions">
+      {itemkeys.map(eachItem => (
+        <SubMenu title={eachItem} style={{ width: 150 }}>
+          {items[eachItem].map(eachSubItem => (
+            <Menu.Item
+              style={{ fontFamily: "BitterRegular" }}
+              onClick={key => {
+                setSortType(key, "artist");
+              }}
+            >
+              {eachSubItem}
+            </Menu.Item>
+          ))}
+        </SubMenu>
+      ))}
+    </Menu>
+  );
+};
+
+const TrackSortOptions = setSortType => {
+  const items = {
+    Title: ["A - Z", "Z - A"],
+    LyricsCount: ["Low to High", "High to low"],
+    Rating: ["Lowest to Highest", "Highest to lowest"],
+    Popularity: ["Low to High", "High to low"],
+    Name: ["A - Z", "Z - A"]
+  };
+
+  const itemkeys = Object.keys(items);
+  return (
+    <Menu style={{ fontFamily: "BitterRegular" }} id="artistSortOptions">
+      {itemkeys.map(eachItem => (
+        <SubMenu title={eachItem} style={{ width: 150 }}>
+          {items[eachItem].map(eachSubItem => (
+            <Menu.Item
+              style={{ fontFamily: "BitterRegular" }}
+              onClick={key => {
+                setSortType(key, "track");
+              }}
+            >
+              {eachSubItem}
+            </Menu.Item>
+          ))}
+        </SubMenu>
+      ))}
+    </Menu>
+  );
+};
 
 export function useSearchType(value) {
   const [searchType, setSearchType_] = React.useState(value);
@@ -71,7 +92,12 @@ export function useSearchType(value) {
   return [searchType, setSearchType];
 }
 
-const SearchComponent: React.FC<{}> = props => {
+interface SearchComponentProps {
+  searchTriggered: Function;
+  setSortType: Function;
+}
+
+const SearchComponent: React.FC<SearchComponentProps> = props => {
   const [searchType, setSearchType] = useSearchType("artist");
   return (
     <div>
@@ -95,12 +121,31 @@ const SearchComponent: React.FC<{}> = props => {
         </Select>
         <Search
           placeholder="Search for your favorite artists or tracks"
-          onSearch={value => console.log(value)} // TODO Add functionality here!
+          onSearch={value => {
+            if (value != "") {
+              let param;
+              if (searchType === "artist") {
+                param = {
+                  name: value,
+                  pageSize: "30"
+                };
+              } else {
+                param = {
+                  name: value,
+                  pageSize: "30",
+                  lyricsRequired: true
+                };
+              }
+              props.searchTriggered(searchType, param);
+            }
+          }}
           style={{ borderRadius: 15 }}
         />
         <Dropdown
           overlay={
-            searchType === "track" ? TrackSortOptions : ArtistSortOptions
+            searchType === "track"
+              ? TrackSortOptions(props.setSortType)
+              : ArtistSortOptions(props.setSortType)
           }
         >
           <button
