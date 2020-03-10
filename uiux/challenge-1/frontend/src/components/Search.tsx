@@ -38,14 +38,19 @@ const ArtistSortOptions = (setSortType: Function) => {
   const itemkeys = Object.keys(items);
   return (
     <Menu style={{ fontFamily: "BitterRegular" }} id="artistSortOptions">
-      {itemkeys.map(eachItem => (
-        <SubMenu title={eachItem} style={{ width: 150 }}>
-          {items[eachItem].map(eachSubItem => (
+      {itemkeys.map((eachItem, index) => (
+        <SubMenu
+          title={eachItem}
+          style={{ width: 150 }}
+          key={`${index}_${eachItem.toString()}`}
+        >
+          {items[eachItem].map((eachSubItem, index) => (
             <Menu.Item
               style={{ fontFamily: "BitterRegular" }}
               onClick={key => {
                 setSortType(key, "artist");
               }}
+              key={`${index}_${eachSubItem.toString()}`}
             >
               {eachSubItem}
             </Menu.Item>
@@ -68,14 +73,19 @@ const TrackSortOptions = setSortType => {
   const itemkeys = Object.keys(items);
   return (
     <Menu style={{ fontFamily: "BitterRegular" }} id="artistSortOptions">
-      {itemkeys.map(eachItem => (
-        <SubMenu title={eachItem} style={{ width: 150 }}>
-          {items[eachItem].map(eachSubItem => (
+      {itemkeys.map((eachItem, index) => (
+        <SubMenu
+          title={eachItem}
+          style={{ width: 150 }}
+          key={`${index}_${eachItem.toString()}`}
+        >
+          {items[eachItem].map((eachSubItem, index) => (
             <Menu.Item
               style={{ fontFamily: "BitterRegular" }}
               onClick={key => {
                 setSortType(key, "track");
               }}
+              key={`${index}_${eachItem.toString()}`}
             >
               {eachSubItem}
             </Menu.Item>
