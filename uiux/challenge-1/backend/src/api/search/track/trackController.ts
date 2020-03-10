@@ -29,11 +29,12 @@ const trackController = async (req: Request, res: Response) => {
       result.push({
         name: trackObject.track_name,
         rating: trackObject.track_rating,
-        explicit: trackObject.explicit ? true : false,
-        artistID: trackObject.artist_id,
+        explicit: trackObject.explicit === 1 ? true : false,
+        trackID: trackObject.track_id,
         artistName: trackObject.artist_name,
-        hasLyrics: trackObject.has_lyrics,
-        numFavorite: trackObject.num_favourite
+        hasLyrics: trackObject.has_lyrics === 1 ? true : false,
+        numFavorite: trackObject.num_favourite,
+        totalAvailable: response.data.message.header.available
       });
     });
     // All good

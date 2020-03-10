@@ -15,6 +15,7 @@ export default () => {
           artistCountry="US"
           artistRating={94}
           artistTwitterURL="someURL"
+          totalAvailable={2000}
         ></ArtistCardComponent>
       );
       expect(wrapper.find("Wrapper")).to.have.length(1);
@@ -36,6 +37,7 @@ export default () => {
           artistCountry=""
           artistRating={94}
           artistTwitterURL=""
+          totalAvailable={2000}
         ></ArtistCardComponent>
       );
 

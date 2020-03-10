@@ -10,13 +10,15 @@ export default () => {
     it("should render correctly", () => {
       wrapper = shallow(
         <TrackCardComponent
-          artistID={1234}
+          trackID={1234}
+          totalAvailable={2000}
           artistName="xyz"
           rating={94}
           name="Superb Song"
           explicit={false}
           hasLyrics={true}
           numFavorite={90}
+          handleGetLyrics={() => {}}
         ></TrackCardComponent>
       );
 
@@ -36,13 +38,15 @@ export default () => {
       // Make hasLyrics false and check for number of GetLyrics count.
       wrapper = shallow(
         <TrackCardComponent
-          artistID={1234}
+          trackID={1234}
+          totalAvailable={2000}
           artistName="xyz"
           rating={94}
           name="Superb Song"
           explicit={true}
           hasLyrics={false}
           numFavorite={90}
+          handleGetLyrics={() => {}}
         ></TrackCardComponent>
       );
       expect(wrapper.find("GetLyrics")).to.have.length(0);
