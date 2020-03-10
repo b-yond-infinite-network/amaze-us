@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 import colorCodes from "../styles/color-codes";
-import { device } from "../styles/breakpoints";
 
 interface HeaderProps {
   enableHomeButtonLink: boolean;
@@ -13,7 +12,7 @@ const Wrapper = styled.div`
   text-align: center;
   margin: 0 auto;
   width: 100%;
-  height: 40px;
+  height: 80px;
   background: ${colorCodes.midnightBlue};
   font-family: BitterRegular;
 
@@ -25,6 +24,7 @@ const Wrapper = styled.div`
 const Title = styled.div`
   color: ${colorCodes.silverFox};
   text-align: center;
+  font-size: 30px;
 
   & a {
     color: ${colorCodes.silverFox};
