@@ -36,7 +36,13 @@ Title.displayName = "Title";
 MetaData.displayName = "MetaData";
 GetLyrics.displayName = "GetLyrics";
 
-const TrackCardComponent: React.FC<ITrack> = (props: ITrack) => {
+interface TrackCardProps extends ITrack {
+  handleGetLyrics: Function;
+}
+
+const TrackCardComponent: React.FC<TrackCardProps> = (
+  props: TrackCardProps
+) => {
   return (
     <Wrapper>
       <Title>{props.name}</Title>
@@ -51,7 +57,7 @@ const TrackCardComponent: React.FC<ITrack> = (props: ITrack) => {
         {props.hasLyrics ? (
           <GetLyrics
             onClick={() => {
-              console.log("Getting lyrics");
+              props.handleGetLyrics(props.trackID);
             }}
           >
             Get lyrics
