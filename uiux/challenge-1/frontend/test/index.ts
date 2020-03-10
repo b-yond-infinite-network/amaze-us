@@ -1,10 +1,14 @@
 import ComponentTests from "./components";
+import APITests from "./api";
 
 describe("Initializing tests ", () => {
-  it("Testing components", done => {
+  describe("Testing components", () => {
     ComponentTests.forEach((each: Function) => {
       each();
     });
-    done();
+  });
+
+  describe("Testing API util methods", () => {
+    APITests();
   });
 });
