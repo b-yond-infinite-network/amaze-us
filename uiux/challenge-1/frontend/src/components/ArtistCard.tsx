@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import colorCodes from "../styles/color-codes";
-import { IArtist } from "../../../shared";
+import { IArtist, ITrackMusixMatchAPIParams } from "../../../shared";
 
 const Wrapper = styled.div`
   width: 350px;
@@ -36,7 +36,13 @@ Title.displayName = "Title";
 MetaData.displayName = "MetaData";
 GetTracks.displayName = "GetTracks";
 
-const ArtistCardComponent: React.FC<IArtist> = (props: IArtist) => {
+interface ArtistCardProps extends IArtist {
+  getAllTracks: Function;
+}
+
+const ArtistCardComponent: React.FC<ArtistCardProps> = (
+  props: ArtistCardProps
+) => {
   return (
     <Wrapper>
       <Title>{props.artistName}</Title>
@@ -65,7 +71,15 @@ const ArtistCardComponent: React.FC<IArtist> = (props: IArtist) => {
         </div>
         <GetTracks
           onClick={() => {
-            console.log("Getting all tracks ");
+            console.log(props);
+            const params: ITrackMusixMatchAPIParams = {
+              lyricsRequired: "1",
+              page: 0,
+              pageSize: 30,
+              artistID: `${props.artistID}`
+            };
+
+            props.getAllTracks(props.artistName, params);
           }}
         >
           Get all tracks
