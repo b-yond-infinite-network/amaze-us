@@ -4,6 +4,7 @@ import Search from "./Search";
 import SearchResultBanner from "./SearchResultBanner";
 import ArtistCard from "./ArtistCard";
 import TrackCard from "./TrackCard";
+import Lyrics from "./Lyrics";
 
 export default [
   AppTest,
@@ -11,5 +12,6 @@ export default [
   Search,
   SearchResultBanner,
   ArtistCard,
-  TrackCard
+  TrackCard,
+  Lyrics
 ];
