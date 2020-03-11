@@ -31,7 +31,7 @@ export default () => {
 
   describe("Testing trackAPIBuilder method", () => {
     it("should return valid musixmatch track.search api url when valid query paramters (without artistID) are passed", done => {
-      const expectedURL = `${process.env.MUSIXMATCH_API_BASE_URL}/track.search?q_track=What is life?&q_track_artist=What is life?&q_lyrics=What is life?&f_lyrics=true&page=1&page_size=20&json=true&apikey=${process.env.MUSIXMATCH_SECRET_API}`;
+      const expectedURL = `${process.env.MUSIXMATCH_API_BASE_URL}/track.search?q_track_artist=What is life?&f_has_lyrics=true&page=1&page_size=20&json=true&apikey=${process.env.MUSIXMATCH_SECRET_API}`;
       const validParamObject: ITrackMusixMatchAPIParams = {
         name: "What is life?",
         lyricsRequired: "true",
@@ -47,7 +47,11 @@ export default () => {
       done();
     });
     it("should return valid musixmatch track.search api url when valid query paramters (only artistID) are passed", done => {
+<<<<<<< HEAD
       const expectedURL = `${process.env.MUSIXMATCH_API_BASE_URL}/track.search?f_artist_id=12345&f_lyrics=true&page_size=20&json=true&apikey=${process.env.MUSIXMATCH_SECRET_API}`;
+=======
+      const expectedURL = `${process.env.MUSIXMATCH_API_BASE_URL}/track.search?f_artist_id=12345&f_has_lyrics=true&page=1&page_size=20&json=true&apikey=${process.env.MUSIXMATCH_SECRET_API}`;
+>>>>>>> implement-frontend-components
       const validParamObject: ITrackMusixMatchAPIParams = {
         artistID: "12345",
         lyricsRequired: "true",

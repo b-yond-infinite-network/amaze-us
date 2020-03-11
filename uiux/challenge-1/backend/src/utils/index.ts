@@ -20,12 +20,12 @@ export const trackAPIBuilder = (params: ITrackMusixMatchAPIParams): string => {
   if (params.artistID !== undefined) {
     result += `f_artist_id=${params.artistID}`;
   } else {
-    result += `q_track=${params.name}&q_track_artist=${params.name}&q_lyrics=${params.name}`;
+    result += `q_track_artist=${params.name}`;
   }
 
   // Filter out results that doesn't have lyrics
   if (params.lyricsRequired) {
-    result += "&f_lyrics=true";
+    result += "&f_has_lyrics=true";
   }
   if (params.page !== undefined) {
     result += `&page=${params.page}`;

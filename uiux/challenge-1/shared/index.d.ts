@@ -9,8 +9,8 @@ export interface IArtist {
 
 export interface IArtistMusixMatchAPIParams {
   name: string;
-  page?: string;
-  pageSize?: string;
+  page: string | number;
+  pageSize: string | number;
 }
 
 export interface ILyrics {
@@ -27,7 +27,7 @@ export interface ITrack {
   name: string;
   rating: number;
   explicit: boolean;
-  artistID: boolean;
+  trackID: number;
   artistName: string;
   hasLyrics: boolean;
   numFavorite: number;
@@ -44,6 +44,6 @@ export interface ITrackMusixMatchAPIParams {
   // filter out results based on the availability of lyrics
   lyricsRequired: string;
 
-  page?: string;
-  pageSize?: string;
+  page: string | number;
+  pageSize: string | number;
 }
