@@ -4,6 +4,7 @@ import { HashRouter as Router, Route, Switch } from "react-router-dom";
 
 // Importing pages
 import LandingPage from "./pages/LandingPage";
+import LyricsPage from "./pages/LyricsPage";
 
 class App extends React.Component<{}, {}> {
   render(): JSX.Element {
@@ -11,6 +12,7 @@ class App extends React.Component<{}, {}> {
       <Router>
         <Switch>
           <Route exact path="/" component={LandingPage} />
+          <Route exact path="/lyrics/" component={LyricsPage} />
         </Switch>
       </Router>
     );
