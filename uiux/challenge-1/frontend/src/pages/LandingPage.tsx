@@ -220,7 +220,7 @@ class LandingPage extends React.Component<{}, LandingPageState> {
   render() {
     return (
       <Container>
-        <Header enableHomeButtonLink={true}></Header>
+        <Header enableHomeButtonLink={false}></Header>
         <SearchComponent
           searchTriggered={this.handleSearchRequest}
           setSortType={this.sortResults}

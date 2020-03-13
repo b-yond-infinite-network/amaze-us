@@ -47,7 +47,7 @@ const LyricsPage: React.FC<LyricsPageProps> = (props: LyricsPageProps) => {
 
   return (
     <div>
-      <Header enableHomeButtonLink={false}></Header>
+      <Header enableHomeButtonLink={true}></Header>
       <Wrapper>
         <SearchResultBanner banner={parsedQueryObject.trackName} />
         <Lyrics lyricsContent={lyricsContent} />
