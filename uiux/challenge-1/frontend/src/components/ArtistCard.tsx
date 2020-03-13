@@ -71,15 +71,14 @@ const ArtistCardComponent: React.FC<ArtistCardProps> = (
         </div>
         <GetTracks
           onClick={() => {
-            console.log(props);
             const params: ITrackMusixMatchAPIParams = {
               lyricsRequired: "1",
-              page: 0,
+              page: 1,
               pageSize: 30,
-              artistID: `${props.artistID}`
+              artistID: `${props.artistID}`,
+              name: props.name
             };
-
-            props.getAllTracks(props.name, params);
+            props.getAllTracks(params);
           }}
         >
           Get all tracks
