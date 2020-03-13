@@ -45,19 +45,19 @@ const ArtistCardComponent: React.FC<ArtistCardProps> = (
 ) => {
   return (
     <Wrapper>
-      <Title>{props.artistName}</Title>
+      <Title>{props.name}</Title>
       <div style={{ display: "flex", flexDirection: "row" }}>
         <div>
-          <MetaData>Rating: {props.artistRating}</MetaData>
+          <MetaData>Rating: {props.rating}</MetaData>
           {/* Country */}
-          {props.artistCountry !== "" ? (
-            <MetaData>Country: {props.artistCountry.toUpperCase()}</MetaData>
+          {props.country !== "" ? (
+            <MetaData>Country: {props.country.toUpperCase()}</MetaData>
           ) : null}
           {/* Twitter URL */}
-          {props.artistTwitterURL !== "" ? (
+          {props.twitterURL !== "" ? (
             <MetaData>
               <a
-                href={props.artistTwitterURL}
+                href={props.twitterURL}
                 style={{
                   textDecoration: "none",
                   color: colorCodes.sandTanShadow
@@ -71,15 +71,14 @@ const ArtistCardComponent: React.FC<ArtistCardProps> = (
         </div>
         <GetTracks
           onClick={() => {
-            console.log(props);
             const params: ITrackMusixMatchAPIParams = {
               lyricsRequired: "1",
-              page: 0,
+              page: 1,
               pageSize: 30,
-              artistID: `${props.artistID}`
+              artistID: `${props.artistID}`,
+              name: props.name
             };
-
-            props.getAllTracks(props.artistName, params);
+            props.getAllTracks(params);
           }}
         >
           Get all tracks

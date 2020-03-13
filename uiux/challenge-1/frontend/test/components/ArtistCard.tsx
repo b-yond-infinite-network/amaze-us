@@ -11,10 +11,10 @@ export default () => {
       wrapper = shallow(
         <ArtistCardComponent
           artistID={1234}
-          artistName="xyz"
-          artistCountry="US"
-          artistRating={94}
-          artistTwitterURL="someURL"
+          name="xyz"
+          country="US"
+          rating={94}
+          twitterURL="someURL"
           totalAvailable={2000}
           getAllTracks={() => {}}
         ></ArtistCardComponent>
@@ -34,10 +34,10 @@ export default () => {
       wrapper = shallow(
         <ArtistCardComponent
           artistID={1234}
-          artistName="xyz"
-          artistCountry=""
-          artistRating={94}
-          artistTwitterURL=""
+          name="xyz"
+          country=""
+          rating={94}
+          twitterURL=""
           totalAvailable={2000}
           getAllTracks={() => {}}
         ></ArtistCardComponent>

@@ -1,9 +1,9 @@
 export interface IArtist {
   artistID: number;
-  artistName: string;
-  artistCountry: string;
-  artistRating: number;
-  artistTwitterURL?: string;
+  name: string;
+  country: string;
+  rating: number;
+  twitterURL?: string;
   totalAvailable: number;
 }
 

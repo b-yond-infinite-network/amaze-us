@@ -18,10 +18,10 @@ export default (app: Server) => {
           expect(res.body.length).to.be.equal(10);
           const artistObject: IArtist = res.body[0];
           expect(artistObject).to.have.property("artistID");
-          expect(artistObject).to.have.property("artistName");
-          expect(artistObject).to.have.property("artistCountry");
-          expect(artistObject).to.have.property("artistRating");
-          expect(artistObject).to.have.property("artistTwitterURL");
+          expect(artistObject).to.have.property("name");
+          expect(artistObject).to.have.property("country");
+          expect(artistObject).to.have.property("rating");
+          expect(artistObject).to.have.property("twitterURL");
           expect(artistObject).to.have.property("totalAvailable");
         });
       done();

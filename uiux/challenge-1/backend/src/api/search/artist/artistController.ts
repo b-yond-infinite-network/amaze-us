@@ -30,10 +30,10 @@ const artistController = async (req: Request, res: Response) => {
       const artistObject = each.artist;
       result.push({
         artistID: artistObject.artist_id,
-        artistName: artistObject.artist_name,
-        artistCountry: artistObject.artist_country,
-        artistRating: artistObject.artist_rating,
-        artistTwitterURL: artistObject.artist_twitter_url,
+        name: artistObject.artist_name,
+        country: artistObject.artist_country,
+        rating: artistObject.artist_rating,
+        twitterURL: artistObject.artist_twitter_url,
         totalAvailable: response.data.message.header.available
       });
     });

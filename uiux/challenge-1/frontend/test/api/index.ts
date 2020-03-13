@@ -27,10 +27,10 @@ export default () => {
           expect(response.length).to.be.at.least(10);
           response.forEach((each: IArtist) => {
             expect(each).to.have.property("artistID");
-            expect(each).to.have.property("artistName");
-            expect(each).to.have.property("artistCountry");
-            expect(each).to.have.property("artistRating");
-            expect(each).to.have.property("artistTwitterURL");
+            expect(each).to.have.property("name");
+            expect(each).to.have.property("country");
+            expect(each).to.have.property("rating");
+            expect(each).to.have.property("twitterURL");
             expect(each).to.have.property("totalAvailable");
           });
         });

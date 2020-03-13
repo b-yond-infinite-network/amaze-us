@@ -31,13 +31,23 @@ SearchAreaWrapper.displayName = "SearchAreaWrapper";
 
 const ArtistSortOptions = (setSortType: Function) => {
   const items = {
-    Popularity: ["Low to High", "High to low"],
-    Name: ["A - Z", "Z - A"]
+    Name: [
+      { key: "NAME_ALPHABETICAL_ASCENDING", display: "A - Z" },
+      { key: "NAME_ALPHABETICAL_DESCENDING", display: "Z - A" }
+    ],
+    Rating: [
+      { key: "RATING_NUMERICAL_ASCENDING", display: "Lowest to Highest" },
+      { key: "RATING_NUMERICAL_DESCENDING", display: "Highest to lowest" }
+    ]
   };
 
   const itemkeys = Object.keys(items);
   return (
-    <Menu style={{ fontFamily: "BitterRegular" }} id="artistSortOptions">
+    <Menu
+      style={{ fontFamily: "BitterRegular" }}
+      id="artistSortOptions"
+      selectable={true}
+    >
       {itemkeys.map((eachItem, index) => (
         <SubMenu
           title={eachItem}
@@ -48,11 +58,11 @@ const ArtistSortOptions = (setSortType: Function) => {
             <Menu.Item
               style={{ fontFamily: "BitterRegular" }}
               onClick={key => {
-                setSortType(key, "artist");
+                setSortType(eachSubItem.key);
               }}
-              key={`${index}_${eachSubItem.toString()}`}
+              key={`${index}_${eachSubItem.key}`}
             >
-              {eachSubItem}
+              {eachSubItem.display}
             </Menu.Item>
           ))}
         </SubMenu>
@@ -63,16 +73,23 @@ const ArtistSortOptions = (setSortType: Function) => {
 
 const TrackSortOptions = setSortType => {
   const items = {
-    Title: ["A - Z", "Z - A"],
-    LyricsCount: ["Low to High", "High to low"],
-    Rating: ["Lowest to Highest", "Highest to lowest"],
-    Popularity: ["Low to High", "High to low"],
-    Name: ["A - Z", "Z - A"]
+    Title: [
+      { key: "NAME_ALPHABETICAL_ASCENDING", display: "A - Z" },
+      { key: "NAME_ALPHABETICAL_DESCENDING", display: "Z - A" }
+    ],
+    Rating: [
+      { key: "RATING_NUMERICAL_ASCENDING", display: "Lowest to Highest" },
+      { key: "RATING_NUMERICAL_DESCENDING", display: "Highest to lowest" }
+    ]
   };
 
   const itemkeys = Object.keys(items);
   return (
-    <Menu style={{ fontFamily: "BitterRegular" }} id="artistSortOptions">
+    <Menu
+      style={{ fontFamily: "BitterRegular" }}
+      id="artistSortOptions"
+      selectable={true}
+    >
       {itemkeys.map((eachItem, index) => (
         <SubMenu
           title={eachItem}
@@ -83,11 +100,11 @@ const TrackSortOptions = setSortType => {
             <Menu.Item
               style={{ fontFamily: "BitterRegular" }}
               onClick={key => {
-                setSortType(key, "track");
+                setSortType(eachSubItem.key);
               }}
-              key={`${index}_${eachItem.toString()}`}
+              key={`${index}_${eachSubItem.key}`}
             >
-              {eachSubItem}
+              {eachSubItem.display}
             </Menu.Item>
           ))}
         </SubMenu>
@@ -137,13 +154,13 @@ const SearchComponent: React.FC<SearchComponentProps> = props => {
               if (searchType === "artist") {
                 param = {
                   name: value,
-                  page: "0",
+                  page: "1",
                   pageSize: "30"
                 };
               } else {
                 param = {
                   name: value,
-                  page: "0",
+                  page: "1",
                   pageSize: "30",
                   lyricsRequired: true
                 };
