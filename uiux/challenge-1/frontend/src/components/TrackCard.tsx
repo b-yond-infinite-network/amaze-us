@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import colorCodes from "../styles/color-codes";
 import { ITrack } from "../../../shared";
@@ -37,13 +38,7 @@ Title.displayName = "Title";
 MetaData.displayName = "MetaData";
 GetLyrics.displayName = "GetLyrics";
 
-interface TrackCardProps extends ITrack {
-  handleGetLyrics: Function;
-}
-
-const TrackCardComponent: React.FC<TrackCardProps> = (
-  props: TrackCardProps
-) => {
+const TrackCardComponent: React.FC<ITrack> = (props: ITrack) => {
   return (
     <Wrapper>
       <Title>{props.name}</Title>
@@ -56,12 +51,16 @@ const TrackCardComponent: React.FC<TrackCardProps> = (
           ) : null}
         </div>
         {props.hasLyrics ? (
-          <GetLyrics
-            onClick={() => {
-              props.handleGetLyrics(props.trackID, props.name);
-            }}
-          >
-            Get lyrics
+          <GetLyrics>
+            <Link
+              to={{
+                pathname: `/lyrics/`,
+                search: `trackID=${props.trackID}?trackName=${props.name}`
+              }}
+              target="_blank"
+            >
+              Get lyrics
+            </Link>
           </GetLyrics>
         ) : null}
       </div>

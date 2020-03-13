@@ -13,7 +13,6 @@ export default () => {
           lyricsContent={
             "loLorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel imperdiet massa, at auctor ex. Etiam feugiat condimentum massa, sed luctus felis. Integer nec quam turpis. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec vestibulum id nisl ac sagittis. Suspendisse potenti. Suspendisse nisi ante, elementum sed semper nec, dictum ut purus"
           }
-          handleClose={() => {}}
         ></Lyrics>
       );
       expect(wrapper.find("Wrapper")).to.have.length(1);

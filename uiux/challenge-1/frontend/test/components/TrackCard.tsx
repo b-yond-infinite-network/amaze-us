@@ -18,7 +18,6 @@ export default () => {
           explicit={false}
           hasLyrics={true}
           numFavorite={90}
-          handleGetLyrics={() => {}}
         ></TrackCardComponent>
       );
 
@@ -46,7 +45,6 @@ export default () => {
           explicit={true}
           hasLyrics={false}
           numFavorite={90}
-          handleGetLyrics={() => {}}
         ></TrackCardComponent>
       );
       expect(wrapper.find("GetLyrics")).to.have.length(0);

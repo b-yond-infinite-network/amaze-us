@@ -19,11 +19,7 @@ const LyricsContent = styled.div`
 Wrapper.displayName = "Wrapper";
 LyricsContent.displayName = "LyricsContent";
 
-interface LyricsProps extends ILyrics {
-  handleClose: Function;
-}
-
-const Lyrics: React.FC<LyricsProps> = (props: LyricsProps) => {
+const Lyrics: React.FC<ILyrics> = (props: ILyrics) => {
   return (
     <Wrapper>
       <LyricsContent>{props.lyricsContent}</LyricsContent>;
