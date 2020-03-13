@@ -1,6 +1,7 @@
 import ComponentTests from "./components";
 import APITests from "./api";
 import UtilTests from "./util";
+import PageTests from "./pages";
 
 describe("Initializing tests ", () => {
   describe("Testing components", () => {
@@ -15,5 +16,11 @@ describe("Initializing tests ", () => {
 
   describe("Testing Util tests", () => {
     UtilTests();
+  });
+
+  describe("Testing Pages", () => {
+    PageTests.forEach((each: Function) => {
+      each();
+    });
   });
 });
