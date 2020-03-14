@@ -47,3 +47,10 @@ export class HTTP500Error extends HTTPServerError {
     super(errorMessage);
   }
 }
+
+export class HTTP503Error extends HTTPServerError {
+  readonly statusCode = 503;
+  constructor(errorMessage: string | object = "Internal error") {
+    super(errorMessage);
+  }
+}

@@ -1,7 +1,7 @@
 import axios from "axios";
 import { Request, Response } from "express";
 import { ITrack, ITrackMusixMatchAPIParams } from "../../../../../shared";
-import { HTTP500Error } from "../../../utils/httpErrors";
+import { HTTP500Error, HTTP503Error } from "../../../utils/httpErrors";
 import { trackAPIBuilder } from "../../../utils";
 
 const trackController = async (req: Request, res: Response) => {
@@ -40,11 +40,24 @@ const trackController = async (req: Request, res: Response) => {
     // All good
     res.status(200).send(result);
   } catch (err) {
-    console.log(err);
-    const error = new HTTP500Error({
-      message: "Internal server error."
-    });
-    throw error;
+    if (err.response && err.response.status === 503) {
+      switch (err.response.status) {
+        case 500:
+          throw new HTTP500Error({
+            message:
+              "Musix Match Servers responded with 500. Please try again later."
+          });
+        case 503:
+          throw new HTTP503Error({
+            message:
+              "Musix Match Servers responded with 503. Please try again later."
+          });
+      }
+    } else {
+      throw new HTTP500Error({
+        message: `Internal server error ${err.stack}`
+      });
+    }
   }
 };
 

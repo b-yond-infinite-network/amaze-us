@@ -35,16 +35,22 @@ const LyricsPage: React.FC<LyricsPageProps> = (props: LyricsPageProps) => {
   React.useEffect(() => {
     searchForLyrics({
       trackID: parsedQueryObject.trackID
-    }).then(result => {
-      setLyricsContent(result.lyricsContent);
-    });
+    })
+      .then(result => {
+        setLyricsContent(result.lyricsContent);
+      })
+      .catch(error => {
+        setLyricsContent(
+          `¯\\_(ツ)_/¯ There has been an error getting response from MusixMatch servers. Kindly try other lyrics.`
+        );
+      });
     document.title = `${parsedQueryObject.trackName}`;
   });
 
   const parsedQueryString = props.location.search.split("?");
   const parsedQueryObject: LyricsPageProps = {
     trackID: parsedQueryString[1].split("=")[1],
-    trackName: parsedQueryString[2].split("=")[1].replace(/%20/g, " ")
+    trackName: decodeURI(parsedQueryString[2].split("=")[1])
   };
 
   return (

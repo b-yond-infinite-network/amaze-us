@@ -5,7 +5,8 @@
   "main": "main/index.ts",
   "scripts": {
     "dev": "tsc-watch --onSuccess \"node ./dist/index.js\"",
-    "test": "mocha -r ts-node/register tests/index.ts"
+    "test": "mocha -r ts-node/register tests/index.ts",
+    "build": "tsc --build && node ./dist/index.js"
   },
   "author": "Vishnu Vardhan Dhanabalan <vishnudhanabalan@outlook.com> (https://github.com/Vishnu-Dhanabalan)",
   "license": "ISC",
