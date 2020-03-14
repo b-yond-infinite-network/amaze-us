@@ -1,12 +1,13 @@
 import React from "react";
 import styled from "styled-components";
+import BounceLoader from "react-spinners/BounceLoader";
 import { Pagination } from "antd";
 
+import colorCodes from "../styles/color-codes";
 import Header from "../components/Header";
 import SearchComponent from "../components/Search";
 import SearchResultBanner from "../components/SearchResultBanner";
 import ArtistCardComponent from "../components/ArtistCard";
-
 import SortFuntions from "../util/sort";
 
 import { searchForArtists } from "../api/artist";
@@ -66,6 +67,7 @@ export interface LandingPageState {
     paginatedResults: { [pageNumber: number]: IArtist[] | ITrack[] | [] };
     currentPage: number;
   };
+  isLoading?: boolean;
 }
 
 class LandingPage extends React.Component<{}, LandingPageState> {
@@ -90,11 +92,15 @@ class LandingPage extends React.Component<{}, LandingPageState> {
       currentSearchParam: {},
       paginatedResults: { 1: [] },
       currentPage: 1
-    }
+    },
+    isLoading: false
   };
 
   async handleSearchRequest(type, params) {
     // Update state searchResult.type and result
+    await this.setState({
+      isLoading: true
+    });
     let result: IArtist[] | ITrack[];
     if (type === "artist") {
       result = (await searchForArtists(params)) as IArtist[];
@@ -120,7 +126,8 @@ class LandingPage extends React.Component<{}, LandingPageState> {
           [params.page]: result
         },
         currentPage: parseInt(params.page)
-      }
+      },
+      isLoading: false
     });
   }
 
@@ -234,7 +241,20 @@ class LandingPage extends React.Component<{}, LandingPageState> {
         />
         {/* Show results */}
         <SearchResultWrapper>
-          {this.getSearchResultComponents()}
+          {this.state.isLoading ? (
+            <div style={{ margin: "auto 0" }}>
+              <BounceLoader
+                size={50}
+                color={colorCodes.areYaYellow}
+                loading={true}
+              />
+            </div>
+          ) : this.state.searchResult.currentSearchName !== "" &&
+            this.state.searchResult.displayingResult.length === 0 ? (
+            `¯\\_(ツ)_/¯`
+          ) : (
+            this.getSearchResultComponents()
+          )}
         </SearchResultWrapper>
         {/* Show pagination */}
         <PaginationWrapper

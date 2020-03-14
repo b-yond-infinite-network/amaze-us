@@ -1,9 +1,11 @@
 import React from "react";
 import styled from "styled-components";
+import BounceLoader from "react-spinners/BounceLoader";
 
 import Lyrics from "../components/Lyrics";
 import SearchResultBanner from "../components/SearchResultBanner";
 import Header from "../components/Header";
+import colorCodes from "../../src/styles/color-codes";
 import { searchForLyrics } from "../api/lyrics";
 
 const Wrapper = styled.div`
@@ -50,6 +52,13 @@ const LyricsPage: React.FC<LyricsPageProps> = (props: LyricsPageProps) => {
       <Header enableHomeButtonLink={true}></Header>
       <Wrapper>
         <SearchResultBanner banner={parsedQueryObject.trackName} />
+        {lyricsContent === "" ? (
+          <div style={{ margin: "20px auto" }}>
+            <BounceLoader size={50} color={colorCodes.sandTan} loading={true} />
+          </div>
+        ) : (
+          ""
+        )}
         <Lyrics lyricsContent={lyricsContent} />
       </Wrapper>
     </div>

@@ -22,7 +22,7 @@ LyricsContent.displayName = "LyricsContent";
 const Lyrics: React.FC<ILyrics> = (props: ILyrics) => {
   return (
     <Wrapper>
-      <LyricsContent>{props.lyricsContent}</LyricsContent>;
+      <LyricsContent>{props.lyricsContent}</LyricsContent>
     </Wrapper>
   );
 };
