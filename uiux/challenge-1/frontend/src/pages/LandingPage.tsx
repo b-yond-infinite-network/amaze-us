@@ -68,6 +68,7 @@ export interface LandingPageState {
     currentPage: number;
   };
   isLoading?: boolean;
+  musixmatchError: boolean;
 }
 
 class LandingPage extends React.Component<{}, LandingPageState> {
@@ -93,7 +94,8 @@ class LandingPage extends React.Component<{}, LandingPageState> {
       paginatedResults: { 1: [] },
       currentPage: 1
     },
-    isLoading: false
+    isLoading: false,
+    musixmatchError: false
   };
 
   async handleSearchRequest(type, params) {
@@ -102,10 +104,19 @@ class LandingPage extends React.Component<{}, LandingPageState> {
       isLoading: true
     });
     let result: IArtist[] | ITrack[];
-    if (type === "artist") {
-      result = (await searchForArtists(params)) as IArtist[];
-    } else {
-      result = (await searchForTracks(params)) as ITrack[];
+    try {
+      if (type === "artist") {
+        result = (await searchForArtists(params)) as IArtist[];
+      } else {
+        result = (await searchForTracks(params)) as ITrack[];
+      }
+    } catch (error) {
+      await this.setState({
+        ...this.state,
+        isLoading: false,
+        musixmatchError: true
+      });
+      return;
     }
 
     // Sorting the result
@@ -127,7 +138,8 @@ class LandingPage extends React.Component<{}, LandingPageState> {
         },
         currentPage: parseInt(params.page)
       },
-      isLoading: false
+      isLoading: false,
+      musixmatchError: false
     });
   }
 
@@ -249,6 +261,8 @@ class LandingPage extends React.Component<{}, LandingPageState> {
                 loading={true}
               />
             </div>
+          ) : this.state.musixmatchError ? (
+            `MusixMatch server reponsed with 503. Please try again later`
           ) : this.state.searchResult.currentSearchName !== "" &&
             this.state.searchResult.displayingResult.length === 0 ? (
             `¯\\_(ツ)_/¯`

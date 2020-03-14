@@ -24,7 +24,8 @@ export default () => {
           paginatedResults: { 1: [] },
           currentPage: 1
         },
-        isLoading: false
+        isLoading: false,
+        musixmatchError: false
       });
 
       expect(wrapper.find("Container")).to.have.length(1);
