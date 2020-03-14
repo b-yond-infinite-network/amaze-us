@@ -226,7 +226,11 @@ class LandingPage extends React.Component<{}, LandingPageState> {
           setSortType={this.sortResults}
         />
         <SearchResultBanner
-          banner={`Search results for ${this.state.searchResult.currentSearchName}`}
+          banner={
+            this.state.searchResult.currentSearchName !== ""
+              ? `Search results for ${this.state.searchResult.currentSearchName}`
+              : ""
+          }
         />
         {/* Show results */}
         <SearchResultWrapper>
