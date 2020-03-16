@@ -8,7 +8,7 @@ import Header from "../components/Header";
 import SearchComponent from "../components/Search";
 import SearchResultBanner from "../components/SearchResultBanner";
 import ArtistCardComponent from "../components/ArtistCard";
-import SortFuntions from "../util/sort";
+import SortFunctions from "../util/sort";
 
 import { searchForArtists } from "../api/artist";
 import { searchForTracks } from "../api/track";
@@ -59,7 +59,6 @@ export interface LandingPageState {
     currentSearchName: string;
     totalAvailable: number;
     type: string;
-    displayingResult: [] | IArtist[] | ITrack[];
     currentSearchParam:
       | IArtistMusixMatchAPIParams
       | ITrackMusixMatchAPIParams
@@ -89,7 +88,6 @@ class LandingPage extends React.Component<{}, LandingPageState> {
       currentSearchName: "",
       totalAvailable: 0,
       type: "artist",
-      displayingResult: [],
       currentSearchParam: {},
       paginatedResults: { 1: [] },
       currentPage: 1
@@ -121,7 +119,7 @@ class LandingPage extends React.Component<{}, LandingPageState> {
 
     // Sorting the result
     if (this.state.sort.type !== "NO_SORT") {
-      result.sort(SortFuntions[this.state.sort.type]);
+      result.sort(SortFunctions[this.state.sort.type]);
     }
 
     this.setState({
@@ -129,7 +127,6 @@ class LandingPage extends React.Component<{}, LandingPageState> {
       searchResult: {
         currentSearchName: params.name,
         type: type,
-        displayingResult: result,
         totalAvailable: result.length > 0 ? result[0].totalAvailable / 10 : 0,
         currentSearchParam: params,
         paginatedResults: {
@@ -156,7 +153,9 @@ class LandingPage extends React.Component<{}, LandingPageState> {
   getSearchResultComponents() {
     let results;
     if (this.state.searchResult.type === "artist") {
-      results = this.state.searchResult.displayingResult as IArtist[];
+      results = this.state.searchResult.paginatedResults[
+        this.state.searchResult.currentPage
+      ] as IArtist[];
       return results.map((eachResult: IArtist) => (
         <ArtistCardComponent
           name={eachResult.name}
@@ -170,7 +169,9 @@ class LandingPage extends React.Component<{}, LandingPageState> {
         />
       ));
     } else {
-      results = this.state.searchResult.displayingResult as ITrack[];
+      results = this.state.searchResult.paginatedResults[
+        this.state.searchResult.currentPage
+      ] as ITrack[];
       return results.map((eachResult: ITrack) => (
         <TrackCardComponent
           artistName={eachResult.artistName}
@@ -191,12 +192,19 @@ class LandingPage extends React.Component<{}, LandingPageState> {
     if (this.state.searchResult.paginatedResults[page] !== undefined) {
       // If we already have the result in the paginatedResults prop, assign that
       // to the displaying result.
+      const sortedPage = this.state.searchResult.paginatedResults[page].sort(
+        SortFunctions[this.state.sort.type]
+      );
+
       await this.setState({
         ...this.state,
         searchResult: {
           ...this.state.searchResult,
-          displayingResult: this.state.searchResult.paginatedResults[page],
-          currentPage: page
+          currentPage: page,
+          paginatedResults: {
+            ...this.state.searchResult.paginatedResults,
+            [page]: sortedPage
+          }
         }
       });
     } else {
@@ -210,30 +218,14 @@ class LandingPage extends React.Component<{}, LandingPageState> {
   }
 
   async sortResults(sortBy) {
-    // Sort results in state by sortBy option
-    let sortedPaginatedResult: { [page: string]: IArtist[] | ITrack[] };
-    Object.keys(this.state.searchResult.paginatedResults).map(
-      (each: string) => {
-        sortedPaginatedResult = {
-          ...sortedPaginatedResult,
-          [each]: this.state.searchResult.paginatedResults[each].sort(
-            SortFuntions[sortBy]
-          )
-        };
-      }
-    );
-    this.setState({
+    await this.setState({
       ...this.state,
       sort: {
         type: sortBy
-      },
-      searchResult: {
-        ...this.state.searchResult,
-        paginatedResults: sortedPaginatedResult,
-        displayingResult:
-          sortedPaginatedResult[this.state.searchResult.currentPage]
       }
     });
+    // Sort the current displaying page results.
+    await this.handlePageClick(this.state.searchResult.currentPage, 0);
   }
 
   render() {
@@ -264,7 +256,9 @@ class LandingPage extends React.Component<{}, LandingPageState> {
           ) : this.state.musixmatchError ? (
             `MusixMatch server reponsed with 503. Please try again later`
           ) : this.state.searchResult.currentSearchName !== "" &&
-            this.state.searchResult.displayingResult.length === 0 ? (
+            this.state.searchResult.paginatedResults[
+              this.state.searchResult.currentPage
+            ].length === 0 ? (
             `¯\\_(ツ)_/¯`
           ) : (
             this.getSearchResultComponents()

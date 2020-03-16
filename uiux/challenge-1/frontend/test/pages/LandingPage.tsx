@@ -19,7 +19,6 @@ export default () => {
           currentSearchName: "",
           totalAvailable: 0,
           type: "artist",
-          displayingResult: [],
           currentSearchParam: {},
           paginatedResults: { 1: [] },
           currentPage: 1
@@ -87,7 +86,11 @@ export default () => {
           );
           assert.isArray(mutatedState.searchResult.paginatedResults["1"]);
           // We really can't be sure if the current search param returns expected 10 results
-          if (mutatedState.searchResult.displayingResult.length > 0) {
+          if (
+            mutatedState.searchResult.paginatedResults[
+              mutatedState.searchResult.currentPage
+            ].length > 0
+          ) {
             expect(
               mutatedState.searchResult.paginatedResults["1"].length
             ).to.be.at.least(1);
@@ -132,7 +135,11 @@ export default () => {
           );
           assert.isArray(mutatedState.searchResult.paginatedResults["1"]);
           // We really can't be sure if the current search param returns expected 10 results
-          if (mutatedState.searchResult.displayingResult.length > 0) {
+          if (
+            mutatedState.searchResult.paginatedResults[
+              mutatedState.searchResult.currentPage
+            ].length > 0
+          ) {
             expect(
               mutatedState.searchResult.paginatedResults["1"].length
             ).to.be.at.least(1);
@@ -213,7 +220,11 @@ export default () => {
           );
           assert.isArray(mutatedState.searchResult.paginatedResults["1"]);
           // We really can't be sure if the current search param returns expected 10 results
-          if (mutatedState.searchResult.displayingResult.length > 0) {
+          if (
+            mutatedState.searchResult.paginatedResults[
+              mutatedState.searchResult.currentPage
+            ].length > 0
+          ) {
             expect(
               mutatedState.searchResult.paginatedResults["1"].length
             ).to.be.at.least(1);
