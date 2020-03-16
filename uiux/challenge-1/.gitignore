@@ -10,3 +10,6 @@ tsconfig.tsbuildinfo
 # dist
 ./backend/dist
 ./frontend/dist
+
+# package-lock
+package-lock.json
