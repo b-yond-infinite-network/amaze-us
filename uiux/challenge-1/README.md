@@ -1,5 +1,15 @@
 ## KAROAKE NEEDS WORDS
 
+## Tech stack
+
+### Backend
+
+- TypeScript - ExpressJS - Mocha
+
+### Frontend
+
+- TypeScript - ReactJS - Styled Components - React Router DOM - Mocha - Enzyme
+
 ## Quick Setup
 
 This app is composed of two entities, a backend that acts as wrapper for the API requests to and from MusixMatch and a frontend.
