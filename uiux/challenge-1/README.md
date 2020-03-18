@@ -21,7 +21,7 @@ To run the docker container,
 
 Open your browser at `http://localhost:9000`. The backend runs on port 5000.
 
-## Starting in dev modes
+## Starting in dev mode
 
 To start backend in dev mode:
 
@@ -81,7 +81,7 @@ Opens Webpack dev server on port 8080
 
 #### _I did..._
 
-- Both artist and search results are paginated and I stored this on `React` state object. So, when N different pages were searched, N results are stored to the object in this mapping: `[pageNumber: number]: IArtist[] | ITrack[]` where `IArtist` and `ITrack` are type definitions for artist and track search results respectively. This makes it possible to get already searched page results without fetching it again from the backend but the _space complexity is O(N \* M) where N is the number of pages and M is the page size of each page._
+- Both artist and track search results are paginated and I stored this on `React state` object. So, when N different pages were searched, N page results are stored to the object in this mapping: `[pageNumber: number]: IArtist[] | ITrack[]` where `IArtist` and `ITrack` are type definitions for artist and track search results respectively. This makes it possible to get already searched page results without fetching it again from the backend but the _space complexity is O(N \* M) where N is the number of pages and M is the page size of each page._
 - Created responsive designs from the very beginning and one that supports mobile screens too.
 - The choice of searching artists separately and getting all tracks from a particular artist. Like search for `Eminem` and by clicking `Get all tracks` to get all paginated results of tracks by `Eminem`.
 - Sorting the results by name (title) and ratings.
@@ -90,10 +90,6 @@ Opens Webpack dev server on port 8080
 
 - **Display N recently searched queries.**, by using a LRU cache.
 - **Sort by duration and number of lyrics**. Duration of a track is not provided by MusixMatch. For number of lyrics, MusixMatch doesn't have a single point of access, but it would have to be searching all tracks of an artist with lyrics available, which in turns makes many unnecessary calls to MusixMatch.
-
-### Some technical difficulties I faced
-
-- MusixMatch servers were frequently responding with 503 errors, so I decided to have it shown explicitly in the frontend that it's been caused by MusixMatch.
 
 ### Others
 
