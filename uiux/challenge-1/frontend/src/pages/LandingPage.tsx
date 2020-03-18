@@ -67,7 +67,7 @@ export interface LandingPageState {
     currentPage: number;
   };
   isLoading?: boolean;
-  musixmatchError: boolean;
+  backendError: boolean;
 }
 
 class LandingPage extends React.Component<{}, LandingPageState> {
@@ -93,7 +93,7 @@ class LandingPage extends React.Component<{}, LandingPageState> {
       currentPage: 1
     },
     isLoading: false,
-    musixmatchError: false
+    backendError: false
   };
 
   async handleSearchRequest(type, params) {
@@ -112,7 +112,7 @@ class LandingPage extends React.Component<{}, LandingPageState> {
       await this.setState({
         ...this.state,
         isLoading: false,
-        musixmatchError: true
+        backendError: true
       });
       return;
     }
@@ -136,7 +136,7 @@ class LandingPage extends React.Component<{}, LandingPageState> {
         currentPage: parseInt(params.page)
       },
       isLoading: false,
-      musixmatchError: false
+      backendError: false
     });
   }
 
@@ -253,8 +253,8 @@ class LandingPage extends React.Component<{}, LandingPageState> {
                 loading={true}
               />
             </div>
-          ) : this.state.musixmatchError ? (
-            `MusixMatch server reponsed with 503. Please try again later`
+          ) : this.state.backendError ? (
+            `Backend is not responding. Please check if the backend server is up and running.`
           ) : this.state.searchResult.currentSearchName !== "" &&
             this.state.searchResult.paginatedResults[
               this.state.searchResult.currentPage

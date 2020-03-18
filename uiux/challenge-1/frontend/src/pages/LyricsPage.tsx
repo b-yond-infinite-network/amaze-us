@@ -41,7 +41,7 @@ const LyricsPage: React.FC<LyricsPageProps> = (props: LyricsPageProps) => {
       })
       .catch(error => {
         setLyricsContent(
-          `¯\\_(ツ)_/¯ There has been an error getting response from MusixMatch servers. Kindly try other lyrics.`
+          `¯\\_(ツ)_/¯ Backend is not responding. Please check if the backend server is up and running.`
         );
       });
     document.title = `${parsedQueryObject.trackName}`;

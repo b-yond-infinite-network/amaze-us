@@ -24,7 +24,7 @@ export default () => {
           currentPage: 1
         },
         isLoading: false,
-        musixmatchError: false
+        backendError: false
       });
 
       expect(wrapper.find("Container")).to.have.length(1);
