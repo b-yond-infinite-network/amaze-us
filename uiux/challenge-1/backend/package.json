@@ -35,6 +35,7 @@
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^5.0.0-alpha.7",
-    "request": "^2.88.2"
+    "request": "^2.88.2",
+    "form-data": "^3.0.0"
   }
 }
