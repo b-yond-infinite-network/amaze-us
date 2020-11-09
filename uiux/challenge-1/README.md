@@ -9,7 +9,7 @@ It so happens that the MusixMatch API (https://developer.musixmatch.com/document
 Now, it just needs an artist search bar, list of songs, ability to sort the songs by the number of lyrics they have, 
 title, and duration. You will want, of course, to be able to display the song lyrics themselves. 
 
-A nice bonus would be to minimize the number of calls you're doing to the MusixMatch API, because we don't want to 
+A nice bonus would be to minimize the number of calls you're doing to the MusixMatch API and the use of node with python scripts, express and/or React-TypeScript
 bother them while singing drunk...
 
 ## Expected steps
