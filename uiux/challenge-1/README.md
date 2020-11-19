@@ -4,7 +4,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Development server
 
-Create a .env file at the root of the folder with the following keys:
+Create a .env file at the directory root with the following keys:
 
 -API_KEY=your_MusixmatchService_secretkey
 
