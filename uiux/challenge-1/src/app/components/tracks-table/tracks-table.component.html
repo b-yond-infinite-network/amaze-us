@@ -1,0 +1,29 @@
+<div class="table-container">
+  <table datatable [dtOptions]="dtOptions" *ngIf="tacksByArtist.length" class="table table-dark table-bordered" style="width:100%">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Artist</th>
+            <th>Album</th>
+            <th>Track</th>
+            <th>Date</th>
+            <th>Lyrics</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let track of tacksByArtist">
+            <td>{{track.track_id}}</td>
+            <td>{{track.artist_name}}</td>
+            <td>{{track.album_name}}</td>
+            <td>{{track.track_name}}</td>
+            <td>{{track.updated_time | date}}</td>
+            <td>
+              <button type="button" class="btn btn-info" data-toggle="modal" [attr.data-target]="'#mod'+ track.track_id" (click)="selectTrack(track)">
+                Lyrics
+              </button>
+            </td>
+        </tr>
+    </tbody>
+  </table>
+</div>
+<app-modal-lyrics [trackObj]="selectedTrack" [lyrics]="selectedLyrics" [showModal]="showingModal" (toggleShow)="onHide($event)"></app-modal-lyrics>

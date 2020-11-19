@@ -1,0 +1,14 @@
+@import "~bootstrap/dist/css/bootstrap.css";
+
+body{
+    background-image: url(./assets/img/bg.jpg);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: bottom left;
+    background-color: #f3ebd4;
+}
+.jumbotron {
+    background: #615e54;
+    color: white;
+    border-radius: 0;
+}
