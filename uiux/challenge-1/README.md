@@ -5,8 +5,11 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 ## Development server
 
 Create an .env file at the root of the folder with the following keys:
+
 -API_KEY=your_MusixmatchService_secretkey
+
 -API_URL=https://api.musixmatch.com/ws/1.1/
+
 
 Run `npm install`
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
