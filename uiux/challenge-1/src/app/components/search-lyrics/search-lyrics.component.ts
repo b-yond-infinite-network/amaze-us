@@ -9,16 +9,20 @@ import { MusixmatchService } from 'src/app/services/musixmatch.service';
 })
 export class SearchLyricsComponent implements OnInit {
 
-  inputArtist : String = '';
+  inputArtist = '';
+
   constructor( private musicMatchService: MusixmatchService) { }
 
   @Output() tacksByArtist = new EventEmitter<TrackModel>();
+  @Output() typedArtist = new EventEmitter<string>();
 
   ngOnInit(): void {
   }
 
-  onSearchTracks(){
-    if(this.inputArtist){
+  onSearchTracks() {
+    this.typedArtist.emit(this.inputArtist);
+    if (this.inputArtist) {
+      this.tacksByArtist.emit(null);
       this.musicMatchService.getTracksByArtist(this.inputArtist).subscribe((data) => {
         this.tacksByArtist.emit(data);
       });

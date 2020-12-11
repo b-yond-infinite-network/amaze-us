@@ -9,8 +9,8 @@ import { TrackModel } from 'src/app/models/track.model';
 export class ModalLyricsComponent implements OnInit {
 
   @Input() trackObj: TrackModel = null;
-  @Input() showModal: boolean = false;
-  @Input() lyrics: string = "";
+  @Input() showModal = false;
+  @Input() lyrics = '';
 
   @Output() toggleShow = new EventEmitter<boolean>();
 
@@ -19,7 +19,7 @@ export class ModalLyricsComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  hide(){
+  hide() {
     this.showModal = false;
     this.toggleShow.emit(this.showModal);
   }

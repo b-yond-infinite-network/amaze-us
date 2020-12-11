@@ -22,4 +22,11 @@ describe('ModalLyricsComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it(`should close the modal`, async(() => {
+    component.showModal = true;
+    component.hide();
+    expect(component.showModal).toEqual(false);
+  }));
+
 });

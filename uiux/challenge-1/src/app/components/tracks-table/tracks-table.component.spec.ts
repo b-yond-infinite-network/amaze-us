@@ -1,5 +1,5 @@
+import { HttpClientModule } from '@angular/common/http';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { TracksTableComponent } from './tracks-table.component';
 
 describe('TracksTableComponent', () => {
@@ -8,6 +8,7 @@ describe('TracksTableComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [HttpClientModule],
       declarations: [ TracksTableComponent ]
     })
     .compileComponents();

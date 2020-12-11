@@ -16,12 +16,12 @@ export class MusixmatchService {
   constructor(private http: HttpClient) { }
 
   // Track search by Artist Name
-  getTracksByArtist(aName) : Observable<any> {
-    let url = `${this.baseUri}track.search?format=jsonp&q_artist=${aName}&apikey=${this.token}&page_size=100`;
-    return this.http.jsonp(url, "callback").pipe(
-      map((res : any) => {
-        if(res.message.body.track_list.length){
-          return res.message.body.track_list.map(val => <TrackModel>{
+  getTracksByArtist(aName): Observable<any> {
+    const url = `${this.baseUri}track.search?format=jsonp&q_artist=${aName}&apikey=${this.token}&page_size=100`;
+    return this.http.jsonp(url, 'callback').pipe(
+      map((res: any) => {
+        if (res.message.body.track_list.length) {
+          return res.message.body.track_list.map(val => <TrackModel> {
             album_name: val.track.album_name,
             updated_time: val.track.updated_time,
             artist_name: val.track.artist_name,
@@ -32,24 +32,24 @@ export class MusixmatchService {
         } else {
           return [];
         }
-    }),catchError(err => { return this.errorHandler("getTracksByArtist", err) }));
+    }), catchError(err => this.errorHandler('getTracksByArtist', err) ));
   }
 
   // Get Lyrics By Track
-  getLyricsByTrack(tId) : Observable<any> {
-    let url = `${this.baseUri}track.lyrics.get?format=jsonp&track_id=${tId}&apikey=${this.token}`;
-    return this.http.jsonp(url, "callback").pipe(
-      map((res : any) => {
-        if(res.message.body.lyrics){
+  getLyricsByTrack(tId): Observable<any> {
+    const url = `${this.baseUri}track.lyrics.get?format=jsonp&track_id=${tId}&apikey=${this.token}`;
+    return this.http.jsonp(url, 'callback').pipe(
+      map((res: any) => {
+        if (res.message.body.lyrics) {
           return res.message.body.lyrics.lyrics_body;
         } else {
-          return "";
+          return '';
         }
-    }),catchError(err => { return this.errorHandler("getLyricsByTrack", err) }));
+    }), catchError(err => this.errorHandler('getLyricsByTrack', err) ));
   }
 
    // Error handling
-   errorHandler(errorFlow, errorMessage){
+   errorHandler(errorFlow, errorMessage) {
     let errorResonse = '';
     errorResonse = `Error instance: ${errorFlow}\nMessage: ${errorMessage}`;
     console.log(errorResonse);
