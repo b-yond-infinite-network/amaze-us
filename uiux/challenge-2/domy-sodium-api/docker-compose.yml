@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  app:
+    command: npm start
+    build:
+      context: .
+      args:
+        DEVELOPMENT: 'true'
+    volumes:
+      - .:/app
+      - /app/node_modules
+    env_file: './env/.env'
+    ports:
+      - '3000:3000'
+  
