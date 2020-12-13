@@ -2,8 +2,13 @@ import { App } from './app';
 import { createConnection } from 'typeorm';
 const config = require('../ormconfig');
 import * as dotenv from 'dotenv';
+import { join } from 'path';
 
-dotenv.config();
+
+const result = dotenv.config();
+if (result.error) {
+  throw result.error;
+}
 
 const app = new App();
 const port = process.env.PORT || 3000

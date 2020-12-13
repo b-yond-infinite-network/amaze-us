@@ -1,4 +1,4 @@
-import { Column, CreateDateColumn, Entity, EntityOptions, PrimaryColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, EntityOptions, PrimaryGeneratedColumn } from "typeorm";
 
 export enum PioneerStatus {
     ACTIVE = 'active',
@@ -14,13 +14,15 @@ const config: EntityOptions = {
 @Entity(config)
 export class Pioneer {
 
-    @PrimaryColumn()
+    @PrimaryGeneratedColumn()
     id: number;
 
     @Column()
     password: string;
 
-    @Column()
+    @Column({
+        unique: true
+    })
     recognition_number: string;
 
     @Column()
@@ -44,5 +46,4 @@ export class Pioneer {
 
     @CreateDateColumn()
     updated_at: string;
-
 }

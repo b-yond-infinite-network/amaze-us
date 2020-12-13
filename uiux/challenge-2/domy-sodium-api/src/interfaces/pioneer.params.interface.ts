@@ -5,8 +5,8 @@ export const CheckUserPreRegistration = Joi.object({
 });
 
 export const AddUserPreRegistration = Joi.object({
-    first_name: Joi.string().regex(/^[a-zA-Z]$/).required(),
-    last_name: Joi.string().regex(/^[a-zA-Z]$/).required(),
+    first_name: Joi.string().required(),
+    last_name: Joi.string().required(),
     birthdate: Joi.date().required(),
     recognition_number: Joi.string().regex(/^[0-9a-zA-Z]+$/).required()
 });

@@ -6,7 +6,6 @@ export const ValidateParams = (params: ExtensionBoundSchema) => {
         const req = getRequestVerifyItem(request);
         const { value, error } = params.validate(req);
         if (error) {
-            console.log(error);
             return response.status(500).json({ error, user_message: 'params_error' });
         }
         next();

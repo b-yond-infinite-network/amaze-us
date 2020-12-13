@@ -6,6 +6,7 @@ import * as Tracing from '@sentry/tracing';
 
 // Controllers
 import PioneerRoutes from './controllers/pioneer.controller';
+import AuthRoutes from './controllers/auth.controller';
 
 export class App {
 
@@ -59,6 +60,7 @@ export class App {
     private setRoutes() {
         this.app.get('/health-check', (req, res) => res.status(200).json({ success: true, time: Date() }));
         this.app.use('/v1/pioneer', PioneerRoutes);
+        this.app.use('/v1/auth', AuthRoutes);
     }
 
 }
