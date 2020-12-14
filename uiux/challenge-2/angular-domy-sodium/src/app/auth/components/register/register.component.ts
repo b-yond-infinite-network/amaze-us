@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
 import { faLock } from '@fortawesome/free-solid-svg-icons';
+import { Store } from '@ngrx/store';
 import { FormValidator } from 'src/app/shared/helpers/formValidator.helper';
 import { AuthenticationService } from '../../services/authentication.service';
+import { register } from '../../store/actions/auth.actions';
 
 @Component({
   selector: 'app-register',
@@ -14,31 +15,45 @@ export class RegisterComponent {
 
   public registerForm = new FormGroup({
     recognitionNumber: new FormControl(''),
+    password: new FormControl('')
   });
 
   // Icons
   public faLock = faLock;
-  
+
+  public isValidated = false;
+
   constructor(
     private formValidator: FormValidator,
     private authService: AuthenticationService,
-    private router: Router
+    private store: Store
   ) { }
 
   get recognitionNumberControl() {
     return this.registerForm.get('recognitionNumber');
   }
 
-  async register() {
+  get passwordControl() {
+    return this.registerForm.get('password');
+  }
+
+  async validate() {
     if (!this.formValidator.isFormValid(this.registerForm)) { return; }
     try {
       const response = await this.authService.checkPreRegisterUser(this.recognitionNumberControl.value).toPromise();
-      if(!response.success) { return; }
+      if (!response.success) { return; }
 
-      this.router.navigate(['/auth/register_confirmation', { recognitionNumber: this.recognitionNumberControl.value }]);
-    } catch(e) {
+      this.isValidated = true;
+    } catch (e) {
       return e;
     }
+  }
+
+  async register() {
+    if (!this.formValidator.isFormValid(this.registerForm)) { return; }
+
+    const auth = { recognition_number: this.recognitionNumberControl.value, password: this.passwordControl.value };
+    this.store.dispatch(register({ auth }));
   }
 
 }

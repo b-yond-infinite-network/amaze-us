@@ -22,12 +22,12 @@ export const loadToken = createAction(
 
 export const register = createAction(
   '[Auth/Register] Register',
-  props<{ auth: any }>()
+  props<{ auth: { recognition_number: string, password: string } }>()
 );
 
 export const registerSuccess = createAction(
   '[Auth/Register] Register Success',
-  props<{ auth: any }>()
+  props<{ user: any }>()
 );
 
 export const registerFailure = createAction(

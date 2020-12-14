@@ -24,7 +24,7 @@ export class AuthEffects {
     login$ = createEffect(
         () => this.actions$.pipe(
             ofType(AuthActions.login),
-            mergeMap(action => this.authenticationService.login(action.credentials).pipe(
+            mergeMap(props => this.authenticationService.login(props.credentials).pipe(
                 map((response) => {
                     localStorage.setItem('token', response.metadata.token);
                     this.router.navigate(['/auth/home']);
@@ -34,5 +34,20 @@ export class AuthEffects {
             ))
         )
     );
+
+    @Effect()
+    register$ = createEffect(
+        () => this.actions$.pipe(
+            ofType(AuthActions.register),
+            mergeMap(props => this.authenticationService.registerConfiramtion(props.auth.recognition_number, props.auth.password).pipe(
+                map((response) => {
+                    localStorage.setItem('token', response.metadata.token);
+                    this.router.navigate(['/auth/home']);
+                    return AuthActions.registerSuccess({ user: response.user });
+                }),
+                catchError(error => of(AuthActions.registerFailure))
+            ))
+        )
+    )
 
 }

@@ -17,6 +17,9 @@ const authReducer = createReducer(
   on(AuthActions.loginSuccess, (state, { user }) => ({ ...state, user, pending: false })),
   on(AuthActions.loginFailure, (state) => ({ ...state, pending: false })),
   on(AuthActions.logoutSuccess, (state) => { return ({ ...state, user: null }) }),
+  on(AuthActions.register, (state) =>  ({ ...state, pending: true })),
+  on(AuthActions.registerSuccess, (state, { user }) => ({ ...state, user, pending: false })),
+  on(AuthActions.registerFailure, (state) => ({ ...state, pending: false }))
 );
 
 export function reducer(state: State | undefined, action: Action) {

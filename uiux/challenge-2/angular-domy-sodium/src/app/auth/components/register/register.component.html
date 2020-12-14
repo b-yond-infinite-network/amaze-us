@@ -8,9 +8,13 @@
                             <h5 class="card-title aligh-self-center">{{ 'register' | translate }}</h5>
                             <app-field type="text" icon="faUserTag" placeholder="Recognition Number"
                                 [controller]="recognitionNumberControl"></app-field>
+                            <app-field *ngIf="isValidated" type="password" icon="faLock" placeholder="Password"
+                                [controller]="passwordControl"></app-field>
                             <div class="col-auto d-grid gap-2">
-                                <button (click)="register()" class="btn btn-primary btn-lg w-100"
+                                <button *ngIf="!isValidated" (click)="validate()" class="btn btn-primary btn-lg w-100"
                                     type="button">{{ 'start_register' | translate }}</button>
+                                <button *ngIf="isValidated" (click)="register()" class="btn btn-primary btn-lg w-100"
+                                    type="button">{{ 'complete_register' | translate }}</button>
                             </div>
                             <a [routerLink]="['/auth/login']">
                                 {{ 'already_registered' | translate }}

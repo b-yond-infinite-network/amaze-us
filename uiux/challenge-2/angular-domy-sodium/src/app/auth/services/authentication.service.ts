@@ -21,8 +21,12 @@ export class AuthenticationService {
       { recognition_number: params.recognitionNumber, password: params.password }, {});
   }
 
-  checkPreRegisterUser(recognition_number: string): Observable<{ [k:string]: boolean }> {
+  checkPreRegisterUser(recognition_number: string): Observable<{ [k: string]: boolean }> {
     return this.http.get<any>(`${'http://localhost:3000'}/v1/pioneer/user_pre_registration/${recognition_number}`, {})
+  }
+
+  registerConfiramtion(recognition_number: string, password: string): Observable<any> {
+    return this.http.post<any>(`${'http://localhost:3000'}/v1/auth/register`, { recognition_number, password }, {});
   }
 
 }
