@@ -1,3 +1,10 @@
 {
-    
+    "already_registered": "Ya estas registrado? Ingresa Aqui",
+    "get_access": "Obtener acceso a DomySodium",
+    "login": "Ingresar",
+    "recognition_number": "Numero de Reconocimiento",
+    "register": "Registro",
+    "register_faq": "Para poder registrarte un administrador debe haber ingresado previamente tu informacion",
+    "start_register": "Iniciar Registro",
+    "password": "Contraseña"
 }

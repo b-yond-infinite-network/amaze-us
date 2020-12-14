@@ -1,8 +1,8 @@
 import { createAction, props } from '@ngrx/store';
 
-export const loginSuccess = createAction(
-  '[Auth/Login] Login Success',
-  props<{ user: any,  thirdPartyParams: any }>()
+export const login = createAction(
+  '[Auth/Login] Login',
+  props<{ credentials: { recognitionNumber: string, password: string } }>()
 );
 
 export const loginFailure = createAction(
@@ -10,10 +10,15 @@ export const loginFailure = createAction(
   props<{ error: any }>()
 );
 
-export const login = createAction(
-  '[Auth/Login] Login',
-  props<{ error: any }>()
+export const loginSuccess = createAction(
+  '[Auth/Login] Login Success',
+  props<{ user: any }>()
 );
+
+export const loadToken = createAction(
+  '[Auth/Login] Load New Token',
+  props<{ token: string }>()
+) 
 
 export const register = createAction(
   '[Auth/Register] Register',

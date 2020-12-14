@@ -1,0 +1,7 @@
+@import 'src/theme/variables.scss';
+
+.wrapper {
+    background: $light-color; 
+    border-radius: 1em;
+    box-shadow: 0.5em 0.6em rgba(0,0,0,0.3);
+}

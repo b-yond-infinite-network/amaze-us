@@ -1,0 +1,13 @@
+<div class="input-group mb-3">
+    <div *ngIf="icon" class="input-group-prepend">
+        <span class="input-group-text">
+            <fa-icon [icon]="icon"></fa-icon>
+        </span>
+    </div>
+    <input 
+        [type]="type"
+        class="form-control"
+        [placeholder]="placeholder"
+        [formControl]="controller"
+    />
+</div>

@@ -1,3 +1,10 @@
 {
-
+    "already_registered": "Already Registered? Log In",
+    "get_access": "Get access to DomySodium",
+    "login": "Log In",
+    "recognition_number": "Recognition Number",
+    "register": "Register",
+    "register_faq": "In order to register your account an admin should already logged your information",
+    "start_register": "Start Register",
+    "password": "Password"
 }
