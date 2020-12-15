@@ -15,10 +15,27 @@ export const validateSession = (req: Request, res: Response, next: NextFunction)
         };
         verify(token, privateKEY, tokenOpts, (err: any, user: any) => {
             if (err) return res.sendStatus(403);
-            req.recognition_number = user.id;
+            req.recognition_number = user.recognition_number;
+            req.features = user.features;
             next()
         })
     } catch (e) {
         return res.sendStatus(500);
+    }
+}
+
+export const validateAccessLevel = (feature: string) => {
+    return function (req: Request, res: Response, next: NextFunction) {
+        try {
+            req.features.forEach((item) => {
+                if (item.feature === feature) {
+                    return next();
+                }
+            });
+            return res.status(403).json({ user_message: 'Forbidden' });
+
+        } catch (e) {
+            return res.sendStatus(500);
+        }
     }
 }

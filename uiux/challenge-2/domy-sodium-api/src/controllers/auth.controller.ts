@@ -47,6 +47,7 @@ class PioonerRouter {
             const token = await this.jwt.generateToken({ features, recognition_number: req.body.recognition_number });
             return res.status(200).json({
                 user,
+                features,
                 success: true,
                 metadata: { token, date: Date() },
             });
@@ -69,6 +70,7 @@ class PioonerRouter {
             const features = await this.featureFlagService.getUserFeatures(req.body.recognition_number);
             const token = await this.jwt.generateToken({ features, recognition_number: req.body.recognition_number });
             return res.status(200).json({
+                features,
                 success: true,
                 metadata: { token, date: Date() },
                 user: data

@@ -1,5 +1,6 @@
 import express, { Response, Request, NextFunction } from "express";
 import helmet from 'helmet'
+import cors from 'cors';
 
 import * as Sentry from "@sentry/node";
 import * as Tracing from '@sentry/tracing';
@@ -15,6 +16,9 @@ export class App {
 
     public getApp() {
         this.startSentry();
+
+        // CORS
+        this.app.use(cors());
 
         // Helmet Security
         this.app.use(helmet.contentSecurityPolicy());

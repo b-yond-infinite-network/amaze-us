@@ -3,7 +3,7 @@ import { NextFunction, Request, Response, Router } from 'express';
 import { Pioneer, PioneerStatus } from '../entity/Pioneer.entity';
 
 // Middlewares
-import { validateSession } from '../middlewares/session.middleware';
+import { validateSession, validateAccessLevel } from '../middlewares/session.middleware';
 import { ValidateParams } from '../middlewares/params.middleware';
 import { json } from 'body-parser';
 
@@ -31,8 +31,19 @@ class PioonerRouter {
 
     private init() {
         this.router.get('/health-check', (req: any, res: Response) => this.healthCheck(req, res));
-        this.router.get('/user_pre_registration/:recognition_number', this.parse, ValidateParams(CheckUserPreRegistration), this.checkUserPreRegistration.bind(this));
-        this.router.post('/add_user_pre_registration', validateSession, this.parse, ValidateParams(AddUserPreRegistration), this.addUserPreRegistration.bind(this));
+        this.router.get(
+            '/user_pre_registration/:recognition_number',
+            this.parse,
+            ValidateParams(CheckUserPreRegistration),
+            this.checkUserPreRegistration.bind(this)
+        );
+        this.router.post(
+            '/add_user_pre_registration',
+            // validateSession,
+            this.parse,
+            ValidateParams(AddUserPreRegistration),
+            this.addUserPreRegistration.bind(this)
+        );
     }
 
     private healthCheck(req: Request, res: Response) {
