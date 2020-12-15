@@ -1,0 +1,9 @@
+@import 'src/theme/variables.scss';
+
+.icon-button {
+    font-size: 4em;
+}
+
+.icon-button:hover {
+    color: $light-color;
+}

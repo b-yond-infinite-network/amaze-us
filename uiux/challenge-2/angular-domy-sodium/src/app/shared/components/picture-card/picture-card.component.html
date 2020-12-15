@@ -1,0 +1,11 @@
+<div class="card dark-card h-100">
+    <div class="card-header">
+        <h5 class="text-center mb-0">{{ title }}</h5>
+    </div>
+    <div class="card-body text-center h-100">
+        <picture class="h-100 d-sm-flex justify-content-sm-center align-items-sm-center">
+             <img *ngIf="image" draggable="false" class="h-100" [src]="image" />
+             <fa-icon *ngIf="icon" (click)="redirect('profile')" class="icon-button" [icon]="icon"></fa-icon>
+        </picture>
+    </div>
+</div>

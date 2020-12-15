@@ -2,14 +2,36 @@
 @import 'src/theme/variables.scss';
 
 html {
-    background: $background;
+    height: 100vh;
 }
 
 body {
-    background: $background;
+    overflow: hidden;
     height: 100vh !important;
+    background: #475d62 url('../assets/images/background.png');
+    background-size: cover;
+    position: relative;
 }
 
 .max-514 {
     max-width: 514px !important;
+}
+
+.maxh-514 {
+    max-height: 514px !important;
+}
+
+.dark-card {
+    background-color: #1e2833 !important;
+    border-radius: 4px;
+    color: #fff;
+    box-shadow: 3px 3px 4px rgba(0,0,0,0.2);
+}
+
+.h-33 {
+    height: 33.33% !important;
+}
+
+.error {
+    border-color: red !important;
 }

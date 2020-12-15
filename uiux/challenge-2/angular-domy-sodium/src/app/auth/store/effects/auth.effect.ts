@@ -9,7 +9,7 @@ import { AuthenticationService } from '../../services/authentication.service';
 import { Router } from '@angular/router';
 
 // Actions
-import { AuthActions } from '../actions';
+import { AuthActions, FeaturesActions } from '../actions';
 
 @Injectable()
 export class AuthEffects {
@@ -27,6 +27,7 @@ export class AuthEffects {
             mergeMap(props => this.authenticationService.login(props.credentials).pipe(
                 map((response) => {
                     localStorage.setItem('token', response.metadata.token);
+                    FeaturesActions.loadFeatures({ features: response.features });
                     this.router.navigate(['/auth/home']);
                     return AuthActions.loginSuccess({ user: response.user });
                 }),
@@ -42,6 +43,7 @@ export class AuthEffects {
             mergeMap(props => this.authenticationService.registerConfiramtion(props.auth.recognition_number, props.auth.password).pipe(
                 map((response) => {
                     localStorage.setItem('token', response.metadata.token);
+                    FeaturesActions.loadFeatures({ features: response.features });
                     this.router.navigate(['/auth/home']);
                     return AuthActions.registerSuccess({ user: response.user });
                 }),

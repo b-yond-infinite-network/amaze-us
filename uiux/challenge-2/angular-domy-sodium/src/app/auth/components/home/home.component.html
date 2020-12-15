@@ -1,1 +1,35 @@
-<p>home works!</p>
+<div class="row p-3 h-33">
+    <div class="col-lg-4 h-100 mb-3">
+       <app-picture-card title="Testing Title" image="../../../../assets/images/default_profile_picture.png"></app-picture-card>
+    </div>
+    <div class="col h-100">
+        <div class="card dark-card h-100">
+            <div class="card-body">
+                <div class="row h-50">
+                    <div class="col text-center">
+                        <picture class="d-lg-flex justify-content-lg-center align-items-lg-center">
+                            <fa-icon (click)="redirect('profile')" class="icon-button" [icon]="faUser"></fa-icon>
+                        </picture>
+                    </div>
+                    <div class="col text-center">
+                        <picture class="d-lg-flex justify-content-lg-center align-items-lg-center">
+                            <fa-icon (click)="redirect('food/home')" class="icon-button" [icon]="faAppleAlt"></fa-icon>
+                        </picture>
+                    </div>
+                </div>
+                <div class="row h-50">
+                    <div class="col text-center">
+                        <picture class="d-lg-flex justify-content-lg-center align-items-lg-center">
+                            <fa-icon (click)="redirect('water')" class="icon-button" [icon]="faTint"></fa-icon>
+                        </picture>
+                    </div>
+                    <div class="col text-center">
+                        <picture class="d-lg-flex justify-content-lg-center align-items-lg-center">
+                            <fa-icon (click)="redirect('population')" class="icon-button" [icon]="faUsers"></fa-icon>
+                        </picture>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,5 +1,7 @@
 {
+    "announcements": "Announcements",
     "already_registered": "Already Registered? Log In",
+    "best_hopes": "we hope that you are having a wonderfull and productive day",
     "complete_register": "Complete Register",
     "get_access": "Get access to DomySodium",
     "login": "Log In",
@@ -7,5 +9,8 @@
     "register": "Register",
     "register_faq": "In order to register your account an admin should already logged your information",
     "start_register": "Start Register",
-    "password": "Password"
+    "password": "Password",
+    "pioneer": "Pioneer",
+    "welcome_pioneer": "Welcome Pioneer",
+    "what_can_we_do": "What can we do for you to help you to get us faster to Kepler 186-f?"
 }

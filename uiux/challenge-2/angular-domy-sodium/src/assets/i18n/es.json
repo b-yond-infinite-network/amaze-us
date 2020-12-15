@@ -1,4 +1,5 @@
 {
+    "announcements": "Anuncios",
     "already_registered": "Ya estas registrado? Ingresa Aqui",
     "complete_register": "Completar Registro",
     "get_access": "Obtener acceso a DomySodium",
@@ -7,5 +8,6 @@
     "register": "Registro",
     "register_faq": "Para poder registrarte un administrador debe haber ingresado previamente tu informacion",
     "start_register": "Iniciar Registro",
-    "password": "Contraseña"
+    "password": "Contraseña",
+    "pioneer": "Pionero"
 }
