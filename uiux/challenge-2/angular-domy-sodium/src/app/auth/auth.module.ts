@@ -19,6 +19,7 @@ import { HomeComponent } from './components/home/home.component';
 // Modules
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 // Translate
 import { TranslateModule } from '@ngx-translate/core';
@@ -36,6 +37,7 @@ import { HttpClientModule } from '@angular/common/http';
     CommonModule,
     FontAwesomeModule,
     FormsModule,
+    NgbModule,
     HttpClientModule,
     ReactiveFormsModule,
     EffectsModule.forFeature([

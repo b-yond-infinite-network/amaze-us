@@ -30,7 +30,7 @@ export function logger(reducer: ActionReducer<State>): ActionReducer<State> {
 
 export function localStorageSyncReducer(reducer: ActionReducer<State>): ActionReducer<State> {
   return localStorageSync({
-    keys: ['auth', 'population', 'food', 'water'],
+    keys: ['auth', 'population', 'plantation', 'water'],
     rehydrate: true,
     removeOnUndefined: true,
   })(reducer);

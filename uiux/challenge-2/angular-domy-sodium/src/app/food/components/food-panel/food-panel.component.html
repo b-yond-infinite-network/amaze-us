@@ -1,12 +1,30 @@
-<div class="row p-3 h-33">
-    <div class="col-lg-4 h-100 mb-3">
-       <app-picture-card title="Testing Title" image="../../../../assets/images/default_profile_picture.png"></app-picture-card>
+<div class="row p-3 h-33 justify-content-center align-items-center">
+    <div class="col-lg-4 h-100 mb-3 align-self-center">
+        <div class="card p-3 dark-card h-100 text-center">
+            <app-doughnut-chart  *ngIf="chartData" [inputs]="chartData"></app-doughnut-chart>
+        </div>
     </div>
     <div class="col h-100">
         <div class="card dark-card h-100">
-            <div class="card-body">
-                <div class="row h-100">
-                    
+            <div class="row h-50">
+                <div class="card-body">
+                    <div class="row h-100 justify-content-center align-items-center">
+                        <div class="col h-100 p-4 text-center">
+                            <h1 class="percent-text"> {{ storagePercent }} % </h1>
+                        </div>                        
+                        <div class="col h-100 p-4 align-self-center">
+                            <div class="progress margin">
+                                <ngb-progressbar class="w-100" [showValue]="true" type="info" [value]="storagePercent" [max]="100"></ngb-progressbar>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row h-50 justify-content-center align-items-center">
+                <div class="col-5 align-self-center">
+                    <button (click)="openPlantationModal()" class="btn btn-primary btn-block" type="submit">
+                        {{ 'add_plantation' | translate }}
+                    </button>    
                 </div>
             </div>
         </div>

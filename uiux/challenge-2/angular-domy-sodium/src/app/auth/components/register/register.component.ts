@@ -63,7 +63,6 @@ export class RegisterComponent implements OnInit {
 
       this.isValidated = true;
     } catch (e) {
-      console.log(e);
       return e;
     }
   }

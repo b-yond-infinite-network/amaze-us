@@ -8,6 +8,8 @@ import * as Tracing from '@sentry/tracing';
 // Controllers
 import PioneerRoutes from './controllers/pioneer.controller';
 import AuthRoutes from './controllers/auth.controller';
+import CollectorRoutes from './controllers/collectors.controller';
+import FarmRoutes from './controllers/farm.controller';
 
 export class App {
 
@@ -19,6 +21,9 @@ export class App {
 
         // CORS
         this.app.use(cors());
+
+        // JSON Parser
+        this.app.use(express.json());
 
         // Helmet Security
         this.app.use(helmet.contentSecurityPolicy());
@@ -65,6 +70,8 @@ export class App {
         this.app.get('/health-check', (req, res) => res.status(200).json({ success: true, time: Date() }));
         this.app.use('/v1/pioneer', PioneerRoutes);
         this.app.use('/v1/auth', AuthRoutes);
+        this.app.use('/v1/collector', CollectorRoutes);
+        this.app.use('/v1/plantation', FarmRoutes);
     }
 
 }

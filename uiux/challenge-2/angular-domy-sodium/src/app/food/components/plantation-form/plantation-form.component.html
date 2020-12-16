@@ -1,0 +1,23 @@
+<div class="container h-100 p-4">
+    <h2 class="text-center" >{{ 'new_plantation' | translate }}</h2>
+    <div class="row h-100 justify-content-center align-items-center">
+        <div class="col-md-8 mb-3">
+            <input [formControl]="SeedNameControl" class="form-control" type="text" name="seedName" placeholder="Seed Name" />
+        </div>
+        <div class="col-md-8 mb-3">
+            <input [formControl]="SeedIdControl" class="form-control" type="text" name="seedId" placeholder="Seed Identifier" />
+        </div>
+        <div class="col-md-8 mb-3">
+            <input [formControl]="amountControl" class="form-control" type="number" name="amount" placeholder="Percent Ammount" />
+        </div>
+        <div class="col-md-8 mb-3">
+            <input [formControl]="readyOnDaysControl" class="form-control" type="number" name="readyOnDay" placeholder="Ready On How Many Days?" />
+        </div>
+        <button (click)="close()" class="btn btn-primary btn-block" type="submit">
+            {{ 'submit' | translate }}
+        </button>
+        <button (click)="close(true)" class="btn btn-danger btn-block" type="submit">
+            {{ 'cancel' | translate }}
+        </button>
+    </div>
+</div>

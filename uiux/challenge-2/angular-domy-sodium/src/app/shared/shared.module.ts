@@ -12,13 +12,16 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PictureCardComponent } from './components/picture-card/picture-card.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { CustomTranslationLoader } from 'src/factories/translate.factory';
+import { DoughnutChartComponent } from './components/doughnut-chart/doughnut-chart.component';
 
 @NgModule({
   declarations: [
+    DoughnutChartComponent,
     FieldComponent,
     PictureCardComponent
   ],
   exports: [
+    DoughnutChartComponent,
     FieldComponent,
     PictureCardComponent
   ],

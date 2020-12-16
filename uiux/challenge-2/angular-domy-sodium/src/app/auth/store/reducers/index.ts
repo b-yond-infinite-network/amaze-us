@@ -4,7 +4,7 @@ import * as fromFeatures from './features.reducer';
 
 import { ActionReducerMap, createFeatureSelector, createSelector } from '@ngrx/store';
 
-export const authFeatureKey = 'auth';
+export const authFeatureKey = 'aufth';
 
 export interface AuthState {
     auth: fromAuth.State;

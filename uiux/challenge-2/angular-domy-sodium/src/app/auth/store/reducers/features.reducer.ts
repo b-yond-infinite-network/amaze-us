@@ -9,11 +9,11 @@ export const initialState: State = {
   features: null
 };
 
-const authReducer = createReducer(
+const featureFlagReducer = createReducer(
   initialState,
   on(FeaturesActions.loadFeatures, (state, { features }) => ({ ...state, features })),
 );
 
 export function reducer(state: State | undefined, action: Action) {
-  return authReducer(state, action);
+  return featureFlagReducer(state, action);
 }

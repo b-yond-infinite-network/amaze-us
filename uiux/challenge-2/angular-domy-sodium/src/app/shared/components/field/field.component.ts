@@ -22,7 +22,4 @@ export class FieldComponent {
   @Output()
   onInputChange = new EventEmitter();
 
-  public inputHasChange(e) {
-    console.log(e);
-  }
 }

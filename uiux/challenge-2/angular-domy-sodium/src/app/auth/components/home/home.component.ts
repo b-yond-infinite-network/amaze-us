@@ -32,8 +32,8 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.displayPicture = window.innerWidth >= this.SCREEN_MIN_WIDTH;
-    this.user$.pipe(take(100)).subscribe(user => { console.log(user); this.user = user });
-    this.features$.pipe(take(100)).subscribe(features => {console.log(features); this.user = features});
+    this.user$.pipe(take(100)).subscribe(user => { this.user = user });
+    this.features$.pipe(take(100)).subscribe(features => { this.user = features });
   }
 
   redirect(url: string) {
