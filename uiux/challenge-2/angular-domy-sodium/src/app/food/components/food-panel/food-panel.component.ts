@@ -25,6 +25,8 @@ export class FoodPanelComponent implements OnInit, OnDestroy {
   public chartData;
   public storagePercent: number;
   public farmPercent = 0;
+
+  public buttonText = this.translateService.instant('add_plantation');
   //Icons
   public faArrowCircleDown = faArrowCircleDown;
 

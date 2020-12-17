@@ -1,5 +1,8 @@
 # DOMY-SODIUM
 
+Better reading on:
+https://docs.google.com/document/d/1OtAXh_qxQbpsYkF2jowAXw6nIJZZYuAkcrvcrF4SCsw/edit?usp=sharing
+
 # FRONTEND
 
 This front end is built in AngularJS using NGRX, it has 5 modules and the main one (app).
