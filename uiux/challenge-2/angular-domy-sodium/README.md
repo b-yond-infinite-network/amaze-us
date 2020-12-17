@@ -1,5 +1,20 @@
 # AngularDomySodium
 
+RUN THE PROJECT
+
+This project will be hosted in Heroku so you can give a try.
+Anyway if you really want to run it on your computer please follow these steps, but before, be sure that you have your own backend running, if you don’t, don’t worry, i will provide you a heroku URL where the backend is hosted and you can use that.
+
+Note: If you use your backend for a better experience please be sure to have the basic data that the app thinks that you will have, you won’t have any troubles navigating the page but it will give a nicer experience if you have all the data.
+
+LocalHost:
+
+To run this project as development in Local host you just need to be sure that you configured your apiURL in the environments file (if you are going to use localhost:3000, leave it like it is), after that you can run “npm run start” and you will be launching your application in
+http://localhost:4200
+
+
+# Auto Generated ReadMe
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.2.0.
 
 ## Development server
