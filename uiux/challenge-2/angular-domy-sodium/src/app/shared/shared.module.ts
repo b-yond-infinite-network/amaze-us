@@ -13,16 +13,19 @@ import { PictureCardComponent } from './components/picture-card/picture-card.com
 import { TranslateModule } from '@ngx-translate/core';
 import { CustomTranslationLoader } from 'src/factories/translate.factory';
 import { DoughnutChartComponent } from './components/doughnut-chart/doughnut-chart.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
 
 @NgModule({
   declarations: [
     DoughnutChartComponent,
     FieldComponent,
+    NotFoundComponent,
     PictureCardComponent
   ],
   exports: [
     DoughnutChartComponent,
     FieldComponent,
+    NotFoundComponent,
     PictureCardComponent
   ],
   imports: [

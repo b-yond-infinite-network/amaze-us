@@ -4,7 +4,7 @@ import * as fromFeatures from './features.reducer';
 
 import { ActionReducerMap, createFeatureSelector, createSelector } from '@ngrx/store';
 
-export const authFeatureKey = 'aufth';
+export const authFeatureKey = 'auth';
 
 export interface AuthState {
     auth: fromAuth.State;
@@ -21,6 +21,7 @@ export const reducers: ActionReducerMap<AuthState> = {
 };
 
 const selectAuthState = createFeatureSelector<State, AuthState>('auth');
-export const getUser = createSelector(selectAuthState, (state: AuthState) => state.auth.user);
+export const getUser = createSelector(selectAuthState, (state: AuthState) => state.auth?.user);
+export const getUserError = createSelector(selectAuthState, (state: AuthState) => state.auth?.error);
 export const getFeatures = createSelector(selectAuthState, (state: AuthState) => state.features);
 

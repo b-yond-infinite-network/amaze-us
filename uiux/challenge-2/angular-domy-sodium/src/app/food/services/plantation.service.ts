@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 interface UserParams {
   recognitionNumber: string;
@@ -17,11 +18,11 @@ export class PlantationService {
   ) { }
 
   getAllPlantations(): Observable<any> {
-    return this.http.get<any>(`${'http://localhost:3000'}/v1/plantation/farm_active_plantation`);
+    return this.http.get<any>(`${environment.apiUrl}/v1/plantation/farm_active_plantation`);
   }
 
   createPlantation(params: any): Observable<any> {
-    return this.http.post<any>(`${'http://localhost:3000'}/v1/plantation/add_plantation`, params, {})
+    return this.http.post<any>(`${environment.apiUrl}/v1/plantation/add_plantation`, params, {})
   }
 
 }

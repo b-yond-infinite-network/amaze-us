@@ -1,10 +1,12 @@
 import {
   ActionReducer,
-  ActionReducerMap
+  ActionReducerMap,
+  MetaReducer
 } from '@ngrx/store';
 
 import * as fromRouter from '@ngrx/router-store';
 import { localStorageSync } from 'ngrx-store-localstorage';
+import { environment } from 'src/environments/environment';
 
 export interface State {
   router: fromRouter.RouterReducerState;
@@ -35,3 +37,6 @@ export function localStorageSyncReducer(reducer: ActionReducer<State>): ActionRe
     removeOnUndefined: true,
   })(reducer);
 }
+
+export const metaReducers: MetaReducer<State>[] = !environment.production
+  ? [logger, localStorageSyncReducer] : [localStorageSyncReducer];

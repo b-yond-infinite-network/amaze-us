@@ -22,4 +22,5 @@ export const reducers: ActionReducerMap<PlantationState> = {
 
 const selectPlantationState = createFeatureSelector<State, PlantationState>('plantation');
 export const getPlantations = createSelector(selectPlantationState, (state: PlantationState) => state.plantation?.plantations);
+export const getPlantationsError = createSelector(selectPlantationState, (state: PlantationState) => state.plantation.error);
 export const getCollector = createSelector(selectPlantationState, (state: PlantationState) => state.collector?.collector);
