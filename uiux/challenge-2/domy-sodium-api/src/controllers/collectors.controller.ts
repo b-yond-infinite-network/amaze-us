@@ -40,6 +40,7 @@ class CollectorRouter {
             this.parse,
             this.shipFoodStorage.bind(this)
         );
+        this.router.post('/add_collectors', this.addCollectors.bind(this));
     }
 
     private healthCheck(req: Request, res: Response) {
@@ -59,6 +60,16 @@ class CollectorRouter {
         try {
             const water_sotrage = await this.collectorService.getWaterCollector();
             return res.status(200).json({ success: true, sotrage: water_sotrage });
+        } catch(e) {
+            next(e);
+        }
+    }
+
+    private async addCollectors(req: Request, res: Response, next: NextFunction) {
+        try {
+            await this.collectorService.createFoodCollector();
+            await this.collectorService.createWaterCollector();
+            return res.status(200).json({ success: true })    
         } catch(e) {
             next(e);
         }

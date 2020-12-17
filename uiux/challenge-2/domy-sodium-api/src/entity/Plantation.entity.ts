@@ -1,5 +1,11 @@
 import { Column, CreateDateColumn, Entity, EntityOptions, PrimaryGeneratedColumn } from "typeorm";
 
+export enum PlantationStatus {
+    ACTIVE     = 'active',
+    CORRUPTED  = 'corrupted',
+    HARVESTED  = 'harvested'
+}
+
 const config: EntityOptions = {
     name: 'plantation'
 }
@@ -18,6 +24,13 @@ export class Plantation {
 
     @Column()
     plantation_percent: number;
+
+    @Column({
+        type: 'enum',
+        enum: PlantationStatus,
+        default: PlantationStatus.ACTIVE
+    })
+    status: PlantationStatus;
 
     @CreateDateColumn()
     plantation_start_date: string;

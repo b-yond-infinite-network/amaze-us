@@ -19,6 +19,9 @@ export class Collectors {
     @Column()
     tool_name: string;
 
+    @Column()
+    available_capacity: number;
+
     @CreateDateColumn()
     updated_at: string; 
 }
