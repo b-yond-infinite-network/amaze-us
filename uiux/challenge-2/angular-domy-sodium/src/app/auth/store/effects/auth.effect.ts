@@ -42,10 +42,8 @@ export class AuthEffects {
             ofType(AuthActions.register),
             mergeMap(props => this.authenticationService.registerConfiramtion(props.auth.recognition_number, props.auth.password).pipe(
                 map((response) => {
-                    localStorage.setItem('token', response.metadata.token);
-                    FeaturesActions.loadFeatures({ features: response.features });
-                    this.router.navigate(['/auth/home']);
-                    return AuthActions.registerSuccess({ user: response.user });
+                    this.router.navigate(['/auth/login']);
+                    return AuthActions.registerSuccess({ user: {} });
                 }),
                 catchError(error => of(AuthActions.registerFailure))
             ))

@@ -39,7 +39,7 @@ class PioonerRouter {
         );
         this.router.post(
             '/add_user_pre_registration',
-            // validateSession,
+            validateSession,
             this.parse,
             ValidateParams(AddUserPreRegistration),
             this.addUserPreRegistration.bind(this)

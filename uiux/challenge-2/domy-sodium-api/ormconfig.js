@@ -1,10 +1,15 @@
+const dotenv = require('dotenv');
+const result = dotenv.config();
+
+console.log(process.env.POSTGRES_DATABASE)
+
 module.exports = {
     type:     'postgres',
-    username: process.env.POSTGRES_USERNAME || 'postgres',
-    password: process.env.POSTGRES_PASSWORD || '12345',
-    host:     process.env.POSTGRES_HOSTNAME || '127.0.0.1',
+    username: process.env.POSTGRES_USERNAME,
+    password: process.env.POSTGRES_PASSWORD,
+    host:     process.env.POSTGRES_HOSTNAME,
     port:     5432,
-    database: process.env.POSTGRES_DATABASE || 'domy_sodium',
+    database: process.env.POSTGRES_DATABASE,
     entities: [
         process.env.NODE_ENV === 'development' ? './src/entity/*.ts' : './build/entity/*.js'
     ],

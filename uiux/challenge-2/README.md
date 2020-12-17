@@ -10,6 +10,14 @@ I wasn't able to continue more since i tried to finish all in one week, if you w
 
 Again thanks.
 
+### .env for backend
+https://docs.google.com/document/d/1TaUiq2aFExCeJyhAaAmIFFujaVFS9xBPIF5tI-ABbns/edit?usp=sharing
+Copy the content of this DOC and create a .env file in the api folder.
+
+### Pre registred user on DB
+E010002
+Go the register page (or main page and under the login button there is a text to redirect) and enter this number, after that you can enter a password and create the user.
+
 ## FRONTEND
 
 This front end is built in AngularJS using NGRX, it has 5 modules and the main one (app).
