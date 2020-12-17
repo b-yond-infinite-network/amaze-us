@@ -3,6 +3,7 @@
     "announcements": "Announcements",
     "already_registered": "Already Registered? Log In",
     "best_hopes": "we hope that you are having a wonderfull and productive day",
+    "back_home": "Back to home",
     "complete_register": "Complete Register",
     "get_access": "Get access to DomySodium",
     "food_storage": "Food Storage",
@@ -15,6 +16,7 @@
     "start_register": "Start Register",
     "password": "Password",
     "pioneer": "Pioneer",
+    "welcome": "Welcome",
     "welcome_pioneer": "Welcome Pioneer",
     "what_can_we_do": "What can we do for you to help you to get us faster to Kepler 186-f?"
 }

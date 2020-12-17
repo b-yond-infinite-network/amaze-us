@@ -3,6 +3,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { faAppleAlt, faTint, faUser, faUsers } from '@fortawesome/free-solid-svg-icons';
 import { select, Store } from '@ngrx/store';
+import { TranslateService } from '@ngx-translate/core';
 import { Observable, Subject } from 'rxjs';
 import { mergeMap, take, takeUntil } from 'rxjs/operators';
 import * as fromAuth from 'src/app/auth/store/reducers';
@@ -16,7 +17,8 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   constructor(
     private store: Store,
-    private router: Router
+    private router: Router,
+    private translateService: TranslateService
   ) { }
 
   private user$: Observable<any> = this.store.pipe(select(fromAuth.getUser));
@@ -36,7 +38,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.displayPicture = window.innerWidth >= this.SCREEN_MIN_WIDTH;
     this.user$.pipe(takeUntil(this.ngUnsuscribe)).subscribe(user => { 
       this.user = user 
-      this.title = `Welcome ${user.recognition_number}`;
+      const greeting = this.translateService.instant('welcome');
+      this.title = `${greeting} ${user.recognition_number}`;
     });
     this.features$.pipe(takeUntil(this.ngUnsuscribe)).subscribe(features => { this.user = features });
   }

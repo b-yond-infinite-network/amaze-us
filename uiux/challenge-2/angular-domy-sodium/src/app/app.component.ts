@@ -20,8 +20,9 @@ export class AppComponent implements OnInit {
 
   async setLanguage() {
     const lang = localStorage.getItem('lang');
-
     if(!lang) { return; }
+
+    await this.translateService.getTranslation(lang).toPromise();
     await this.translateService.use(lang).toPromise();
   }
 }
