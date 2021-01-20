@@ -5,9 +5,9 @@ import (
 	"net/http"
 	"strconv"
 
+	"github.com/b-yond-infinite-network/amaze-us/microservice/challenge-3/booster/app/model"
 	"github.com/gorilla/mux"
 	"github.com/jinzhu/gorm"
-	"app/model"
 )
 
 func GetAllFuelParts(db *gorm.DB, w http.ResponseWriter, r *http.Request) {
@@ -113,7 +113,7 @@ func DeleteFuelPart(db *gorm.DB, w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if err := db.Delete(&tank).Error; err != nil {
+	if err := db.Delete(&fuelPart).Error; err != nil {
 		respondError(w, http.StatusInternalServerError, err.Error())
 		return
 	}

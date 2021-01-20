@@ -2,6 +2,7 @@ package config
 
 type Config struct {
 	DB *DBConfig
+	AppPort string
 }
 
 type DBConfig struct {
@@ -21,5 +22,6 @@ func GetConfig() *Config {
 			Name:     "todoapp",
 			Charset:  "utf8",
 		},
+		AppPort: ":3000",
 	}
 }

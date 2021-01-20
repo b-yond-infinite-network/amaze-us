@@ -5,11 +5,11 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/b-yond-infinite-network/amaze-us/microservice/challenge-3/booster/app/handler"
+	"github.com/b-yond-infinite-network/amaze-us/microservice/challenge-3/booster/app/model"
+	"github.com/b-yond-infinite-network/amaze-us/microservice/challenge-3/booster/config"
 	"github.com/gorilla/mux"
 	"github.com/jinzhu/gorm"
-	"github.com/mingrammer/go-todo-rest-api-example/app/handler"
-	"github.com/mingrammer/go-todo-rest-api-example/app/model"
-	"github.com/mingrammer/go-todo-rest-api-example/config"
 )
 
 // App has router and db instances
@@ -28,7 +28,7 @@ func (a *App) Initialize(config *config.Config) {
 
 	db, err := gorm.Open(config.DB.Dialect, dbURI)
 	if err != nil {
-		log.Fatal("Could not connect database")
+		log.Fatal("Could not connect database. Error: ", err)
 	}
 
 	a.DB = model.DBMigrate(db)
@@ -142,4 +142,9 @@ func (a *App) UndoFuelPart(w http.ResponseWriter, r *http.Request) {
 // Run the app on it's router
 func (a *App) Run(host string) {
 	log.Fatal(http.ListenAndServe(host, a.Router))
+}
+
+func (a *App) Start(config *config.Config) {
+	a.Initialize(config)
+	a.Run(config.AppPort)
 }

@@ -4,9 +4,9 @@ import (
 	"encoding/json"
 	"net/http"
 
+	"github.com/b-yond-infinite-network/amaze-us/microservice/challenge-3/booster/app/model"
 	"github.com/gorilla/mux"
 	"github.com/jinzhu/gorm"
-	"app/model"
 )
 
 func GetAllTanks(db *gorm.DB, w http.ResponseWriter, r *http.Request) {
@@ -59,7 +59,7 @@ func UpdateTank(db *gorm.DB, w http.ResponseWriter, r *http.Request) {
 	}
 	defer r.Body.Close()
 
-	if err := db.Save(&tank).Error; err != nil {
+	if err := db.Model(&tank).Updates(&tank).Error; err != nil {
 		respondError(w, http.StatusInternalServerError, err.Error())
 		return
 	}
@@ -74,7 +74,7 @@ func DeleteTank(db *gorm.DB, w http.ResponseWriter, r *http.Request) {
 	if tank == nil {
 		return
 	}
-	if err := db.Delete(&tank).Error; err != nil {
+	if err := db.Unscoped().Delete(&tank).Error; err != nil {
 		respondError(w, http.StatusInternalServerError, err.Error())
 		return
 	}
