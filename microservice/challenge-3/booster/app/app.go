@@ -38,6 +38,7 @@ func (a *App) Initialize(config *config.Config) {
 
 // setRouters sets the all required routers
 func (a *App) setRouters() {
+	a.Get("/ping", a.Ping)
 	// Routing for handling the tank
 	a.Get("/tanks", a.GetAllTanks)
 	a.Post("/tanks", a.CreateTank)
@@ -137,6 +138,13 @@ func (a *App) CompleteFuelPart(w http.ResponseWriter, r *http.Request) {
 
 func (a *App) UndoFuelPart(w http.ResponseWriter, r *http.Request) {
 	handler.UndoFuelPart(a.DB, w, r)
+}
+
+/*
+	Health check
+ */
+func (a *App) Ping(w http.ResponseWriter, r *http.Request) {
+	handler.Ping(w)
 }
 
 // Run the app on it's router

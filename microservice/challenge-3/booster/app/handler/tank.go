@@ -74,7 +74,7 @@ func DeleteTank(db *gorm.DB, w http.ResponseWriter, r *http.Request) {
 	if tank == nil {
 		return
 	}
-	if err := db.Unscoped().Delete(&tank).Error; err != nil {
+	if err := db.Delete(&tank).Error; err != nil {
 		respondError(w, http.StatusInternalServerError, err.Error())
 		return
 	}

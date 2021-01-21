@@ -13,13 +13,13 @@ import (
 	"testing"
 )
 
-func TestTests(t *testing.T) {
+func TestTestsTanks(t *testing.T) {
 	RegisterFailHandler(Fail)
 	RunSpecs(t, "Tests Suite")
 }
 
 
-var _ = Describe("Repository", func() {
+var _ = Describe("Booster", func() {
 	var booster *app.App
 	var mock sqlmock.Sqlmock
 
@@ -51,17 +51,5 @@ var _ = Describe("Repository", func() {
 		w := httptest.NewRecorder()
 		booster.GetAllTanks(w, r)
 
-	})
-
-	It("test CreateTank", func(){
-
-		const sqlCreate = "SELECT * FROM `tanks` WHERE `tanks`.`deleted_at` IS NULL"
-
-		mock.ExpectQuery(regexp.QuoteMeta(sqlCreate)).
-			WillReturnRows(sqlmock.NewRows(nil))
-
-		r := httptest.NewRequest("POST", "/tanks", nil)
-		w := httptest.NewRecorder()
-		booster.CreateTank(w, r)
 	})
 })

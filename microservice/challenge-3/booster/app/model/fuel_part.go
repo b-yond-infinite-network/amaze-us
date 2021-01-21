@@ -1,0 +1,23 @@
+package model
+
+import (
+	"github.com/jinzhu/gorm"
+	"time"
+)
+
+type FuelPart struct {
+	gorm.Model
+	Title     string     `json:"title"`
+	Priority  string     `gorm:"type:ENUM('0', '1', '2', '3');default:'0'" json:"priority"`
+	Deadline  *time.Time `gorm:"default:null" json:"deadline"`
+	Done      bool       `json:"done"`
+	TankID    uint       `json:"tank_id"`
+}
+
+func (t *FuelPart) Complete() {
+	t.Done = true
+}
+
+func (t *FuelPart) Undo() {
+	t.Done = false
+}
