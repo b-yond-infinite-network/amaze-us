@@ -1,18 +1,34 @@
-# Challenge 1 - Karaoke needs words
-It's your birthday (come on, just pretend!) and you're organizing a party with all your friends. 
-You've decided that people shall be singing. 
-Now, being the developer that you are, you won't use some cranky old book with songs to get the lyrics, you want a web 
-app! Not only an app, but a beautiful Single Web Page app that you can be proud of.
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-It so happens that the MusixMatch API (https://developer.musixmatch.com/documentation) has all the data you need.
+## Getting Started
 
-Now, it just needs an artist search bar, list of songs, ability to sort the songs by the number of lyrics they have, 
-title, and duration. You will want, of course, to be able to display the song lyrics themselves. 
+First, run the development server:
 
-A nice bonus would be to minimize the number of calls you're doing to the MusixMatch API, because we don't want to 
-bother them while singing drunk...
+```bash
+npm run dev
+# or
+yarn dev
+```
 
-## Expected steps
-+ Create a branch of this project (or fork it in your github account if you prefer)
-+ Do you **_thang_** inside this folder (challenge-1)
-+ Push your change inside a Pull Request to our master
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+
+[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+
+The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+
+## Learn More
+
+To learn more about Next.js, take a look at the following resources:
+
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+
+## Deploy on Vercel
+
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/import?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
