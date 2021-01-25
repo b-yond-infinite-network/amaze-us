@@ -1,8 +1,12 @@
 import React from "react"
 import Head from "next/head"
-import { TopBar } from "../app/TopBar"
+import { GetStaticProps } from "next"
+import { TopBar } from "../app/components/TopBar"
+import Dashboard, { DashboardProps } from "../app/components/Dashboard"
+import { Box } from "@material-ui/core"
+import artistService from "../app/services/artistService"
 
-export default function Home(): JSX.Element {
+export default function Home(props: DashboardProps): JSX.Element {
   return (
     <>
       <Head>
@@ -22,6 +26,17 @@ export default function Home(): JSX.Element {
         />
       </Head>
       <TopBar />
+      <Box mt={1}>
+        <Dashboard {...props} />
+      </Box>
     </>
   )
+}
+
+export const getStaticProps: GetStaticProps = async () => {
+  const topArtists = await artistService.getTop10Artists()
+
+  return {
+    props: { topArtists },
+  }
 }
