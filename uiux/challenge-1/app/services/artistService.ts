@@ -11,10 +11,10 @@ function parseArtistsList(list: any[]): Artist[] {
 }
 
 export default {
-  getTop10Artists: async (): Promise<Artist[]> => {
+  getTopArtists: async (pageSize: number): Promise<Artist[]> => {
     const service = "chart.artists.get"
 
-    const url = `${appConfig.apiUrl}/${service}?page_size=10&apikey=${appConfig.apikey}`
+    const url = `${appConfig.apiUrl}/${service}?page_size=${pageSize}&apikey=${appConfig.apikey}`
 
     const response = await fetch(url)
     const jsonBody = await response.json()
