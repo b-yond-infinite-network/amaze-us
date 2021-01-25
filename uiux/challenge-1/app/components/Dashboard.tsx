@@ -1,5 +1,5 @@
 import React from "react"
-import { Paper, Grid, Typography, Box } from "@material-ui/core"
+import { Paper, Grid, Box } from "@material-ui/core"
 import ArtistCard from "./ArtistCard"
 import { Title } from "./layout/Title"
 import { Artist } from "../models"

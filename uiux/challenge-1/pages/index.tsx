@@ -8,7 +8,7 @@ const numberOfArtistsToShow = 10
 
 export default function Home(props: DashboardProps): JSX.Element {
   return (
-    <PageLayout>
+    <PageLayout title="Sing It With Me!">
       <Dashboard {...props} />
     </PageLayout>
   )
