@@ -1,4 +1,4 @@
-import { Artist, parseRatingFromBase } from "../models"
+import { Artist, parseRating } from "../models"
 import fetchData from "./api"
 
 function parseArtist(artistData: any): Artist {
@@ -6,7 +6,7 @@ function parseArtist(artistData: any): Artist {
     id: artistData.artist_id,
     name: artistData.artist_name,
     country: artistData.artist_country,
-    rating: parseRatingFromBase(artistData.artist_rating, 100),
+    rating: parseRating(artistData.artist_rating, 100),
   }
 }
 

@@ -14,7 +14,7 @@ const Dashboard = ({ topArtists }: DashboardProps): JSX.Element => {
       <Box p={2}>
         <Grid container direction="column">
           <Grid item>
-            <Title>Top {topArtists.length} artists</Title>
+            <Title>{`Top ${topArtists.length} artists`}</Title>
           </Grid>
           <Grid item>
             <Grid container spacing={2}>

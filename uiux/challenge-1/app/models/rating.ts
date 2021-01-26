@@ -7,6 +7,6 @@ export enum Rating {
   FIVE,
 }
 
-export function parseRatingFromBase(rating: number, base: number): Rating {
+export function parseRating(rating: number, base = 5): Rating {
   return Math.floor((rating * 5) / base)
 }
