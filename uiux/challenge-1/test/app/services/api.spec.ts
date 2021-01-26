@@ -27,6 +27,7 @@ describe("api", () => {
     expect(fetchCalls.length).to.be.eql(1)
     expect(fetchCalls[0][0]).to.contain("service")
     expect(fetchCalls[0][0]).to.contain(serviceUrl)
+
     expect(fetchCalls[0][0]).to.contain(apikey)
   })
 

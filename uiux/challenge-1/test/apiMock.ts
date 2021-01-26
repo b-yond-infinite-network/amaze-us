@@ -150,3 +150,200 @@ export function getArtistMock(): any {
     },
   ]
 }
+
+/**
+ * Gets a artist.albums.get response
+ *
+ * @returns [artist_id, number of albums, body]
+ */
+export function getArtistAlbumsMock(): any {
+  return [
+    118,
+    2,
+    {
+      message: {
+        header: {
+          status_code: 200,
+          execute_time: 0.019369840621948,
+          available: 202,
+        },
+        body: {
+          album_list: [
+            {
+              album: {
+                album_id: 13761314,
+                album_mbid: "7c9f3145-8a79-3bf8-97b6-22e8b3cd5f19",
+                album_name: "Jazz",
+                album_rating: 100,
+                album_release_date: "1978-01-01",
+                artist_id: 118,
+                artist_name: "Queen",
+                primary_genres: {
+                  music_genre_list: [
+                    {
+                      music_genre: {
+                        music_genre_id: 21,
+                        music_genre_parent_id: 34,
+                        music_genre_name: "Rock",
+                        music_genre_name_extended: "Rock",
+                        music_genre_vanity: "Rock",
+                      },
+                    },
+                  ],
+                },
+                album_pline:
+                  "1978 Raincloud Productions Ltd. under exclusive licence to Universal International Music BV",
+                album_copyright:
+                  "1978 Raincloud Productions Ltd. under exclusive licence to Universal International Music BV",
+                album_label: "Universal Music,Virgin EMI",
+                restricted: 0,
+                updated_time: "2019-07-02T08:30:18Z",
+              },
+            },
+            {
+              album: {
+                album_id: 15605082,
+                album_mbid: "9189ff0c-20bc-416e-a25a-93920c2a9211",
+                album_name: "Jazz",
+                album_rating: 100,
+                album_release_date: "1994-10-03",
+                artist_id: 118,
+                artist_name: "Queen",
+                primary_genres: {
+                  music_genre_list: [
+                    {
+                      music_genre: {
+                        music_genre_id: 21,
+                        music_genre_parent_id: 34,
+                        music_genre_name: "Rock",
+                        music_genre_name_extended: "Rock",
+                        music_genre_vanity: "Rock",
+                      },
+                    },
+                  ],
+                },
+                album_pline:
+                  "This Compilation \u2117 1991 Hollywood Records, Inc.",
+                album_copyright: "1991 Hollywood Records, Inc.",
+                album_label: "Hollywood Records",
+                restricted: 0,
+                updated_time: "2019-02-14T00:16:49Z",
+              },
+            },
+          ],
+        },
+      },
+    },
+  ]
+}
+
+export function getAlbumTracksMock(): any {
+  return [
+    13761314,
+    2,
+    {
+      message: {
+        header: {
+          status_code: 200,
+          execute_time: 0.024422168731689,
+          available: 12,
+        },
+        body: {
+          track_list: [
+            {
+              track: {
+                track_id: 30109766,
+                track_name: "Mustapha",
+                track_name_translation_list: [
+                  {
+                    track_name_translation: {
+                      language: "JA",
+                      translation: "\u30e0\u30b9\u30bf\u30fc\u30d5\u30a1",
+                    },
+                  },
+                ],
+                track_rating: 29,
+                commontrack_id: 53468,
+                instrumental: 0,
+                explicit: 0,
+                has_lyrics: 1,
+                has_subtitles: 1,
+                has_richsync: 1,
+                num_favourite: 4,
+                album_id: 13761314,
+                album_name: "Jazz",
+                artist_id: 118,
+                artist_name: "Queen",
+                track_share_url:
+                  "https://www.musixmatch.com/lyrics/Queen/Mustapha-1980-12-08-London-England?utm_source=application&utm_campaign=api&utm_medium=RedBee%3A1409621005559",
+                track_edit_url:
+                  "https://www.musixmatch.com/lyrics/Queen/Mustapha-1980-12-08-London-England/edit?utm_source=application&utm_campaign=api&utm_medium=RedBee%3A1409621005559",
+                restricted: 0,
+                updated_time: "2011-06-10T15:01:41Z",
+                primary_genres: {
+                  music_genre_list: [
+                    {
+                      music_genre: {
+                        music_genre_id: 21,
+                        music_genre_parent_id: 34,
+                        music_genre_name: "Rock",
+                        music_genre_name_extended: "Rock",
+                        music_genre_vanity: "Rock",
+                      },
+                    },
+                  ],
+                },
+              },
+            },
+            {
+              track: {
+                track_id: 30109770,
+                track_name: "Fat Bottomed Girls",
+                track_name_translation_list: [
+                  {
+                    track_name_translation: {
+                      language: "JA",
+                      translation:
+                        "\u30d5\u30a1\u30c3\u30c8\u30dc\u30c8\u30e0\u30c9\u30ac\u30fc\u30eb\u30ba",
+                    },
+                  },
+                ],
+                track_rating: 28,
+                commontrack_id: 14658377,
+                instrumental: 0,
+                explicit: 0,
+                has_lyrics: 1,
+                has_subtitles: 1,
+                has_richsync: 1,
+                num_favourite: 32,
+                album_id: 13761314,
+                album_name: "Jazz",
+                artist_id: 118,
+                artist_name: "Queen",
+                track_share_url:
+                  "https://www.musixmatch.com/lyrics/Queen/Fat-Bottomed-Girls-Live?utm_source=application&utm_campaign=api&utm_medium=RedBee%3A1409621005559",
+                track_edit_url:
+                  "https://www.musixmatch.com/lyrics/Queen/Fat-Bottomed-Girls-Live/edit?utm_source=application&utm_campaign=api&utm_medium=RedBee%3A1409621005559",
+                restricted: 0,
+                updated_time: "2020-09-04T12:36:49Z",
+                primary_genres: {
+                  music_genre_list: [
+                    {
+                      music_genre: {
+                        music_genre_id: 21,
+                        music_genre_parent_id: 34,
+                        music_genre_name: "Rock",
+                        music_genre_name_extended: "Rock",
+                        music_genre_vanity: "Rock",
+                      },
+                    },
+                  ],
+                },
+              },
+            },
+          ],
+        },
+      },
+    },
+  ]
+}
