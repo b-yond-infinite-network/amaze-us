@@ -30,4 +30,12 @@ export default {
     const body = await fetchData(service, params)
     return parseArtist(body.message.body.artist)
   },
+
+  searchArtist: async (query: string, pageSize: number): Promise<Artist[]> => {
+    const service = "artist.search"
+    const params = { q_artist: query, page_size: pageSize }
+
+    const body = await fetchData(service, params)
+    return parseArtistsList(body.message.body.artist_list)
+  },
 }

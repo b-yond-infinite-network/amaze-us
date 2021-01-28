@@ -14,9 +14,10 @@ import ArrowBackIcon from "@material-ui/icons/ArrowBack"
 
 export interface TopBarProps {
   backUrl?: string
+  query?: string
 }
 
-export const TopBar = ({ backUrl }: TopBarProps): JSX.Element => {
+export const TopBar = ({ backUrl, query }: TopBarProps): JSX.Element => {
   const router = useRouter()
   function handleBack() {
     router.push(backUrl)
@@ -49,6 +50,7 @@ export const TopBar = ({ backUrl }: TopBarProps): JSX.Element => {
               label="Look for an artist"
               variant="filled"
               size="small"
+              defaultValue={query}
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="start">
