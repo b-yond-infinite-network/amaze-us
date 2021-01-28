@@ -13,7 +13,7 @@ import RatingStars from "@material-ui/lab/Rating"
 import HeartIcon from "@material-ui/icons/FavoriteBorderRounded"
 import { Track } from "../models"
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles({
   card: {
     height: "100%",
   },
@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     height: "100%",
   },
-}))
+})
 
 const TrackCard = ({
   id,
@@ -48,7 +48,9 @@ const TrackCard = ({
         <CardContent>
           {hover && !hasLyrics ? (
             <Box className={classes.noLyricsContainer}>
-              <Typography variant="h6">No lyrics available</Typography>
+              <Typography variant="h6" className="no-lyrics-found">
+                No lyrics available
+              </Typography>
             </Box>
           ) : (
             <Grid container justify="space-between" alignItems="flex-start">
