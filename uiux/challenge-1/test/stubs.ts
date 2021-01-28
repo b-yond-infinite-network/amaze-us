@@ -25,3 +25,9 @@ export function createTrack(withLyrics = true): Track {
     artistName: "Pantera",
   }
 }
+
+export function createRandomAmountOfTracks(): Track[] {
+  return Array.from({ length: Math.floor(Math.random() * 100) }, () =>
+    createTrack()
+  )
+}

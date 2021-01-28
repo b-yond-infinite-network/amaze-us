@@ -18,6 +18,14 @@ function parseTrackList(tracks: any): Track[] {
 }
 
 export default {
+  getTopTracks: async (pageSize: number): Promise<Track[]> => {
+    const service = "chart.tracks.get"
+    const params = { page_size: pageSize }
+
+    const body = await fetchData(service, params)
+    return parseTrackList(body.message.body.track_list)
+  },
+
   getAlbumTracks: async (albumId: number): Promise<Track[]> => {
     const service = "album.tracks.get"
     const params = { album_id: albumId }

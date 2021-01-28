@@ -2,10 +2,19 @@ import { expect } from "chai"
 
 jest.mock("../../../app/services/api")
 import fetch from "../../../app/services/api"
-import { getAlbumTracksMock } from "../../apiMock"
+import { getAlbumTracksMock, getTrackChartMock } from "../../apiMock"
 import trackService from "../../../app/services/trackService"
 
 describe("trackService", () => {
+  it("obtains top N songs", async () => {
+    const [pageSize, responseBody] = getTrackChartMock()
+    fetch.mockReturnValue(Promise.resolve(responseBody))
+
+    const fetchedTracks = await trackService.getTopTracks(pageSize)
+
+    expect(fetchedTracks.length).to.be.eql(pageSize)
+  })
+
   it("obtains album tracks", async () => {
     const [albumId, numberOfTracks, body] = getAlbumTracksMock()
     fetch.mockReturnValue(Promise.resolve(body))

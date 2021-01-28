@@ -347,3 +347,120 @@ export function getAlbumTracksMock(): any {
     },
   ]
 }
+
+export function getTrackChartMock(): any {
+  return [
+    3,
+    {
+      message: {
+        header: { status_code: 200, execute_time: 0.017720937728882 },
+        body: {
+          track_list: [
+            {
+              track: {
+                track_id: 201234497,
+                track_name: "WAP (feat. Megan Thee Stallion)",
+                track_name_translation_list: [],
+                track_rating: 99,
+                commontrack_id: 114611205,
+                instrumental: 0,
+                explicit: 1,
+                has_lyrics: 1,
+                has_subtitles: 1,
+                has_richsync: 1,
+                num_favourite: 1431,
+                album_id: 39576526,
+                album_name: "WAP (feat. Megan Thee Stallion)",
+                artist_id: 46196205,
+                artist_name: "Cardi B feat. Megan Thee Stallion",
+                track_share_url:
+                  "https://www.musixmatch.com/lyrics/Cardi-B-Megan-Thee-Stallion/WAP-Megan-Thee-Stallion?utm_source=application&utm_campaign=api&utm_medium=RedBee%3A1409621005559",
+                track_edit_url:
+                  "https://www.musixmatch.com/lyrics/Cardi-B-Megan-Thee-Stallion/WAP-Megan-Thee-Stallion/edit?utm_source=application&utm_campaign=api&utm_medium=RedBee%3A1409621005559",
+                restricted: 0,
+                updated_time: "2020-10-10T10:41:53Z",
+                primary_genres: {
+                  music_genre_list: [
+                    {
+                      music_genre: {
+                        music_genre_id: 34,
+                        music_genre_parent_id: 0,
+                        music_genre_name: "Music",
+                        music_genre_name_extended: "Music",
+                        music_genre_vanity: "Music",
+                      },
+                    },
+                  ],
+                },
+              },
+            },
+            {
+              track: {
+                track_id: 201621042,
+                track_name: "Dynamite",
+                track_name_translation_list: [],
+                track_rating: 99,
+                commontrack_id: 114947355,
+                instrumental: 0,
+                explicit: 0,
+                has_lyrics: 1,
+                has_subtitles: 1,
+                has_richsync: 1,
+                num_favourite: 4706,
+                album_id: 39721115,
+                album_name: "Dynamite - Single",
+                artist_id: 24410130,
+                artist_name: "BTS",
+                track_share_url:
+                  "https://www.musixmatch.com/lyrics/BTS/Dynamite?utm_source=application&utm_campaign=api&utm_medium=RedBee%3A1409621005559",
+                track_edit_url:
+                  "https://www.musixmatch.com/lyrics/BTS/Dynamite/edit?utm_source=application&utm_campaign=api&utm_medium=RedBee%3A1409621005559",
+                restricted: 0,
+                updated_time: "2021-01-15T16:40:48Z",
+                primary_genres: {
+                  music_genre_list: [
+                    {
+                      music_genre: {
+                        music_genre_id: 14,
+                        music_genre_parent_id: 34,
+                        music_genre_name: "Pop",
+                        music_genre_name_extended: "Pop",
+                        music_genre_vanity: "Pop",
+                      },
+                    },
+                  ],
+                },
+              },
+            },
+            {
+              track: {
+                track_id: 200360817,
+                track_name: "Mood (feat. iann dior)",
+                track_name_translation_list: [],
+                track_rating: 99,
+                commontrack_id: 113838056,
+                instrumental: 0,
+                explicit: 1,
+                has_lyrics: 1,
+                has_subtitles: 1,
+                has_richsync: 1,
+                num_favourite: 519,
+                album_id: 39278869,
+                album_name: "Mood (feat. iann dior) - Single",
+                artist_id: 46038964,
+                artist_name: "24kGoldn feat. iann dior",
+                track_share_url:
+                  "https://www.musixmatch.com/lyrics/24kGoldn-iann-dior/Mood-Iann-Dior?utm_source=application&utm_campaign=api&utm_medium=RedBee%3A1409621005559",
+                track_edit_url:
+                  "https://www.musixmatch.com/lyrics/24kGoldn-iann-dior/Mood-Iann-Dior/edit?utm_source=application&utm_campaign=api&utm_medium=RedBee%3A1409621005559",
+                restricted: 0,
+                updated_time: "2021-01-21T11:33:33Z",
+                primary_genres: { music_genre_list: [] },
+              },
+            },
+          ],
+        },
+      },
+    },
+  ]
+}
