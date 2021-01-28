@@ -9,3 +9,11 @@ export interface Track {
   albumName: string
   artistName: string
 }
+
+export enum TrackOrdering {
+  NAME = "name",
+  RATING = "rating",
+  LIKES = "numFavourite",
+  HAS_LYRICS = "hasLyrics",
+  ALBUM = "albumName",
+}

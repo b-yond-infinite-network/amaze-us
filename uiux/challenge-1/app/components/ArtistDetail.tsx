@@ -1,8 +1,17 @@
-import React from "react"
-import { Paper, Grid, Box, Typography } from "@material-ui/core"
-import TrackCard from "./TrackCard"
+import React, { useState } from "react"
+import {
+  Paper,
+  Grid,
+  Box,
+  Typography,
+  FormControl,
+  Select,
+  MenuItem,
+  InputLabel,
+} from "@material-ui/core"
 import { Title } from "./layout/Title"
-import { Artist, Track, Album } from "../models"
+import { Artist, Track, Album, TrackOrdering } from "../models"
+import TrackList from "./TrackList"
 
 export interface ArtistDetailProps {
   artist: Artist
@@ -11,24 +20,41 @@ export interface ArtistDetailProps {
 }
 
 const ArtistDetail = ({ artist, tracks }: ArtistDetailProps): JSX.Element => {
+  const [order, setOrder] = useState(TrackOrdering.ALBUM)
+
+  const handleOrderChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+    setOrder(event.target.value as TrackOrdering)
+  }
+
   return (
     <Paper>
       <Box p={2}>
-        <Grid container direction="column">
+        <Grid container direction="row" justify="space-between">
           <Grid item>
             <Title>{`${artist.name} tracks`}</Title>
           </Grid>
-          <Grid item>
+          <Grid item xs={12} sm={3} md={2}>
+            <FormControl fullWidth variant="outlined">
+              <InputLabel id="sort-label">Order songs by</InputLabel>
+              <Select
+                label="Order songs by"
+                labelId="sort-label"
+                value={order}
+                onChange={handleOrderChange}
+              >
+                <MenuItem value={TrackOrdering.ALBUM}>Album</MenuItem>
+                <MenuItem value={TrackOrdering.LIKES}>Likes</MenuItem>
+                <MenuItem value={TrackOrdering.RATING}>Rating</MenuItem>
+                <MenuItem value={TrackOrdering.NAME}>Song name</MenuItem>
+                <MenuItem value={TrackOrdering.HAS_LYRICS}>Has lyrics</MenuItem>
+              </Select>
+            </FormControl>
+          </Grid>
+          <Grid item xs={12}>
             {tracks.length === 0 ? (
               <Typography variant="body1">{`No tracks are available for ${artist.name}`}</Typography>
             ) : (
-              <Grid container spacing={2}>
-                {tracks.map((track, ix) => (
-                  <Grid item key={ix} xs={12} sm={6} md={4} xl={2}>
-                    <TrackCard {...track} />
-                  </Grid>
-                ))}
-              </Grid>
+              <TrackList tracks={tracks} order={order} />
             )}
           </Grid>
         </Grid>
