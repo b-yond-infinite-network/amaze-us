@@ -50,7 +50,7 @@ export const TopBar = ({ backUrl }: TopBarProps): JSX.Element => {
               variant="filled"
               size="small"
               InputProps={{
-                startAdornment: (
+                endAdornment: (
                   <InputAdornment position="start">
                     <SearchIcon />
                   </InputAdornment>

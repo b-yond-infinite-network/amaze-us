@@ -20,7 +20,7 @@ const Dashboard = ({ topArtists }: DashboardProps): JSX.Element => {
             <Grid container spacing={2}>
               {topArtists &&
                 topArtists.map((artist, ix) => (
-                  <Grid item key={ix}>
+                  <Grid item key={ix} xs={12} sm={6} md={2} xl={1}>
                     <ArtistCard {...artist} />
                   </Grid>
                 ))}

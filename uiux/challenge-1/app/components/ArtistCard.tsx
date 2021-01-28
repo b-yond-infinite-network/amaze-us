@@ -12,7 +12,6 @@ import { Artist } from "../models"
 const useStyles = makeStyles({
   card: {
     height: "100%",
-    width: "225px",
   },
 })
 

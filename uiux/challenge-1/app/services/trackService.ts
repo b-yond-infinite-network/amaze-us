@@ -8,7 +8,8 @@ function parseTrack(trackData: any): Track {
     rating: parseRating(trackData.track_rating, 100),
     hasLyrics: trackData.has_lyrics,
     numFavourite: trackData.num_favourite,
-    albumId: trackData.album_id,
+    albumName: trackData.album_name,
+    artistName: trackData.artist_name,
   }
 }
 

@@ -6,5 +6,6 @@ export interface Track {
   rating: Rating
   hasLyrics: boolean
   numFavourite: number
-  albumId: number
+  albumName: string
+  artistName: string
 }
