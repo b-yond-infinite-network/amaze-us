@@ -48,7 +48,6 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
     query.keywords.toString(),
     12
   )
-  console.log(artists)
   return {
     props: {
       artists,

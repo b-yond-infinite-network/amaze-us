@@ -20,9 +20,9 @@ export interface ArtistDetailProps {
 }
 
 const ArtistDetail = ({ artist, tracks }: ArtistDetailProps): JSX.Element => {
-  const [order, setOrder] = useState(TrackOrdering.ALBUM)
+  const [order, setOrder] = useState(TrackOrdering.LIKES)
 
-  const handleOrderChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+  const handleOrderChange = (event: React.ChangeEvent<{ value: string }>) => {
     setOrder(event.target.value as TrackOrdering)
   }
 
@@ -42,8 +42,8 @@ const ArtistDetail = ({ artist, tracks }: ArtistDetailProps): JSX.Element => {
                 value={order}
                 onChange={handleOrderChange}
               >
-                <MenuItem value={TrackOrdering.ALBUM}>Album</MenuItem>
                 <MenuItem value={TrackOrdering.LIKES}>Likes</MenuItem>
+                <MenuItem value={TrackOrdering.ALBUM}>Album</MenuItem>
                 <MenuItem value={TrackOrdering.RATING}>Rating</MenuItem>
                 <MenuItem value={TrackOrdering.NAME}>Song name</MenuItem>
                 <MenuItem value={TrackOrdering.HAS_LYRICS}>Has lyrics</MenuItem>

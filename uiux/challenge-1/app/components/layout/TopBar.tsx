@@ -4,13 +4,11 @@ import {
   AppBar,
   Toolbar,
   Typography,
-  TextField,
   Grid,
-  InputAdornment,
   IconButton,
 } from "@material-ui/core"
-import SearchIcon from "@material-ui/icons/Search"
 import ArrowBackIcon from "@material-ui/icons/ArrowBack"
+import ArtistSearchInput from "../ArtistSearchInput"
 
 export interface TopBarProps {
   backUrl?: string
@@ -46,19 +44,7 @@ export const TopBar = ({ backUrl, query }: TopBarProps): JSX.Element => {
             </Grid>
           </Grid>
           <Grid item>
-            <TextField
-              label="Look for an artist"
-              variant="filled"
-              size="small"
-              defaultValue={query}
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="start">
-                    <SearchIcon />
-                  </InputAdornment>
-                ),
-              }}
-            />
+            <ArtistSearchInput defaultValue={query} />
           </Grid>
         </Grid>
       </Toolbar>

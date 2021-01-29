@@ -1,5 +1,6 @@
 import React from "react"
 import { GetServerSideProps } from "next"
+import uniqBy from "lodash/uniqBy"
 import artistService from "../../app/services/artistService"
 import PageLayout from "../../app/components/layout/PageLayout"
 import albumService from "../../app/services/albumService"
@@ -25,11 +26,13 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
     albums.map((album) => trackService.getAlbumTracks(album.id))
   )
 
+  const filteredTracks = uniqBy([].concat(...tracks), "id")
+
   return {
     props: {
       artist,
       albums,
-      tracks: [].concat(...tracks),
+      tracks: filteredTracks,
     },
   }
 }
