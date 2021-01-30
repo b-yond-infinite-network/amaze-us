@@ -16,7 +16,7 @@ describe("<TrackCard />", () => {
     expect(wrapperText).to.contain(track.artistName)
     expect(wrapperText).to.contain(track.albumName)
     expect(wrapper.find(RatingStars).props().value).to.be.eql(track.rating)
-    expect(wrapper.find(Link).prop("href")).to.be.eql(`/track/${track.id}`)
+    expect(wrapper.find(Link).prop("href")).to.be.eql(`/tracks/${track.id}`)
     expect(wrapper.find(Chip).prop("label")).to.be.eql(track.numFavourite)
 
     wrapper.find(Card).simulate("mouseOver")

@@ -17,8 +17,10 @@ export default function Home(props: DashboardProps): JSX.Element {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const topArtists = await artistService.getTopArtists(numberOfArtistsToShow)
-  const topTracks = await trackService.getTopTracks(numberOfTracksToShow)
+  const [topArtists, topTracks] = await Promise.all([
+    artistService.getTopArtists(numberOfArtistsToShow),
+    trackService.getTopTracks(numberOfTracksToShow),
+  ])
 
   return {
     props: { topArtists, topTracks },

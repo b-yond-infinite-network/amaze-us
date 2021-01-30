@@ -3,7 +3,11 @@ import artistService from "../../../app/services/artistService"
 
 jest.mock("../../../app/services/api")
 import fetch from "../../../app/services/api"
-import { getArtistChartMock, getArtistMock } from "../../apiMock"
+import {
+  getArtistChartMock,
+  getArtistMock,
+  getArtistSearchMock,
+} from "../../apiMock"
 
 describe("artistService", () => {
   it("obtains top N artists", async () => {
@@ -21,5 +25,13 @@ describe("artistService", () => {
 
     const artist = await artistService.getArtist(artistId)
     expect(artist.id).to.be.eql(artistId)
+  })
+
+  it("searchs an artist", async () => {
+    const [query, pageSize, body] = getArtistSearchMock()
+    fetch.mockReturnValue(Promise.resolve(body))
+
+    const artists = await artistService.searchArtist(query, pageSize)
+    expect(artists.length).to.be.eql(pageSize)
   })
 })

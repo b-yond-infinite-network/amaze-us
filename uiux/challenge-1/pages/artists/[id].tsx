@@ -20,8 +20,10 @@ export default function ArtistPage(props: ArtistDetailProps): JSX.Element {
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const artistId = parseInt(params.id.toString())
-  const artist = await artistService.getArtist(artistId)
-  const albums = await albumService.getArtistAlbums(artist.id)
+  const [artist, albums] = await Promise.all([
+    artistService.getArtist(artistId),
+    albumService.getArtistAlbums(artistId),
+  ])
   const tracks = await Promise.all(
     albums.map((album) => trackService.getAlbumTracks(album.id))
   )

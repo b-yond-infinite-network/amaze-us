@@ -8,6 +8,7 @@ export interface Track {
   numFavourite: number
   albumName: string
   artistName: string
+  artistId: number
 }
 
 export enum TrackOrdering {

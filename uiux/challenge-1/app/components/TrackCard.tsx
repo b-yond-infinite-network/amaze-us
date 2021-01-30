@@ -38,7 +38,7 @@ const TrackCard = ({
   const [hover, setHover] = useState(false)
 
   return (
-    <Link href={hasLyrics ? `/track/${id}` : undefined}>
+    <Link href={hasLyrics ? `/tracks/${id}` : undefined}>
       <Card
         onMouseOver={() => setHover(true)}
         onMouseLeave={() => setHover(false)}

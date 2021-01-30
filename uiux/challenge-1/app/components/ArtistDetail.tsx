@@ -31,7 +31,7 @@ const ArtistDetail = ({ artist, tracks }: ArtistDetailProps): JSX.Element => {
       <Box p={2}>
         <Grid container direction="row" justify="space-between">
           <Grid item>
-            <Title>{`${artist.name} tracks`}</Title>
+            <Title>{`${artist.name} songs`}</Title>
           </Grid>
           <Grid item xs={12} sm={3} md={2}>
             <FormControl fullWidth variant="outlined">
