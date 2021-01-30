@@ -23,6 +23,7 @@ export function createTrack(withLyrics = true): Track {
     numFavourite: Math.floor(Math.random() * 100000),
     albumName: "Cowboys from Hell",
     artistName: "Pantera",
+    artistId: 5258,
   }
 }
 
