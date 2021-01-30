@@ -6,6 +6,7 @@ import {
   Typography,
   Grid,
   IconButton,
+  makeStyles,
 } from "@material-ui/core"
 import ArrowBackIcon from "@material-ui/icons/ArrowBack"
 import ArtistSearchInput from "../ArtistSearchInput"
@@ -15,15 +16,22 @@ export interface TopBarProps {
   query?: string
 }
 
+const useStyles = makeStyles({
+  toolBar: {
+    minHeight: "56px",
+  },
+})
+
 export const TopBar = ({ backUrl, query }: TopBarProps): JSX.Element => {
   const router = useRouter()
+  const classes = useStyles()
   function handleBack() {
     router.push(backUrl)
   }
 
   return (
-    <AppBar position="static">
-      <Toolbar>
+    <AppBar variant="elevation" position="static">
+      <Toolbar className={classes.toolBar}>
         <Grid container justify="space-between" alignItems="center">
           <Grid item>
             <Grid container alignItems="center">

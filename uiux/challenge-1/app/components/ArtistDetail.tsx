@@ -45,7 +45,7 @@ const ArtistDetail = ({ artist, tracks }: ArtistDetailProps): JSX.Element => {
                 <MenuItem value={TrackOrdering.LIKES}>Likes</MenuItem>
                 <MenuItem value={TrackOrdering.ALBUM}>Album</MenuItem>
                 <MenuItem value={TrackOrdering.RATING}>Rating</MenuItem>
-                <MenuItem value={TrackOrdering.NAME}>Song name</MenuItem>
+                <MenuItem value={TrackOrdering.NAME}>Song title</MenuItem>
                 <MenuItem value={TrackOrdering.HAS_LYRICS}>Has lyrics</MenuItem>
               </Select>
             </FormControl>
