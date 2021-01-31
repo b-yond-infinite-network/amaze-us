@@ -27,7 +27,7 @@ const ArtistCard = ({ id, name, rating }: Artist): JSX.Element => {
         onMouseLeave={() => setHover(false)}
         raised={hover}
       >
-        <CardContent>
+        <CardContent className="test-artist-card">
           <Typography variant="h6">{name}</Typography>
           <RatingStars value={rating} readOnly />
         </CardContent>

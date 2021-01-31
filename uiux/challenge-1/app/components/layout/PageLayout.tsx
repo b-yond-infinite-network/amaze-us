@@ -24,7 +24,9 @@ const PageLayout = ({
       />
     </Head>
     <TopBar {...topBarProps} />
-    <Box mt={1}>{children}</Box>
+    <Box mt={1} className="test-content">
+      {children}
+    </Box>
   </>
 )
 

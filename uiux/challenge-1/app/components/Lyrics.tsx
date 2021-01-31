@@ -19,7 +19,7 @@ const Lyrics = ({ track, trackLyrics }: LyricsProps) => {
       <Box p={2}>
         {bodyParts.map((part, ix) =>
           part === "" ? (
-            <br />
+            <br key={ix} />
           ) : (
             <Typography variant="body1" key={ix}>
               {part}

@@ -30,7 +30,7 @@ export const TopBar = ({ backUrl, query }: TopBarProps): JSX.Element => {
   }
 
   return (
-    <AppBar variant="elevation" position="static">
+    <AppBar variant="elevation" position="static" className="test-appbar">
       <Toolbar className={classes.toolBar}>
         <Grid container justify="space-between" alignItems="center">
           <Grid item>

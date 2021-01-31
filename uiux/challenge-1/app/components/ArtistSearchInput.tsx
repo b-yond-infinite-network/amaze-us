@@ -75,7 +75,7 @@ const ArtistSearchInput = ({
             className: classes.label,
           }}
           InputProps={{
-            className: classes.input,
+            className: `test-artist-search-input ${classes.input}`,
             endAdornment: (
               <InputAdornment position="start">
                 <SearchIcon className={classes.icon} />
@@ -102,11 +102,15 @@ const ArtistSearchInput = ({
               className: classes.label,
             }}
             inputProps={{
-              className: classes.input,
+              className: `test-artist-search-input-xs ${classes.input}`,
             }}
           />
         </Popover>
-        <IconButton color="inherit" onClick={handleXSButtonClick}>
+        <IconButton
+          color="inherit"
+          onClick={handleXSButtonClick}
+          className="test-artist-search-button-xs"
+        >
           <SearchIcon className={classes.icon} />
         </IconButton>
       </Hidden>

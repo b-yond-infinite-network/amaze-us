@@ -45,7 +45,7 @@ const TrackCard = ({
         raised={hover}
         className={classes.card}
       >
-        <CardContent>
+        <CardContent className="test-track-card">
           {hover && !hasLyrics ? (
             <Box className={classes.noLyricsContainer}>
               <Typography variant="h6" className="no-lyrics-found">
