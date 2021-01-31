@@ -12,27 +12,25 @@ const Lyrics = ({ track, trackLyrics }: LyricsProps) => {
   const bodyParts = trackLyrics.body.split("\n")
 
   return (
-    <Paper>
+    <Box p={2}>
+      <Title>
+        {track.name} - {track.artistName}
+      </Title>
       <Box p={2}>
-        <Title>
-          {track.name} - {track.artistName}
-        </Title>
-        <Box p={2}>
-          {bodyParts.map((part, ix) =>
-            part === "" ? (
-              <br />
-            ) : (
-              <Typography variant="body1" key={ix}>
-                {part}
-              </Typography>
-            )
-          )}
-        </Box>
-        <Box display="flex" justifyContent="flex-end">
-          <Typography variant="caption">{trackLyrics.copyright}</Typography>
-        </Box>
+        {bodyParts.map((part, ix) =>
+          part === "" ? (
+            <br />
+          ) : (
+            <Typography variant="body1" key={ix}>
+              {part}
+            </Typography>
+          )
+        )}
       </Box>
-    </Paper>
+      <Box display="flex" justifyContent="flex-end">
+        <Typography variant="caption">{trackLyrics.copyright}</Typography>
+      </Box>
+    </Box>
   )
 }
 

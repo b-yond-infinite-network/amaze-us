@@ -18,7 +18,14 @@ interface ArtistSearchInputProps {
 
 const useStyles = makeStyles((theme) => ({
   input: {
-    backgroundColor: theme.palette.background.paper,
+    backgroundColor: theme.palette.primary.dark,
+    color: theme.palette.text.secondary,
+  },
+  label: {
+    color: theme.palette.text.secondary,
+  },
+  icon: {
+    color: theme.palette.text.secondary,
   },
 }))
 
@@ -58,17 +65,20 @@ const ArtistSearchInput = ({
     <>
       <Hidden only="xs">
         <TextField
-          label="Look for an artist"
+          label="Search artists"
           variant="outlined"
           size="small"
           color="primary"
           defaultValue={defaultValue}
           onChange={handleSMTextfieldChange}
+          InputLabelProps={{
+            className: classes.label,
+          }}
           InputProps={{
             className: classes.input,
             endAdornment: (
               <InputAdornment position="start">
-                <SearchIcon />
+                <SearchIcon className={classes.icon} />
               </InputAdornment>
             ),
           }}
@@ -79,19 +89,25 @@ const ArtistSearchInput = ({
           open={open}
           onClose={handleXSPopoverClose}
           anchorReference="anchorPosition"
-          anchorPosition={{ top: theme.spacing(2), left: theme.spacing(2) }}
+          anchorPosition={{ top: theme.spacing(1), left: theme.spacing(1) }}
         >
           <TextField
-            label="Look for an artist"
+            label="Search artists"
             variant="outlined"
             size="small"
             color="primary"
             defaultValue={defaultValue}
             onChange={handleSMTextfieldChange}
+            InputLabelProps={{
+              className: classes.label,
+            }}
+            inputProps={{
+              className: classes.input,
+            }}
           />
         </Popover>
         <IconButton color="inherit" onClick={handleXSButtonClick}>
-          <SearchIcon />
+          <SearchIcon className={classes.icon} />
         </IconButton>
       </Hidden>
     </>
