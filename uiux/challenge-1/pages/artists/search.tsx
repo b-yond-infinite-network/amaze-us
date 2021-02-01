@@ -36,7 +36,7 @@ export default function ArtistSearchPage({
         </Grid>
       ) : (
         <Typography variant="subtitle1">
-          No artist found for the keywords "{query}"
+          No artist found with the keywords "{query}"
         </Typography>
       )}
     </PageLayout>

@@ -13,20 +13,24 @@ const Lyrics = ({ track, trackLyrics }: LyricsProps) => {
 
   return (
     <Box p={2}>
-      <Title>
-        {track.name} - {track.artistName}
-      </Title>
-      <Box p={2}>
-        {bodyParts.map((part, ix) =>
-          part === "" ? (
-            <br key={ix} />
-          ) : (
-            <Typography variant="body1" key={ix}>
-              {part}
-            </Typography>
-          )
-        )}
-      </Box>
+      <Paper>
+        <Box p={2}>
+          <Title>
+            {track.name} - {track.artistName}
+          </Title>
+          <Box p={2}>
+            {bodyParts.map((part, ix) =>
+              part === "" ? (
+                <br key={ix} />
+              ) : (
+                <Typography variant="body1" key={ix}>
+                  {part}
+                </Typography>
+              )
+            )}
+          </Box>
+        </Box>
+      </Paper>
       <Box display="flex" justifyContent="flex-end">
         <Typography variant="caption">{trackLyrics.copyright}</Typography>
       </Box>

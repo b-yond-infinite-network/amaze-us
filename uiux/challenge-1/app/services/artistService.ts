@@ -1,5 +1,8 @@
 import { Artist, parseRating } from "../models"
 import fetchData from "./api"
+import cacheManager from "cache-manager"
+
+const artistCache = cacheManager.caching({ store: "memory", ttl: 60 * 60 * 24 })
 
 function parseArtist(artistData: any): Artist {
   return {
@@ -20,15 +23,21 @@ export default {
     const params = { page_size: pageSize }
 
     const body = await fetchData(service, params)
-    return parseArtistsList(body.message.body.artist_list)
+    const parsedArtists = parseArtistsList(body.message.body.artist_list)
+
+    parsedArtists.forEach((artist) => artistCache.set(artist.id, artist))
+    return parsedArtists
   },
 
   getArtist: async (id: number): Promise<Artist> => {
-    const service = "artist.get"
-    const params = { artist_id: id }
+    return await artistCache.wrap(id, () => {
+      const service = "artist.get"
+      const params = { artist_id: id }
 
-    const body = await fetchData(service, params)
-    return parseArtist(body.message.body.artist)
+      return fetchData(service, params).then((body) =>
+        parseArtist(body.message.body.artist)
+      )
+    })
   },
 
   searchArtist: async (query: string, pageSize: number): Promise<Artist[]> => {
@@ -36,6 +45,9 @@ export default {
     const params = { q_artist: query, page_size: pageSize }
 
     const body = await fetchData(service, params)
-    return parseArtistsList(body.message.body.artist_list)
+    const parsedArtists = parseArtistsList(body.message.body.artist_list)
+
+    parsedArtists.forEach((artist) => artistCache.set(artist.id, artist))
+    return parsedArtists
   },
 }
