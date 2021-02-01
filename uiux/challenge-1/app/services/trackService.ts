@@ -1,5 +1,6 @@
 import { parseRating, Track, TrackLyrics } from "../models"
 import fetchData from "./api"
+import cacheManager from "cache-manager"
 
 function parseTrack(trackData: any): Track {
   return {
@@ -29,13 +30,18 @@ function parseTrackLyrics(lyricsData: any): TrackLyrics {
   }
 }
 
+const trackCache = cacheManager.caching({ store: "memory", ttl: 60 * 60 * 24 })
+
 export default {
   getTopTracks: async (pageSize: number): Promise<Track[]> => {
     const service = "chart.tracks.get"
     const params = { page_size: pageSize }
 
     const body = await fetchData(service, params)
-    return parseTrackList(body.message.body.track_list)
+    const parsedTracks = parseTrackList(body.message.body.track_list)
+
+    parsedTracks.forEach((track) => trackCache.set(track.id, track))
+    return parsedTracks
   },
 
   getAlbumTracks: async (albumId: number): Promise<Track[]> => {
@@ -43,15 +49,21 @@ export default {
     const params = { album_id: albumId }
 
     const body = await fetchData(service, params)
-    return parseTrackList(body.message.body.track_list)
+    const parsedTracks = parseTrackList(body.message.body.track_list)
+
+    parsedTracks.forEach((track) => trackCache.set(track.id, track))
+    return parsedTracks
   },
 
   getTrack: async (trackId: number): Promise<Track> => {
-    const service = "track.get"
-    const params = { track_id: trackId }
+    return await trackCache.wrap(trackId, () => {
+      const service = "track.get"
+      const params = { track_id: trackId }
 
-    const body = await fetchData(service, params)
-    return parseTrack(body.message.body.track)
+      return fetchData(service, params).then((body) =>
+        parseTrack(body.message.body.track)
+      )
+    })
   },
 
   getTrackLyrics: async (trackId: number): Promise<TrackLyrics> => {

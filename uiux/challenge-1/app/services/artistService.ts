@@ -2,7 +2,10 @@ import { Artist, parseRating } from "../models"
 import fetchData from "./api"
 import cacheManager from "cache-manager"
 
-const artistCache = cacheManager.caching({ store: "memory", ttl: 60 * 60 * 24 })
+const artistCache = cacheManager.caching({
+  store: "memory",
+  ttl: 60 * 60 * 24,
+})
 
 function parseArtist(artistData: any): Artist {
   return {
