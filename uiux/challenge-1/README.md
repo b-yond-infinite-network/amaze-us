@@ -1,34 +1,35 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Sing It With Me!
 
-## Getting Started
+This is a project created for b-yond-infinite-network. You can see the fully working demo in [https://sing-it-with-me.herokuapp.com/] (keep in mind that this uses a test plan from Musix Match, so it might stop working if the daily request rates have been consumed).
 
-First, run the development server:
+## Highlights
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+- **React** with **Typescript** as development framework
+- **Next.js** as the SSR framework
+- **Material-UI** for material design and responsive components.
+- **cache-manager** for caching api requests (memory cache)
+- **Jest** for unit testing
+- **Cypress** for end to end testing
+- **Eslint**
+- **Fully responsive**
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Development
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+First, install the required dependencies: `yarn install` and then run the development server: `yarn dev`. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+## Testing
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+For unit tests run `yarn test` or `yarn test --watchAll`.
 
-## Learn More
+If you wish to run end to end tests, you must have a development or production instance running in http://localhost:3000 and execute `yarn cypress:open`.
 
-To learn more about Next.js, take a look at the following resources:
+## Production build
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Just build the app with `yarn build` and run the server with `yarn start` (you must have environment variables set or an `.env` file)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+### Environment variables
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/import?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- **PORT**: port in with the server will run
+- **MUSIXMATCH_API_URL**: Musix Match api url ([https://api.musixmatch.com/ws/1.1/])
+- **MUSIXMATCH_APIKEY**: Api key provided by Musix Match
+- **API_CACHE_ENABLED**: "true" if you want to enable api memory cache (default value). "false" if you want to disable caching. If you're running a production environment with high concurrency, you might want to set this to "false" and use a proxy like Nginx to cache pages (this also will help you increase response times).
