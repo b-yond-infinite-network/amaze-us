@@ -36,4 +36,4 @@ We'll get back to you as soon as your Pull Request has been reviewed (hopefully 
 + [UI/UX Developer](/uiux) 
 + [Data Scientist](/datascience/time-series) 
 
-If you have any questions, comments or suggestion, please don't hesitate to get in touch with Lorraine or Galyna.
+If you have any questions, comments or suggestion, please don't hesitate to get in touch with HR representative or the recruiter.
