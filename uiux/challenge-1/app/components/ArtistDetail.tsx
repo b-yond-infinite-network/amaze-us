@@ -39,12 +39,38 @@ const ArtistDetail = ({ artist, tracks }: ArtistDetailProps): JSX.Element => {
               labelId="sort-label"
               value={order}
               onChange={handleOrderChange}
+              className="test-sort-select"
             >
-              <MenuItem value={TrackOrdering.LIKES}>Likes</MenuItem>
-              <MenuItem value={TrackOrdering.ALBUM}>Album</MenuItem>
-              <MenuItem value={TrackOrdering.RATING}>Rating</MenuItem>
-              <MenuItem value={TrackOrdering.NAME}>Song title</MenuItem>
-              <MenuItem value={TrackOrdering.HAS_LYRICS}>Has lyrics</MenuItem>
+              <MenuItem
+                value={TrackOrdering.LIKES}
+                className="test-sort-menu-item"
+              >
+                Likes
+              </MenuItem>
+              <MenuItem
+                value={TrackOrdering.ALBUM}
+                className="test-sort-menu-item"
+              >
+                Album
+              </MenuItem>
+              <MenuItem
+                value={TrackOrdering.RATING}
+                className="test-sort-menu-item"
+              >
+                Rating
+              </MenuItem>
+              <MenuItem
+                value={TrackOrdering.NAME}
+                className="test-sort-menu-item"
+              >
+                Song title
+              </MenuItem>
+              <MenuItem
+                value={TrackOrdering.HAS_LYRICS}
+                className="test-sort-menu-item"
+              >
+                Has lyrics
+              </MenuItem>
             </Select>
           </FormControl>
         </Grid>

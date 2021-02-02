@@ -27,8 +27,10 @@ async function cachedFetchData(
   const url = `${appConfig.apiUrl}/${service}?${urlParams}`
 
   return await memoryCache.wrap(url, () => {
+    console.log("cache miss")
     return getJsonFromUrl(url)
   })
 }
+console.log(appConfig.apiCacheEnabled)
 
 export default appConfig.apiCacheEnabled ? cachedFetchData : fetchData

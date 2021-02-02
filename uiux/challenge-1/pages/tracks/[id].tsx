@@ -21,7 +21,7 @@ export default function TrackPage({
         <Lyrics track={track} trackLyrics={trackLyrics} />
       </PageLayout>
       <script type="text/javascript" src={trackLyrics.trackingScript} />
-      <img src={trackLyrics.trakingPixel} />
+      <img src={trackLyrics.trakingPixel} className="test-mxm-pixel" />
     </>
   )
 }
