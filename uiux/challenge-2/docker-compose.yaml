@@ -1,0 +1,22 @@
+
+version: "3.7"
+services:
+  backend:
+    build:
+      context: backend
+    networks:
+      - kepler
+    ports:
+      - 8103:8103
+  frontend:
+    build:
+      context: frontend
+    ports:
+      - 3000:3000
+    networks:
+      - kepler
+    depends_on:
+      - backend
+networks:
+  kepler:
+    driver: bridge

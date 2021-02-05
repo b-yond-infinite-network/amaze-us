@@ -1,0 +1,220 @@
+body {
+  background-color: #92a8d1;
+  padding: 20px;
+  margin: 0;
+}
+
+h1,
+h2,
+h3,
+p,
+span,
+ul,
+i,
+li {
+  font-family: Helvetica, Arial, sans-serif;
+  line-height: 1.8;
+}
+
+ul.header li {
+  display: inline;
+  list-style-type: none;
+  margin: 0;
+}
+
+ul.header li:hover a:hover {
+  background-color: #2b2b2b;
+}
+
+ul.header {
+  background-color: #111;
+  padding: 0;
+  border-radius: 4px;
+}
+
+ul.header li a {
+  color: #FFF;
+  font-weight: bold;
+  text-decoration: none;
+  padding: 20px;
+  display: inline-block;
+}
+
+.content {
+  background-color: #FFF;
+  border-radius: 4px;
+  padding: 20px;
+}
+
+.content h2 {
+  padding: 0;
+  margin: 0;
+}
+
+.content li {
+  margin-bottom: 10px;
+}
+
+.active {
+  background-color: #034f84;
+}
+
+/* Style inputs, select elements and textareas */
+input[type=text], select, textarea{
+  flex: 0 1 auto;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  resize: vertical;
+}
+
+/* Style the label to display next to the inputs */
+label {
+  padding: 12px 12px 12px 0;
+  display: inline-block;
+}
+
+/* Style the submit button */
+input[type=submit] {
+  flex: 0 1 auto;
+  background-color: #f7786b;
+  color: white;
+  padding: 12px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+button {
+  flex: 0 1 auto;
+  color: white;
+  padding: 6px 6px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+button.approved {
+  background-color: #77a8a8;
+}
+
+button.approved:hover {
+  background-color: #b2c2bf;
+}
+
+button.denied {
+  background-color: #c94c4c;
+}
+
+button.denied:hover {
+  background-color: #eea29a;
+}
+
+input[type=submit]:hover {
+  background-color: #f7cac9;
+}
+
+input[type=submit]:disabled {
+  background: #dddddd;
+  pointer-events: none;
+}
+
+input[type=submit]:focus {
+  background-color: #f7786b;
+}
+
+
+form#post-request-form {
+  display: flex;
+  flex-direction: column;
+}
+
+#post-request-form p{
+  flex: 1 1 auto;
+}
+
+ul.baby-requests {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.baby-requests span {
+  padding-right: 2px;
+  padding-left: 2px;
+  white-space: nowrap;
+}
+
+span.baby-name {
+  margin-left: 10px;
+}
+
+.PopulationCount p, h3{
+  display: inline-block;
+}
+.PopulationCount h3 {
+  margin-left: 10px;
+}
+
+.error {
+  color:#db2269;
+  font-size: 0.7em;
+  display: block;
+  margin-left: 2px;
+}
+
+.hidden {
+  display: none;
+  visibility: hidden;
+}
+
+.snackbar-container {
+  display: flex;
+  width: 95%;
+  align-items: center;
+  justify-content: center;
+  bottom: 30px;
+  z-index: 1;
+  position: fixed;
+}
+
+.snackbar {
+  visibility: hidden;
+  font-family: "Segoe UI", "Ubuntu", "Roboto", "Open Sans", "Helvetica Neue", sans-serif;
+  min-width: 250px;
+  background-color: #2b2b2b;
+  color: #fff;
+  text-align: center;
+  border-radius: 4px;
+  padding: 15px 30px;
+  font-size: 1em;
+}
+
+.snackbar.show {
+  visibility: visible;
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+@-webkit-keyframes fadein {
+  from {bottom: 0; opacity: 0;}
+  to {bottom: 30px; opacity: 1;}
+}
+
+@keyframes fadein {
+  from {bottom: 0; opacity: 0;}
+  to {bottom: 30px; opacity: 1;}
+}
+
+@-webkit-keyframes fadeout {
+  from {bottom: 30px; opacity: 1;}
+  to {bottom: 0; opacity: 0;}
+}
+
+@keyframes fadeout {
+  from {bottom: 30px; opacity: 1;}
+  to {bottom: 0; opacity: 0;}
+}
