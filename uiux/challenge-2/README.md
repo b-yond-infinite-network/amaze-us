@@ -1,30 +1,23 @@
-# Challenge 2 - Journey to Kepler
-It is the year 2548. We are now halfway to Kepler 186-f. 
-We have spent the last 430 years adapting to our dome, but all is not exactly perfect. 
-We have 2000 pioneers traveling with us, and our old 'Domy-Neon' application is crashing daily.
+# SpaceStack
 
-We need to prototype a new app - but because we've not upgraded anything since our departure in 2018, you'll have to use 
-430-year-old technologies. I know, how did those guys even live without the ZorgBlugFramework? No idea.
+![Frontend CI](https://github.com/sylhare/SpaceStack/workflows/Frontend%20CI/badge.svg) ![Backend CI](https://github.com/sylhare/SpaceStack/workflows/Backend%20CI/badge.svg)
 
-Still, this app needs to be able to tackle the travelers' life:
-+ Managing our water levels and the water collector output
-+ Managing our food levels and the food production farm output
-+ Managing the pioneers population, their current birth authorization and allowing for the projection of those numbers in the future
-+ Allowing pioneers to ask for a 'baby making authorization'
-+ Allow for the 'Habitat and Survival Management' department to authorize or reject 'baby making authorization' demands
+## Intro
 
-Our travelers are very picky and hate to use old technologies, so we need to make it seamless for them. 
-They heard about an old technology called 'responsive' and they find the name cute. 
-For sure they want it to work on their old mobile phones, with their old Oss: Android and iOS they were called. 
-Of course this app needs to run on all our terminals in the dome. That means Chrome 64 and Firefox 58...
+This is a full stack application prototype to manage a Space Colony.
+It is composed of:
+  - [Frontend](./frontend): A React single page application
+  - [Backend](./backend): A Spring Kotlin Rest application.
+  
+You can run the project using:
 
-Also, they want to have everything in a single page. 
-They hate when the browser spins and spins. 
-And lastly, we need to make that app fast and usable. 
-These travelers get pickier every generation and we have seven of those still to go…
+```bash
+docker-compose up
+``` 
 
+You can have more details on each part of the application by checking the readme in their respective folder.
 
-## Expected steps
-+ Create a branch of this project (or fork it in your github account if you prefer)
-+ Do you **_thang_** inside this folder (challenge-2)
-+ Push your change inside a Pull Request to our master
+## Functions
+
+The "baby call flow" is handled meaning you can create, get, approve/deny the baby requests.
+So far there are no databases and everything is saved in memory.
