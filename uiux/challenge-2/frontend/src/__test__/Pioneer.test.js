@@ -1,7 +1,7 @@
 import React from 'react'
 import {rest} from 'msw'
 import {setupServer} from 'msw/node'
-import {fireEvent, render, waitFor, act} from '@testing-library/react'
+import {act, fireEvent, render, waitFor} from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
 import Pioneers from '../Pages/Pioneers';
 
@@ -64,7 +64,9 @@ test('Error snackbar on when server is down while requesting baby', async () => 
     fireEvent.submit(getByRole('button', {name: /sendRequest/i}));
   });
 
-  await waitFor(() => {expect(getByText(/500/i)).toBeTruthy()})
+  await waitFor(() => {
+    expect(getByText(/500/i)).toBeTruthy()
+  })
 });
 
 test('Can make a baby request', async () => {
@@ -81,7 +83,9 @@ test('Can make a baby request', async () => {
   act(() => {
     fireEvent.submit(getByRole('button', {name: /sendRequest/i}));
   });
-  await waitFor(() => {expect(getByRole('textbox', {name: /name/i}).value).toBe("")})
+  await waitFor(() => {
+    expect(getByRole('textbox', {name: /name/i}).value).toBe("")
+  })
 });
 
 test('Cannot make a baby request with name too short', async () => {
@@ -92,7 +96,9 @@ test('Cannot make a baby request with name too short', async () => {
     target: {value: 'A'}
   });
 
-  await waitFor(() => {expect(getByRole('textbox', {name: /name/i}).value).toBe('A')});
+  await waitFor(() => {
+    expect(getByRole('textbox', {name: /name/i}).value).toBe('A')
+  });
 
   expect(getByRole('button', {name: /sendRequest/i})).toBeDisabled();
 });
@@ -105,7 +111,9 @@ test('Cannot make a baby request with trololo name', async () => {
     target: {value: 'Tr0l0l0'}
   });
 
-  await waitFor(() => {expect(getByRole('textbox', {name: /name/i}).value).toBe('Tr0l0l0')});
+  await waitFor(() => {
+    expect(getByRole('textbox', {name: /name/i}).value).toBe('Tr0l0l0')
+  });
 
   expect(getByRole('button', {name: /sendRequest/i})).toBeDisabled();
 });

@@ -1,9 +1,9 @@
 package amaze.us.controller
 
 import amaze.us.config.LOGGER
-import amaze.us.model.CurrentBabyRequests
 import amaze.us.model.Decision
 import amaze.us.model.IncomingBabyRequest
+import amaze.us.model.ListOfBabyRequest
 import amaze.us.model.PopulationAmount
 import amaze.us.service.ColonyHandlerService
 import io.swagger.annotations.ApiOperation
@@ -30,16 +30,16 @@ class ColonyController {
     ResponseEntity(PopulationAmount(), HttpStatus.INTERNAL_SERVER_ERROR)
   }
 
-  @ApiOperation(value = "Get the list of pending baby requests", response = CurrentBabyRequests::class)
+  @ApiOperation(value = "Get the list of pending baby requests", response = ListOfBabyRequest::class)
   @GetMapping(value = ["/baby/request"], produces = ["application/json"])
   fun babyPendingRequests() = try {
     LOGGER.info("Retrieving baby requests")
     ResponseEntity(colonyHandlerService.babyRequests(), HttpStatus.OK)
   } catch (e: Exception) {
-    ResponseEntity(CurrentBabyRequests(), HttpStatus.INTERNAL_SERVER_ERROR)
+    ResponseEntity(ListOfBabyRequest(), HttpStatus.INTERNAL_SERVER_ERROR)
   }
 
-  @ApiOperation(value = "Submit a baby request", response = IncomingBabyRequest::class)
+  @ApiOperation(value = "Submit a baby request", response = String::class)
   @ApiResponses(
       ApiResponse(code = 201, message = "Request have been accepted and created"),
       ApiResponse(code = 409, message = "Request have been denied due to bad character in baby's name"),
@@ -53,7 +53,16 @@ class ColonyController {
     ResponseEntity("", HttpStatus.INTERNAL_SERVER_ERROR)
   }
 
-  @ApiOperation(value = "Decide on a baby request", response = Decision::class)
+  @ApiOperation(value = "To review decision on baby requests", response = ListOfBabyRequest::class)
+  @GetMapping(value = ["/baby/request/audit"])
+  internal fun babyRequestAudit() = try {
+    LOGGER.info("Audit requested")
+    ResponseEntity(colonyHandlerService.processedRequests(), HttpStatus.OK)
+  } catch (e: Exception) {
+    ResponseEntity(ListOfBabyRequest(), HttpStatus.INTERNAL_SERVER_ERROR)
+  }
+
+  @ApiOperation(value = "Decide on a baby request", response = String::class)
   @ApiResponses(
       ApiResponse(code = 200, message = "Request have been correctly processed"),
       ApiResponse(code = 409, message = "Decision or ID was not recognized"),

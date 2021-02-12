@@ -1,23 +1,17 @@
 package amaze.us.model
 
-import amaze.us.model.Decision.Companion.DENIED
-import amaze.us.model.Decision.Companion.NEW
-import java.util.*
+import amaze.us.db.BabyRequest
 
 data class PopulationAmount(val amount: String) {
   constructor() : this("N/A")
 }
 
-data class IncomingBabyRequest(val name: String) {
-  constructor() : this("N/A")
+data class IncomingBabyRequest(val name: String, val author: String) {
+  constructor() : this("N/A", "Unknown")
 }
 
-data class ProcessingBabyRequest(val name: String, val id: String = UUID.randomUUID().toString(), val status: String = NEW) {
-  constructor() : this("N/A", "null-${UUID.randomUUID()}", DENIED)
-}
-
-data class Decision(val status: String) {
-  constructor(): this(DENIED)
+data class Decision(val status: String, val reviewer: String) {
+  constructor() : this(DENIED, "System")
 
   companion object {
     const val NEW = "new"
@@ -26,11 +20,9 @@ data class Decision(val status: String) {
   }
 }
 
-data class CurrentBabyRequests(val requests: MutableList<ProcessingBabyRequest>) {
-  fun add(request: IncomingBabyRequest) {
-    requests.add(ProcessingBabyRequest(request.name))
-  }
+data class ListOfBabyRequest constructor(val requests: List<BabyRequest>) {
 
-  constructor() : this(mutableListOf<ProcessingBabyRequest>())
+  constructor() : this(mutableListOf<BabyRequest>())
 }
+
 

@@ -1,7 +1,7 @@
 import React from 'react'
 import {rest} from 'msw'
 import {setupServer} from 'msw/node'
-import {render, waitFor, fireEvent, screen, act} from '@testing-library/react'
+import {act, fireEvent, render, waitFor} from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
 import Manage from '../Pages/Manage';
 
@@ -69,5 +69,5 @@ test('Fail to load the baby requests', async () => {
   const {getByText, queryByText} = render(<Manage/>);
 
   expect(queryByText('NEW')).toBeNull();
-  await waitFor(() =>  expect(getByText(/Unexpected/i)).toBeTruthy());
+  await waitFor(() => expect(getByText(/Unexpected/i)).toBeTruthy());
 });

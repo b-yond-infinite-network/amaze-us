@@ -28,10 +28,13 @@ dependencies {
   implementation("org.springframework.boot:spring-boot-starter-web") {
     exclude(module = "spring-boot-starter-tomcat")
   }
+  implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
+  implementation("org.springframework.boot:spring-boot-starter-security")
   implementation("org.springframework.boot:spring-boot-starter-undertow")
   implementation("org.springframework.boot:spring-boot-starter-actuator")
   implementation("io.springfox:springfox-swagger2:2.6.1")
   implementation("io.springfox:springfox-swagger-ui:2.6.1")
+  implementation("io.jsonwebtoken:jjwt:0.9.1")
   implementation("javax.xml.bind:jaxb-api:2.3.1")
   implementation("ch.qos.logback:logback-core:1.2.3")
   implementation("ch.qos.logback:logback-classic:1.2.3")
@@ -42,6 +45,9 @@ dependencies {
     exclude(module="junit-vintage-engine")
     exclude(module = "mockito-core")
   }
+  testImplementation("org.springframework.security:spring-security-test")
+  testImplementation("org.testcontainers:mongodb:1.15.0")
+  testImplementation("com.ninja-squad:springmockk:2.0.2")
   testImplementation("com.github.tomakehurst:wiremock:2.20.0")
   testImplementation("io.mockk:mockk:1.9.3")
   testImplementation("org.junit.jupiter:junit-jupiter:5.4.2")

@@ -1,0 +1,80 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Renders App 1`] = `
+<div>
+  <nav>
+    <ul
+      className="header"
+    >
+      <li>
+        <a
+          aria-current="page"
+          aria-label="Login"
+          className="active"
+          href="/login"
+          onClick={[Function]}
+          style={Object {}}
+        >
+          Login
+        </a>
+      </li>
+    </ul>
+  </nav>
+  <div
+    className="content"
+  >
+    <div
+      className="login"
+    >
+      <form
+        onSubmit={[Function]}
+      >
+        <label
+          className="login-input"
+        >
+          <b>
+            Username
+          </b>
+        </label>
+        <input
+          className="login-input"
+          data-test="username"
+          onChange={[Function]}
+          placeholder="Enter Username"
+          type="text"
+          value=""
+        />
+        
+        <label
+          className="login-input"
+        >
+          <b>
+            Password
+          </b>
+        </label>
+        <input
+          className="login-input"
+          data-test="password"
+          onChange={[Function]}
+          placeholder="Enter Password"
+          type="password"
+          value=""
+        />
+        
+        <div
+          className="flex-container"
+        >
+          <button
+            aria-label="login"
+            className="login-button"
+            data-test="submit"
+            type="submit"
+          >
+            Log in
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+`;

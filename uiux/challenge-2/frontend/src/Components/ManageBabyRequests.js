@@ -1,23 +1,7 @@
 import React, {useEffect, useReducer, useState} from 'react';
-import axios from 'axios';
-
-
-const listReducer = (state, action) => {
-  switch (action.type) {
-    case 'REMOVE_ITEM':
-      return {
-        ...state,
-        list: state.list.filter((item) => item.id !== action.id),
-      };
-    case 'LOAD_ITEM':
-      return {
-        ...state,
-        list: action.data
-      };
-    default:
-      throw new Error();
-  }
-};
+import {LOAD_ITEM, REMOVE_ITEM} from "../Actions/types";
+import {listReducer} from "../Reducers/listReducer";
+import ColonyService from "../Services/ColonyService";
 
 const ManageBabyRequests = () => {
   const [requests, dispatchListData] = useReducer(listReducer, {list: []});
@@ -25,23 +9,24 @@ const ManageBabyRequests = () => {
 
   useEffect(() => {
     let unmounted = false;
-    axios.get('/v1/baby/request')
-      .then(
-        (result) => {
-          if(!unmounted) {
-            dispatchListData({type: 'LOAD_ITEM', data: result.data.requests});
-            setError(false)
-          }
-        },
-        (error) => {
-          setError(true)
+    ColonyService.getRequest().then(
+      (result) => {
+        if (!unmounted) {
+          dispatchListData({type: LOAD_ITEM, data: result.data.requests});
+          setError(false)
         }
-      );
-    return () => { unmounted = true };
+      },
+      (_) => {
+        setError(true)
+      }
+    );
+    return () => {
+      unmounted = true
+    };
   }, []);
 
   function handleRemove(id) {
-    dispatchListData({type: 'REMOVE_ITEM', id});
+    dispatchListData({type: REMOVE_ITEM, id});
   }
 
   return error ? <i>Unexpected error while retrieving requests</i> :
@@ -49,16 +34,14 @@ const ManageBabyRequests = () => {
 };
 
 const Requests = ({list, onRemove}) => {
-  if (list.length === 0) {
-    return <i>There are no new requests</i>
-  } else {
-    return (
+  return list.length === 0 ? <i>There are no new requests</i>
+    : (
       <ul className='baby-requests'>
-      {list.map((item) => (
-        <Item key={item.id} item={item} onRemove={onRemove}/>
-      ))}
-    </ul>)
-  }
+        {list.map((item) => (
+          <Item key={item.id} item={item} onRemove={onRemove}/>
+        ))}
+      </ul>
+    )
 };
 
 const Item = ({item, onRemove}) => (
@@ -72,19 +55,12 @@ const Item = ({item, onRemove}) => (
 
 const ButtonBabyRequest = ({item, onRemove, decision}) => (
   <button type='button' aria-label='requestButton' className={decision} onClick={() => {
-    axios.put('/v1/baby/request/' + encodeURI(item.id), {status: decision})
-      .then(
-        (response) => {
-          if (response.status === 200) {
-            onRemove(item.id)
-          } else {
-            //console.log(response.status)
-          }
-        },
-        (error) => {
-          //console.log(error)
+    ColonyService.putRequestDecision(item.id, decision).then(
+      (response) => {
+        if (response.status === 200) {
+          onRemove(item.id)
         }
-      )
+      })
   }}>
     {decision === 'approved' ? 'approve' : 'deny'}
   </button>

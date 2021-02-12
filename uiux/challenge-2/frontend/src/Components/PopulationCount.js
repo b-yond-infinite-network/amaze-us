@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import axios from 'axios';
+import ColonyService from "../Services/ColonyService";
 
 
 export default function PopulationCount() {
@@ -8,21 +8,22 @@ export default function PopulationCount() {
 
   useEffect(() => {
     let unmounted = false;
-    axios.get('/v1/population')
-      .then(
-        (result) => {
-          if (!unmounted) setItems(result.data);
-        },
-        (error) => {
-          if (!unmounted) setError(error);
-        }
-      );
+    ColonyService.getPopulation().then(
+      (result) => {
+        if (!unmounted) setItems(result.data);
+      },
+      (error) => {
+        if (!unmounted) setError(error);
+      }
+    );
 
-    return () => { unmounted = true };
+    return () => {
+      unmounted = true
+    };
   }, []);
 
   return (<div className='PopulationCount'><p>The population counter:</p>
-    <h3>{error ? "N/A" : items.amount}</h3>
+    <h3>{error ? 'N/A' : items.amount}</h3>
   </div>);
 
 }

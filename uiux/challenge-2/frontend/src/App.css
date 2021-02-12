@@ -9,6 +9,7 @@ h2,
 h3,
 p,
 span,
+label,
 ul,
 i,
 li {
@@ -60,7 +61,7 @@ ul.header li a {
 }
 
 /* Style inputs, select elements and textareas */
-input[type=text], select, textarea{
+input[type=text], select, textarea {
   flex: 0 1 auto;
   padding: 12px;
   border: 1px solid #ccc;
@@ -101,16 +102,8 @@ button.approved {
   background-color: #77a8a8;
 }
 
-button.approved:hover {
-  background-color: #b2c2bf;
-}
-
 button.denied {
   background-color: #c94c4c;
-}
-
-button.denied:hover {
-  background-color: #eea29a;
 }
 
 input[type=submit]:hover {
@@ -132,7 +125,7 @@ form#post-request-form {
   flex-direction: column;
 }
 
-#post-request-form p{
+#post-request-form p {
   flex: 1 1 auto;
 }
 
@@ -152,15 +145,16 @@ span.baby-name {
   margin-left: 10px;
 }
 
-.PopulationCount p, h3{
+.PopulationCount p, h3 {
   display: inline-block;
 }
+
 .PopulationCount h3 {
   margin-left: 10px;
 }
 
 .error {
-  color:#db2269;
+  color: #db2269;
   font-size: 0.7em;
   display: block;
   margin-left: 2px;
@@ -217,4 +211,115 @@ span.baby-name {
 @keyframes fadeout {
   from {bottom: 30px; opacity: 1;}
   to {bottom: 0; opacity: 0;}
+}
+
+.processed-requests {
+  border-collapse: collapse;
+  margin: 25px 0;
+  font-size: 0.9em;
+  font-family: sans-serif;
+  min-width: 400px;
+  box-shadow: 10px 10px 50px -5px rgba(0, 0, 0, 0.15);
+}
+
+.processed-requests thead tr {
+  background-color: #f7786b;
+  color: #ffffff;
+  text-align: left;
+}
+
+.processed-requests th,
+.processed-requests td {
+  padding: 12px 15px;
+}
+
+.processed-requests tbody tr {
+  border-bottom: 1px solid #dddddd;
+}
+
+.processed-requests tbody tr:nth-of-type(odd) {
+  background-color: #ffffff;
+}
+
+.processed-requests tbody tr:nth-of-type(even) {
+  background-color: #f3f3f3;
+}
+
+.processed-requests tbody tr:last-of-type {
+  border-bottom: 2px solid #f7786b;
+}
+
+.processed-requests tbody tr.active-row {
+  font-weight: bold;
+  color: #f7786b;
+}
+
+.login {
+  display: flex;
+  width: 95%;
+  align-items: center;
+  justify-content: center;
+  margin: 30px 0;
+  font-size: 1.2em;
+}
+
+label.login-input {
+  padding-bottom: 5px;
+  margin-top: 20px;
+}
+
+form {
+  width: 50%;
+}
+
+input[type=text].login-input, input[type=password].login-input {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  border-radius: 4px;
+}
+
+.flex-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+button.login-button {
+  background-color: #f7786b;
+  color: white;
+  padding: 14px 50px;
+  margin: 20px 0;
+  border: none;
+  cursor: pointer;
+  max-width: 50%;
+  float: right;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+.container {
+  padding: 16px;
+}
+
+span.psw {
+  float: right;
+  padding-top: 16px;
+}
+
+li.logout {
+  float: right;
+}
+
+input[type="text"].filter {
+  width: 62em;
+  background-image: url('Resources/searchicon.png');
+  padding: 12px 20px 12px 40px;
+  background-position: 10px 10px;
+  background-repeat: no-repeat;
 }

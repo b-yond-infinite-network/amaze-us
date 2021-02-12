@@ -1,28 +1,44 @@
 package amaze.us.service
 
-import amaze.us.model.CurrentBabyRequests
+import amaze.us.db.toBabyRequest
+import amaze.us.db.toBabyUpdate
+import amaze.us.model.Decision
+import amaze.us.model.Decision.Companion.APPROVED
+import amaze.us.model.Decision.Companion.DENIED
 import amaze.us.model.IncomingBabyRequest
+import amaze.us.model.ListOfBabyRequest
 import amaze.us.model.PopulationAmount
+import amaze.us.service.BabyRequestService.Companion.approved
+import amaze.us.service.BabyRequestService.Companion.new
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
 @Service
 class PopulationService {
+
+  @Autowired
+  private lateinit var babyRequestService: BabyRequestService
 
   companion object {
     const val ILLEGAL_CHARS = "0123456789+-*/\\|][{};:\"?><,!@#$%^&"
   }
 
   private var population = 2000
-  private var babyRequests = CurrentBabyRequests()
 
-  fun count() = PopulationAmount(population.toString())
-  fun pendingBabyRequests(): CurrentBabyRequests = babyRequests
+  fun count() = PopulationAmount((population + babyRequestService.getRequests(approved).size).toString())
+
+  fun pendingBabyRequests(): ListOfBabyRequest = ListOfBabyRequest(babyRequestService.getRequests(new))
+
+  fun processedBabyRequests(): ListOfBabyRequest = ListOfBabyRequest(babyRequestService.getRequests(approved).sortedByDescending { it.timestamp })
+
   fun processNewBabyRequest(request: IncomingBabyRequest): Boolean {
     val isGoodName = request.name.none { it in ILLEGAL_CHARS } && request.name.isNotBlank()
-    if (isGoodName) babyRequests.add(request)
+    if (isGoodName) babyRequestService.createRequest(request.toBabyRequest)
     return isGoodName
   }
-  private fun removeRequest(id: String) = babyRequests.requests.removeIf{ it.id == id }
-  fun approveRequest(id: String) = removeRequest(id).also { if (it) population += 1 }
-  fun denyRequest(id: String) = removeRequest(id)
+
+  fun processBabyRequestUpdate(id: String, decision: Decision) = when (decision.status.toLowerCase()) {
+    APPROVED, DENIED -> babyRequestService.updateRequest(id, decision.toBabyUpdate)
+    else -> false
+  }
 }

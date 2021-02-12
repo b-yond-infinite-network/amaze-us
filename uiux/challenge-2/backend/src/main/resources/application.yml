@@ -32,3 +32,13 @@ spring:
     multipart:
       max-file-size: 10MB
       max-request-size: 10MB
+
+database:
+  mongo:
+    address: mongo
+    port: 27017
+
+auth:
+  jwt:
+    key: "0e891b9a-ab85-482c-a376-6ef3454c230d"
+    validity: 900000
