@@ -1,0 +1,14 @@
+@import url(https://fonts.googleapis.com/css?family=Comfortaa:200,300,400,700);
+$headings-font-family:Comfortaa;
+
+$primary:#FF304F;
+$secondary:#2d3035;
+$success:#00A86B;
+$body-color:#D2CFCA;
+
+/*! Import Bootstrap 4 variables */
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+$body-bg:#202428;
+
+@import '~bootstrap/scss/bootstrap.scss';
