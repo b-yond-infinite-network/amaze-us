@@ -16,6 +16,8 @@ Use the DB of your choice; and make it happen!
       - Pull total_bronze_medals from summer_games
       - Create a subquery that shows the total number of bronze medals by country
       - Both queries should have the same output
+6. Now that you have all your data in place, please share any other interesting insights of the dataset (whatever you think is interesting and/or important)
+
       
 ## Expected steps
 + Create a branch of this project (or fork it in your github account if you prefer)
