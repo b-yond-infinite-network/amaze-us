@@ -17,7 +17,7 @@ Use as many tricks, libraries and crazy ideas you want. Be yourself and find us 
 *
 ```
 
-2. Remove the escaped quote (\') and newline (\n) form the following dictionary:
+2. Remove the escaped quote ( \ ' ) and newline (\n) form the following dictionary:
  
 ```
 {'cus_flow_headers': '\'column.format:"Protocol","%p","Source","%rs","udp_stream_2", "%Cus:udp.stream:2"\'\n', 'table_flow_headers': '\'-e frame.number -e _ws.col.Protocol -E aggregator="$" -E separator=/t -E header=y\'\n', 'table_features_headers': '\'-e frame.number  -E separator=/t\''}
@@ -49,7 +49,7 @@ Get some extra points if you have extra time (chose either or both)
      c. Refill the machine at least 3 times while you buy candy
      d. Exit once you have emptied the machine.
      (**__HINT:__** Traffic lights and locks )
-2. On the [bonus2_files](bonus2) folder you have 2 files. A binary and an excel file. (NOT AVAILABLE YET)
+2. On the [bonus2_files](./bonus2_files) folder you have 2 files. A binary and an excel file. (NOT AVAILABLE YET)
      a. Use the excel file to get start and end timestamps
      b. Split the binary file. You should have a new binary file per 
      (**__HINT:__** You will need to use [editcap](https://www.wireshark.org/docs/man-pages/editcap.html) to split the files.
