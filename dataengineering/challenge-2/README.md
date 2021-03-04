@@ -18,13 +18,22 @@ Use as many tricks, libraries and crazy ideas you want. Be yourself and find us 
 ```
 
 2. Remove the escaped quote (\') and newline (\n) form the following dictionary:
-`{'cus_flow_headers': '\'column.format:"Protocol","%p","Source","%rs","udp_stream_2", "%Cus:udp.stream:2"\'\n', 'table_flow_headers': '\'-e frame.number -e _ws.col.Protocol -E aggregator="$" -E separator=/t -E header=y\'\n', 'table_features_headers': '\'-e frame.number  -E separator=/t\''}`
+ 
+```
+{'cus_flow_headers': '\'column.format:"Protocol","%p","Source","%rs","udp_stream_2", "%Cus:udp.stream:2"\'\n', 'table_flow_headers': '\'-e frame.number -e _ws.col.Protocol -E aggregator="$" -E separator=/t -E header=y\'\n', 'table_features_headers': '\'-e frame.number  -E separator=/t\''}
+```
 
 3. Sort the following list of dictionaries by color:
-`mobiles = [{'make':'iPhone', 'model': 7, 'color':'White'}, {'make':'Google', 'model':'2', 'color':'Gold'}, {'make':'Nokia', 'model':216, 'color':'Black'}, {'make':'Samsung', 'model': 7, 'color':'Blue'}]`
+ 
+```
+mobiles = [{'make':'iPhone', 'model': 7, 'color':'White'}, {'make':'Google', 'model':'2', 'color':'Gold'}, {'make':'Nokia', 'model':216, 'color':'Black'}, {'make':'Samsung', 'model': 7, 'color':'Blue'}]
+```
 
 4. Square only the even numbers in the below list, but if they are odd numbers cube them. Store the results in a list
-`[1,2,4,5,6,9,13,15,10,4]`
+
+```
+[1,2,4,5,6,9,13,15,10,4]
+```
 
 5. Create a threading script with the following rules
     a. Yuo must create a module containing the main threading running logic of the workers
