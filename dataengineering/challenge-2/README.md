@@ -36,7 +36,9 @@ mobiles = [{'make':'iPhone', 'model': 7, 'color':'White'}, {'make':'Google', 'mo
 ```
 
 5. Create a threading script with the following rules
-    a. Yuo must create a module containing the main threading running logic of the workers
+
+    a. Create a module containing the main threading running logic of the workers
+    
     b. Call that module into a script where you will run your threads
 
 ## Bonus round:
