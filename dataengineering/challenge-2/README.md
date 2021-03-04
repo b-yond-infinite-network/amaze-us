@@ -41,6 +41,7 @@ mobiles = [{'make':'iPhone', 'model': 7, 'color':'White'}, {'make':'Google', 'mo
 
 ## Bonus round:
 Get some extra points if you have extra time (chose either or both)
+
 **__NOTE: Currenlty the second bonus is not available. But feel free to add something similar that you think shows some value when working with files__**
 
 1. Create a simple vending machine threading example with the following rules:
