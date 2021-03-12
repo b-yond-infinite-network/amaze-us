@@ -1,6 +1,6 @@
 # Challenge 2 - We want a Shrubbery!!
 
-Ar eyou able to hep us find the Holly Grial of the python world?
+Are you able to help us find the Holly Grail of the python world?
 Use as many tricks, libraries and crazy ideas you want. Be yourself and find us that shruberry.
 
 ## Excercises
@@ -44,7 +44,7 @@ mobiles = [{'make':'iPhone', 'model': 7, 'color':'White'}, {'make':'Google', 'mo
 ## Bonus round:
 Get some extra points if you have extra time (chose either or both)
 
-**__NOTE: Currenlty the second bonus is not available. But feel free to add something similar that you think shows some value when working with files__**
+**__NOTE: Currently the second bonus is not available. But feel free to add something similar that you think shows some value when working with files__**
 
 1. Create a simple vending machine threading example with the following rules:
 
