@@ -10,3 +10,6 @@ In this challenge, demonstrate your pythonic abilities and bring us another shru
 
 # ![Progress](https://progress-bar.dev/0) [Challenge 3 - EvilNet rules the world](challenge-3)
 In this challenge, you demonstrate your ability to design and implement a scalable data pipeline following best practices.
+
+# ![Progress](https://progress-bar.dev/0) [Challenge 4 - Mysteries of the Cats](challenge-4)
+In this challenge, you will demonstrate your abilities to use parallel computing to solve a big mystery of life.

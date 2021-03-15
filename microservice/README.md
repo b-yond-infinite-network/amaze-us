@@ -13,6 +13,3 @@ best-of-breed technologies.
 # ![Progress](https://progress-bar.dev/0) [Challenge 3 - It is rocket science!](challenge-3)
 In this challenge, you will demonstrate your abilities to leverage the best technology available to guarantee only 
 working software is released.
-
-# ![Progress](https://progress-bar.dev/0) [Challenge 4 - Mysteries of the Cats](challenge-4)
-In this challenge, you will demonstrate your abilities to use parallel computing to solve a big mystery of life.
