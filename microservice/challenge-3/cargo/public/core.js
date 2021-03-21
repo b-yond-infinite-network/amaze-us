@@ -25,11 +25,22 @@ function mainController($scope, $http) {
 			});
 	};
 
-	// delete a todo after checking it
+	// delete an item
 	$scope.deleteCargo = function(id) {
 		$http.delete('/api/cargo/' + id)
 			.success(function(data) {
 				$scope.cargo_list = data;
+			})
+			.error(function(data) {
+				console.log('Error: ' + data);
+			});
+	};
+
+	// update loaded state of an item
+	$scope.loadedCargo = function(id, loaded) {
+		$http({ method: 'PATCH', url: '/api/cargo/' + id, data: { loaded: !loaded } })
+			.success(function() {
+				console.log('Updated successfully');
 			})
 			.error(function(data) {
 				console.log('Error: ' + data);

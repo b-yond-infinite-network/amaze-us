@@ -1,12 +1,16 @@
-from urllib2 import Request, urlopen, URLError
+from dotenv import load_dotenv
+from urllib.request import Request, urlopen, URLError
+import os
 
-request = Request('http://localhost/')
+load_dotenv()
+
+request = Request('{}/tanks'.format(os.getenv('BOOSTER_URL')))
 
 try:
     response = urlopen(request)
     booster = response.read()
-    print booster
+    print(booster)
 
-except URLError, e:
-    print 'Booster still has fuel, not released', e
+except URLError as e:
+    print('Booster still has fuel, not released', e)
 

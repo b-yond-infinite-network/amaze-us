@@ -7,9 +7,9 @@ import (
 
 	"github.com/gorilla/mux"
 	"github.com/jinzhu/gorm"
-	"github.com/mingrammer/go-todo-rest-api-example/app/handler"
-	"github.com/mingrammer/go-todo-rest-api-example/app/model"
-	"github.com/mingrammer/go-todo-rest-api-example/config"
+	"github.com/b-yond-infinite-network/amaze-us/microservice/challenge-3/booster/app/handler"
+	"github.com/b-yond-infinite-network/amaze-us/microservice/challenge-3/booster/app/model"
+	"github.com/b-yond-infinite-network/amaze-us/microservice/challenge-3/booster/config"
 )
 
 // App has router and db instances
@@ -20,9 +20,11 @@ type App struct {
 
 // Initialize initializes the app with predefined configuration
 func (a *App) Initialize(config *config.Config) {
-	dbURI := fmt.Sprintf("%s:%s@/%s?charset=%s&parseTime=True",
+	dbURI := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=%s&parseTime=True",
 		config.DB.Username,
 		config.DB.Password,
+		config.DB.Host,
+		config.DB.Port,
 		config.DB.Name,
 		config.DB.Charset)
 

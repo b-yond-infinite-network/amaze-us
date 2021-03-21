@@ -1,25 +1,54 @@
 package config
 
+import (
+	"github.com/spf13/viper"
+	"strings"
+)
+
 type Config struct {
-	DB *DBConfig
+	Port int
+	DB   *DBConfig
 }
 
 type DBConfig struct {
 	Dialect  string
+	Host     string
+	Port     int
 	Username string
 	Password string
 	Name     string
 	Charset  string
 }
 
-func GetConfig() *Config {
-	return &Config{
-		DB: &DBConfig{
-			Dialect:  "mysql",
-			Username: "guest",
-			Password: "Guest0000!",
-			Name:     "todoapp",
-			Charset:  "utf8",
-		},
+// Loads configuration using Viper from booster.yml file or env variables
+func initViper() error {
+	appName := "booster"
+
+	viper.AddConfigPath(".")
+	viper.SetConfigName(appName)
+	viper.SetConfigType("yml")
+
+	viper.SetEnvPrefix(appName)
+	viper.SetEnvKeyReplacer(strings.NewReplacer(".", "_")) // By default '.' is the name separator for nested configs
+	viper.AutomaticEnv()
+
+	if err := viper.ReadInConfig(); err != nil {
+		return err
 	}
+
+	return nil
+}
+
+func GetConfig() (*Config, error) {
+	if err := initViper(); err != nil {
+		return nil, err
+	}
+
+	var config Config
+
+	if err := viper.Unmarshal(&config); err != nil {
+		return nil, err
+	}
+
+	return &config, nil
 }

@@ -1,0 +1,33 @@
+version: '3.7'
+
+services:
+  booster:
+    build: ./booster
+    ports:
+      - 3000:3000
+    environment:
+      BOOSTER_DB_USERNAME: booster
+      BOOSTER_DB_PASSWORD: booster
+      BOOSTER_DB_HOST: mysql-booster
+    depends_on:
+      - mysql-booster
+
+  cargo:
+    build: ./cargo
+    ports:
+      - 8080:8080
+    environment:
+      MONGODB_URL: "mongodb://mongodb-cargo:27017/cargo"
+    depends_on:
+      - mongodb-cargo
+
+  mysql-booster:
+    image: mysql:8
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: booster
+      MYSQL_USER: booster
+      MYSQL_PASSWORD: booster
+
+  mongodb-cargo:
+    image: mongo:4.4

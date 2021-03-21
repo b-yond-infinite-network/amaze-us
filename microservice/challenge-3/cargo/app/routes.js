@@ -55,6 +55,21 @@ module.exports = function(app) {
 		});
 	});
 
+	// partial update a cargo
+	app.patch('/api/cargo/:cargo_id', function (req, res) {
+		Cargo.update(
+			{ _id: req.params.cargo_id },
+			{ $set: req.body },
+			function (err) {
+				if (err) {
+					res.send(err);
+				}
+
+				res.status(204).send();
+			}
+		);
+	});
+
 	// application -------------------------------------------------------------
 	app.get('*', function(req, res) {
 		res.sendfile('./public/index.html'); // load the single view file (angular will handle the page changes on the front-end)

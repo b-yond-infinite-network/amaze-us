@@ -1,7 +1,7 @@
 {
-  "name": "node-todo",
+  "name": "cargo-server",
   "version": "0.0.0",
-  "description": "Simple todo application.",
+  "description": "Cargo Server",
   "main": "server.js",
   "author": "Scotch",
   "dependencies": {
