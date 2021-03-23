@@ -11,7 +11,6 @@ type Config struct {
 }
 
 type DBConfig struct {
-	Dialect  string
 	Host     string
 	Port     int
 	Username string

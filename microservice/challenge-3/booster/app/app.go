@@ -1,39 +1,24 @@
 package app
 
 import (
-	"fmt"
+	"github.com/b-yond-infinite-network/amaze-us/microservice/challenge-3/booster/app/repository"
 	"log"
 	"net/http"
 
-	"github.com/gorilla/mux"
-	"github.com/jinzhu/gorm"
 	"github.com/b-yond-infinite-network/amaze-us/microservice/challenge-3/booster/app/handler"
-	"github.com/b-yond-infinite-network/amaze-us/microservice/challenge-3/booster/app/model"
 	"github.com/b-yond-infinite-network/amaze-us/microservice/challenge-3/booster/config"
+	"github.com/gorilla/mux"
 )
 
 // App has router and db instances
 type App struct {
-	Router *mux.Router
-	DB     *gorm.DB
+	Router     *mux.Router
+	Repository repository.Repository
 }
 
 // Initialize initializes the app with predefined configuration
 func (a *App) Initialize(config *config.Config) {
-	dbURI := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=%s&parseTime=True",
-		config.DB.Username,
-		config.DB.Password,
-		config.DB.Host,
-		config.DB.Port,
-		config.DB.Name,
-		config.DB.Charset)
-
-	db, err := gorm.Open(config.DB.Dialect, dbURI)
-	if err != nil {
-		log.Fatal("Could not connect database")
-	}
-
-	a.DB = model.DBMigrate(db)
+	a.Repository = repository.CreateMysqlRepository(config)
 	a.Router = mux.NewRouter()
 	a.setRouters()
 }
@@ -83,62 +68,62 @@ func (a *App) Delete(path string, f func(w http.ResponseWriter, r *http.Request)
 ** Tanks Handlers
  */
 func (a *App) GetAllTanks(w http.ResponseWriter, r *http.Request) {
-	handler.GetAllTanks(a.DB, w, r)
+	handler.GetAllTanks(a.Repository, w, r)
 }
 
 func (a *App) CreateTank(w http.ResponseWriter, r *http.Request) {
-	handler.CreateTank(a.DB, w, r)
+	handler.CreateTank(a.Repository, w, r)
 }
 
 func (a *App) GetTank(w http.ResponseWriter, r *http.Request) {
-	handler.GetTank(a.DB, w, r)
+	handler.GetTank(a.Repository, w, r)
 }
 
 func (a *App) UpdateTank(w http.ResponseWriter, r *http.Request) {
-	handler.UpdateTank(a.DB, w, r)
+	handler.UpdateTank(a.Repository, w, r)
 }
 
 func (a *App) DeleteTank(w http.ResponseWriter, r *http.Request) {
-	handler.DeleteTank(a.DB, w, r)
+	handler.DeleteTank(a.Repository, w, r)
 }
 
 func (a *App) ArchiveTank(w http.ResponseWriter, r *http.Request) {
-	handler.ArchiveTank(a.DB, w, r)
+	handler.ArchiveTank(a.Repository, w, r)
 }
 
 func (a *App) RestoreTank(w http.ResponseWriter, r *http.Request) {
-	handler.RestoreTank(a.DB, w, r)
+	handler.RestoreTank(a.Repository, w, r)
 }
 
 /*
 ** Fuel Handlers
  */
 func (a *App) GetAllFuelParts(w http.ResponseWriter, r *http.Request) {
-	handler.GetAllFuelParts(a.DB, w, r)
+	handler.GetAllFuelParts(a.Repository, w, r)
 }
 
 func (a *App) CreateFuelPart(w http.ResponseWriter, r *http.Request) {
-	handler.CreateFuelPart(a.DB, w, r)
+	handler.CreateFuelPart(a.Repository, w, r)
 }
 
 func (a *App) GetFuelPart(w http.ResponseWriter, r *http.Request) {
-	handler.GetFuelPart(a.DB, w, r)
+	handler.GetFuelPart(a.Repository, w, r)
 }
 
 func (a *App) UpdateFuelPart(w http.ResponseWriter, r *http.Request) {
-	handler.UpdateFuelPart(a.DB, w, r)
+	handler.UpdateFuelPart(a.Repository, w, r)
 }
 
 func (a *App) DeleteFuelPart(w http.ResponseWriter, r *http.Request) {
-	handler.DeleteFuelPart(a.DB, w, r)
+	handler.DeleteFuelPart(a.Repository, w, r)
 }
 
 func (a *App) CompleteFuelPart(w http.ResponseWriter, r *http.Request) {
-	handler.CompleteFuelPart(a.DB, w, r)
+	handler.CompleteFuelPart(a.Repository, w, r)
 }
 
 func (a *App) UndoFuelPart(w http.ResponseWriter, r *http.Request) {
-	handler.UndoFuelPart(a.DB, w, r)
+	handler.UndoFuelPart(a.Repository, w, r)
 }
 
 // Run the app on it's router
