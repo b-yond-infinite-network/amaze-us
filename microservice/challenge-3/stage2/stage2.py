@@ -1,16 +1,22 @@
-from dotenv import load_dotenv
-from urllib.request import Request, urlopen, URLError
-import os
+from requests.exceptions import ConnectionError
 
-load_dotenv()
+from booster import BoosterService
+from config.env import BOOSTER_URL, TANKS
 
-request = Request('{}/tanks'.format(os.getenv('BOOSTER_URL')))
 
-try:
-    response = urlopen(request)
-    booster = response.read()
-    print(booster)
+def main():
+    try:
+        service = BoosterService(BOOSTER_URL, TANKS)
+        booster_stage_finished = service.booster_stage_finished()
 
-except URLError as e:
-    print('Booster still has fuel, not released', e)
+        if booster_stage_finished:
+            print('No more fuel, released')
+        else:
+            print('Booster still has fuel, not released')
 
+    except ConnectionError as e:
+        print('Connection Error - Assuming booster still has fuel, not released\n', e)
+
+
+if __name__ == '__main__':
+    main()

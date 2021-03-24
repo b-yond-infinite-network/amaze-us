@@ -5,7 +5,9 @@ import (
 	"github.com/b-yond-infinite-network/amaze-us/microservice/challenge-3/booster/app/model"
 	"github.com/b-yond-infinite-network/amaze-us/microservice/challenge-3/booster/config"
 	"github.com/jinzhu/gorm"
+	_ "github.com/jinzhu/gorm/dialects/mysql"
 	"log"
+	"time"
 )
 
 type Repository interface {
@@ -52,6 +54,24 @@ func dbMigrate(db *gorm.DB) *gorm.DB {
 	return db
 }
 
+func openConnection(connectionTimeout time.Duration, dbURI string) (*gorm.DB, error) {
+	var db *gorm.DB
+
+	db, err := gorm.Open("mysql", dbURI)
+	if err != nil && connectionTimeout <= 0 {
+		return nil, err
+	} else if err != nil {
+		wait := 500 * time.Millisecond
+		time.Sleep(wait)
+		db, err = openConnection(connectionTimeout-wait, dbURI)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	return db, nil
+}
+
 func CreateMysqlRepository(config *config.Config) Repository {
 	dbURI := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=%s&parseTime=True",
 		config.DB.Username,
@@ -61,9 +81,9 @@ func CreateMysqlRepository(config *config.Config) Repository {
 		config.DB.Name,
 		config.DB.Charset)
 
-	db, err := gorm.Open("mysql", dbURI)
+	db, err := openConnection(config.DB.ConnectionTimeout, dbURI)
 	if err != nil {
-		log.Fatal("Could not connect database")
+		log.Fatalln("Could not connect database", err)
 	}
 
 	return &MysqlRepository{db: dbMigrate(db)}

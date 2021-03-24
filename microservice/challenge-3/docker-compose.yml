@@ -1,4 +1,4 @@
-version: '3.7'
+version: '3.9'
 
 services:
   booster:
@@ -9,6 +9,7 @@ services:
       BOOSTER_DB_USERNAME: booster
       BOOSTER_DB_PASSWORD: booster
       BOOSTER_DB_HOST: mysql-booster
+      BOOSTER_DB_CONNECTION_TIMEOUT: 30s # MySQL takes its time to be available
     depends_on:
       - mysql-booster
 
@@ -20,6 +21,16 @@ services:
       MONGODB_URL: "mongodb://mongodb-cargo:27017/cargo"
     depends_on:
       - mongodb-cargo
+
+  stage2:
+    build: ./stage2
+    profiles:
+      - stage2
+    environment:
+      BOOSTER_URL: "http://booster:3000"
+      TANKS: "Tank1,Tank2"
+    depends_on:
+      - booster
 
   mysql-booster:
     image: mysql:8

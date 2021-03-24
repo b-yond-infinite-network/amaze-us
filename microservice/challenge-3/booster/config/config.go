@@ -3,6 +3,7 @@ package config
 import (
 	"github.com/spf13/viper"
 	"strings"
+	"time"
 )
 
 type Config struct {
@@ -11,12 +12,13 @@ type Config struct {
 }
 
 type DBConfig struct {
-	Host     string
-	Port     int
-	Username string
-	Password string
-	Name     string
-	Charset  string
+	Host              string
+	Port              int
+	ConnectionTimeout time.Duration `mapstructure:"connection-timeout"`
+	Username          string
+	Password          string
+	Name              string
+	Charset           string
 }
 
 // Loads configuration using Viper from booster.yml file or env variables
@@ -28,7 +30,7 @@ func initViper() error {
 	viper.SetConfigType("yml")
 
 	viper.SetEnvPrefix(appName)
-	viper.SetEnvKeyReplacer(strings.NewReplacer(".", "_")) // By default '.' is the name separator for nested configs
+	viper.SetEnvKeyReplacer(strings.NewReplacer(".", "_", "-", "_")) // By default '.' is the name separator for nested configs
 	viper.AutomaticEnv()
 
 	if err := viper.ReadInConfig(); err != nil {

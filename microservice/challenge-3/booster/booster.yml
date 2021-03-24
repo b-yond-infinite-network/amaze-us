@@ -2,6 +2,7 @@ port: 3000
 db:
   host: 127.0.0.1
   port: 3306
+  connection-timeout: 5s
   username: guest
   password: Guest0000!
   name: booster
