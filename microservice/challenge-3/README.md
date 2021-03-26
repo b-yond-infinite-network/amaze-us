@@ -1,23 +1,45 @@
 # Challenge 3 - It is rocket science!
-We were supposed to be on Mars two years ago. Elon is not happy.  
-We crashed it again. We checked everything, and it was not the hardware.  
-Something must be wrong with our software
 
-Top-notch coders for sure, but they are overworked guaranteeing the future of human race. 
-They are stuck in a vicious circle: they fix a bug here, a new one pops up on another system… they fix it, and the first 
-bug reappears.
+Each subproject has instructions to be executed in its own readme file:
+* [booster](./booster/README.md)
+* [cargo](./cargo/README.md)
+* [stage2](./stage2/README.md)
+* [e2e tests](./e2e/README.md)
 
-Since you are not a rocket scientist and you don't really like physics all that much, you promise Elon you would fix the 
-software. Your plan is to build a system in which whatever the programmers do, they will be able to iteratively build a 
-more stable system at each step. There is currently 3 sub-projects, the booster, the stage 2, and the cargo.  
-For this to fly, those parts need to be stable separately, but also together!
+Anyway, to simplify testing the app, there is a docker compose file, that has the following:
+* The booster app
+* The MySQL instance needed for the booster
+* The cargo app
+* The MongoDB instance needed for the cargo
+* The stage 2 app
+    * This has a profile specified, so it doesn't run by default.
 
-Of course, to get those developers started, you need to show them how it's done.
+To run the docker compose:
+```bash
+docker-compose up
+```
 
-Take the project attached, choose the best strategy to improve its quality and start implementing some examples of how 
-those rocket programmers need to write the rest.
+After everything started, you can run the booster with this command:
+```bash
+docker-compose run stage2
+```
+By default, it has set the `TANKS` variable to "Tank1,Tank2", if you want to check for other tanks, execute:
+```bash
+docker-compose run -e -e TANKS=tank33,tank54 stage2
+```
 
-## Expected steps
-+ Create a branch of this project (or fork it in your github account if you prefer)
-+ Do you **_thang_** inside this folder (challenge-3)
-+ Push your change inside a Pull Request to our master
+**You can run this command to clean all the mess after testing it:**
+```bash
+docker-compose down --rmi local --volumes --remove-orphans
+```
+
+## Running E2E tests
+
+To directly run the end-to-end tests, execute the following commands:
+```bash
+docker-compose up
+cd e2e
+nvm use
+npm install
+npm test
+```
