@@ -1,0 +1,5 @@
+{
+  "integrationFolder": "tests",
+  "pluginsFile": "cypress/cucumber-plugins.js",
+  "video": false
+}

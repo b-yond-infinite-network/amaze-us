@@ -3,6 +3,8 @@ db:
   host: 127.0.0.1
   port: 3306
   connection-timeout: 5s
+  max-idle-connections: 5
+  max-open-connections: 10
   username: guest
   password: Guest0000!
   name: booster

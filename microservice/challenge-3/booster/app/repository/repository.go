@@ -86,5 +86,11 @@ func CreateMysqlRepository(config *config.Config) Repository {
 		log.Fatalln("Could not connect database", err)
 	}
 
+	sqlDB := db.DB()
+	sqlDB.SetMaxIdleConns(5)
+	sqlDB.SetMaxOpenConns(10)
+	sqlDB.SetConnMaxLifetime(30 * time.Minute)
+	sqlDB.SetConnMaxIdleTime(5 * time.Minute)
+
 	return &MysqlRepository{db: dbMigrate(db)}
 }

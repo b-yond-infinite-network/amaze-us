@@ -12,13 +12,15 @@ type Config struct {
 }
 
 type DBConfig struct {
-	Host              string
-	Port              int
-	ConnectionTimeout time.Duration `mapstructure:"connection-timeout"`
-	Username          string
-	Password          string
-	Name              string
-	Charset           string
+	Host               string
+	Port               int
+	ConnectionTimeout  time.Duration `mapstructure:"connection-timeout"`
+	MaxIdleConnections int           `mapstructure:"max-idle-connections"`
+	MaxOpenConnections int           `mapstructure:"max-open-connections"`
+	Username           string
+	Password           string
+	Name               string
+	Charset            string
 }
 
 // Loads configuration using Viper from booster.yml file or env variables
