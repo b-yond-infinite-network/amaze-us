@@ -1,0 +1,24 @@
+spring:
+  profiles:
+    active: master
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: ${SPRING_JPA_HIBERNATE_DDL_AUTO}
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    database: postgresql
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
+    initialization-mode: never
+    platform: postgres
+server:
+  servlet:
+    context-path: "/api"
+logging:
+  level:
+    ROOT: info
