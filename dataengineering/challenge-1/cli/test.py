@@ -23,19 +23,18 @@ session.add(countries)
 
 #Test Country_stats
 #id - ,year,country_id,gdp,population,nobel_prize_winners
-country_stats = Country_stats(None,"2000-01-01",2,3632043908, 3089027,None)
+country_stats = Country_stats("2000-01-01",2,3632043908, 3089027,None)
 session.add(country_stats)
 
 #Test Summer_games
 #id - ,sport,event,year,athlete_id,country_id, medal
-summer_games = Summer_games(None, "Gymnastics", "Gymnastics Men's Individual All-Around", "2016-01-01",51, 173,None )
+summer_games = Summer_games("Gymnastics", "Gymnastics Men's Individual All-Around", "2016-01-01",51, 173,None )
 session.add(summer_games)
 
 #Test Winter_games
 #id -, sport,event,year,athlete_id,country_id, medal
-winter_games = Winter_games(None,"Gymnastics", "Gymnastics Men's Individual All-Around", "2016-01-01",51, 173, None)
+winter_games = Winter_games("Gymnastics", "Gymnastics Men's Individual All-Around", "2016-01-01",51, 173, None)
 session.add(winter_games)
-
 
 session.commit()
 session.close()
