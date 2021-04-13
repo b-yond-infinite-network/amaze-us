@@ -26,11 +26,13 @@ Use the stack of your choice; and make it happen!
 
 # Challenge 1 - Solution
 
-The challenge was solved in two parts. 
-* *Part 1* includes the offline analysis of the data using Jupyter Notebooks. 
-* *Part 2* is a dockerized project consisting of a MySQL database and a CLI. *Part 2* is meant to be used for a production environment. 
+The challenge was solved in two ways. 
+* *Solution 1* includes the offline analysis of the data using Jupyter Notebooks. 
+* *Solution 2* is a dockerized project consisting of a MySQL database and a CLI. It is meant to be used for a pre-production environment. 
 
-## Part 1:
+Both solutions produce the same output.
+
+## Solution 1:
 
 ### Prerequisites
 To run the Jupyter notebook you will need:
@@ -44,7 +46,7 @@ To run the Jupyter notebook you will need:
 Open file **olympic_analysis.ipynb** in **notebooks** folder with Jupyter Notebook.
 
 
-## Part 2:
+## Solution 2:
 
 ### Prerequisites
 - docker-compose 
@@ -80,4 +82,4 @@ docker exec -it cli actions generate_reports
 
 ```
 
-The reports are generated in the folder **cli-reports**
+The reports are saved to the folder **cli-reports**
