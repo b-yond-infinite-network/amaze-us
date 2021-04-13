@@ -9,7 +9,7 @@ import sys
 import os
 
 def load_from_csv(file_name): 
-    print("el nombre es ",os.path.splitext(os.path.basename(file_name))[0])
+    #print("name is",os.path.splitext(os.path.basename(file_name))[0])
     model = os.path.splitext(os.path.basename(file_name))[0]
     Base.metadata.create_all(engine)
 

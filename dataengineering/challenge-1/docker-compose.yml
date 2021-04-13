@@ -16,3 +16,4 @@ services:
     build: ./cli    
     volumes:
       - ./dataset:/dataset
+      - ./cli-reports:/cli-reports
