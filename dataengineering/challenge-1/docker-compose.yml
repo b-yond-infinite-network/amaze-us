@@ -1,0 +1,12 @@
+version: '2'
+services:
+
+  mysql:
+    container_name: mysql
+    env_file: docker-compose.env
+    restart: always
+    image: mysql:8
+    ports:
+      - "3306:3306"    
+    volumes: 
+      - ./mysql/sql-scripts:/docker-entrypoint-initdb.d/
