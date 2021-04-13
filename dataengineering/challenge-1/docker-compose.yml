@@ -7,4 +7,11 @@ services:
     restart: always
     image: mysql:8
     ports:
-      - "3306:3306"    
+      - "3306:3306"
+  
+  cli:
+    container_name: cli
+    env_file: docker-compose.env
+    build: ./cli    
+    volumes:
+      - ./dataset:/dataset

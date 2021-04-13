@@ -1,18 +1,30 @@
 import argparse
- 
+from cli.cmd.loadFromCsv import load_from_csv
+from cli.cmd.clearDatabase import clear_database
 parser = argparse.ArgumentParser()
  
 subparser = parser.add_subparsers()
-printer = subparser.add_parser('load_csv', help="aaaaaaaaaaaaaaaaaaa")
+printer = subparser.add_parser('load_csv', help="load_csv")
+printer.set_defaults(which='load_csv')
 printer.add_argument('path')
-printer.add_argument('color', nargs='?')
-printer.add_argument('size', type=int, nargs='?')
- 
-printer = subparser.add_parser('generate_stats', help="bbbbbbbbb")
+
+printer = subparser.add_parser('clear_db', help="clear_db")
+printer.set_defaults(which='clear_db')
+
+printer = subparser.add_parser('help', help="help")
+
+printer = subparser.add_parser('generate_stats', help="generate_stats")
+printer.set_defaults(which='generate_stats')
 printer.add_argument('path')
-printer.add_argument('color', nargs='?')
-printer.add_argument('size', type=int, nargs='?')
+
  
 args = parser.parse_args()
- 
-print(args)
+
+if hasattr(args, 'which'):
+    if args.which == 'load_csv':
+        load_from_csv(args.path)
+        print(args.which)
+    if args.which == 'clear_db':
+        clear_database()
+    if args.which == 'help':
+        print("Help")

@@ -34,7 +34,7 @@ def sport_number_report(session):
 def oldest_region_report(session):
     oldest_region_report = session.execute(text('''
     SELECT 
-        region, MAX(age)
+        region, MAX(age) as age_max
     FROM
         (SELECT 
             a.*, athletes.name, athletes.age, countries.region
@@ -53,6 +53,32 @@ def oldest_region_report(session):
     
     return oldest_region_report.mappings().all()
 
+#Create a report that shows the unique number of events held for each sport on both
+#winter and summer games, and order them from the most number of events to the least number of events.
+def sport_event_report(session):
+    sport_event_report = session.execute(text('''
+    SELECT 
+        a.sport, COUNT(a.event) as event_c
+    FROM
+        (SELECT 
+            sport, event
+        FROM
+            (SELECT 
+            sport, event
+        FROM
+            summer_games UNION SELECT 
+            sport, event
+        FROM
+            winter_games) sports_events
+        GROUP BY sport , event
+        ORDER BY 2 DESC) a
+    GROUP BY a.sport
+    ORDER BY 2 desc'''))
+
+    #print(sport_event_report.mappings().all())
+    return sport_event_report.mappings().all()
+
+
 #General reports
 def generate_reports():
     session = Session()
@@ -60,11 +86,15 @@ def generate_reports():
     print('''Summer Base Report :\n Base report querying the summer games showing the total number of athletes of the top 3 sports \n''')
     summer_base_report(session)
 
-    print('''sport_number_report :\n Create a report that shows every sport's number of unique events and unique athletes \n''')
+    print('''sport_number_report :\n Report that shows every sport's number of unique events and unique athletes \n''')
     sport_number_report(session)
 
-    print('''oldest_region_report :\nCreate a report that shows the age of the oldest athlete by region \n''')
+    print('''oldest_region_report :\n Report that shows the age of the oldest athlete by region \n''')
     oldest_region_report(session)
+
+    print('''sport_event_report :\n Report that shows the unique number of events held for each sport on both
+#winter and summer games, and order them from the most number of events to the least number of events. \n''')
+    sport_event_report(session)
 
 
 

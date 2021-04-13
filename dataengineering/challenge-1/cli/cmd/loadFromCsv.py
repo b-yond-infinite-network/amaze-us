@@ -6,10 +6,13 @@ from cli.models.Country_stats import Country_stats
 from cli.models.Summer_games import Summer_games
 from cli.models.Winter_games import Winter_games
 import sys
+import os
 
-def load_from_csv(file_name, model = 'athletes'):  
+def load_from_csv(file_name): 
+    print("el nombre es ",os.path.splitext(os.path.basename(file_name))[0])
+    model = os.path.splitext(os.path.basename(file_name))[0]
     Base.metadata.create_all(engine)
-  
+
     print("Loading ",model, " from ", file_name)
     session = Session()
     try:

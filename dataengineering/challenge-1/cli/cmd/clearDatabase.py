@@ -1,6 +1,6 @@
 from cli.db import Session, engine, Base
 
-def clean_database():
+def clear_database():
     try:
         print("Cleaning database ")
         Base.metadata.drop_all(engine)
