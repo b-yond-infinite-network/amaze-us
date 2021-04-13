@@ -78,3 +78,6 @@ docker exec -it cli actions load_csv /dataset/summer_games.csv
 ```
 docker exec -it cli actions generate_reports
 
+```
+
+The reports are generated in the folder **cli-reports**
