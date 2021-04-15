@@ -18,7 +18,6 @@ You just have to slice those monoliths up in the right way.
 
 
 These are the building you can save:
-- https://github.com/shephertz/App42PaaS-Java-MySQL-Sample
 - https://github.com/xxfast/jaxrs-reminder-app
 - https://github.com/spring-projects/spring-data-keyvalue-examples
 - https://github.com/salesagility/SuiteCRM
