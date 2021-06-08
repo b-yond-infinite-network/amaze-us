@@ -9,7 +9,7 @@ You are our savior.
 We beg you to build a learning system that will train on the dataset you will find at: 
 http://jmcauley.ucsd.edu/data/amazon/ 
 
-[The full dataset is here ](http://jmcauley.ucsd.edu/data/amazon/amazon_readme.txt)
+[The full dataset is here ](https://nijianmo.github.io/amazon/index.html)
 
 But, make sure it can scale because the robot population is growing like ants! Since we will need to share this with the
  United Nations, you will not only need to build the system, but also explain how it works and how we can reproduce your
