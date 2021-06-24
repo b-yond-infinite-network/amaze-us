@@ -18,7 +18,7 @@ First, some helpful hints:
 - **Show off**, we're here for that!
 
 ## Let's start
-Below are two positions for which we are recruiting. Please be sure to select the position that matches your application, 
+Below are multiple positions for which we are recruiting. Please be sure to select the position that matches your application, 
 otherwise we'll get confused and that makes us sad :)
 
 We should have discussed **_when_** we are expecting your submission: by providing a Pull Request on github with your 
@@ -36,6 +36,6 @@ We'll get back to you as soon as your Pull Request has been reviewed (hopefully 
 + [UI/UX Developer](/uiux) 
 + [Data Scientist](/datascience/time-series)
 + [Data Engineering](/dataengineering)
-+ [Intermediate challenges](/intermediate/challenge-1) 
++ [Software Developer](/intermediate/challenge-1) 
 
 If you have any questions, comments or suggestion, please don't hesitate to get in touch with HR representative or the recruiter.
