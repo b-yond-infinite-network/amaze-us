@@ -34,6 +34,8 @@ We'll get back to you as soon as your Pull Request has been reviewed (hopefully 
 
 + [Microservice Developer](/microservice) 
 + [UI/UX Developer](/uiux) 
-+ [Data Scientist](/datascience/time-series) 
++ [Data Scientist](/datascience/time-series)
++ [Data Engineering](/dataengineering)
++ [Intermediate challenges](/intermediate/challenge-1) 
 
 If you have any questions, comments or suggestion, please don't hesitate to get in touch with HR representative or the recruiter.
