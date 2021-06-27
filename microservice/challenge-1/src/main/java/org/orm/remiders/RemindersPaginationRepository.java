@@ -1,4 +1,4 @@
-package org.orm.entities;
+package org.orm.remiders;
 
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;

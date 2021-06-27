@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.orm.entities;
+package org.orm.remiders;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -65,10 +65,7 @@ public class Reminders {
             return false;
         }
         Reminders other = (Reminders) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
+        return (this.id != null || other.id == null) && (this.id == null || this.id.equals(other.id));
     }
 
     @Override

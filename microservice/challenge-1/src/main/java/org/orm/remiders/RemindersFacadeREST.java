@@ -3,13 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.orm.services;
+package org.orm.remiders;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.orm.entities.ReminderRepository;
-import org.orm.entities.Reminders;
-import org.orm.entities.RemindersPaginationRepository;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -56,7 +53,8 @@ public class RemindersFacadeREST {
 
     @GetMapping("{from}/{to}")
     public List<Reminders> findRange(@PathVariable("from") Integer from, @PathVariable("to") Integer to) {
-        return remindersPaginationRepository.findAll(PageRequest.of(from - to, 10)).getContent();
+        return remindersPaginationRepository.findAll(PageRequest.of(from - to, 10))
+                                            .getContent();
     }
 
     @GetMapping("/count")
