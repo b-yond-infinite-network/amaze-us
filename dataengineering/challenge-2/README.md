@@ -42,9 +42,7 @@ mobiles = [{'make':'iPhone', 'model': 7, 'color':'White'}, {'make':'Google', 'mo
     b. Call that module into a script where you will run your threads
 
 ## Bonus round:
-Get some extra points if you have extra time (chose either or both)
-
-**__NOTE: Currently the second bonus is not available. But feel free to add something similar that you think shows some value when working with files__**
+Get some extra points if you have extra time by solving the below:
 
 1. Create a simple vending machine threading example with the following rules:
 
@@ -58,15 +56,8 @@ Get some extra points if you have extra time (chose either or both)
    
      (**__HINT:__** Traffic lights and locks )
      
-2. On the [bonus2_files](./bonus2_files) folder you have 2 files. A binary and an excel file. **__(NOT AVAILABLE YET)__**
-
-     a. Use the excel file to get start and end timestamps
-     
-     b. Split the binary file. You should have a new binary file per 
-     
-     (**__HINT:__** You need to use [editcap](https://www.wireshark.org/docs/man-pages/editcap.html) to split the files.
       
 ## Expected steps
 + Create a branch of this project (or fork it in your github account if you prefer)
-+ Do you **_thang_** inside this folder (challenge-1)
++ Do your **_thang_** inside this folder (challenge-2)
 + Push your change inside a Pull Request to our master
