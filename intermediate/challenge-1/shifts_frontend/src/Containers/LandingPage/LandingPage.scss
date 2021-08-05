@@ -1,0 +1,39 @@
+.main{
+    background-color: #f1f1f1;
+    width: 100%;
+    min-height: 100vh;
+    padding-top: 12vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+.container{
+    margin: 50px 30px;
+    padding: 30px;
+    background-color: white;
+    min-height: 74vh;
+    box-shadow: rgba(105, 105, 105, 0.35) 0px 5px 15px;
+    .header{
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-bottom: 15px;
+    h1{
+   
+    font-size: 2rem;
+    font-weight: 600;
+   color: hsl(199, 90%, 50%);
+    }
+    .add{
+        font-size: 1.75rem;
+        color: hsl(199, 90%, 50%);
+        
+    }
+    .add:hover{
+        cursor: pointer;
+    }
+}
+
+}

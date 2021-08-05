@@ -1,0 +1,124 @@
+.popup-dropback {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    background-color: rgba($color: black, $alpha: 0.5);
+    z-index: 99;
+  }
+  .popup {
+    // padding: 2%;
+    position: fixed;
+    left: 50%;
+    top: 40%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16) !important;
+    background-color: #ffffff;
+    z-index: 100;
+    border-radius: 8px;
+    // img {
+    //   width: 40%;
+    //   margin-left: 50%;
+    //   margin-top: 14%;
+    //   transform: translateX(-50%);
+    // }
+  }
+  .popup-title {
+    margin-bottom: 35px;
+    font-size: 1.2rem !important;
+    color: #919191;
+    background-color: white;
+    border-radius: 8px;
+    padding-top: 15px;;
+    
+  }
+  
+  @media screen and (max-width: 500px) {
+    .popup {
+      width: 350px !important;
+      top: 50%;
+    }
+  
+   
+  }
+  
+  @media screen and (min-width: 500px) and (max-width: 768px) {
+    .popup {
+      margin-top: 30px;
+    }
+  }
+  @media screen and (max-width: 500px) {
+    .popup {
+      margin-top: 30px;
+      width: 350px !important;
+    }
+    
+    .popupContent {
+      max-height: 500px;
+      overflow: auto !important;
+      overflow-x: hidden !important;
+    }
+  }
+  
+  .changeImageBtn {
+    background: transparent;
+    border: none;
+    position: absolute;
+    top: 0px;
+    left: 215px;
+  }
+  @media screen and (max-height: 768px) {
+    .popup {
+      margin-top: 30px;
+      width: 350px !important;
+    }
+    .popup-title {
+      font-size: 15px;
+    }
+    .popupContent {
+      max-height: 500px;
+      overflow: auto !important;
+      overflow-x: hidden !important;
+    }
+  }
+  .closing {
+    text-align: right;
+    margin-top: 22px;
+  }
+  .closeBtn {
+    width: 10px !important;
+    height: 10px;
+    margin-top: 2% !important;
+    margin-right: 10%;
+    cursor: pointer;
+  }
+  
+  .popupContent {
+    margin-left: 10%;
+    margin-bottom: 10%;
+    margin-right: 10%;
+    margin-top: -20px;
+    // overflow: auto !important;
+  }
+  .buttonActionPopup {
+    // float: $align_right;
+    margin-bottom: 10px;
+    margin-top: 10px;
+  }
+  
+  .oneButton {
+    width: 100%;
+  }
+  .floatLeftBtn {
+    float: left;
+    width: 100px;
+  }
+  .floatRightBtn {
+    float: right;
+    width: 100px;
+  }
+  .divContent {
+    margin-bottom: 35px;
+  }
+  
