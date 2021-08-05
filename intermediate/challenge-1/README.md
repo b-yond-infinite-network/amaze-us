@@ -38,5 +38,5 @@ Feel free to pick any of the following languages and associated frameworks to so
 
 ## Setting up the project
 
-+ [Backend](/Backend) 
-+ [Frontend](/shift_frontend) 
++ [Backend](./backend) 
++ [Frontend](./shifts_frontend)
