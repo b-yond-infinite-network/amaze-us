@@ -11,7 +11,6 @@ import Input from "../../Components/Input/Input"
 export default function LandingPage() {
 
     const [shifts, setShifts] = useState([])
-    const [openAdd, setOpenAdd] = useState(false)
     const [shiftName, setShiftName] = useState(null)
 
 
@@ -62,20 +61,7 @@ export default function LandingPage() {
                     </Table>
                 </div>
             </div>
-            {openAdd && <PopUp
-                title="Add Company"
-                btnMsg="Submit"
-                disableBtn={shiftName === null || shiftName === "" ? true : false}
-                btnOneStyle={{ width: "40%" }}
-                submit={addCompany}
-            >
-                <Input
-                    label="Name"
-                    placeholder="Company Name"
-                    type="text"
-                    onChange={(e) => setShiftName(e.target.value)}
-                />
-            </PopUp>}
+
         </>
 
     );

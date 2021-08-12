@@ -13,12 +13,3 @@ export default class API {
 
         }).then(res => res.data)
     }
-    static addCompany = body => {
-        return axios({
-            method: "POST",
-            url: backend_url + "api/v1/companies/",
-            data: body
-
-        }).then(res => res.data)
-    }
-}
