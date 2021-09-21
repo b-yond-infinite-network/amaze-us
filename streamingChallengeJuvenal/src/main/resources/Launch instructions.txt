@@ -1,0 +1,22 @@
+Good Morning,
+
+to deploy this solution, that is collect tweets and process the KPI for all the cities in the world, the technologies stack is needed :
+1 - Kafka brokers
+2 - A kafka producer client
+3 - a twitter client (here I choose to use HBC)
+4 - a spark streaming consumer
+5 - a relational database (here I supposed it is MySQL)
+6 - and a Maven for the build and packaging of the application in jar files
+
+For this solution to be deployed :
+1 - Install a Kafka Cluster
+2 - Install a MySQL database
+3 - ask twitter for OAuth parameter
+4 - enter the rights parameters in streaming.properties file
+5 - deploy the jar of this application using Maven
+6 - when you have the Jar, launch the collect part of the solution, by launching a java -command in the class Launcher. That class is the main class of the project
+7 - to deploy the consumer of the solution that will also process the KPI, launch the shll file SparkLauncher.sh
+
+and you are done !
+
+Juvenal

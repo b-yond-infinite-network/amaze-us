@@ -1,0 +1,19 @@
+Good Morning,
+
+to scale this application, that is collect tweets and process the KPI for all the cities in the world, 3 things needs to be done :
+1 - the number of partition for the topic where the tweets are stored needed to be increased of the number of the cities in the world
+(for example, if nb_cities_in_the_world=700, then the number of partition for the topic will be 700). This can be set when creating the topic via the property
+bin/kafka-create-topic.sh --zookeeper localhost:2181 --replica 2 --partition n --topic name-topic
+I recommend setting at least to 2 the number of replica per partition
+
+2 - Since we want to have the KPI per city, we need to add a key in the kafka producer. The key will be the city (in our case, the geogrphical coordinates of the city)
+and we will deploy each jar of the producer specifically for one specific city, so that the twitterHbcClient will connect to a specific city per jar.
+That is how we can scale both the twitter HB client and the kafka producer client.
+I add a specific method in the KafkaProducerClient for that specific purpose.
+
+3- Since we have the data stored in partitions per city, in the consumer part (that is the Spark Streaming client), we need to add each consumer client in a consumer group, so that it can read from a specified partition only.
+That ensure that we only receive data from that specific partition where the consumer will be assigned. I already created a consumer group. AAfter that, you just need to launch the Spark consumer multiple times with a different name (in the application).
+
+Juvenal
+
+
