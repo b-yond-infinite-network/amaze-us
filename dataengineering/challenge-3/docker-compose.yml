@@ -2,6 +2,8 @@ version: '3'
 services:
     db:
         image: mysql:8
+        security_opt:
+            - seccomp:unconfined        
         command: --default-authentication-plugin=mysql_native_password
         restart: always
         ports:
