@@ -34,7 +34,7 @@ mysql = MySQL(
 )
 
 RETWEETS_QUERY = """
-SELECT CONVERT_TZ(start_date, 'UTC', 'EST') as start_date,location,sum(`total`) as total FROM
+SELECT CONVERT_TZ(start_date, 'UTC', 'America/New_York') as start_date,location,sum(`total`) as total FROM
 `retweets`
 WHERE `start_date` > DATE_SUB(UTC_TIMESTAMP(), INTERVAL 1 HOUR)
 AND location in ('Toronto','Vancouver','Calgary','Ottawa','Halifax','Montreal')
@@ -43,7 +43,7 @@ ORDER BY location,`start_date`
 """
 
 TWEETS_QUERY = """
-SELECT CONVERT_TZ(start_date, 'UTC', 'EST') as start_date,location,sum(`total`) as total FROM
+SELECT CONVERT_TZ(start_date, 'UTC', 'America/New_York') as start_date,location,sum(`total`) as total FROM
 `tweets`
 WHERE `start_date` > DATE_SUB(UTC_TIMESTAMP(), INTERVAL 1 HOUR)
 AND location in ('Toronto','Vancouver','Calgary','Ottawa','Halifax','Montreal')
@@ -52,7 +52,7 @@ ORDER BY location,`start_date`
 """
 
 USERS_QUERY = """
-SELECT CONVERT_TZ(start_date, 'UTC', 'EST') as start_date,location,sum(`total`) as total FROM
+SELECT CONVERT_TZ(start_date, 'UTC', 'America/New_York') as start_date,location,sum(`total`) as total FROM
 `users`
 WHERE `start_date` > DATE_SUB(UTC_TIMESTAMP(), INTERVAL 1 HOUR)
 AND location in ('Toronto','Vancouver','Calgary','Ottawa','Halifax','Montreal')
