@@ -1,3 +1,8 @@
+**Author**: Mathieu Pelletier 2021
+
+**Email**: mathieu.pelletier@breakpoints.ca
+
+
 # Usage
 
 - Run command `docker-compose up` in challenge-3 folder
