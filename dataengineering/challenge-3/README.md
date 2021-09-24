@@ -1,35 +1,46 @@
-# Challenge 3 - EvilNet rules the world
-It’s year 2050, cities are now evaluated based on their citizens social media feeds 😱
+# Usage
 
-You have been hired at EvilNet, the corporation controlling the world, to provide realtime social media insights.
+- Run command `docker-compose up` in challenge-3 folder
+- Open a browser to http://localhost:8080
+- The graphs are refreshed every minutes
+  -- Data should appear after 5 minutes
 
-Part of your first day at the job you were asked to build a realtime data pipeline that generates the following metrics for Canadian cities only.
-1. Total tweets per city over 5 minutes
-1. Total of retweets per city over 5 minutes
-1. Count of active tweeters per city over 5 minutes
-The aggregated data should be made available for reporting with a retention of 1 day.
+# Known issues
 
-To showcase your mastery of this domain, you will provide the ability to **reprocess** data over the past hour as well, just in case EvilNet requires an additional insight.
+- The retweet count seems to be always at 0. Maybe I didn't run the process for enough time. Based on Twitter documentation (https://developer.twitter.com/en/docs/twitter-api/v1/data-dictionary/object-model/entities#retweets-quotes), the tweet event should have a retweeted_status flag at true in case of retweet. Unfortunately, I didn't received events with that flag on.
 
-To make EvilNet happy you will provide them with a dashboard using your custom or open source tool to visualize the following:
-1. Trend of the three metrics over the last hour, bonus point if you make this reactive.
-1. Top 5 active cities over the last hour (use tweet count)
-1. Worst 5 trending cities over the last hour (use retweet count)
+# Solution design
 
-## Expected steps
-+ Create a branch of this project (or fork it in your github account if you prefer)
-+ Do your changes inside this folder (challenge-3)
-+ Push your changes then Pull request to our master when you are ready for a review and notify the recruiter to let us know.
+## Architecture
 
-## Expected deliverables
-+ Design document presenting your solution and architecture, including your data flow, resource footprint analysis, and scalability plan (say EvilNet asks you to run this pipeline for all cities of the world)
-+ Some code that compiles and runs using the frameworks/languages that you are comfortable with preferably with a local machine (docker-compose/minikube) if not possible using a cloud env (expecting all tokens to be able to access the solution)  
-Make sure to include a script to start your application
-+ If you are unable to complete the full scope, make sure to detail how you would have done it.
-+ Some automated tests to enable your colleagues at EvilNet to safely update your pipeline.
+![alt text](Design.png "Design")
 
-## Hints
-+ [This tutorial](https://developer.twitter.com/en/docs/tutorials/step-by-step-guide-to-making-your-first-request-to-the-twitter-api-v2) can guide you how to interact with Twitter API v2.
-+ [This tutorial](https://developer.twitter.com/en/docs/tutorials/listen-for-important-events) shows you how to filter tweets from the source.
-If this approach fails, fallback to using the sample stream and filter data at the consumer level.
-+ [This tutorial](https://developer.twitter.com/en/docs/tutorials/stream-tweets-in-real-time) shows you how to stream tweets in realtime.
+Main components:
+- Event streaming
+- Metrics generator
+- Kafka
+- Database (could be NoSQL)
+- Dashboard (web server)
+
+The first component is the event streaming processor. It connects to Twitter REST API to retrieve tweets based on location filters. It keeps only basic fields needed from the REST API response. The response is then push on a Kafka topic for further processing down the line.
+
+The seconds step is to calculate the metrics. We use Spark streaming to do that. Using a time window (5 minutes), the raw events from Kafka are aggregated into the target metric. After that, they are persisted in a database (MySQL).
+
+The last component is the dashboard. It contains two part, the backend code (Flask) retrieve the data from the database and returns it to the frontend. The frontend in is charge of displaying the reports (Chartjs). Every minutes, the charts are updated with new data.
+
+
+# Reprocessing
+
+It's possible to reprocess last hour data using Kafka offset. Data is persisted for a certain amount of time (configurable) in Kafka topics. You can use the Spark option startingOffsetsByTimestamp, to retrieve data from the last hour and reprocess it (https://spark.apache.org/docs/latest/structured-streaming-kafka-integration.html). Unfortunately, it will probably create duplicate records in the database. My current code doesn't support this scenario but it could be easily fix by changing the query (UPSERT). Certain database backend don't have this issue (ex: hbase, cassandra). You simply overwrite the record with a new value (version) using a row key.   
+
+# Scalability plan
+
+- Add more event streaming processors to retrieve data for different regions/countries. The tweet stream processor used location (bounding box) filters. We could scale this component by region. If one processor is unable to process data within a reasonable amount of time, we could split up the load by using smaller bounding box.
+- Kafka is a proven solution to process real-time streaming events. This component can scale well by adding new brokers.
+  - We could create different topic per region / countries to improve the processing time and scalability
+- The metrics generator use Spark to aggregate raw data and create metrics. Spark can be scale easily based on resource consumed.
+- Depending on the needed retention, we could use a tradional RDBMS. If the database cannot handle the volume of data, the database could be replaced by a time-series database or NoSQL database. 
+  - Again here, to improve storage and processing we could create partitions based on regions / countries
+- Frontend can be scale by adding a proxy layer and add more web servers behind it. The proxy route the user request to an available web server.
+  - The web backend component is stateless so it can be scale easely. We can add more web servers to serve user requests.
+

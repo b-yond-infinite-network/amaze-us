@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>Twitter Metrics</title>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
+        <script src="//cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    </head>
+
+    <body>
+        <center>
+            <h2>Total tweets over the last hour</h2>
+            <div style="width:40%">
+                <canvas id="chartTotalTweets"></canvas>
+            </div>
+        </center>
+        <center>
+            <h2>Total active users over the last hour</h2>
+            <div style="width:40%">
+                <canvas id="chartTotalUsers"></canvas>
+            </div>
+        </center>
+        <center>
+            <h2>Total retweets over the last hour</h2>
+            <div style="width:40%">
+                <canvas id="chartTotalRetweets"></canvas>
+            </div>
+        </center>
+        <center>
+            <h2>Top 5 active cities over the last hour</h2>
+            <div style="width:40%">
+                <canvas id="chartActiveCities"></canvas>
+            </div>
+        </center>
+        <center>
+            <h2>Worst 5 trending cities over the last hour </h2>
+            <div style="width:40%">
+                <canvas id="chartWorstCities"></canvas>
+            </div>
+        </center>
+        <script src='static/metrics.js'></script>
+    </body>
+</html>

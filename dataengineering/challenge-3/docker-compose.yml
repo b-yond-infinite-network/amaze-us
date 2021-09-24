@@ -1,0 +1,70 @@
+version: '3'
+services:
+    db:
+        image: mysql:8
+        command: --default-authentication-plugin=mysql_native_password
+        restart: always
+        ports:
+          - 3306:3306
+        environment:
+          MYSQL_ROOT_PASSWORD: changeme
+          MYSQL_DATABASE: tweets_analysis
+    adminer:
+        image: adminer
+        restart: always
+        ports:
+            - 8088:8080                 
+    zookeeper:
+        image: wurstmeister/zookeeper
+        ports:
+        - "2181:2181"
+    kafka:
+        image: wurstmeister/kafka
+        ports:
+        - "9092:9092"
+        expose:
+        - "9093"
+        environment:
+            KAFKA_ADVERTISED_LISTENERS: INSIDE://kafka:9093,OUTSIDE://localhost:9092
+            KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INSIDE:PLAINTEXT,OUTSIDE:PLAINTEXT
+            KAFKA_LISTENERS: INSIDE://0.0.0.0:9093,OUTSIDE://0.0.0.0:9092
+            KAFKA_INTER_BROKER_LISTENER_NAME: INSIDE
+            KAFKA_ADVERTISED_HOST_NAME: kafka
+            KAFKA_CREATE_TOPICS: "test:1:1"
+            KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+        volumes:
+        - /var/run/docker.sock:/var/run/docker.sock
+    dashboard:
+        build: dashboard
+        ports:
+            - "8080:5000"
+        environment:
+            DB_HOST: db
+            DB_NAME: tweets_analysis
+            DB_USER: root
+            DB_PASSWORD: changeme
+    event-streaming:
+        build: event-streaming
+        depends_on:
+            - "kafka"
+            - "db"
+        environment:
+            KAFKA_BROKERS: "kafka:9093"
+            KAFKA_TOPIC: "test"
+            PYTHONUNBUFFERED: 1 
+            CONSUMER_KEY: "a6IKle9BssV2pZAQvlIyUbUSn"
+            CONSUMER_SECRET: "wQqZMVebPp8B3yiQaRDOXSCteoGU6JUGVbW5kl7TBEV7Awfa6R"
+            ACCESS_TOKEN: "1438525283678789632-7GnBllwCuWMwhVTqmEYaSBG9Q3ehqy"
+            ACCESS_SECRET: "niKxXuUALbr1cj4j2iE0jYQKngfurjWdYVTRLBzoLcyCZ"
+    metrics-generator:
+        build: metrics-generator
+        depends_on:
+            - "kafka"
+            - "db"
+        environment:
+            JAVA_HOME: "/code"
+            KAFKA_BROKERS: "kafka:9093"
+            KAFKA_TOPIC: "test"
+            PYTHONUNBUFFERED: 1 
+            DB_URL: jdbc:mysql://db:3306/tweets_analysis?user=root&password=changeme
+            DB_DRIVER: com.mysql.cj.jdbc.Driver
