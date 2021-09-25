@@ -23,4 +23,10 @@ public class CustomResponseEntityExceptionHandler extends ResponseEntityExceptio
 		BusIDExceptionResponse response = new BusIDExceptionResponse(ex.getMessage());
 		return new ResponseEntity<Object>(response, HttpStatus.BAD_REQUEST);
 	}
+	
+	@ExceptionHandler
+	public final ResponseEntity<Object> handleSchedulePKException(SchedulePKException ex, WebRequest request) {
+		SchedulePKExceptionResponse response = new SchedulePKExceptionResponse(ex.getMessage());
+		return new ResponseEntity<Object>(response, HttpStatus.BAD_REQUEST);
+	}
 }

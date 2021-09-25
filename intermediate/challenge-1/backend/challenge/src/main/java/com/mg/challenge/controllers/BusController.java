@@ -15,44 +15,44 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mg.challenge.pojos.Driver;
-import com.mg.challenge.services.DriverService;
+import com.mg.challenge.pojos.Bus;
+import com.mg.challenge.services.BusService;
 import com.mg.challenge.services.MapValidationErrorMap;
 
 @RestController
 @CrossOrigin
-@RequestMapping("api/driver")
-public class DriverController {
+@RequestMapping("api/bus")
+public class BusController {
 
 	@Autowired
-	private DriverService driverService;
+	private BusService busService;
 
 	@Autowired
 	private MapValidationErrorMap mapValidationErrorMap;
 
-	@GetMapping("/{driverSSN}")
-	public ResponseEntity<?> getDriverBySSN(@PathVariable String driverSSN) {
-		Driver driverResponseObject = driverService.findDriverBySSN(driverSSN);
-		return new ResponseEntity<Driver>(driverResponseObject, HttpStatus.OK);
+	@GetMapping("/{busID}")
+	public ResponseEntity<?> getBusBySSN(@PathVariable Integer busID) {
+		Bus busResponseObject = busService.findBusByID(busID);
+		return new ResponseEntity<Bus>(busResponseObject, HttpStatus.OK);
 	}
 
 	@GetMapping("/all")
-	public Iterable<Driver> getAllDrivers() {
-		return driverService.findAllDrivers();
+	public Iterable<Bus> getAllBuss() {
+		return busService.findAllBuss();
 	}
 
 	@PostMapping("")
-	public ResponseEntity<?> createOrUpdateNewDriver(@Valid @RequestBody Driver driver, BindingResult result) {
+	public ResponseEntity<?> createOrUpdateNewBus(@Valid @RequestBody Bus bus, BindingResult result) {
 		ResponseEntity<?> errorMap = mapValidationErrorMap.mapValidationService(result);
 		if (errorMap != null)
 			return errorMap;
-		Driver driverResponseObject = driverService.saveOrUpdateDriver(driver);
-		return new ResponseEntity<Driver>(driverResponseObject, HttpStatus.CREATED);
+		Bus busResponseObject = busService.saveOrUpdateBus(bus);
+		return new ResponseEntity<Bus>(busResponseObject, HttpStatus.CREATED);
 	}
 
-	@DeleteMapping("/{driverSSN}")
-	public ResponseEntity<?> deleteDriverBySSN(@PathVariable String driverSSN) {
-		driverService.deleteDriverBySSN(driverSSN);
-		return new ResponseEntity<Object>("Driver with SSN: " + driverSSN + " was deleted", HttpStatus.OK);
+	@DeleteMapping("/{busID}")
+	public ResponseEntity<?> deleteBusBySSN(@PathVariable Integer busID) {
+		busService.deleteBusByID(busID);
+		return new ResponseEntity<Object>("Bus with ID: " + busID + " was deleted", HttpStatus.OK);
 	}
 }

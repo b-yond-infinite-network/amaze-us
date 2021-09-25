@@ -18,7 +18,7 @@ public class SchedulePK implements Serializable {
 
 	@Column(name = "F_BUSID")
 	private Integer busID;
-	
+
 	@Column(name = "F_SSN")
-	private Integer driverSSN;
+	private String driverSSN;
 }

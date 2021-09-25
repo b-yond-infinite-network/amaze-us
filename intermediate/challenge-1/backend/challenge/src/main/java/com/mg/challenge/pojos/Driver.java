@@ -1,5 +1,6 @@
 package com.mg.challenge.pojos;
 
+import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,12 +17,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Entity
 @Table(name = "T_DRIVER")
-public class Driver {
+public class Driver implements Serializable {
+	private static final long serialVersionUID = -1221832433128856949L;
+
 	@Id
 	@NotBlank(message = "Social Security Number (SSN) is required")
 	@Column(name = "F_SSN", updatable = false, unique = true, length = 50)
 	private String ssn;
-	
+
 	@NotBlank(message = "First name is required")
 	@Column(name = "F_FIRSTNAME", length = 25)
 	private String firstName;

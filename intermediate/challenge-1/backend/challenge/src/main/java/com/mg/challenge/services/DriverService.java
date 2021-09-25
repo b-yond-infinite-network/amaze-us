@@ -1,5 +1,7 @@
 package com.mg.challenge.services;
 
+import java.util.Optional;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,25 +22,26 @@ public class DriverService {
 	}
 
 	public Driver findDriverBySSN(String ssn) {
-		String updatedSSN = ssn != null ? ssn.trim().toUpperCase() : "";
-		Driver driver = driverRepository.getById(updatedSSN); //.findDriverBySsn(ssn);
-		if (driver == null) 
-			throw new DriverSSNException("Driver with SSN: " + updatedSSN + " not found");
-		return driver;
+		String modifiedSSN = ssn != null ? ssn.trim().toUpperCase() : "";
+		Optional<Driver> optionalRef = driverRepository.findById(modifiedSSN);
+		if (optionalRef.isPresent())
+			return optionalRef.get();
+
+		throw new DriverSSNException("Driver with SSN: " + modifiedSSN + " not found");
 	}
-	
+
 	public void deleteDriverBySSN(String ssn) {
 		Driver driver = findDriverBySSN(ssn);
 		driverRepository.delete(driver);
-    }
+	}
 
 	public Driver saveOrUpdateDriver(@Valid Driver driver) {
-		try{
+		try {
 			driver.setSsn(driver.getSsn().toUpperCase());
-            return driverRepository.save(driver);
-        } catch (Exception e){
-            throw new DriverSSNException("Driver SSN '" + driver.getSsn().toUpperCase() + "' already exists");
-        }
+			return driverRepository.save(driver);
+		} catch (Exception e) {
+			throw new DriverSSNException("Driver SSN '" + driver.getSsn().toUpperCase() + "' already exists");
+		}
 	}
 
 }

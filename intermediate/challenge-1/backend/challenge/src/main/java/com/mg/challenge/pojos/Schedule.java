@@ -1,5 +1,6 @@
 package com.mg.challenge.pojos;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -20,28 +21,19 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Entity
 @Table(name = "T_SCHEDULE")
-public class Schedule {
-	//given day/time
+public class Schedule implements Serializable {
+	private static final long serialVersionUID = 3765199100149401665L;
+
 	@Id
 	private SchedulePK primaryKey;
-	
+
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	@Column(name = "F_DATEFROM")
 	@Temporal(TemporalType.DATE)
 	private Date from;
-	
+
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	@Column(name = "F_DATETO")
 	@Temporal(TemporalType.DATE)
 	private Date to;
 }
-
-/*
- CREATE TABLE T_SCHEDULE (
- 	F_BUSID INTEGER,
- 	F_SSN VARCHAR2(50),
- 	F_DATEFROM DATE NOT NULL,
- 	F_DATETO DATE NOT NULL,
- 	PRIMARY KEY (F_BUSID, F_SSN)
- )
- */

@@ -1,7 +1,11 @@
 package com.mg.challenge.pojos;
 
+import java.io.Serializable;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -19,13 +23,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Entity
 @Table(name = "T_BUS")
-public class Bus {
+public class Bus implements Serializable {
+	private static final long serialVersionUID = -8622385544816679356L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "F_BUSID")
 	private Integer id;
 
-	@NotBlank(message = "Capacity is required")
 	@Column(name = "F_CAPACITY")
 	private Integer capacity;
 
@@ -37,9 +42,11 @@ public class Bus {
 	@Column(name = "F_MAKE", length = 25)
 	private String make;
 
-	// Associate Driver
-	@OneToOne
-	@JoinColumn(name="F_SSN")
+	@Column(name = "F_SSN", insertable = false, updatable = false)
+	private String driverSSN;
+
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "F_SSN", referencedColumnName = "F_SSN")
 	private Driver associatedDriver;
 
 }
