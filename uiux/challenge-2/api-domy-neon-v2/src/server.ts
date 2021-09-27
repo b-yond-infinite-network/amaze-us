@@ -10,6 +10,6 @@ app.listen(port, () => {
   logger.info(`Express server running at 0.0.0.0:${port}`);
 });
 
-app.use((_, res, __) => {
-  res.send('Hello!');
+app.use((req, res, __) => {
+  logger.info('Hello!');
 });
