@@ -1,15 +1,18 @@
 import express from 'express';
-import log4js from 'log4js';
+import * as dotenv from 'dotenv';
+
+import AppMiddlewares from './middlewares';
+import AppRoutes from './routes';
+import Logger from './providers/logger';
 
 const app = express();
-const logger = log4js.getLogger('Domy-Neon');
-logger.level = process.env.LOG_LEVEL || 'info';
 const port = process.env.PORT || 5000;
 
-app.listen(port, () => {
-  logger.info(`Express server running at 0.0.0.0:${port}`);
-});
+dotenv.config();
 
-app.use((req, res, __) => {
-  logger.info('Hello!');
+AppMiddlewares.register(app);
+AppRoutes.mount(app);
+
+app.listen(port, () => {
+  Logger.info(`Express server running at 0.0.0.0:${port}`);
 });

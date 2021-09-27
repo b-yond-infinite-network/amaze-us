@@ -13,6 +13,11 @@ export default class LokiDBRepo<T extends BaseEntity> implements IRepo<T> {
     return Promise.resolve(this.dbCollection.find(lokiQuery));
   }
 
+  findOne(query: DBQuery<T>): Promise<T> {
+    const lokiQuery = translateDbQueryToLokiQuery(query)
+    return Promise.resolve(this.dbCollection.findOne(lokiQuery));
+  }
+
   getById(id: string) : Promise<T> {
     return Promise.resolve(this.dbCollection.findOne({
       id: { $eq: id }
