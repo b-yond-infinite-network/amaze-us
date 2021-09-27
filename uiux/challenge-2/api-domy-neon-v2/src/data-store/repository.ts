@@ -20,8 +20,9 @@ export interface DBQuery<T> {
 export interface IRepo<T extends BaseEntity> {
   getById(id: string) : Promise<T>;
   getAll(limit?: number, offset?: number) : Promise<T[]>
-  find(query: DBQuery<T>) : Promise<T[]>;
-  findOne(query: DBQuery<T>) : Promise<T>;
+  find(query: DBQuery<T> | Partial<T>) : Promise<T[]>;
+  findOne(query: DBQuery<T> | Partial<T>) : Promise<T>;
+  
   insert(entity: T) : Promise<void>;
   update(entity: T) : Promise<void>;
   remove(entity: T) : Promise<void>;

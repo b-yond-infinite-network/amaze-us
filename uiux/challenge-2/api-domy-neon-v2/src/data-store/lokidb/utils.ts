@@ -1,4 +1,5 @@
 import { DBQuery, QueryFilter } from "data-store/repository";
+import { BaseEntity } from "models/base-entity";
 
 function translateFilter<T>(filter: QueryFilter<T>) {
   switch(filter.type) {
@@ -17,6 +18,19 @@ function translateFilter<T>(filter: QueryFilter<T>) {
     default:
       throw new Error(`Unsupported filter type ${filter.type}`);
   }
+}
+
+export function isDBQuery<T extends BaseEntity>(query: any) : query is DBQuery<T> {
+  return 'filters' in query;
+}
+
+export function translateEntityFilterToLokiQuery<T>(entity: Partial<T>) {
+  const query: LokiQuery<T & LokiObj> = {};
+  for(const field in entity) {
+    query[field] = { $eq: entity[field] }
+  }
+
+  return query;
 }
 
 export function translateDbQueryToLokiQuery<T>(dbQuery: DBQuery<T>) : LokiQuery<T & LokiObj> {

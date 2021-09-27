@@ -1,8 +1,10 @@
 import { Router } from 'express';
-import SignupController from '../controllers/auth/signup';
+import { DbContext } from '../data-store/factories';
 
 const router = Router();
 
-router.post('/auth/signup', SignupController);
+router.get('/users', async (req, res) => {
+  return res.json(await DbContext.users.find({}));
+});
 
 export default router;

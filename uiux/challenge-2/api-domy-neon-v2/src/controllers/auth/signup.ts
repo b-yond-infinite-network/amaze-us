@@ -27,11 +27,11 @@ export default async function(req: Request, res: Response, next: NextFunction) {
     } = req.body;
     
     const user = new User(firstName, lastName, birthDate, occupation);
-    user.password = await bcrypt.hash(password, PasswordHashSaltRound);
     user.username = username;
+    user.password = await bcrypt.hash(password, PasswordHashSaltRound);
 
     const existingUser = await DbContext.users.findOne({
-      filters: [{ field: 'username', type: 'eq', value: username }]
+      username
     });
 
     if (existingUser) {
@@ -41,10 +41,14 @@ export default async function(req: Request, res: Response, next: NextFunction) {
     }
 
     return res.json({
-      message: 'Registeration completed successfully.'
+      message: 'Registration completed successfully.'
     });
   } catch (error) {
-    Logger.error('Failed user registration {error}', error);
+    Logger.log({
+      level: 'error',
+      message: 'User registration failure',
+      error
+    });
     next(error);
   }
 }

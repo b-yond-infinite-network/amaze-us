@@ -31,6 +31,10 @@ const AuthValidations = {
 
       return true;
     }),
+  ],
+  login: [
+    check('username').trim().notEmpty(),
+    check('password').trim().notEmpty(),
   ]
 };
 
