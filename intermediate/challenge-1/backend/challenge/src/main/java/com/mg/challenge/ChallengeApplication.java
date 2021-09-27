@@ -8,7 +8,11 @@ import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 
 import com.mg.challenge.pojos.Bus;
 import com.mg.challenge.pojos.Driver;
@@ -19,17 +23,17 @@ import com.mg.challenge.repositories.UserDetailsRepository;
 public class ChallengeApplication {
 
 	@Autowired
-	private UserDetailsRepository userDetailsRepository; 
-	
+	private UserDetailsRepository userDetailsRepository;
+
 //	@Autowired
 //	private DriverRepository driverRepository; 
-	
+
 	@Autowired
-	private BusRepository busRepository; 
-	
-	@Autowired 
-    private PasswordEncoder passwordEncoder;
-    
+	private BusRepository busRepository;
+
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+
 	public static void main(String[] args) {
 		SpringApplication.run(ChallengeApplication.class, args);
 	}
@@ -39,7 +43,7 @@ public class ChallengeApplication {
 		List<Authority> authorities = new ArrayList<Authority>();
 		authorities.add(createAuthority("ROLE_EMPLOYEE", "Employee Role"));
 		authorities.add(createAuthority("ROLE_MANAGER", "Manager Role"));
-		
+
 		User user = new User();
 		user.setUsername("admin");
 		user.setFirstName("admin");
@@ -49,8 +53,8 @@ public class ChallengeApplication {
 		user.setPhoneNumber("000000");
 		user.setEnabled(true);
 		user.setAuthorities(authorities);
-		userDetailsRepository.save(user);		
-		
+		userDetailsRepository.save(user);
+
 		Driver driver = new Driver("1234-1234-1234", "John", "Doe");
 		Bus bus = new Bus();
 		bus.setCapacity(10);
@@ -65,5 +69,24 @@ public class ChallengeApplication {
 		authority.setCode(code);
 		authority.setDescription(description);
 		return authority;
+	}
+
+	@Bean
+	public CorsFilter corsFilter() {
+		final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		final CorsConfiguration config = new CorsConfiguration();
+		config.setAllowCredentials(true);
+		config.addAllowedOriginPattern("*");
+//		config.addAllowedOrigin("*"); // this allows all origin
+		config.addAllowedHeader("*"); // this allows all headers
+		config.addAllowedMethod("OPTIONS");
+		config.addAllowedMethod("HEAD");
+		config.addAllowedMethod("GET");
+		config.addAllowedMethod("PUT");
+		config.addAllowedMethod("POST");
+		config.addAllowedMethod("DELETE");
+		config.addAllowedMethod("PATCH");
+		source.registerCorsConfiguration("/**", config);
+		return new CorsFilter(source);
 	}
 }
