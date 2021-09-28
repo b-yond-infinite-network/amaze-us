@@ -30,7 +30,7 @@ fork our repo instead of creating a branch, and make a PR out of your fork.
 
 We'll get back to you as soon as your Pull Request has been reviewed (hopefully to tell you how amazing your code is!).
 
-#### Now, click on the position for which you applied to access your challenge:
+### Now, click on the position for which you applied to access your challenge:
 
 + [Microservice Developer](/microservice) 
 + [UI/UX Developer](/uiux) 
@@ -39,3 +39,7 @@ We'll get back to you as soon as your Pull Request has been reviewed (hopefully 
 + [Software Developer](/intermediate/challenge-1) 
 
 If you have any questions, comments or suggestion, please don't hesitate to get in touch with HR representative or the recruiter.
+
+### References
++ [How to create a fork from a Github repo](https://docs.github.com/en/get-started/quickstart/fork-a-repo)
++ [How to create a pull request from a fork](https://docs.github.com/en/github/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request-from-a-fork)
