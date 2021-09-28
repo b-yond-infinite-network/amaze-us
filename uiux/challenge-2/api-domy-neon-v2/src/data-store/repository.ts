@@ -2,6 +2,11 @@ import { Role } from "../models/role";
 import { User } from "../models/user";
 import { UserRole } from "../models/user-role";
 import { BaseEntity } from "../models/base-entity";
+import { FoodProduce } from "models/food-produce";
+import { PlantSeed } from "models/plant-seed";
+import { Plant } from "models/plant";
+import { StorageUnit } from "models/storage-unit";
+import { WaterCollector } from "models/water-collector";
 
 type QueryOpType = 'eq' | 'gt' | 'gte' | 'lt' | 'lte' | 'in';
 type FilterOperator = 'and' | 'or';
@@ -32,4 +37,9 @@ export interface IDatabaseContext {
   users: IRepo<User>;
   roles: IRepo<Role>;
   userRoles: IRepo<UserRole>;
+  foodProduce: IRepo<FoodProduce>;
+  plantSeeds: IRepo<PlantSeed>;
+  plants: IRepo<Plant>;
+  storageUnits: IRepo<StorageUnit>;
+  waterCollectors: IRepo<WaterCollector>;
 };

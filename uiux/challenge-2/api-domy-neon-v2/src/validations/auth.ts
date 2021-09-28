@@ -21,14 +21,13 @@ const AuthValidations = {
       min: 3,
       max: 50
     }),
-    check('birthDate').trim().notEmpty().isNumeric().isInt({
-      min: 0,
+    check('birthDate').trim().notEmpty().isDate({
+      format: 'YYYY-MM-DD'
     }).custom((value) => {
-      const now = new Date().getTime();
-      if (value > now) {
+      const now = new Date();
+      if (new Date(value) > now) {
         throw new Error('The birth date must be in the past.');
       }
-
       return true;
     }),
   ],

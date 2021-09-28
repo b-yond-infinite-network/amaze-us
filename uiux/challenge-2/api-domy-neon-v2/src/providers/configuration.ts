@@ -7,6 +7,7 @@ interface AppConfig {
   jwtTokenIssuer: string;
   jwtTokenLifetime: string;
   databaseName: string;
+  seedData: boolean;
 };
 
 class ConfigManager {
@@ -25,7 +26,8 @@ class ConfigManager {
       jwtTokenIssuer: process.env.JWT_TOKEN_ISSUER || '',
       jwtTokenLifetime: process.env.JWT_TOKEN_LIFETIME || '10m',
       logLevel: process.env.LOG_LEVEL || 'info',
-      databaseName: process.env.DB_NAME || ''
+      databaseName: process.env.DB_NAME || '',
+      seedData: new Boolean(process.env.SEED_DATA).valueOf()
     };
   }
 }

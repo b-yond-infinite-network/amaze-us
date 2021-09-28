@@ -4,7 +4,7 @@ import { BaseEntity } from './base-entity';
 export class User extends BaseEntity {
   public firstName: string;
   public lastName: string;
-  public birthDateTimestamp: number;
+  public birthDate: Date;
   public occupation: string;
 
   public username: string;
@@ -13,15 +13,19 @@ export class User extends BaseEntity {
   constructor(
     firstName: string,
     lastName: string,
-    birthDateTimestamp: number,
+    birthDate: Date,
     occupation: string,
     id?: string,
+    username?: string,
+    password?: string
   ) {
     super(id);
     this.firstName = firstName;
     this.lastName = lastName;
-    this.birthDateTimestamp = birthDateTimestamp;
+    this.birthDate = birthDate;
     this.occupation = occupation;
+    this.username = username;
+    this.password = password;
   }
 
   async isValidPassword(password: string) : Promise<boolean> {

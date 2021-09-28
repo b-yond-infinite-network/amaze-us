@@ -26,7 +26,7 @@ export default async function(req: Request, res: Response, next: NextFunction) {
       occupation
     } = req.body;
     
-    const user = new User(firstName, lastName, birthDate, occupation);
+    const user = new User(firstName, lastName, new Date(Date.parse(birthDate)), occupation);
     user.username = username;
     user.password = await bcrypt.hash(password, PasswordHashSaltRound);
 
@@ -46,7 +46,7 @@ export default async function(req: Request, res: Response, next: NextFunction) {
   } catch (error) {
     Logger.log({
       level: 'error',
-      message: 'User registration failure',
+      message: 'User registration failure.',
       error
     });
     next(error);

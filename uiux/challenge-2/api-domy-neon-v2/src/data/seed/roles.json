@@ -1,0 +1,22 @@
+[{
+  "id": "b3bc43f0-f785-438c-b7a9-83043c6ed342",
+  "name": "ShipAdmin",
+  "permissions": [
+    "CreateUsers"
+  ]
+},
+{
+  "id": "2d011d2f-32c9-49c7-8cd4-003409516094",
+  "name": "SuppliesManager",
+  "permissions": [
+    "PlantSeeds",
+    "ManageSeeds"
+  ]
+},
+{
+  "id": "8aaadd47-4583-4ae4-8118-0ea707abfbc2",
+  "name": "CrewManager",
+  "permissions": [
+    "ReviewBabyMakingRequest"
+  ]
+}]

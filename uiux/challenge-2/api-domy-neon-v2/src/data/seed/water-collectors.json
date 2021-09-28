@@ -1,0 +1,14 @@
+[{
+  "id": "c297bd8a-4796-4392-8977-96f648ead518",
+  "name": "Tower One",
+  "status": "online",
+  "capacityInLiters": 9500,
+  "currentLevelInLiters": 9000
+},
+{
+  "id": "77f96791-b85c-4536-a5ad-0d7c3002a540",
+  "name": "Tower Two",
+  "status": "online",
+  "capacityInLiters": 6000,
+  "currentLevelInLiters": 1490
+}]

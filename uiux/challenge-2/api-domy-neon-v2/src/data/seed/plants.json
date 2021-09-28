@@ -1,0 +1,30 @@
+[{
+  "id": "079d6cf4-9235-4745-9a8e-8f14212e8e67",
+  "seedId": "f1ec0e4a-395d-43dd-9a10-1429f1f0f54f",
+  "seedName": "Potato",
+  "seedUnits": 150,
+  "totalYieldInKg": 450,
+  "notes": "Excellent harvest.",
+  "ripeAt": 1632798782397,
+  "harvestedAt": 1632798782397
+},
+{
+  "id": "9b139742-8b50-4476-b955-60e822fad688",
+  "seedId": "7fcb7479-c268-4012-9860-e1c92094ad57",
+  "seedName": "Corn",
+  "seedUnits": 87,
+  "totalYieldInKg": 870,
+  "notes": "The new organic formula worked well.",
+  "ripeAt": 1632798810308,
+  "harvestedAt": 1632798810308
+},
+{
+  "id": "f9074709-e8d0-420a-b62c-32b22a027786",
+  "seedId": "7fcb7479-c268-4012-9860-e1c92094ad57",
+  "seedName": "Corn",
+  "seedUnits": 23,
+  "totalYieldInKg": 230,
+  "notes": "",
+  "ripeAt": 1632798834518,
+  "harvestedAt": 1632798834518
+}]

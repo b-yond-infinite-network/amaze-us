@@ -1,0 +1,31 @@
+[{
+  "id": "5da0e07a-fa0a-4f81-b4f4-7e53dfe41f2c",
+  "name": "Potato",
+  "seedId": "f1ec0e4a-395d-43dd-9a10-1429f1f0f54f",
+  "stock": [{
+    "quantityKg": 450,
+    "plantId": "079d6cf4-9235-4745-9a8e-8f14212e8e67",
+    "storageUnitId": "0a323782-3dcf-4c4e-b167-8935ad7b5a06",
+    "storageUnitName": "Abundance Trove",
+    "harvestedOn": 1632798782397
+  }]
+},
+{
+  "id": "11c8b85f-3925-4789-83c5-3ae35cefb42a",
+  "name": "Corn",
+  "seedId": "7fcb7479-c268-4012-9860-e1c92094ad57",
+  "stock": [{
+    "quantityKg": 870,
+    "plantId": "9b139742-8b50-4476-b955-60e822fad688",
+    "storageUnitId": "0a323782-3dcf-4c4e-b167-8935ad7b5a06",
+    "storageUnitName": "Abundance Trove",
+    "harvestedOn": 1632798810308
+  },
+  {
+    "quantityKg": 230,
+    "plantId": "f9074709-e8d0-420a-b62c-32b22a027786",
+    "storageUnitId": "3994449a-7ce2-45be-ae96-6693a77942f8",
+    "storageUnitName": "Serenity One",
+    "harvestedOn": 1632798834518
+  }]
+}]
