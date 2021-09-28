@@ -10,7 +10,7 @@ import { DbContext } from "../../data-store/factories";
 import Logger from "../../providers/logger";
 import AuthValidations from "../../validations/auth";
 
-export default async function(req: Request, res: Response, next: NextFunction) {
+export default async (req: Request, res: Response, next: NextFunction) => {
   await Promise.all(AuthValidations.login.map(v => v.run(req)));
   const errors = validationResult(req);
   if (!errors.isEmpty()) {

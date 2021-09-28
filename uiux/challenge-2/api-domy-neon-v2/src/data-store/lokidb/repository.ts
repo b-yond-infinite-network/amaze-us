@@ -25,7 +25,7 @@ export default class LokiDBRepo<T extends BaseEntity> implements IRepo<T> {
   findOne(query: DBQuery<T> | Partial<T>): Promise<T> {
     const lokiQuery = isDBQuery(query) ? translateDbQueryToLokiQuery(query as DBQuery<T>) : 
       translateEntityFilterToLokiQuery(query as Partial<T>);
-      
+
     return Promise.resolve(this.dbCollection.findOne(lokiQuery));
   }
 

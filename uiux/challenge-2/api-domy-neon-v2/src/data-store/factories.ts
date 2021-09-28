@@ -15,7 +15,7 @@ const db = new loki(process.env.DB_NAME);
 export const DbContext: IDatabaseContext = {
   users: new LokiDBRepo(db.addCollection<User>('users')),
   roles: new LokiDBRepo(db.addCollection<Role>('roles')),
-  userRoles: new LokiDBRepo(db.addCollection<UserRole>('users')),
+  userRoles: new LokiDBRepo(db.addCollection<UserRole>('userRoles')),
   foodProduce: new LokiDBRepo(db.addCollection<FoodProduce>('foodProduce')),
   plantSeeds: new LokiDBRepo(db.addCollection<PlantSeed>('plantSeeds')),
   plants: new LokiDBRepo(db.addCollection<Plant>('plants')),

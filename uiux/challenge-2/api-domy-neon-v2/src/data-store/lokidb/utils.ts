@@ -4,17 +4,17 @@ import { BaseEntity } from "models/base-entity";
 function translateFilter<T>(filter: QueryFilter<T>) {
   switch(filter.type) {
     case 'gt':
-      return { [filter.field]: { $gt: filter.value } };
+      return { $gt: filter.value };
     case 'gte':
-      return { [filter.field]: { $gte: filter.value } };
+      return { $gte: filter.value };
     case 'in':
-      return { [filter.field]: { $in: filter.value } };
+      return { $in: filter.value };
     case 'eq':
-      return { [filter.field]: { $eq: filter.value } };
+      return { $eq: filter.value };
     case 'lt':
-      return { [filter.field]: { $lt: filter.value } };
+      return { $lt: filter.value };
     case 'lte':
-      return { [filter.field]: { $lt: filter.value } };
+      return { $lt: filter.value };
     default:
       throw new Error(`Unsupported filter type ${filter.type}`);
   }
@@ -38,10 +38,7 @@ export function translateDbQueryToLokiQuery<T>(dbQuery: DBQuery<T>) : LokiQuery<
   const filters = dbQuery.filters ?? [];
   const operator = dbQuery.operator ?? 'and';
   
-  const translated = filters.reduce((lokiQuery: LokiQuery<T & LokiObj>, filter) => {
-    lokiQuery[filter.field] = translateFilter(filter);
-    return lokiQuery;
-  }, {});
+  const translated = filters.map(filter => ({ [filter.field]: translateFilter(filter) }));
 
   if (operator === 'and') {
     query.$and = translated;
