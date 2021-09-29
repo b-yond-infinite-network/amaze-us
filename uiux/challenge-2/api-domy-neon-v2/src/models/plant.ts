@@ -7,7 +7,7 @@ export class Plant extends BaseEntity {
   public totalYieldInKg: number;
   public notes: string;
   public ripeAt: number;
-  public harvestedAt: number;
+  public harvestedAt?: number;
   
   constructor(
     seedId: string,
@@ -16,7 +16,7 @@ export class Plant extends BaseEntity {
     totalYieldInKg: number,
     notes: string,
     ripeAt: number,
-    harvestedAt: number,
+    harvestedAt?: number,
     id?: string,
   ) {
     super(id);

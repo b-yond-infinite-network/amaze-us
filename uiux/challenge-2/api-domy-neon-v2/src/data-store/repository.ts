@@ -7,6 +7,7 @@ import { PlantSeed } from "models/plant-seed";
 import { Plant } from "models/plant";
 import { StorageUnit } from "models/storage-unit";
 import { WaterCollector } from "models/water-collector";
+import { BabyMakingRequest } from "models/baby-making-request";
 
 type QueryOpType = 'eq' | 'gt' | 'gte' | 'lt' | 'lte' | 'in';
 type FilterOperator = 'and' | 'or';
@@ -42,4 +43,5 @@ export interface IDatabaseContext {
   plants: IRepo<Plant>;
   storageUnits: IRepo<StorageUnit>;
   waterCollectors: IRepo<WaterCollector>;
+  babyMakingRequest: IRepo<BabyMakingRequest>;
 };

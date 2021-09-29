@@ -14,7 +14,7 @@ export default async (req: Request, res: Response, next: NextFunction) => {
     await Promise.all(UserValidations.create.map(v => v.run(req)));
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
+      return res.status(400).json({ validationErrors: errors.array() });
     }
     
     const {
@@ -36,10 +36,9 @@ export default async (req: Request, res: Response, next: NextFunction) => {
 
     if (existingUser) {
       return res.status(400).json({ errors: [{ msg: 'A user with the chosen username already exist.' }] });
-    } else {
-      await DbContext.users.insert(user);
     }
 
+    await DbContext.users.insert(user);
     return res.json({
       message: 'Registration completed successfully.'
     });

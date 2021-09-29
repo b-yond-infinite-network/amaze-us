@@ -2,7 +2,8 @@
   "id": "b3bc43f0-f785-438c-b7a9-83043c6ed342",
   "name": "ShipAdmin",
   "permissions": [
-    "CreateUsers"
+    "CreateUsers",
+    "AssignRole"
   ]
 },
 {

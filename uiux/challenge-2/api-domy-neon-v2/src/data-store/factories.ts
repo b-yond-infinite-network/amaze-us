@@ -9,6 +9,7 @@ import { PlantSeed } from 'models/plant-seed';
 import { Plant } from 'models/plant';
 import { StorageUnit } from 'models/storage-unit';
 import { WaterCollector } from 'models/water-collector';
+import { BabyMakingRequest } from 'models/baby-making-request';
 
 const db = new loki(process.env.DB_NAME);
 
@@ -21,4 +22,5 @@ export const DbContext: IDatabaseContext = {
   plants: new LokiDBRepo(db.addCollection<Plant>('plants')),
   storageUnits: new LokiDBRepo(db.addCollection<StorageUnit>('storageUnits')),
   waterCollectors: new LokiDBRepo(db.addCollection<WaterCollector>('waterCollectors')),
+  babyMakingRequest: new LokiDBRepo(db.addCollection<BabyMakingRequest>('babyMakingRequest')),
 };

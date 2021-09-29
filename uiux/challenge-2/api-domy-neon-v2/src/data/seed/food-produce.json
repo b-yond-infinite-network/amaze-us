@@ -28,4 +28,16 @@
     "storageUnitName": "Serenity One",
     "harvestedOn": 1632798834518
   }]
+},
+{
+  "id": "c297bd8a-4796-4392-8977-96f648ead518",
+  "name": "Wheat",
+  "seedId": "d85c24de-e1b0-4be9-a996-1505b5d4df64",
+  "stock": []
+},
+{
+  "id": "77f96791-b85c-4536-a5ad-0d7c3002a540",
+  "name": "Rice",
+  "seedId": "e05a9871-0df3-4a3d-94e9-563a09b228a8",
+  "stock": []
 }]

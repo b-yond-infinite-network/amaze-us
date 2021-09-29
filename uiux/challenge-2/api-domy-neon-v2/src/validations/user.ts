@@ -30,7 +30,7 @@ const UserValidations = {
       }
       return true;
     }),
-  ]
+  ],
 };
 
 export default UserValidations;
