@@ -11,6 +11,8 @@ services:
         environment:
           MYSQL_ROOT_PASSWORD: changeme
           MYSQL_DATABASE: tweets_analysis
+        volumes:
+            - "./scripts/schema.sql:/docker-entrypoint-initdb.d/1.sql"          
     adminer:
         image: adminer
         restart: always
