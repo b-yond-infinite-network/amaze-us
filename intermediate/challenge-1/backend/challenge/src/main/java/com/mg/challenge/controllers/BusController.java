@@ -41,7 +41,7 @@ public class BusController {
 		return busService.findAllBuss();
 	}
 
-	@PostMapping("")
+	@PostMapping
 	public ResponseEntity<?> createOrUpdateNewBus(@Valid @RequestBody Bus bus, BindingResult result) {
 		ResponseEntity<?> errorMap = mapValidationErrorMap.mapValidationService(result);
 		if (errorMap != null)

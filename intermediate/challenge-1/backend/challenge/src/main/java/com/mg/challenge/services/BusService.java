@@ -40,13 +40,16 @@ public class BusService {
 
 	public Bus saveOrUpdateBus(@Valid Bus bus) {
 		try {
-			bus.setId(bus.getId());
 			String ssn = bus.getDriverSSN();
 
-			Driver driver = driverRepository.getById(ssn);
-			if (driver == null)
+			Optional<Driver> optionalRef = driverRepository.findById(ssn == null ? "" : ssn);
+			if (optionalRef.isPresent()) {
+				bus.setDriverSSN(optionalRef.get().getSsn());
+				bus.setAssociatedDriver(optionalRef.get());
+			} else {
 				bus.setDriverSSN(null);
-
+				bus.setAssociatedDriver(null);
+			}
 			return busRepository.save(bus);
 		} catch (Exception e) {
 			throw new BusIDException("Bus ID '" + bus.getId() + "' already exists");

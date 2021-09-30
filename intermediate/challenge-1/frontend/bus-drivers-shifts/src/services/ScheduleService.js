@@ -1,56 +1,60 @@
-import axios from 'axios'
+import axios from "axios";
 
-const REST_API_URL = 'http://localhost:8080/bus-drivers-shifts/api/schedule/'
+const REST_API_URL = "http://localhost:8080/bus-drivers-shifts/api/schedule/";
 
 class ScheduleService {
+  // get Schedule by ID
+  getScheduleByBusID = busID => {
+    return axios.get(REST_API_URL + `busID?busID=${busID}`);
+  };
 
-    // get Schedule by ID
-    getScheduleByID = async (id) => {
-        return await axios.get(REST_API_URL + id)
-        .then((response) => console.log(response))
-        .catch((err) => console.log(err))
-    }
+  // get Schedule by DriverSSN
+  getScheduleByDriverSSN = driverSSN => {
+    return axios.get(REST_API_URL + `driverSSN?driverSSN=${driverSSN}`);
+  };
 
-    // get Schedule by SSN
-    getScheduleBySSN = async (ssn) => {
-        return await axios.get(REST_API_URL + ssn)
-        .then((response) => console.log(response))
-        .catch((err) => console.log(err))
-    }
+  // get Weekly Schedule by busID and Date
+  getWeeklyScheduleByBusID = (busID, day) => {
+    return axios.get(REST_API_URL + `busID/Weekly?busID=${busID}&day=${day}`);
+  };
 
-    // get Schedule by PK
-    getScheduleByPK = async (id, ssn) => {
-        return await axios.get(REST_API_URL + id + ssn)
-        .then((response) => console.log(response))
-        .catch((err) => console.log(err))
-    }
+  // get Weekly Schedule by DriverSSN and Date
+  getWeeklyScheduleByDriverSSN = (driverSSN, day) => {
+    return axios.get(
+      REST_API_URL + `driverSSN/Weekly?driverSSN=${driverSSN}&day=${day}`
+    );
+  };
 
-    // get all Schedules
-    getAllScheduleses = async () => {
-        return await axios.get(REST_API_URL + 'all')
-        .then((response) => console.log(response))
-        .catch((err) => console.log(err))
-    }
+  getWeeklySchedules = date => {
+    return axios.get(REST_API_URL + `date/Weekly?date=${date}`);
+  };
 
-    getSchedulesByDate(from, to){
-        return await axios.get(REST_API_URL + from + to)
-        .then((response) => console.log(response))
-        .catch((err) => console.log(err))
-    }
+  // get Schedule by Id
+  getScheduleByID = id => {
+    return axios.get(REST_API_URL + id);
+  };
 
-    // create/update Schedule
-    saveOrUpdateSchedule = async (schedule) => {
-        await axios.post(REST_API_URL)
-        .then((response) => console.log(response))
-        .catch((err) => console.log(err))
-    }
-    
-    // delete Schedule by PK
-    deleteScheduleByPK = async (id, ssn) => {
-        return await axios.delete(REST_API_URL + id + ssn)
-        .then((response) => console.log(response))
-        .catch((err) => console.log(err))
-    }
+  // get all Schedules
+  getAllSchedules = () => {
+    return axios.get(REST_API_URL + "all");
+  };
+
+  // create/update Schedule
+  saveOrUpdateSchedule = schedule => {
+    return axios.post(REST_API_URL, {
+      id: schedule.id,
+      busID: schedule.busID,
+      driverSSN: schedule.driverSSN,
+      day: schedule.day,
+      timeFrom: schedule.timeFrom,
+      timeTo: schedule.timeTo
+    });
+  };
+
+  // delete Schedule by Id
+  deleteScheduleByID = id => {
+    return axios.delete(REST_API_URL + id);
+  };
 }
 
 export default new ScheduleService();

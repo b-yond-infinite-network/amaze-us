@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class SchedulePKExceptionResponse {
+public class ScheduleExceptionResponse {
 
 	private String identifier;
 }

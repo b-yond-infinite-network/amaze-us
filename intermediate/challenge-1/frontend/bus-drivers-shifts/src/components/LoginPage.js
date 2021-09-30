@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import userService from "../services/UserService";
-import driverService from "../services/DriverService";
 import { Redirect } from "react-router-dom";
 
 export const LoginPage = () => {
@@ -9,11 +8,21 @@ export const LoginPage = () => {
   const [message, setMessage] = useState("");
   const [messageStyle, setMessageStyle] = useState("text-primary");
 
+  useEffect(() => {
+    document.title = "Bus Drivers Shifts - Login";
+  }, []);
+  // const history = useHistory();
+
+  let user = userService.getCurrentUser();
+  const isAuthenticated = user ? true : false;
+
+  if (isAuthenticated) return <Redirect to="/" />;
+
   return (
     <div className="row mt-4">
-      <div className="col-4"></div>
+      <div className="col-sm-4 col-2"></div>
 
-      <div className="card col-4 text-center">
+      <div className="card col-sm-4 col-8 text-center">
         <div className="card-body">
           <h6 className="h6">Please Login!</h6>
           {message && (
@@ -47,27 +56,43 @@ export const LoginPage = () => {
           <button
             className="btn btn-primary mt-1"
             onClick={() => {
-              let result = driverService.getAllDrivers();
-              console.log(`Result = ${result}`);
-
-
               if (username === "" || password === "") {
                 setPassword("");
                 setMessageStyle("text-danger");
                 setMessage("Invalid input");
               } else {
-                setMessageStyle("text-primary");
-                setMessage(
-                  "Username = " + username + ", Password = " + password
-                );
+                // setMessageStyle("text-primary");
+                // setMessage(
+                //   "Username = " + username + ", Password = " + password
+                // );
 
-                userService.login(username, password);
-                console.log(
-                  'localStorage.getItem("user"): ' +
-                    localStorage.getItem("user")
-                );
+                let resp = userService.login(username, password);
 
-                return <Redirect exact to="/" />;
+                resp
+                  .then(response => {
+                    if (response.data) {
+                      localStorage.setItem(
+                        "user",
+                        JSON.stringify(response.data)
+                      );
+                    }
+                    // history.push("/");
+                    window.location.reload();
+                  })
+                  .catch(err => {
+                    if (err.response && err.response.data) {
+                      // alert(
+                      //   `${err.response.data.message} (code: ${err.response.data.code})`
+                      // );
+                      setMessage(
+                        `${err.response.data.message} (code: ${err.response.data.code})`
+                      );
+                      setMessageStyle("text-danger");
+                    } else {
+                      setMessage("Error, please contact administration");
+                      setMessageStyle("text-danger");
+                    }
+                  });
               }
             }}
           >
@@ -75,7 +100,7 @@ export const LoginPage = () => {
           </button>
         </div>
       </div>
-      <div className="col-4"></div>
+      <div className="col-sm-4 col-2"></div>
     </div>
   );
 };

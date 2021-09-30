@@ -15,12 +15,16 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 @Entity
 @Table(name = "T_BUS")
 public class Bus implements Serializable {
@@ -38,14 +42,14 @@ public class Bus implements Serializable {
 	@Column(name = "F_MODEL", length = 25)
 	private String model;
 
-	@NotBlank(message = "Model is required")
+	@NotBlank(message = "Make is required")
 	@Column(name = "F_MAKE", length = 25)
 	private String make;
 
 	@Column(name = "F_SSN", insertable = false, updatable = false)
 	private String driverSSN;
 
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH }, fetch = FetchType.EAGER)
 	@JoinColumn(name = "F_SSN", referencedColumnName = "F_SSN")
 	private Driver associatedDriver;
 

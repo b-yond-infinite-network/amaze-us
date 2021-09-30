@@ -1,26 +1,46 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Redirect } from "react-router-dom";
 
+import { SchedulesView } from "./SchedulesView";
+import { DriverCRUD } from "./DriverCRUD";
+import { BusCRUD } from "./BusCRUD";
+import { ScheduleCRUD } from "./ScheduleCRUD";
+
+import userService from "../services/UserService";
+
 export const MainPage = () => {
-  console.log(localStorage.getItem("isAuthenticated"))
-  const isAuthenticated = false;
-  const userRole = "ROLE_MANAGER";
+  useEffect(() => {
+    document.title = "Bus Drivers Shifts - Main Page";
+  }, []);
+
+  let user = userService.getCurrentUser();
+  const isAuthenticated = user ? true : false;
+
+  const isManager =
+    user && user.roles && user.roles.includes("ROLE_MANAGER") ? true : false;
+  const isEmployee =
+    user && user.roles && user.roles.includes("ROLE_EMPLOYEE") ? true : false;
 
   if (!isAuthenticated) return <Redirect to="/login" />;
 
-  if (userRole === "ROLE_MANAGER") return <ManagerView />;
-  else if (userRole === "ROLE_EMPLOLYEE") return <EmployeeView />;
-
   return (
-    <div>
-      <ManagerView />
-      <EmployeeView />
+    <div className="container">
+      {isManager && <ManagerView />}
+      {isEmployee && <EmployeeView />}
     </div>
   );
 };
 
 export const EmployeeView = () => {
-  return <div>Welcome to Employee View</div>;
+  return (
+    <div>
+      <h1 className="h1">Welcome to Employee View</h1>
+      <SchedulesView filterBy="driver" />
+      <hr />
+      <SchedulesView filterBy="bus" />
+      <hr />
+    </div>
+  );
 };
 
 export const ManagerView = () => {
@@ -28,10 +48,9 @@ export const ManagerView = () => {
     <div>
       <h1 className="h1">Welcome to Manager View</h1>
       <DriverCRUD />
+      <BusCRUD />
+      <ScheduleCRUD />
+      <hr />
     </div>
   );
-};
-
-export const DriverCRUD = () => {
-  return <div>Welcome to Manager View</div>;
 };

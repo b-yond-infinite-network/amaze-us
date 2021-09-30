@@ -1,6 +1,5 @@
 package com.mg.challenge;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -10,14 +9,12 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import com.mg.challenge.services.CustomUserService;
-
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-	@Autowired
-	private CustomUserService userService;
+//	@Autowired
+//	private CustomUserService userService;
 
 	@Bean
 	public PasswordEncoder passwordEncoder() {
@@ -33,17 +30,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
 		// In Memory Auth
-		auth.inMemoryAuthentication().withUser("admin").password(passwordEncoder().encode("admin")).authorities("USER",
-				"ADMIN");
+//		auth.inMemoryAuthentication().withUser("admin").password(passwordEncoder().encode("admin")).authorities("USER",
+//				"ADMIN");
 
 		// Database Auth
-		auth.userDetailsService(userService).passwordEncoder(passwordEncoder());
+//		auth.userDetailsService(userService).passwordEncoder(passwordEncoder());
 	}
 
 	@Override
     protected void configure(HttpSecurity http) throws Exception
     {
-    	http.httpBasic();
+//    	http.httpBasic();
 //    	http.formLogin();
     	http.cors();
     	
@@ -51,8 +48,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //	        .antMatchers("/").permitAll()
 	        .antMatchers("/h2-console/**").permitAll();
     	
-//    	http.authorizeRequests().anyRequest().permitAll();
-    	http.authorizeRequests().anyRequest().authenticated();
+    	http.authorizeRequests().anyRequest().permitAll();
+//    	http.authorizeRequests().anyRequest().authenticated();
 
 		http.csrf().disable();
 		http.headers().frameOptions().disable();

@@ -24,9 +24,6 @@ import com.mg.challenge.services.MapValidationErrorMap;
 @RequestMapping("api/driver")
 public class DriverController {
 
-//	@Autowired
-//	private SecurityContext context;
-
 	@Autowired
 	private DriverService driverService;
 
