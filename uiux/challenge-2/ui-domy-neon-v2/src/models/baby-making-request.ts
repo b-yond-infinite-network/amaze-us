@@ -5,12 +5,13 @@ export enum BabyMakingRequestStatus {
 };
 
 export interface BabyMakingRequest {
+  id: string;
   requestedBy: string;
   requestedByName: string;
-  requestedOn: Date;
+  requestedOn: string;
   plannedForYear: number;
   status: BabyMakingRequestStatus;
-  reviewedOn?: Date;
+  reviewedOn?: string;
   reviewedBy?: string;
   reviewedByName?: string;
   notes?: string;

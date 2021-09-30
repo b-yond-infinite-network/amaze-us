@@ -21,7 +21,7 @@ export class WaterCollector extends BaseEntity {
   }
 
   public isFull() : boolean {
-    return this.currentLevelInLiters == this.capacityInLiters;
+    return this.currentLevelInLiters === this.capacityInLiters;
   }
 
   public hasCapacityForAmount(amount: number) : boolean {

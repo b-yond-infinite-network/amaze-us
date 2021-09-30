@@ -31,7 +31,7 @@ export default async (req: Request, res: Response, next: NextFunction) => {
     if (!role) {
       return res.status(400).json({ error: 'Invalid role' });
     }
-    
+
     const existingAssignement = await DbContext.userRoles.findOne({
       userId,
       roleId,

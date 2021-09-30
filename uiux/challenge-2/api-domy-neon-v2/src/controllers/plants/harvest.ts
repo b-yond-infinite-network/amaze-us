@@ -13,7 +13,7 @@ export default async (req: Request, res: Response, next: NextFunction) => {
     if (!errors.isEmpty()) {
       return res.status(400).json({ validationErrors: errors.array() });
     }
-    
+
     const {
       plantId,
       storageUnitId,
@@ -27,7 +27,7 @@ export default async (req: Request, res: Response, next: NextFunction) => {
         id: storageUnitId
       })
     ])
-    
+
     if (!plant) {
       return res.status(400).json({ error: 'Invalid plant.' });
     }

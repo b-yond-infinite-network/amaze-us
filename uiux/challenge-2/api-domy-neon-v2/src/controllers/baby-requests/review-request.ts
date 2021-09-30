@@ -12,7 +12,7 @@ export default async (req: Request, res: Response, next: NextFunction) => {
     if (!errors.isEmpty()) {
       return res.status(400).json({ validationErrors: errors.array() });
     }
-    
+
     const {
       status,
       notes,
@@ -30,7 +30,7 @@ export default async (req: Request, res: Response, next: NextFunction) => {
 
     request.status = status;
     request.reviewedBy = user.sub;
-    request.requestedByName = `${user.firstName} ${user.lastName}`;
+    request.reviewedByName = `${user.firstName} ${user.lastName}`;
     request.reviewedOn = new Date();
     request.reviewNotes = notes;
 

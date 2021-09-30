@@ -5,7 +5,7 @@ export class PlantSeed extends BaseEntity {
   public availableUnits: number;
   public yieldKgPerUnit: number;
   public harvestTimeInSeconds: number;
-  
+
   constructor(
     name: string,
     availableUnits: number,

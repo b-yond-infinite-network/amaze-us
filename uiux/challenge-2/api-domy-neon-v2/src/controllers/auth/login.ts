@@ -35,7 +35,7 @@ export default async (req: Request, res: Response, next: NextFunction) => {
           { session: false },
           async (error) => {
             if (error) return next(error);
-            const access_token = jwt.sign({
+            const accessToken = jwt.sign({
               sub: user.id,
               firstName: user.firstName,
               lastName: user.lastName,
@@ -49,7 +49,7 @@ export default async (req: Request, res: Response, next: NextFunction) => {
               expiresIn: ConfigManager.appConfig.jwtTokenLifetime,
             });
 
-            return res.json({ access_token });
+            return res.json({ access_token: accessToken });
           }
         );
       } catch (error) {

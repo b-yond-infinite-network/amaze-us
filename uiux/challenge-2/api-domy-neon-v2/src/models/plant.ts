@@ -8,7 +8,7 @@ export class Plant extends BaseEntity {
   public notes: string;
   public ripeAt: number;
   public harvestedAt?: number;
-  
+
   constructor(
     seedId: string,
     seedName: string,

@@ -16,7 +16,7 @@ async function doLogin(
   done: (error: any, user?: any, options?: IVerifyOptions) => void) {
   try {
     const user = await DbContext.users.findOne({
-      username 
+      username
     });
 
     if (!user) {
@@ -41,7 +41,7 @@ async function doLogin(
     return done(null, user, { message: 'Login successful' });
   } catch (error) {
     return done(error);
-  } 
+  }
 }
 
 export default class AuthMiddlewares {

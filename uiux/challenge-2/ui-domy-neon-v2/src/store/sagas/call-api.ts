@@ -16,8 +16,8 @@ export function* callApi({
 } : ApiCallSagaConfig) : Generator {
   const section = loadingSection || 'global';
   yield put(startLoading(section));
-
-  const result = yield call(fn);  
+  
+  const result = yield call(fn);
   yield put(stopLoading(section));
 
   return result;

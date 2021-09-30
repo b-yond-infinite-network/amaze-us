@@ -27,7 +27,7 @@ export default async (req: Request, res: Response, next: NextFunction) => {
     const waterCollector = await DbContext.waterCollectors.findOne({
       id: waterCollectorId,
     });
-    
+
     if (!waterCollector) {
       return res.status(404);
     }

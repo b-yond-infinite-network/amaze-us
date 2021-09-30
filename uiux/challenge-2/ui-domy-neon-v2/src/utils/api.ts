@@ -29,7 +29,16 @@ async function sendRequestWithBody<TResponse>(
   });
 
   if (response.status >= 200 && response.status < 300) {
-    return response.body ? await response.json() : Promise.resolve(null);
+    if (!response.body) {
+      return Promise.resolve<any>(null);
+    }
+
+    const bodyContent = await response.json();
+    if (bodyContent.error) {
+      throw new Error(bodyContent.error);
+    }
+
+    return bodyContent;
   }
 
   const responseBody = await response.json();

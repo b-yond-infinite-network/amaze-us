@@ -2,10 +2,14 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export interface LoadingStates {
   global: boolean;
+  auth: boolean;
+  crew: boolean;
 };
 
 const initialState: LoadingStates = {
   global: false,
+  auth: false,
+  crew: false,
 };
 
 const loadingSlice = createSlice({

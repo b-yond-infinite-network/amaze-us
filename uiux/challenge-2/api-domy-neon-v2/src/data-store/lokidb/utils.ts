@@ -26,6 +26,7 @@ export function isDBQuery<T extends BaseEntity>(query: any) : query is DBQuery<T
 
 export function translateEntityFilterToLokiQuery<T>(entity: Partial<T>) {
   const query: LokiQuery<T & LokiObj> = {};
+  /* tslint:disable-next-line */
   for(const field in entity) {
     query[field] = { $eq: entity[field] }
   }
@@ -37,7 +38,7 @@ export function translateDbQueryToLokiQuery<T>(dbQuery: DBQuery<T>) : LokiQuery<
   const query: LokiQuery<T & LokiObj> = {};
   const filters = dbQuery.filters ?? [];
   const operator = dbQuery.operator ?? 'and';
-  
+
   const translated = filters.map(filter => ({ [filter.field]: translateFilter(filter) }));
 
   if (operator === 'and') {

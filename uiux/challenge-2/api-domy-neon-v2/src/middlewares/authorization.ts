@@ -36,7 +36,7 @@ export function requirePermissions(config: Config) {
     const permissions = new Set(roles.flatMap(x => x.permissions));
     const isRequiresAny = config.isRequiresAny ?? false;
 
-    const hasAccess = isRequiresAny ? hasAnyPermission(requestedPermissions, permissions) : 
+    const hasAccess = isRequiresAny ? hasAnyPermission(requestedPermissions, permissions) :
       hasAllPermissions(requestedPermissions, permissions);
 
     if (!hasAccess) {

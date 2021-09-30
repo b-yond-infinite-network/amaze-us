@@ -7,6 +7,11 @@ export interface LoginResponse {
   access_token: string;
 }
 
+export interface NewBirthRequest {
+  plannedForYear: number;
+  notes?: string;
+};
+
 export interface ApiValidationError {
   msg: string;
   param: string;

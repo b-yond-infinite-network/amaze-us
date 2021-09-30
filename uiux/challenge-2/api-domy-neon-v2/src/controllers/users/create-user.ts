@@ -16,7 +16,7 @@ export default async (req: Request, res: Response, next: NextFunction) => {
     if (!errors.isEmpty()) {
       return res.status(400).json({ validationErrors: errors.array() });
     }
-    
+
     const {
       firstName,
       lastName,
@@ -25,7 +25,7 @@ export default async (req: Request, res: Response, next: NextFunction) => {
       birthDate,
       occupation
     } = req.body;
-    
+
     const user = new User(firstName, lastName, new Date(Date.parse(birthDate)), occupation);
     user.username = username;
     user.password = await bcrypt.hash(password, PasswordHashSaltRound);

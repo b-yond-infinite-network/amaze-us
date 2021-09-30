@@ -14,7 +14,7 @@ export default async (req: Request, res: Response, next: NextFunction) => {
     if (!errors.isEmpty()) {
       return res.status(400).json({ validationErrors: errors.array() });
     }
-    
+
     const {
       plannedForYear,
       notes,

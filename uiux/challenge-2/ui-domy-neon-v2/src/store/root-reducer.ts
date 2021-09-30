@@ -2,6 +2,7 @@ import { Reducer } from 'react';
 import { AnyAction, combineReducers } from '@reduxjs/toolkit';
 import userReducer from './auth/user-slice';
 import loadingReducer from './loading-slice';
+import crewReducer from '../pages/crew/redux/slice';
 
 type ExtractReducerState<T> = T extends Reducer<infer TState, any> ? TState : T;
 
@@ -10,6 +11,7 @@ export type AppState = Omit<ExtractReducerState<ReturnType<typeof makeReducer>>,
 const makeReducer = () => combineReducers({
   user: userReducer,
   loading: loadingReducer,
+  crew: crewReducer,
 });
 
 const createReducer = () => (state: AppState | undefined, action: AnyAction) => {

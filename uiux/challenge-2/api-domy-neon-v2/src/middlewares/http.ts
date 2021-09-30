@@ -1,9 +1,11 @@
-import { Application } from 'express';
+import express, { Application } from 'express';
 import { json } from 'body-parser';
+import path from 'path';
 
 class Http {
-  public static register(express: Application) {
-    express.use(json());
+  public static register(app: Application) {
+    app.use(json());
+    app.use(express.static(path.resolve(__dirname, '../client/build')));
   }
 }
 

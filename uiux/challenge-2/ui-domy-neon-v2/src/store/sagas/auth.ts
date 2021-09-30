@@ -50,7 +50,8 @@ function* onLogin(action: PayloadAction<LoginRequest>) {
         const { access_token }: any = yield call(AuthApi.login, action.payload);
         localStorage.setItem(ACCESS_TOKEN_STORAGE_KEY, access_token);
         yield call(onInitUserAuth);
-      }
+      },
+      loadingSection: 'auth'
     });
   } catch (error) {
     console.error('Failed user login', error);

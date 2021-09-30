@@ -12,6 +12,6 @@ export function showNotification(config: NotificationConfig) {
   notification[type]({
     message: title,
     description: content,
-    duration: duration ?? 5000
+    duration: duration ?? 4
   });
 }

@@ -28,7 +28,7 @@ export interface IRepo<T extends BaseEntity> {
   getAll(limit?: number, offset?: number) : Promise<T[]>
   find(query: DBQuery<T> | Partial<T>) : Promise<T[]>;
   findOne(query: DBQuery<T> | Partial<T>) : Promise<T>;
-  
+
   insert(entity: T) : Promise<void>;
   update(entity: T) : Promise<void>;
   remove(entity: T) : Promise<void>;

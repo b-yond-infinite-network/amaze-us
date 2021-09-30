@@ -64,7 +64,7 @@ export default class DataSeeder {
       foodProduce.id
     ));
   }
-  
+
   private async seedPlantSeeds() {
     await this.seedFromJsonFile('plant-seeds', this.dbContext.plantSeeds, (plantSeed) => new PlantSeed(
       plantSeed.name,
@@ -106,7 +106,7 @@ export default class DataSeeder {
       waterCollector.id
     ));
   }
-  
+
   private async seedFromJsonFile<TEntity extends BaseEntity>(
     fileName: string,
     repo: IRepo<TEntity>,
