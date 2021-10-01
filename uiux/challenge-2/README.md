@@ -93,6 +93,8 @@ The next phase would be to:
 - Optimize the user experience:
   - Add the ability to filter on data tables
 - Dynamic ui elements depending on the user interfaces
+- Unit tests
+- UI tests
 
 ## Backend
 
@@ -103,3 +105,4 @@ The next phase would be to:
   - Input sanitization
   - TLS encryption
   - Authorization for data filtering with different access levels
+- Unit tests
