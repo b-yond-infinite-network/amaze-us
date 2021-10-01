@@ -22,5 +22,5 @@ export const DbContext: IDatabaseContext = {
   plants: new LokiDBRepo(db.addCollection<Plant>('plants')),
   storageUnits: new LokiDBRepo(db.addCollection<StorageUnit>('storageUnits')),
   waterCollectors: new LokiDBRepo(db.addCollection<WaterCollector>('waterCollectors')),
-  babyMakingRequest: new LokiDBRepo(db.addCollection<BabyMakingRequest>('babyMakingRequest')),
+  babyMakingRequest: new LokiDBRepo(db.addCollection<BabyMakingRequest>('babyMakingRequests')),
 };

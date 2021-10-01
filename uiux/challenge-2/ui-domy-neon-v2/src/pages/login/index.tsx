@@ -13,6 +13,11 @@ function LoginPage() {
   const onLogin = useCallback((loginRequest: LoginRequest) => {
     dispatch(login(loginRequest));
   }, [dispatch]);
+  
+  const initialValues = React.useMemo(() : LoginRequest => ({
+    username: 'kirk',
+    password: 'Abcd123456#'
+  }), []);
 
   const isLoading = useSelector<AppState, boolean>(({ loading: { auth } }) => auth);
 
@@ -25,7 +30,7 @@ function LoginPage() {
           <Form
             name="login"
             className="login-form"
-            initialValues={{}}
+            initialValues={initialValues}
             onFinish={onLogin}
           >
             <Form.Item
