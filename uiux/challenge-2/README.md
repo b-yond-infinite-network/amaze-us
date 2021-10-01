@@ -93,7 +93,7 @@ The next phase would be to:
   - Add the ability to filter on data tables
 - Dynamic ui elements depending on the user interfaces
 - Unit tests
-- UI tests
+- Functional tests (automated browser tests)
 
 ## Backend
 
@@ -105,3 +105,5 @@ The next phase would be to:
   - TLS encryption
   - Authorization for data filtering with different access levels
 - Unit tests
+- Document api (OpenApi)
+- Add exception handler middleware
