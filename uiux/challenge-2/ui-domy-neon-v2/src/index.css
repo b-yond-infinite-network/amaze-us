@@ -21,9 +21,9 @@
 }
 
 .ant-table-row .visible-hover {
-  display: none;
+  opacity: 0;
 }
 
 .ant-table-row:hover .visible-hover {
-  display: block;
+  opacity: 1;
 }

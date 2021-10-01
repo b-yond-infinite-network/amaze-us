@@ -22,10 +22,9 @@ Welcome to Domy Neon V2 a web application for managing the spaceship on the jour
 
 ## Run with Docker
 
-The Docker engine must be installed on the host
+The Docker engine must be installed on the host and docker-compose as well
 
-1. Run `docker build -t uiux-challenge-v2 .` to build an image
-2. Run `docker run --rm -p 5000:5000 uiux-challenge-v2`
+Run `docker-compose up ` from the directory `/uiux/challenge-2`
 
 # Architecture
 
