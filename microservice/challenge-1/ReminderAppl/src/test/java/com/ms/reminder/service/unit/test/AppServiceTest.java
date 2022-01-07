@@ -145,24 +145,24 @@ public class AppServiceTest {
     			.id(123L)
     			.name("Reminder-1")
     			.isComplete(false)
-    			.date(LocalDateTime.now())
+    			.date(LocalDateTime.of(2022, 01, 1, 22, 25, 00))
     			.build();
     	Reminder reminderTwo=Reminder.builder()
     			.id(456L)
     			.name("Reminder-2")
     			.isComplete(false)
-    			.date(LocalDateTime.now())
+    			.date(LocalDateTime.of(2022, 01, 7, 23, 20, 00))
     			.build();
     	List<Reminder> reminders = new ArrayList<Reminder>();
     	reminders.add(reminderOne);
     	reminders.add(reminderTwo);
     	
-    	when(apprepo.getRemindersWithinTimeRange(LocalDateTime.now().minusDays(5),
-    			LocalDateTime.now().plusDays(5))).thenReturn(reminders);
+    	when(apprepo.getRemindersWithinTimeRange(LocalDateTime.of(2022, 01, 1, 22, 25, 00),
+    			LocalDateTime.of(2022, 01, 7, 23, 20, 00))).thenReturn(reminders);
     	
-    	sut.findReminderInRange(LocalDateTime.now().minusDays(5), LocalDateTime.now().plusDays(5));
-    	verify(apprepo).getRemindersWithinTimeRange(LocalDateTime.now().minusDays(5),
-    			LocalDateTime.now().plusDays(5));
+    	sut.findReminderInRange(LocalDateTime.of(2022, 01, 1, 22, 25, 00), LocalDateTime.of(2022, 01, 7, 23, 20, 00));
+    	verify(apprepo).getRemindersWithinTimeRange(LocalDateTime.of(2022, 01,1 , 22, 25, 00),
+    			LocalDateTime.of(2022, 01, 7, 23, 20, 00));
     	
     }
 	
