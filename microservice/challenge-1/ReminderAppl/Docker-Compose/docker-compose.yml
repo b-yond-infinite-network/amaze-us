@@ -1,0 +1,33 @@
+version: "3.3"
+
+services:
+
+  reminder-app-local:
+    image: reminder-app:20.0
+    container_name: reminder-app-local
+    depends_on:
+      - "mysql-local"
+    networks:
+      - reminderapp-network
+    ports:
+      - "8080:8080"
+
+  mysql-local:
+    image: mysql:latest
+    container_name: mysql-local
+    environment:
+      - MYSQL_ROOT_PASSWORD=default
+      - MYSQL_DATABASE=reminderDB
+      - MYSQL_USER=secret
+      - MYSQL_PASSWORD=secretpassword
+    restart: always
+    volumes:
+      - C:\\gitrepos\\mysql-vol:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    networks:
+      - reminderapp-network
+
+networks:
+  reminderapp-network:
+    driver: bridge

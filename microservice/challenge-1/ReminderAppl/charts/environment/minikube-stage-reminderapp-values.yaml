@@ -1,0 +1,82 @@
+replicaCount: 1
+
+image:
+  repository: "reminder-app"
+  pullPolicy: "IfNotPresent"
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "20.0"
+
+
+imagePullSecrets: []
+nameOverride: "reminderapp"
+fullnameOverride: "reminderapp"
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+podAnnotations: {}
+
+podSecurityContext: {}
+
+securityContext: {}
+
+service:
+  type: NodePort
+  port: 33706
+
+ingress:
+  enabled: true
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  hosts:
+    - name: TBD
+      path: /
+      tls: false
+
+resources: 
+    limits:
+        cpu: "1"
+        memory: 2Gi
+    requests:
+        cpu: "100m"
+        memory: 1Gi
+        
+env:
+- name: DATASOURCE_USER_NAME
+  value: secret
+  
+- name: DATASOURCE_PASSWORD
+  value: secretpassword
+  
+- name: DATASOURCE_URL
+  value: jdbc:mysql://reminderapp-mysql:3306/reminderDB
+
+- name: DATASOURCE_DRIVER
+  value: com.mysql.cj.jdbc.Driver
+
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+mysql:
+  auth:
+    rootPassword: default
+    database: reminderDB
+    username: secret
+    password: secretpassword

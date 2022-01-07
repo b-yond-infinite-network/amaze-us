@@ -1,0 +1,93 @@
+image: TBD # Image to be used for the execution
+
+
+variables:
+  MAVEN_OPTS: "-Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository"
+  MAVEN_CLI_OPTS: --batch-mode
+  CONTAINER_IMAGE_LATEST: ${REGISTRY_DEV}/${CI_PROJECT_PATH}:latest # TBD
+  CONTAINER_IMAGE_PROD: ${DOCKER_NSO_REGISTRY_PROD}/${CI_PROJECT_PATH}:${CI_COMMIT_SHORT_SHA} # TBD
+  DEPLOY_ARGS: "--timeout 500"
+  
+  CHART_VALUE_PROD_NS: "./charts/environments/minikube-stage-reminderapp-values.yaml"
+
+  IMG_HELM_KUBECTL: "TBD" # image with helm and kubectl installed
+
+  REMINDER_APP_CHART_NAME: "status-monitor-mariadb-galera"
+  ERIC_EVNFM_STATUS_MARIA_DB_CHART_VALUE_LTEC_ENV: "./charts/mariadb-galera/deployment/ltec-deployment.yaml"
+  ERIC_EVNFM_STATUS_MARIA_DB_CHART_VALUE_POC5G2_ENV: "./charts/mariadb-galera/deployment/preprod-deployment.yaml"
+  ERIC_EVNFM_STATUS_MARIA_DB_CHART_VALUE_CORE5GMS_ENV: "./charts/mariadb-galera/deployment/preprod-deployment.yaml"
+  ERIC_EVNFM_STATUS_MARIA_DB_CHART_VALUE_PROD_ENV: "./charts/mariadb-galera/deployment/prod-deployment.yaml"
+  ERIC_EVNFM_STATUS_MARIA_DB_CHART_PATH: "./charts/mariadb-galera/mariadb-galera"
+  
+cache:
+  paths:
+    - .m2/repository
+
+stages:
+  - build
+  - test
+  - containerize
+  - deploystage
+  - deployprod
+  
+
+build:
+  stage: build
+  script:
+    - env
+    - mvn $MAVEN_CLI_OPTS package -DskipTests
+  artifacts:
+    paths:
+      - target/*
+      - "*/target/*"
+    expire_in: 1 hour
+  when: always
+
+unit-test:
+  stage: test
+  script:
+    - env
+    - mvn $MAVEN_CLI_OPTS test
+  artifacts:
+    when: always
+    expire_in: 1 hour
+    reports:
+      junit:
+        - target/surefire-reports/TEST-*.xml
+        - target/failsafe-reports/TEST-*.xml
+
+docker:
+  stage: containerize
+  image: docker:19.03.8
+  script:
+    - env
+    - export CONTAINER_IMAGE=`[[ "$CI_COMMIT_BRANCH" == "master" ]] && echo $CONTAINER_IMAGE_PROD || echo $CONTAINER_IMAGE_LATEST`
+    - echo ${CONTAINER_IMAGE}
+    - docker build -t ${CONTAINER_IMAGE} .
+    - docker push ${CONTAINER_IMAGE}
+  when: always
+  except:
+    - /^issue-.*$/i
+    
+
+stage-deploy:
+  stage: deploy
+  image: ${IMG_HELM_KUBECTL}
+  script:
+    - helm upgrade -i --debug ${ERIC_EVNFM_STATUS_CHART_NAME} --tiller-namespace poc5g2 -f ${ERIC_EVNFM_OVERRIDE_CHART_VALUE_POC5G2_NS} ${ERIC_EVNFM_STATUS_CHART_PATH} ${DEPLOY_ARGS}
+  environment:
+    name: stage
+  when: manual
+  
+
+prod-deploy:
+  stage: deployprod
+  image: ${IMG_HELM_KUBECTL}
+  script:
+    - helm upgrade -i --debug ${ERIC_EVNFM_STATUS_CHART_NAME} --tiller-namespace mobility -f ${ERIC_EVNFM_OVERRIDE_CHART_VALUE_PROD_NS} ${ERIC_EVNFM_STATUS_CHART_PATH} ${DEPLOY_ARGS} --set image.tag=${CI_COMMIT_SHORT_SHA}
+  environment:
+    name: prod
+  when: manual
+
+
+
