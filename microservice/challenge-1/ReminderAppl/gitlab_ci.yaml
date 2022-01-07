@@ -5,19 +5,17 @@ variables:
   MAVEN_OPTS: "-Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository"
   MAVEN_CLI_OPTS: --batch-mode
   CONTAINER_IMAGE_LATEST: ${REGISTRY_DEV}/${CI_PROJECT_PATH}:latest # TBD
-  CONTAINER_IMAGE_PROD: ${DOCKER_NSO_REGISTRY_PROD}/${CI_PROJECT_PATH}:${CI_COMMIT_SHORT_SHA} # TBD
+  CONTAINER_IMAGE_PROD: ${REGISTRY_PROD}/${CI_PROJECT_PATH}:${CI_COMMIT_SHORT_SHA} # TBD
   DEPLOY_ARGS: "--timeout 500"
   
-  CHART_VALUE_PROD_NS: "./charts/environments/minikube-stage-reminderapp-values.yaml"
+  CHART_VALUE_PROD: "./charts/environments/minikube-stage-reminderapp-values.yaml"
+  CHART_VALUE_STAGE: "./charts/environments/minikube-stage-reminderapp-values.yaml"
 
   IMG_HELM_KUBECTL: "TBD" # image with helm and kubectl installed
 
-  REMINDER_APP_CHART_NAME: "status-monitor-mariadb-galera"
-  ERIC_EVNFM_STATUS_MARIA_DB_CHART_VALUE_LTEC_ENV: "./charts/mariadb-galera/deployment/ltec-deployment.yaml"
-  ERIC_EVNFM_STATUS_MARIA_DB_CHART_VALUE_POC5G2_ENV: "./charts/mariadb-galera/deployment/preprod-deployment.yaml"
-  ERIC_EVNFM_STATUS_MARIA_DB_CHART_VALUE_CORE5GMS_ENV: "./charts/mariadb-galera/deployment/preprod-deployment.yaml"
-  ERIC_EVNFM_STATUS_MARIA_DB_CHART_VALUE_PROD_ENV: "./charts/mariadb-galera/deployment/prod-deployment.yaml"
-  ERIC_EVNFM_STATUS_MARIA_DB_CHART_PATH: "./charts/mariadb-galera/mariadb-galera"
+  REMINDER_APP_CHART_NAME: "reminderapp"
+  
+  REMINDER_APP_CHART_PATH: "./charts"
   
 cache:
   paths:
@@ -74,7 +72,7 @@ stage-deploy:
   stage: deploy
   image: ${IMG_HELM_KUBECTL}
   script:
-    - helm upgrade -i --debug ${ERIC_EVNFM_STATUS_CHART_NAME} --tiller-namespace poc5g2 -f ${ERIC_EVNFM_OVERRIDE_CHART_VALUE_POC5G2_NS} ${ERIC_EVNFM_STATUS_CHART_PATH} ${DEPLOY_ARGS}
+    - helm upgrade -i --debug ${REMINDER_APP_CHART_NAME}  -f ${CHART_VALUE_STAGE} ${REMINDER_APP_CHART_PATH} ${DEPLOY_ARGS}
   environment:
     name: stage
   when: manual
@@ -84,7 +82,7 @@ prod-deploy:
   stage: deployprod
   image: ${IMG_HELM_KUBECTL}
   script:
-    - helm upgrade -i --debug ${ERIC_EVNFM_STATUS_CHART_NAME} --tiller-namespace mobility -f ${ERIC_EVNFM_OVERRIDE_CHART_VALUE_PROD_NS} ${ERIC_EVNFM_STATUS_CHART_PATH} ${DEPLOY_ARGS} --set image.tag=${CI_COMMIT_SHORT_SHA}
+    - helm upgrade -i --debug ${REMINDER_APP_CHART_NAME} -f ${CHART_VALUE_PROD} ${REMINDER_APP_CHART_PATH} ${DEPLOY_ARGS} --set image.tag=${CI_COMMIT_SHORT_SHA}
   environment:
     name: prod
   when: manual
