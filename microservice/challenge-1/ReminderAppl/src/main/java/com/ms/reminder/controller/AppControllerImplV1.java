@@ -13,6 +13,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.ms.reminder.config.exception.ReminderNotFound;
 import com.ms.reminder.model.Reminder;
 import com.ms.reminder.service.AppService;
 
@@ -51,10 +53,18 @@ public class AppControllerImplV1 implements AppController{
 	public ResponseEntity<Reminder> findReminder(@PathVariable ("id") Long id ) {
 		
 		HttpHeaders headers = new HttpHeaders();
-        headers.add("Content-Type", MediaType.APPLICATION_JSON_VALUE);  
-        Reminder reminder = reminderAppService.findReminder(id);
-        LOGGER.info("Data Returned {}",reminder);
-        return new ResponseEntity<Reminder>(reminder,headers,HttpStatus.FOUND); 
+        headers.add("Content-Type", MediaType.APPLICATION_JSON_VALUE);
+        try {
+        	Reminder reminder = reminderAppService.findReminder(id);
+            LOGGER.info("Data Returned {}",reminder);
+            return new ResponseEntity<Reminder>(reminder,headers,HttpStatus.FOUND); 
+            
+        }catch(ReminderNotFound ex) {
+        	Reminder reminderNotFound=Reminder.builder()
+        			.id(id).build();
+        	 return new ResponseEntity<Reminder>(reminderNotFound,headers,HttpStatus.NOT_FOUND); 
+        }
+        
 	}
 	
 	public ResponseEntity<List<Reminder>> findAllReminders() {

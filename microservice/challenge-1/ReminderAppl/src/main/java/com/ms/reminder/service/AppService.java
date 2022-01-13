@@ -6,7 +6,10 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+
+import com.ms.reminder.config.exception.ReminderNotFound;
 import com.ms.reminder.model.Reminder;
 import com.ms.reminder.repository.AppRepository;
 
@@ -68,11 +71,16 @@ public class AppService {
 		
 	}
 	
-	public Reminder findReminder(Long id) {
+	public Reminder findReminder(Long id) throws ReminderNotFound{
 		
 		Optional<Reminder> reminder = apprepository.findById(id);
-		return reminder.get();
+		if(reminder.isPresent())
+			return reminder.get();
 		
+		String message="Reminder ID: "+id+" not found";
+		String error="REMINDER NOT FOUND";
+		
+		throw new ReminderNotFound(HttpStatus.NOT_FOUND,message,error);
 	}
 	
 	public List<Reminder> findReminderInRange(LocalDateTime fromTime,LocalDateTime toTime) {

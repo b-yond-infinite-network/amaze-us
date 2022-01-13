@@ -9,11 +9,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+
+import com.ms.reminder.config.exception.ReminderNotFound;
 import com.ms.reminder.model.Reminder;
 import com.ms.reminder.repository.AppRepository;
 import com.ms.reminder.service.AppService;
@@ -69,7 +72,7 @@ public class AppServiceTest {
     }
     
     @Test
-    public void findReminderTest() {
+    public void findReminderTest() throws ReminderNotFound{
     	Reminder reminderOne=Reminder.builder()
     			.id(123L)
     			.name("Reminder-1")
@@ -80,6 +83,19 @@ public class AppServiceTest {
     	when(apprepo.findById(123L)).thenReturn(Optional.of(reminderOne));
     	Reminder reminder = sut.findReminder(123L);
     	assertEquals(reminder.getName(),reminderOne.getName());
+    }
+    
+    @Test
+    public void findReminderTestWithIDNotFound() throws ReminderNotFound{
+    	
+    	ReminderNotFound thrown = Assertions.assertThrows(ReminderNotFound.class, () -> {
+    		when(apprepo.findById(123L)).thenReturn(Optional.ofNullable(null));
+        	Reminder reminder = sut.findReminder(123L);
+    	}, "ReminderNotFound expected");
+    	
+    	Assertions.assertEquals("Reminder ID: 123 not found", thrown.getMessage());
+    	
+    	
     }
     
     @Test

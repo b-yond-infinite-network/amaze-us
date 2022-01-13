@@ -3,8 +3,17 @@ version: "3.3"
 services:
 
   reminder-app-local:
-    image: reminder-app:20.0
+    build:
+      context: ../
+      dockerfile: Dockerfile
+      target: dev
     container_name: reminder-app-local
+    env_file: ./.env
+    environment:
+      - DATASOURCE_URL=$DATASOURCE_URL
+      - DATASOURCE_USERNAME=$DATASOURCE_USERNAME
+      - DATASOURCE_PASSWORD=$DATASOURCE_PASSWORD
+      - DATASOURCE_DRIVER=$DATASOURCE_DRIVER
     depends_on:
       - "mysql-local"
     networks:
@@ -15,14 +24,15 @@ services:
   mysql-local:
     image: mysql:latest
     container_name: mysql-local
+    env_file: ./.env
     environment:
-      - MYSQL_ROOT_PASSWORD=default
-      - MYSQL_DATABASE=reminderDB
-      - MYSQL_USER=secret
-      - MYSQL_PASSWORD=secretpassword
+      - MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD
+      - MYSQL_DATABASE=$MYSQL_DATABASE
+      - MYSQL_USER=$MYSQL_USER
+      - MYSQL_PASSWORD=$MYSQL_PASSWORD
     restart: always
     volumes:
-      - C:\\gitrepos\\mysql-vol:/var/lib/mysql
+      - db_data:/var/lib/mysql
     ports:
       - "3306:3306"
     networks:
@@ -31,3 +41,6 @@ services:
 networks:
   reminderapp-network:
     driver: bridge
+
+volumes:
+  db_data:

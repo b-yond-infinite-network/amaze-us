@@ -1,15 +1,20 @@
-FROM openjdk:8-jdk-alpine
+FROM openjdk:8-jdk-alpine as basebuilder
 
-#USER root
+RUN mkdir -p /app/src
+COPY . /app/src
+WORKDIR /app/src
+RUN ./mvnw clean package
 
+FROM openjdk:8-jdk-alpine as dev
 
 RUN apk update && apk upgrade && apk add --no-cache bash
 RUN apk --no-cache add curl
+COPY --from=basebuilder /app/src/target/reminder-app*.jar /app/app.jar
+ENTRYPOINT ["java","-jar","/app/app.jar","--spring.profiles.active=dev"]
 
+FROM openjdk:8-jdk-alpine as prod
 
-ARG JAR_FILE=target/reminder-app-0.0.1-SNAPSHOT.jar
-
-ADD ${JAR_FILE} reminderapp.jar
-
- 
-ENTRYPOINT ["java","-jar","/reminderapp.jar","--spring.profiles.active=dev"]
+RUN apk update && apk upgrade && apk add --no-cache bash
+RUN apk --no-cache add curl
+COPY --from=basebuilder /app/src/target/reminder-app*.jar /app/app.jar
+ENTRYPOINT ["java","-jar","/app/app.jar","--spring.profiles.active=prod"]
