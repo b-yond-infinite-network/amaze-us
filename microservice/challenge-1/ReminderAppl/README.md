@@ -18,9 +18,9 @@ There are 3 kind of tests. Only certain cases being tested. Test Cases are not e
 ## API Documentation:
 Swagger annotations (v3) has been used for API documentation purpose. Post deployment, the API documentation will be available at the following URI as per environment.
 
-	### Swagger URL:
-	**Cluster environment** http://<service-name>:<service-port>/swagger-ui/index.html
-	**Local** http://localhost:8080/swagger-ui/index.html
+	**Swagger URL**
+	Cluster environment: http://<service-name>:<service-port>/swagger-ui/index.html
+	Local: http://localhost:8080/swagger-ui/index.html
 
   
 ## CI/CD Pipeline:
