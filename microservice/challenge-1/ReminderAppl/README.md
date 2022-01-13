@@ -28,7 +28,7 @@ Swagger annotations (v3) has been used for API documentation purpose. Post deplo
 Considered gitlab as the CI/CD tool for deployment into Kubernetes cluster. It is not fully tested as it require setup of environment for cluster with gitlab. 
 Helm charts will be utilized for K8 deployment. Values file,environment variables are used for configuration. However ideally a separate configuration server is best practice.
 
-##Local Testing:
+## Local Testing:
 
   **Download mysql docker image**
    ```
