@@ -61,7 +61,7 @@ docker:
     - env
     - export CONTAINER_IMAGE=`[[ "$CI_COMMIT_BRANCH" == "master" ]] && echo $CONTAINER_IMAGE_PROD || echo $CONTAINER_IMAGE_LATEST`
     - echo ${CONTAINER_IMAGE}
-    - docker build -t ${CONTAINER_IMAGE} .
+    - docker build --target final -t ${CONTAINER_IMAGE} .
     - docker push ${CONTAINER_IMAGE}
   when: always
   except:
