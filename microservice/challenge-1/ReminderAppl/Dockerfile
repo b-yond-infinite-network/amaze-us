@@ -3,6 +3,7 @@ FROM openjdk:8-jdk-alpine as basebuilder
 RUN mkdir -p /app/src
 COPY . /app/src
 WORKDIR /app/src
+RUN chmod +x ./mvnw
 RUN ./mvnw clean package
 
 FROM openjdk:8-jdk-alpine as final

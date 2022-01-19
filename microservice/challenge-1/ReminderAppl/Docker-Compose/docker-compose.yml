@@ -8,12 +8,11 @@ services:
       dockerfile: Dockerfile
       target: final
     container_name: reminder-app-local
-    env_file: ./.dev.env
     environment:
-      - DATASOURCE_URL=$DATASOURCE_URL
-      - DATASOURCE_USERNAME=$DATASOURCE_USERNAME
-      - DATASOURCE_PASSWORD=$DATASOURCE_PASSWORD
-      - DATASOURCE_DRIVER=$DATASOURCE_DRIVER
+      - DATASOURCE_URL=jdbc:mysql://reminderapp-mysql:3306/reminderDB
+      - DATASOURCE_USERNAME=secret
+      - DATASOURCE_PASSWORD=secretpassword
+      - DATASOURCE_DRIVER=com.mysql.cj.jdbc.Driver
       - SPRING_PROFILES_ACTIVE=dev
     depends_on:
       - "reminderapp-mysql"
@@ -25,12 +24,13 @@ services:
   reminderapp-mysql:
     image: mysql:latest
     container_name: reminderapp-mysql
-    env_file: ./.dev.env
     environment:
-      - MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD
-      - MYSQL_DATABASE=$MYSQL_DATABASE
-      - MYSQL_USER=$MYSQL_USER
-      - MYSQL_PASSWORD=$MYSQL_PASSWORD
+      - MYSQL_ROOT_PASSWORD=default
+      - MYSQL_DATABASE=reminderDB
+      - MYSQL_USER=secret
+      - MYSQL_PASSWORD=secretpassword
+      - MYSQL_ROOT_HOST=%
+      
     restart: always
     volumes:
       - db_data:/var/lib/mysql
