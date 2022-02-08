@@ -1,0 +1,35 @@
+version: "3.3"
+services:
+  db:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_DATABASE: $DB_NAME
+      # So you don't have to use root, but you can if you like
+      MYSQL_USER: $DB_USER
+      # You can use whatever password you like
+      MYSQL_PASSWORD: $DB_PASSWORD
+      # Password for root access
+      MYSQL_ROOT_PASSWORD: $DB_ROOT_PASSWORD
+    ports:
+      # <Port exposed> : < MySQL Port running inside container>
+      - '${DB_PORT}:3306'
+    expose:
+      # Opens port 3306 on the container
+      - '${DB_PORT}'
+  webapp:
+    depends_on:
+      - db
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 8080:8080
+    expose:
+      - '8080'
+    environment:
+      - DB_HOST=db
+      - DB_USERNAME=${DB_USER}
+      - DB_PORT=${DB_PORT}
+      - DB_PASS=${DB_PASS}
+      - DB_NAME=${DB_NAME}
