@@ -25,6 +25,6 @@ These are the building you can save:
 Choose one; choose the orchestrator you want to use; and make it scale!
 
 ## Expected steps
-+ Create a branch of this project (or fork it in your github account if you prefer)
-+ Do you **_thang_** inside this folder (challenge-1)
-+ Push your change inside a Pull Request to our master
++ Fork the target project and create a new branch 
++ Do your **_magic_** inside this branch
++ When you are ready for a review create a PR from your branch to master of the forked repo and send it back to us to review
