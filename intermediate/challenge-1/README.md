@@ -26,6 +26,7 @@ The below items are not required for this challenge, if you wish to wow us, go a
 - API documentation
 - Code that compiles and runs
 - Unit tests
+- Integration or end to end tests
 - Optionally docker-compose to run the application
 
 ## Expected Stack
