@@ -9,6 +9,8 @@ composer.phar
 *.ipr
 *.iws
 
+/intermediate/challenge-1/target/*
+
 # Eclipse
 /.project
 /.settings
