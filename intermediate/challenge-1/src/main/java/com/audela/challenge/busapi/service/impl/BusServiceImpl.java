@@ -2,8 +2,10 @@ package com.audela.challenge.busapi.service.impl;
 
 import com.audela.challenge.busapi.entity.BusEntity;
 import com.audela.challenge.busapi.entity.DriverEntity;
+import com.audela.challenge.busapi.entity.ScheduleEntity;
 import com.audela.challenge.busapi.repository.BusRepository;
 import com.audela.challenge.busapi.repository.DriverRepository;
+import com.audela.challenge.busapi.repository.ScheduleRepository;
 import com.audela.challenge.busapi.service.BusService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,6 +21,9 @@ public class BusServiceImpl implements BusService {
     @Autowired
     private BusRepository busRepository;
 
+    @Autowired
+    private ScheduleRepository scheduleRepository;
+
     @Override
     public ResponseEntity createDriver(DriverEntity driver) {
         DriverEntity driverResult = driverRepository.save(driver);
@@ -29,5 +34,11 @@ public class BusServiceImpl implements BusService {
     public ResponseEntity createBus(BusEntity bus) {
         BusEntity busRes = busRepository.save(bus);
         return new ResponseEntity<>(busRes, HttpStatus.CREATED);
+    }
+
+    @Override
+    public ResponseEntity<ScheduleEntity> createSchedule(ScheduleEntity schedule) {
+        ScheduleEntity newSchedule = scheduleRepository.save(schedule);
+        return new ResponseEntity<>(newSchedule, HttpStatus.CREATED);
     }
 }

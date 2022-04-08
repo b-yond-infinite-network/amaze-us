@@ -2,6 +2,7 @@ package com.audela.challenge;
 
 import com.audela.challenge.busapi.entity.BusEntity;
 import com.audela.challenge.busapi.entity.DriverEntity;
+import com.audela.challenge.busapi.entity.ScheduleEntity;
 import org.junit.Assert;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -16,6 +17,9 @@ import org.springframework.http.ResponseEntity;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class Challenge1ApplicationTests {
@@ -53,6 +57,27 @@ class Challenge1ApplicationTests {
 		ResponseEntity<BusEntity> response = restTemplate.postForEntity(uri,request, BusEntity.class);
 		Assert.assertTrue(response.getStatusCode() == HttpStatus.CREATED);
 		Assert.assertEquals("model1" , response.getBody().getModel());
+	}
+
+	@Test
+	@Order(3)
+	void testCreateSchedule() throws URISyntaxException {
+		URI uri = new URI("http://localhost:"+randomServerPort+"/bus-app/api/schedule");
+		ScheduleEntity schedule = new ScheduleEntity();
+		schedule.setEtd(OffsetDateTime.of(LocalDateTime.of(2022,4,8,10,00), ZoneOffset.UTC));
+		schedule.setEta(OffsetDateTime.of(LocalDateTime.of(2022,4,8,10,30), ZoneOffset.UTC));
+		schedule.setStartStation("Station A");
+		schedule.setDestinationStation("Station B");
+		BusEntity bus = new BusEntity();
+		bus.setId(1);
+		schedule.setBus(bus);
+		DriverEntity driver = new DriverEntity();
+		driver.setId(1);
+		schedule.setDriver(driver);
+		HttpEntity<ScheduleEntity> request = new HttpEntity<>(schedule);
+		ResponseEntity<ScheduleEntity> response = restTemplate.postForEntity(uri,request, ScheduleEntity.class);
+		Assert.assertTrue(response.getStatusCode() == HttpStatus.CREATED);
+		Assert.assertEquals("Station B" , response.getBody().getDestinationStation());
 	}
 
 }

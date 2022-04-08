@@ -14,6 +14,14 @@ public class ScheduleEntity {
     @Column(name="id",nullable = false)
     private Integer id;
 
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "bus_id", nullable = false)
+    private BusEntity bus;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "driver_id", nullable = false)
+    private DriverEntity driver;
+
     @Column(name="start_station",nullable = false, length = 70)
     private String startStation;
 

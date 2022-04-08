@@ -23,6 +23,7 @@ spring:
         show_sql: true
         use_sql_comments: true
         format_sql: true
+    defer-datasource-initialization: true
 server:
   port: 8080
   error:

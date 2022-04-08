@@ -3,6 +3,7 @@ package com.audela.challenge.busapi.controller;
 
 import com.audela.challenge.busapi.entity.BusEntity;
 import com.audela.challenge.busapi.entity.DriverEntity;
+import com.audela.challenge.busapi.entity.ScheduleEntity;
 import com.audela.challenge.busapi.service.BusService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,5 +28,11 @@ public class BusController {
     public ResponseEntity<BusEntity> createBus(@RequestBody BusEntity bus){
 
         return busService.createBus(bus);
+    }
+
+    @PostMapping(value = "/schedule", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ScheduleEntity> createSchedule(@RequestBody ScheduleEntity schedule){
+
+        return busService.createSchedule(schedule);
     }
 }
