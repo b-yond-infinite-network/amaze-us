@@ -7,12 +7,15 @@ import com.audela.challenge.busapi.repository.BusRepository;
 import com.audela.challenge.busapi.repository.DriverRepository;
 import com.audela.challenge.busapi.repository.ScheduleRepository;
 import com.audela.challenge.busapi.service.BusService;
+import com.audela.challenge.busapi.vo.BusScheduleVo;
 import com.audela.challenge.busapi.vo.DriverScheduleVo;
+import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.InvocationTargetException;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.WeekFields;
@@ -62,10 +65,43 @@ public class BusServiceImpl implements BusService {
         List<ScheduleEntity> list = scheduleRepository.getScheduleByDriverIdWithinDateRange(driverId, fromDate, toDate);
         List<DriverScheduleVo>  scheduleVos = list.stream().map(x->{
             DriverScheduleVo vo = new DriverScheduleVo();
+            try {
+                BeanUtils.copyProperties(vo,x);
+                BeanUtils.copyProperties(vo,x.getDriver());
+                BeanUtils.copyProperties(vo,x.getBus());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             vo.setBusId(x.getBus().getId());
             vo.setDriverId(x.getDriver().getId());
             vo.setScheduleId(x.getId());
-            vo.setFirstName(x.getDriver().getFirstName());
+            return vo;
+        }).collect(Collectors.toList());
+        return new ResponseEntity<>(scheduleVos, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<List<BusScheduleVo>> getBusSchedule(int busId, String yyyymmdd) {
+        LocalDate date = LocalDate.parse(yyyymmdd, DateTimeFormatter.ofPattern("yyyyMMdd"));
+        //LocalDate sunday = date.with(DayOfWeek.SUNDAY);
+        LocalDate sunday = date.with(WeekFields.of(Locale.CANADA).dayOfWeek(), 1L);
+        LocalDate saturday = date.with(WeekFields.of(Locale.CANADA).dayOfWeek(), 7L);
+        ZoneId zone = ZoneId.of("America/Toronto");
+        OffsetDateTime fromDate = sunday.atStartOfDay(zone).toOffsetDateTime();
+        OffsetDateTime toDate = saturday.atStartOfDay(zone).toOffsetDateTime();
+        List<ScheduleEntity> list = scheduleRepository.getScheduleByBusIdWithinDateRange(busId, fromDate, toDate);
+        List<BusScheduleVo>  scheduleVos = list.stream().map(x->{
+            BusScheduleVo vo = new BusScheduleVo();
+            try {
+                BeanUtils.copyProperties(vo,x);
+                BeanUtils.copyProperties(vo,x.getDriver());
+                BeanUtils.copyProperties(vo,x.getBus());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            vo.setBusId(x.getBus().getId());
+            vo.setDriverId(x.getDriver().getId());
+            vo.setScheduleId(x.getId());
             return vo;
         }).collect(Collectors.toList());
         return new ResponseEntity<>(scheduleVos, HttpStatus.OK);

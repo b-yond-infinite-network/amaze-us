@@ -3,6 +3,7 @@ package com.audela.challenge;
 import com.audela.challenge.busapi.entity.BusEntity;
 import com.audela.challenge.busapi.entity.DriverEntity;
 import com.audela.challenge.busapi.entity.ScheduleEntity;
+import com.audela.challenge.busapi.vo.BusScheduleVo;
 import com.audela.challenge.busapi.vo.DriverScheduleVo;
 import org.junit.Assert;
 import org.junit.jupiter.api.Order;
@@ -83,11 +84,22 @@ class Challenge1ApplicationTests {
 	void testGetDriverSchedule() throws URISyntaxException {
 		String url = "http://localhost:"+randomServerPort+"/bus-app/api/driver_schedule/1/20220408";
 
-		HttpEntity<ScheduleEntity> request = new HttpEntity<>(new HttpHeaders());
+		HttpEntity request = new HttpEntity<>(new HttpHeaders());
 		ResponseEntity<List<DriverScheduleVo>> response = restTemplate.exchange(url, HttpMethod.GET,
 				request, new ParameterizedTypeReference<List<DriverScheduleVo>>() {});
 		Assert.assertTrue(response.getStatusCode() == HttpStatus.OK);
 		Assert.assertTrue(response.getBody().size()>0);
+	}
+
+	@Test
+	@Order(5)
+	void testGetBusSchedule() throws URISyntaxException {
+		String url = "http://localhost:"+randomServerPort+"/bus-app/api/bus_schedule/1/20220408";
+
+		HttpEntity request = new HttpEntity<>(new HttpHeaders());
+		ResponseEntity<List<BusScheduleVo>> response = restTemplate.exchange(url, HttpMethod.GET,
+				request, new ParameterizedTypeReference<List<BusScheduleVo>>() {});
+		Assert.assertTrue(response.getStatusCode() == HttpStatus.OK);
 	}
 
 }

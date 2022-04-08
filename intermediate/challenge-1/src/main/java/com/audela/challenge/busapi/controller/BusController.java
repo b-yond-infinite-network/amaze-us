@@ -5,6 +5,7 @@ import com.audela.challenge.busapi.entity.BusEntity;
 import com.audela.challenge.busapi.entity.DriverEntity;
 import com.audela.challenge.busapi.entity.ScheduleEntity;
 import com.audela.challenge.busapi.service.BusService;
+import com.audela.challenge.busapi.vo.BusScheduleVo;
 import com.audela.challenge.busapi.vo.DriverScheduleVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -42,5 +43,10 @@ public class BusController {
     @GetMapping(value = "/driver_schedule/{driver_id}/{yyyymmdd}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<DriverScheduleVo>> getDriverSchedule(@PathVariable int driver_id, @PathVariable  String yyyymmdd){
         return busService.getDriverSchedule(driver_id, yyyymmdd);
+    }
+
+    @GetMapping(value = "/bus_schedule/{bus_id}/{yyyymmdd}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<BusScheduleVo>> getBusSchedule(@PathVariable int bus_id, @PathVariable  String yyyymmdd){
+        return busService.getBusSchedule(bus_id, yyyymmdd);
     }
 }

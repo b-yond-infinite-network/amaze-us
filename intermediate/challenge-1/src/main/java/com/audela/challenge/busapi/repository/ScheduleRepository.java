@@ -13,4 +13,7 @@ public interface ScheduleRepository extends CrudRepository<ScheduleEntity, Integ
 
     @Query("select a from ScheduleEntity a where a.driver.id = :driverId and a.eta > :fromDate and a.etd < :toDate")
     List<ScheduleEntity> getScheduleByDriverIdWithinDateRange(int driverId, OffsetDateTime fromDate, OffsetDateTime toDate);
+
+    @Query("select a from ScheduleEntity a where a.bus.id = :busId and a.eta > :fromDate and a.etd < :toDate")
+    List<ScheduleEntity> getScheduleByBusIdWithinDateRange(int busId, OffsetDateTime fromDate, OffsetDateTime toDate);
 }
