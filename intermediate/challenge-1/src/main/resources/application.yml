@@ -31,3 +31,11 @@ server:
       enabled: false
   servlet:
     context-path: /bus-app
+
+springdoc:
+  api-doc:
+    path: /api-doc
+    enabled: true
+  swagger-ui:
+    enabled: true
+    path: /swagger-ui
