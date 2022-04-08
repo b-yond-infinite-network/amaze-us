@@ -3,7 +3,10 @@ package com.audela.challenge.busapi.service;
 import com.audela.challenge.busapi.entity.BusEntity;
 import com.audela.challenge.busapi.entity.DriverEntity;
 import com.audela.challenge.busapi.entity.ScheduleEntity;
+import com.audela.challenge.busapi.vo.DriverScheduleVo;
 import org.springframework.http.ResponseEntity;
+
+import java.util.List;
 
 public interface BusService {
     ResponseEntity createDriver(DriverEntity driver);
@@ -11,4 +14,6 @@ public interface BusService {
     ResponseEntity createBus(BusEntity bus);
 
     ResponseEntity<ScheduleEntity> createSchedule(ScheduleEntity schedule);
+
+    ResponseEntity<List<DriverScheduleVo>> getDriverSchedule(int driver_id, String yyyymmdd);
 }

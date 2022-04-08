@@ -3,6 +3,7 @@ package com.audela.challenge;
 import com.audela.challenge.busapi.entity.BusEntity;
 import com.audela.challenge.busapi.entity.DriverEntity;
 import com.audela.challenge.busapi.entity.ScheduleEntity;
+import com.audela.challenge.busapi.vo.DriverScheduleVo;
 import org.junit.Assert;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -10,16 +11,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.time.LocalDateTime;
-import java.time.OffsetDateTime;
-import java.time.ZoneOffset;
+import java.time.*;
+import java.util.List;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class Challenge1ApplicationTests {
@@ -78,6 +76,18 @@ class Challenge1ApplicationTests {
 		ResponseEntity<ScheduleEntity> response = restTemplate.postForEntity(uri,request, ScheduleEntity.class);
 		Assert.assertTrue(response.getStatusCode() == HttpStatus.CREATED);
 		Assert.assertEquals("Station B" , response.getBody().getDestinationStation());
+	}
+
+	@Test
+	@Order(4)
+	void testGetDriverSchedule() throws URISyntaxException {
+		String url = "http://localhost:"+randomServerPort+"/bus-app/api/driver_schedule/1/20220408";
+
+		HttpEntity<ScheduleEntity> request = new HttpEntity<>(new HttpHeaders());
+		ResponseEntity<List<DriverScheduleVo>> response = restTemplate.exchange(url, HttpMethod.GET,
+				request, new ParameterizedTypeReference<List<DriverScheduleVo>>() {});
+		Assert.assertTrue(response.getStatusCode() == HttpStatus.OK);
+		Assert.assertTrue(response.getBody().size()>0);
 	}
 
 }
