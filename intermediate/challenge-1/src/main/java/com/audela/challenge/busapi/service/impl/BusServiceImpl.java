@@ -106,4 +106,26 @@ public class BusServiceImpl implements BusService {
         }).collect(Collectors.toList());
         return new ResponseEntity<>(scheduleVos, HttpStatus.OK);
     }
+
+    @Override
+    public ResponseEntity<ScheduleEntity> updateSchedule(ScheduleEntity schedule) {
+        int count = scheduleRepository.updateSchedule(schedule.getId(),
+                schedule.getBus().getId(),
+                schedule.getDriver().getId(),
+                schedule.getStartStation(),
+                schedule.getDestinationStation(),
+                schedule.getEtd(),
+                schedule.getEta(),
+                schedule.getAtd(),
+                schedule.getAta());
+        return new ResponseEntity<>(schedule, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<String> deleteSchedule(int id) {
+        ScheduleEntity schedule = new ScheduleEntity();
+        schedule.setId(id);
+        scheduleRepository.delete(schedule);
+        return new ResponseEntity<>("Schedule deleted", HttpStatus.OK);
+    }
 }

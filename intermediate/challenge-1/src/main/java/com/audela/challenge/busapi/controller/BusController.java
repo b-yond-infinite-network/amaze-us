@@ -49,4 +49,14 @@ public class BusController {
     public ResponseEntity<List<BusScheduleVo>> getBusSchedule(@PathVariable int bus_id, @PathVariable  String yyyymmdd){
         return busService.getBusSchedule(bus_id, yyyymmdd);
     }
+
+    @PutMapping(value = "/schedule", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ScheduleEntity> updateSchedule(@RequestBody ScheduleEntity schedule){
+        return busService.updateSchedule(schedule);
+    }
+
+    @DeleteMapping(value = "/schedule/{id}")
+    public ResponseEntity<String> deleteSchedule(@PathVariable int id){
+        return busService.deleteSchedule(id);
+    }
 }

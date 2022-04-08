@@ -19,4 +19,8 @@ public interface BusService {
     ResponseEntity<List<DriverScheduleVo>> getDriverSchedule(int driver_id, String yyyymmdd);
 
     ResponseEntity<List<BusScheduleVo>> getBusSchedule(int bus_id, String yyyymmdd);
+
+    ResponseEntity<ScheduleEntity> updateSchedule(ScheduleEntity schedule);
+
+    ResponseEntity<String> deleteSchedule(int id);
 }
