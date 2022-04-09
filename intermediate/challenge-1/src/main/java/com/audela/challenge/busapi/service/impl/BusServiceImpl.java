@@ -3,10 +3,13 @@ package com.audela.challenge.busapi.service.impl;
 import com.audela.challenge.busapi.entity.BusEntity;
 import com.audela.challenge.busapi.entity.DriverEntity;
 import com.audela.challenge.busapi.entity.ScheduleEntity;
+import com.audela.challenge.busapi.exception.DataValidationException;
+import com.audela.challenge.busapi.exception.ScheduleConflictException;
 import com.audela.challenge.busapi.repository.BusRepository;
 import com.audela.challenge.busapi.repository.DriverRepository;
 import com.audela.challenge.busapi.repository.ScheduleRepository;
 import com.audela.challenge.busapi.service.BusService;
+import com.audela.challenge.busapi.validation.ScheduleValidation;
 import com.audela.challenge.busapi.vo.BusScheduleVo;
 import com.audela.challenge.busapi.vo.DriverScheduleVo;
 import org.apache.commons.beanutils.BeanUtils;
@@ -14,6 +17,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.lang.reflect.InvocationTargetException;
 import java.time.*;
@@ -35,6 +41,9 @@ public class BusServiceImpl implements BusService {
     @Autowired
     private ScheduleRepository scheduleRepository;
 
+    @Autowired
+    private ScheduleValidation scheduleValidation;
+
     @Override
     public ResponseEntity createDriver(DriverEntity driver) {
         DriverEntity driverResult = driverRepository.save(driver);
@@ -48,7 +57,9 @@ public class BusServiceImpl implements BusService {
     }
 
     @Override
-    public ResponseEntity<ScheduleEntity> createSchedule(ScheduleEntity schedule) {
+    @Transactional(rollbackFor = RuntimeException.class, propagation = Propagation.REQUIRES_NEW)
+    public ResponseEntity<ScheduleEntity> createSchedule(ScheduleEntity schedule) throws ScheduleConflictException, DataValidationException {
+        scheduleValidation.validateForCreation(schedule);
         ScheduleEntity newSchedule = scheduleRepository.save(schedule);
         return new ResponseEntity<>(newSchedule, HttpStatus.CREATED);
     }
@@ -108,7 +119,9 @@ public class BusServiceImpl implements BusService {
     }
 
     @Override
-    public ResponseEntity<ScheduleEntity> updateSchedule(ScheduleEntity schedule) {
+    @Transactional(rollbackFor = RuntimeException.class, propagation = Propagation.REQUIRES_NEW)
+    public ResponseEntity<ScheduleEntity> updateSchedule(ScheduleEntity schedule) throws ScheduleConflictException, DataValidationException {
+        scheduleValidation.validateForUpdate(schedule);
         int count = scheduleRepository.updateSchedule(schedule.getId(),
                 schedule.getBus().getId(),
                 schedule.getDriver().getId(),

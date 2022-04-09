@@ -4,6 +4,8 @@ package com.audela.challenge.busapi.controller;
 import com.audela.challenge.busapi.entity.BusEntity;
 import com.audela.challenge.busapi.entity.DriverEntity;
 import com.audela.challenge.busapi.entity.ScheduleEntity;
+import com.audela.challenge.busapi.exception.DataValidationException;
+import com.audela.challenge.busapi.exception.ScheduleConflictException;
 import com.audela.challenge.busapi.service.BusService;
 import com.audela.challenge.busapi.vo.BusScheduleVo;
 import com.audela.challenge.busapi.vo.DriverScheduleVo;
@@ -12,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -36,8 +39,13 @@ public class BusController {
 
     @PostMapping(value = "/schedule", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ScheduleEntity> createSchedule(@RequestBody ScheduleEntity schedule){
-
-        return busService.createSchedule(schedule);
+        try {
+            return busService.createSchedule(schedule);
+        }catch (ScheduleConflictException ex) {
+            throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "Cannot create schedule because of conflict", ex);
+        }catch (DataValidationException ex) {
+            throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "Cannot create schedule because of invalid data", ex);
+        }
     }
 
     @GetMapping(value = "/driver_schedule/{driver_id}/{yyyymmdd}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -52,7 +60,13 @@ public class BusController {
 
     @PutMapping(value = "/schedule", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ScheduleEntity> updateSchedule(@RequestBody ScheduleEntity schedule){
-        return busService.updateSchedule(schedule);
+        try {
+            return busService.updateSchedule(schedule);
+        }catch (ScheduleConflictException ex) {
+            throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "Cannot update schedule because of conflict", ex);
+        }catch (DataValidationException ex) {
+            throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "Cannot update schedule because of invalid data", ex);
+        }
     }
 
     @DeleteMapping(value = "/schedule/{id}")

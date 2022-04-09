@@ -34,4 +34,7 @@ public interface ScheduleRepository extends CrudRepository<ScheduleEntity, Integ
                        @Param(value = "eta") OffsetDateTime eta,
                        @Param(value = "atd") OffsetDateTime atd,
                        @Param(value = "ata") OffsetDateTime ata);
+
+    @Query("select a from ScheduleEntity a where a.eta > :fromDate and a.etd < :toDate")
+    List<ScheduleEntity> getScheduleWithinDateRange(OffsetDateTime fromDate, OffsetDateTime toDate);
 }
