@@ -1,3 +1,11 @@
+#Build
+- mvn clean install
+
+#Docker
+- docker build -t audela/bus-challenge .
+- docker run -p 8080:8080 audela/bus-challenge
+- http://localhost:8080/bus-app/swagger-ui/index.html
+
 # Bus Drivers Schedule 
 In this challenge, you are asked to design and implement an application that will be responsible of managing the schedules of buses in your city.  
 - A bus has a capacity, a model, make, and an associated driver.
