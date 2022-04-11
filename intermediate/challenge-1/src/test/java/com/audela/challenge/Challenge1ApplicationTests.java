@@ -40,7 +40,7 @@ class Challenge1ApplicationTests {
 		headers.set("Content-Type","application/json");
 		Map<String,Object> payload = new HashMap<>();
 		payload.put("name","Manager1");
-		payload.put("role","manager");
+		payload.put("role","ROLE_MANAGER");
 		headers.set("Authorization","Bearer "+ JwtUtils.createJWT(payload));
 		return headers;
 	}

@@ -21,6 +21,7 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.security.RolesAllowed;
 import java.lang.reflect.InvocationTargetException;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
@@ -45,18 +46,21 @@ public class BusServiceImpl implements BusService {
     private ScheduleValidation scheduleValidation;
 
     @Override
+    @RolesAllowed({ "ROLE_MANAGER" })
     public ResponseEntity createDriver(DriverEntity driver) {
         DriverEntity driverResult = driverRepository.save(driver);
         return new ResponseEntity<>(driverResult, HttpStatus.CREATED);
     }
 
     @Override
+    @RolesAllowed({ "ROLE_MANAGER" })
     public ResponseEntity createBus(BusEntity bus) {
         BusEntity busRes = busRepository.save(bus);
         return new ResponseEntity<>(busRes, HttpStatus.CREATED);
     }
 
     @Override
+    @RolesAllowed({ "ROLE_MANAGER" })
     @Transactional(rollbackFor = RuntimeException.class, propagation = Propagation.REQUIRES_NEW)
     public ResponseEntity<ScheduleEntity> createSchedule(ScheduleEntity schedule) throws ScheduleConflictException, DataValidationException {
         scheduleValidation.validateForCreation(schedule);
@@ -65,6 +69,7 @@ public class BusServiceImpl implements BusService {
     }
 
     @Override
+    @RolesAllowed({ "ROLE_EMPLOYEE", "ROLE_MANAGER" })
     public ResponseEntity<List<DriverScheduleVo>> getDriverSchedule(int driverId, String yyyymmdd) {
         LocalDate date = LocalDate.parse(yyyymmdd, DateTimeFormatter.ofPattern("yyyyMMdd"));
         //LocalDate sunday = date.with(DayOfWeek.SUNDAY);
@@ -92,6 +97,7 @@ public class BusServiceImpl implements BusService {
     }
 
     @Override
+    @RolesAllowed({ "ROLE_EMPLOYEE", "ROLE_MANAGER" })
     public ResponseEntity<List<BusScheduleVo>> getBusSchedule(int busId, String yyyymmdd) {
         LocalDate date = LocalDate.parse(yyyymmdd, DateTimeFormatter.ofPattern("yyyyMMdd"));
         //LocalDate sunday = date.with(DayOfWeek.SUNDAY);
@@ -119,6 +125,7 @@ public class BusServiceImpl implements BusService {
     }
 
     @Override
+    @RolesAllowed({ "ROLE_MANAGER" })
     @Transactional(rollbackFor = RuntimeException.class, propagation = Propagation.REQUIRES_NEW)
     public ResponseEntity<ScheduleEntity> updateSchedule(ScheduleEntity schedule) throws ScheduleConflictException, DataValidationException {
         scheduleValidation.validateForUpdate(schedule);
@@ -135,6 +142,7 @@ public class BusServiceImpl implements BusService {
     }
 
     @Override
+    @RolesAllowed({ "ROLE_MANAGER" })
     public ResponseEntity<String> deleteSchedule(int id) {
         ScheduleEntity schedule = new ScheduleEntity();
         schedule.setId(id);

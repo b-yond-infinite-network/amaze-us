@@ -20,8 +20,9 @@ public class UnsecureController {
     public ResponseEntity<String> getEmployeeToken(){
 
         Map<String,Object> payload = new HashMap<>();
-        payload.put("name","Employ1");
-        payload.put("role","employee");
+        payload.put("firstName","First");
+        payload.put("lastName","Employee");
+        payload.put("role","ROLE_EMPLOYEE");
 
         return new ResponseEntity<>(JwtUtils.createJWT(payload), HttpStatus.OK);
     }
@@ -29,8 +30,9 @@ public class UnsecureController {
     public ResponseEntity<String> getManagerToken(){
 
         Map<String,Object> payload = new HashMap<>();
-        payload.put("name","Manager1");
-        payload.put("role","manager");
+        payload.put("firstName","First");
+        payload.put("lastName","Manager");
+        payload.put("role","ROLE_MANAGER");
 
         return new ResponseEntity<>(JwtUtils.createJWT(payload), HttpStatus.OK);
     }

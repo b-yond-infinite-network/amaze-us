@@ -7,8 +7,12 @@ import io.jsonwebtoken.Jwts;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import javax.xml.bind.DatatypeConverter;
+import java.util.ArrayList;
+import java.util.List;
 
 public class JwtAuthenticationProvider implements AuthenticationProvider {
 
@@ -27,6 +31,10 @@ public class JwtAuthenticationProvider implements AuthenticationProvider {
                 UserVo user = new UserVo();
                 user.setFirstName(claims.get("firstName",String.class));
                 user.setLastName(claims.get("lastName",String.class));
+                user.setRole(claims.get("role",String.class));
+                List<GrantedAuthority> authorities = new ArrayList<>();
+                authorities.add(new SimpleGrantedAuthority(user.getRole()));
+                jwtAuth.setAuthorities(authorities);
                 jwtAuth.setUser(user);
                 jwtAuth.setAuthenticated(true);
             }else{

@@ -71,4 +71,7 @@ public class BusAuthenticationToken extends AbstractAuthenticationToken {
     public void setUser(UserVo user) {
         this.user = user;
     }
+    public void setAuthorities(List<GrantedAuthority> authorities){
+        this.authorities = authorities;
+    }
 }
