@@ -3,11 +3,14 @@ package com.audela.challenge;
 import com.audela.challenge.busapi.entity.BusEntity;
 import com.audela.challenge.busapi.entity.DriverEntity;
 import com.audela.challenge.busapi.entity.ScheduleEntity;
+import com.audela.challenge.busapi.util.JwtUtils;
 import com.audela.challenge.busapi.vo.BusScheduleVo;
 import com.audela.challenge.busapi.vo.DriverScheduleVo;
 import org.junit.Assert;
+import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -18,8 +21,11 @@ import org.springframework.http.*;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.time.*;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class Challenge1ApplicationTests {
 
@@ -28,6 +34,16 @@ class Challenge1ApplicationTests {
 
 	@LocalServerPort
 	int randomServerPort;
+
+	private HttpHeaders getManagerTokenHeader(){
+		HttpHeaders headers = new HttpHeaders();
+		headers.set("Content-Type","application/json");
+		Map<String,Object> payload = new HashMap<>();
+		payload.put("name","Manager1");
+		payload.put("role","manager");
+		headers.set("Authorization","Bearer "+ JwtUtils.createJWT(payload));
+		return headers;
+	}
 
 	@Test
 	@Order(1)
@@ -38,7 +54,7 @@ class Challenge1ApplicationTests {
 		driver.setFirstName("First1");
 		driver.setLastName("Last1");
 		driver.setSsn("ssn1");
-		HttpEntity<DriverEntity> request = new HttpEntity<>(driver);
+		HttpEntity<DriverEntity> request = new HttpEntity<>(driver,getManagerTokenHeader());
 		ResponseEntity<DriverEntity> response = restTemplate.postForEntity(uri,request, DriverEntity.class);
 		Assert.assertTrue(response.getStatusCode() == HttpStatus.CREATED);
 		Assert.assertEquals("email1@domain.com" , response.getBody().getEmail());
@@ -52,7 +68,7 @@ class Challenge1ApplicationTests {
 		bus.setCapacity(50);
 		bus.setMake("make1");
 		bus.setModel("model1");
-		HttpEntity<BusEntity> request = new HttpEntity<>(bus);
+		HttpEntity<BusEntity> request = new HttpEntity<>(bus,getManagerTokenHeader());
 		ResponseEntity<BusEntity> response = restTemplate.postForEntity(uri,request, BusEntity.class);
 		Assert.assertTrue(response.getStatusCode() == HttpStatus.CREATED);
 		Assert.assertEquals("model1" , response.getBody().getModel());
@@ -73,7 +89,7 @@ class Challenge1ApplicationTests {
 		DriverEntity driver = new DriverEntity();
 		driver.setId(1);
 		schedule.setDriver(driver);
-		HttpEntity<ScheduleEntity> request = new HttpEntity<>(schedule);
+		HttpEntity<ScheduleEntity> request = new HttpEntity<>(schedule,getManagerTokenHeader());
 		ResponseEntity<ScheduleEntity> response = restTemplate.postForEntity(uri,request, ScheduleEntity.class);
 		Assert.assertTrue(response.getStatusCode() == HttpStatus.CREATED);
 		Assert.assertEquals("Station B" , response.getBody().getDestinationStation());
@@ -84,7 +100,7 @@ class Challenge1ApplicationTests {
 	void testGetDriverSchedule() throws URISyntaxException {
 		String url = "http://localhost:"+randomServerPort+"/bus-app/api/driver_schedule/1/20220408";
 
-		HttpEntity request = new HttpEntity<>(new HttpHeaders());
+		HttpEntity request = new HttpEntity<>(getManagerTokenHeader());
 		ResponseEntity<List<DriverScheduleVo>> response = restTemplate.exchange(url, HttpMethod.GET,
 				request, new ParameterizedTypeReference<List<DriverScheduleVo>>() {});
 		Assert.assertTrue(response.getStatusCode() == HttpStatus.OK);
@@ -96,7 +112,7 @@ class Challenge1ApplicationTests {
 	void testGetBusSchedule() throws URISyntaxException {
 		String url = "http://localhost:"+randomServerPort+"/bus-app/api/bus_schedule/1/20220408";
 
-		HttpEntity request = new HttpEntity<>(new HttpHeaders());
+		HttpEntity request = new HttpEntity<>(getManagerTokenHeader());
 		ResponseEntity<List<BusScheduleVo>> response = restTemplate.exchange(url, HttpMethod.GET,
 				request, new ParameterizedTypeReference<List<BusScheduleVo>>() {});
 		Assert.assertTrue(response.getStatusCode() == HttpStatus.OK);
