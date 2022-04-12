@@ -35,13 +35,16 @@ class Challenge1ApplicationTests {
 	@LocalServerPort
 	int randomServerPort;
 
+	@Autowired
+	JwtUtils jwtUtils;
+
 	private HttpHeaders getManagerTokenHeader(){
 		HttpHeaders headers = new HttpHeaders();
 		headers.set("Content-Type","application/json");
 		Map<String,Object> payload = new HashMap<>();
 		payload.put("name","Manager1");
 		payload.put("role","ROLE_MANAGER");
-		headers.set("Authorization","Bearer "+ JwtUtils.createJWT(payload));
+		headers.set("Authorization","Bearer "+ jwtUtils.createJWT(payload));
 		return headers;
 	}
 

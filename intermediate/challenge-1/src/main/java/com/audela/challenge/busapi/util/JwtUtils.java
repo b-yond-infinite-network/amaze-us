@@ -3,6 +3,8 @@ package com.audela.challenge.busapi.util;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import javax.crypto.spec.SecretKeySpec;
 import javax.xml.bind.DatatypeConverter;
@@ -12,11 +14,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Tis class not required in reality
+ * This class not required, it is used for providing access token.
  */
+@Component
 public class JwtUtils {
-    static String SECRET_KEY = "abcd";
-    public static String createJWT(Map<String,Object> payload) {
+    @Value("${bus-app.jwt.key}")
+    String SECRET_KEY;
+    public String createJWT(Map<String,Object> payload) {
         String id = "bus-api";
         String issuer = "bus-app";
         String subject = "api-access";

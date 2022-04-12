@@ -1,5 +1,6 @@
 package com.audela.challenge.busapi.security;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -21,6 +22,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     //@Autowired
     //BusAuthFilter BusAuthFilter;
+
+    @Autowired
+    JwtAuthenticationProvider jwtAuthenticationProvider;
 
     private static final String[] AUTH_WHITELIST = {
             // -- Swagger UI v2
@@ -58,12 +62,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.authenticationProvider(jwtAuthenticationProvider());
+        auth.authenticationProvider(jwtAuthenticationProvider);
     }
 
+    /*
     @Bean
     public JwtAuthenticationProvider jwtAuthenticationProvider() {
         return new JwtAuthenticationProvider();
     }
-
+*/
 }
