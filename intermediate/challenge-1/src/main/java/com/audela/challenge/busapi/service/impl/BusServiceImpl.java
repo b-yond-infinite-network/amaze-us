@@ -163,4 +163,39 @@ public class BusServiceImpl implements BusService {
         emailUtil.sendEmail(driver.getEmail(),"Schedule created","Schedule deleted - "+schedule.toString());
         return new ResponseEntity<>("Schedule deleted", HttpStatus.OK);
     }
+
+    @Override
+    @RolesAllowed({ "ROLE_MANAGER" })
+    public ResponseEntity<DriverEntity> updateDriver(DriverEntity driver) {
+        driverRepository.updateDriver(driver.getId(),
+                driver.getFirstName(),
+                driver.getLastName(),
+                driver.getSsn(),
+                driver.getEmail());
+        return new ResponseEntity<>(driver, HttpStatus.OK);
+    }
+
+    @Override
+    @RolesAllowed({ "ROLE_MANAGER" })
+    public ResponseEntity<String> deleteDriver(int id) {
+        driverRepository.deleteById(id);
+        return new ResponseEntity<>("Driver deleted", HttpStatus.OK);
+    }
+
+    @Override
+    @RolesAllowed({ "ROLE_MANAGER" })
+    public ResponseEntity<BusEntity> updateBus(BusEntity bus) {
+        busRepository.updateBus(bus.getId(),
+                bus.getCapacity(),
+                bus.getModel(),
+                bus.getMake());
+        return new ResponseEntity<>(bus, HttpStatus.OK);
+    }
+
+    @Override
+    @RolesAllowed({ "ROLE_MANAGER" })
+    public ResponseEntity<String> deleteBus(int id) {
+        busRepository.deleteById(id);
+        return new ResponseEntity<>("Bus deleted", HttpStatus.OK);
+    }
 }

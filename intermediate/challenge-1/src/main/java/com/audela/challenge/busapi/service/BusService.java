@@ -25,4 +25,12 @@ public interface BusService {
     ResponseEntity<ScheduleEntity> updateSchedule(ScheduleEntity schedule);
 
     ResponseEntity<String> deleteSchedule(int id);
+
+    ResponseEntity<DriverEntity> updateDriver(DriverEntity driver);
+
+    ResponseEntity<String> deleteDriver(int id);
+
+    ResponseEntity<BusEntity> updateBus(BusEntity bus);
+
+    ResponseEntity<String> deleteBus(int id);
 }

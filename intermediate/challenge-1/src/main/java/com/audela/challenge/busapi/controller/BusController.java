@@ -31,10 +31,29 @@ public class BusController {
         return busService.createDriver(driver);
     }
 
+    @PutMapping(value = "/driver", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<DriverEntity> updateDriver(@RequestBody DriverEntity driver){
+        return busService.updateDriver(driver);
+    }
+
+    @DeleteMapping(value = "/driver/{id}")
+    public ResponseEntity<String> deleteDriver(@PathVariable int id){
+        return busService.deleteDriver(id);
+    }
+
     @PostMapping(value = "/bus", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<BusEntity> createBus(@RequestBody BusEntity bus){
-
         return busService.createBus(bus);
+    }
+
+    @PutMapping(value = "/bus", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<BusEntity> updateBus(@RequestBody BusEntity bus){
+        return busService.updateBus(bus);
+    }
+
+    @DeleteMapping(value = "/bus/{id}")
+    public ResponseEntity<String> deleteBus(@PathVariable int id){
+        return busService.deleteBus(id);
     }
 
     @PostMapping(value = "/schedule", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
