@@ -71,6 +71,10 @@ public class BusController {
 
     @DeleteMapping(value = "/schedule/{id}")
     public ResponseEntity<String> deleteSchedule(@PathVariable int id){
-        return busService.deleteSchedule(id);
+        try {
+            return busService.deleteSchedule(id);
+        }catch (DataValidationException ex) {
+            throw new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "Cannot delete schedule because of invalid data", ex);
+        }
     }
 }

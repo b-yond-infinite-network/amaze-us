@@ -4,6 +4,18 @@ spring:
     external-context-path: /bus-app
   profiles:
     active: dev
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: supportmail@gmail.com
+    password: password
+    properties:
+      mail:
+        debug: true
+        smtp:
+          starttls:
+            enabled: true
+            required: true
 server:
   port: 8080
   error:

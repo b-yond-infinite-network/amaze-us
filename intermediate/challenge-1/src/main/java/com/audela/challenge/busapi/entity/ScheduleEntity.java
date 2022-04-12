@@ -40,4 +40,15 @@ public class ScheduleEntity {
     @Column(name="ata")
     private OffsetDateTime ata;
 
+    @Override
+    public String toString() {
+        return "ScheduleEntity{" +
+                "bus=" + bus.getId() +
+                ", driver=" + driver.getId() +
+                ", startStation='" + startStation + '\'' +
+                ", destinationStation='" + destinationStation + '\'' +
+                ", etd=" + etd +
+                ", eta=" + eta +
+                '}';
+    }
 }

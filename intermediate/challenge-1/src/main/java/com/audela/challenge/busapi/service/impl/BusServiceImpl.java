@@ -9,6 +9,7 @@ import com.audela.challenge.busapi.repository.BusRepository;
 import com.audela.challenge.busapi.repository.DriverRepository;
 import com.audela.challenge.busapi.repository.ScheduleRepository;
 import com.audela.challenge.busapi.service.BusService;
+import com.audela.challenge.busapi.util.EmailUtil;
 import com.audela.challenge.busapi.validation.ScheduleValidation;
 import com.audela.challenge.busapi.vo.BusScheduleVo;
 import com.audela.challenge.busapi.vo.DriverScheduleVo;
@@ -28,6 +29,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.WeekFields;
 import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -44,6 +46,9 @@ public class BusServiceImpl implements BusService {
 
     @Autowired
     private ScheduleValidation scheduleValidation;
+
+    @Autowired
+    private EmailUtil emailUtil;
 
     @Override
     @RolesAllowed({ "ROLE_MANAGER" })
@@ -65,6 +70,8 @@ public class BusServiceImpl implements BusService {
     public ResponseEntity<ScheduleEntity> createSchedule(ScheduleEntity schedule) throws ScheduleConflictException, DataValidationException {
         scheduleValidation.validateForCreation(schedule);
         ScheduleEntity newSchedule = scheduleRepository.save(schedule);
+        DriverEntity driver = driverRepository.findById(schedule.getDriver().getId()).get();
+        emailUtil.sendEmail(driver.getEmail(),"Schedule created","New schedule created - "+schedule.toString());
         return new ResponseEntity<>(newSchedule, HttpStatus.CREATED);
     }
 
@@ -138,15 +145,22 @@ public class BusServiceImpl implements BusService {
                 schedule.getEta(),
                 schedule.getAtd(),
                 schedule.getAta());
+        DriverEntity driver = driverRepository.findById(schedule.getDriver().getId()).get();
+        emailUtil.sendEmail(driver.getEmail(),"Schedule created","Schedule updated - "+schedule.toString());
         return new ResponseEntity<>(schedule, HttpStatus.OK);
     }
 
     @Override
     @RolesAllowed({ "ROLE_MANAGER" })
     public ResponseEntity<String> deleteSchedule(int id) {
-        ScheduleEntity schedule = new ScheduleEntity();
-        schedule.setId(id);
+        Optional<ScheduleEntity> result = scheduleRepository.findById(id);
+        ScheduleEntity schedule = result.isPresent() ? result.get() : null;
+        if(schedule == null){
+            throw new DataValidationException("Schedule not available");
+        }
         scheduleRepository.delete(schedule);
+        DriverEntity driver = driverRepository.findById(schedule.getDriver().getId()).get();
+        emailUtil.sendEmail(driver.getEmail(),"Schedule created","Schedule deleted - "+schedule.toString());
         return new ResponseEntity<>("Schedule deleted", HttpStatus.OK);
     }
 }

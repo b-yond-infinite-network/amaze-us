@@ -8,6 +8,9 @@
 #Use below urls to get access token for bus-api
 - http://localhost:8080/bus-app/unsecure/get-manager-token
 - http://localhost:8080/bus-app/unsecure/get-employee-token
+# Email
+- update username and password for gmail in application.yml
+- Also setting required in gmail account for (Less secure apps & your Google Account)
 
 # Bus Drivers Schedule 
 In this challenge, you are asked to design and implement an application that will be responsible of managing the schedules of buses in your city.  
