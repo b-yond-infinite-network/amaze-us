@@ -1,15 +1,16 @@
 package app
 
 import (
+	"example.com/booster/app/handler"
+	"example.com/booster/app/model"
+	"example.com/booster/config"
 	"fmt"
-	"log"
-	"net/http"
-
 	"github.com/gorilla/mux"
 	"github.com/jinzhu/gorm"
-	"github.com/mingrammer/go-todo-rest-api-example/app/handler"
-	"github.com/mingrammer/go-todo-rest-api-example/app/model"
-	"github.com/mingrammer/go-todo-rest-api-example/config"
+	"log"
+	"net/http"
+	//"github.com/mingrammer/go-todo-rest-api-example/app/handler"
+	//"github.com/mingrammer/go-todo-rest-api-example/config"
 )
 
 // App has router and db instances
@@ -20,15 +21,21 @@ type App struct {
 
 // Initialize initializes the app with predefined configuration
 func (a *App) Initialize(config *config.Config) {
-	dbURI := fmt.Sprintf("%s:%s@/%s?charset=%s&parseTime=True",
+	dbURI := fmt.Sprintf("%s:%s@(%s:%s)/%s?charset=%s&parseTime=True",
 		config.DB.Username,
 		config.DB.Password,
+		config.DB.Host,
+		config.DB.Port,
 		config.DB.Name,
 		config.DB.Charset)
 
 	db, err := gorm.Open(config.DB.Dialect, dbURI)
+	//db, err := gorm.Open(config.DB.Dialect, "guest:Guest0000!@(mysql-db:3306)/todoapp?charset=utf8&parseTime=true")
+
 	if err != nil {
-		log.Fatal("Could not connect database")
+		log.Fatal("Could not connect database url -" + dbURI)
+	} else {
+		log.Println("Connected successfully to database.")
 	}
 
 	a.DB = model.DBMigrate(db)

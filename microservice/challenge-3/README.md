@@ -21,3 +21,19 @@ those rocket programmers need to write the rest.
 + Create a branch of this project (or fork it in your github account if you prefer)
 + Do you **_thang_** inside this folder (challenge-3)
 + Push your change inside a Pull Request to our master
+
+# Steps to run the code
+Run the following command inside the folder `amaze-us/microservice/challenge-3`:
+> docker-compose up --build
+
+Go to the browser and enter the URL http://0.0.0.0:8080 
+
+# TODO
++ Implement wait-for service to check if the dependent containers are up and running. Currently, dependent containers fails and restarts several times
+until the dependent containers are up
++ Use kubernetes to write the production application, as it is highly scalable, configurable and has a high availability of third party tools
++ Have not checked if there is any issue persists in the cargo and booster services
++ Unittests, integration tests and automation tests needs to be added
++ Organise the different services in different repo using **git modules** will help us manage the repos efficiently
++ Can have a CI/CD to build and deploy the dockerfiles to an artifactory, then pull it from the artifactory for deployments
++ Implement automation test pipeline to test the features, load and stress tests

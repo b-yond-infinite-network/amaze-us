@@ -1,8 +1,9 @@
 package main
 
 import (
-	"github.com/mingrammer/go-todo-rest-api-example/app"
-	"github.com/mingrammer/go-todo-rest-api-example/config"
+	"example.com/booster/app"
+	"example.com/booster/config"
+	"fmt"
 )
 
 func main() {
@@ -11,4 +12,5 @@ func main() {
 	app := &app.App{}
 	app.Initialize(config)
 	app.Run(":3000")
+	fmt.Println("Hello world")
 }

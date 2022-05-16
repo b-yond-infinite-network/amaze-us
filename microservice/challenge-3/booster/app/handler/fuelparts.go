@@ -5,9 +5,9 @@ import (
 	"net/http"
 	"strconv"
 
+	"example.com/booster/app/model"
 	"github.com/gorilla/mux"
 	"github.com/jinzhu/gorm"
-	"app/model"
 )
 
 func GetAllFuelParts(db *gorm.DB, w http.ResponseWriter, r *http.Request) {

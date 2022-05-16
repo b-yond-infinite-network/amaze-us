@@ -1,0 +1,59 @@
+version: "3.8"
+services:
+  mysql-db:
+    platform: linux/x86_64
+    image: mysql:8
+    container_name: mysqldb-booster
+    restart: always
+    command:
+      - --innodb-use-native-aio=0
+    networks:
+      - app-network
+    ports:
+      - ${EXT_PORT_MYSQL:-3306}:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=rootpass
+      - MYSQL_USER=guest
+      - MYSQL_PASSWORD=Guest0000!
+      - MYSQL_DATABASE=todoapp
+    volumes:
+      - ./db-vol:/var/lib/mysql
+
+  booster-app:
+    platform: linux/x86_64
+    depends_on:
+      - mysql-db
+    build:
+      dockerfile: booster/Dockerfile
+      context: ./
+    restart: always
+    networks:
+      - app-network
+
+  cargo-app:
+    platform: linux/x86_64
+    depends_on:
+      - mongo-db
+    build:
+      dockerfile: cargo/Dockerfile
+      context: ./
+    restart: always
+    ports:
+      - 8080:8080
+    networks:
+      - app-network
+
+  mongo-db:
+    # should define specific version tag
+    image: mongo
+    restart: always
+    container_name: mongo-db
+    ports:
+      - 27017:27017
+    networks:
+      - app-network
+
+networks:
+  app-network:
+      name: app-network
+      driver: bridge

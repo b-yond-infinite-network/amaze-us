@@ -4,9 +4,9 @@ import (
 	"encoding/json"
 	"net/http"
 
+	"example.com/booster/app/model"
 	"github.com/gorilla/mux"
 	"github.com/jinzhu/gorm"
-	"app/model"
 )
 
 func GetAllTanks(db *gorm.DB, w http.ResponseWriter, r *http.Request) {
