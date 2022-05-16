@@ -9,8 +9,6 @@ import (
 	"github.com/jinzhu/gorm"
 	"log"
 	"net/http"
-	//"github.com/mingrammer/go-todo-rest-api-example/app/handler"
-	//"github.com/mingrammer/go-todo-rest-api-example/config"
 )
 
 // App has router and db instances
