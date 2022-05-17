@@ -1,0 +1,37 @@
+
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+{
+  "manifestVersion": "2.0.0",
+  "signatureType": "community",
+  "signedByOrg": "hadesarchitect",
+  "signedByOrgName": "hadesarchitect",
+  "plugin": "hadesarchitect-cassandra-datasource",
+  "version": "1.1.4",
+  "time": 1641933618039,
+  "keyId": "7e4d0c6a708866e7",
+  "files": {
+    "partials/query.editor.html": "054a85051451cc5775a10c7ad1cc9b826482cda9f076625d990b79091e80125f",
+    "partials/query.options.html": "a6e1837f233e0c9081ccb0fd908048367a59d6bce747beeb0483d2018de2af1b",
+    "partials/config.html": "3b0789d938455703bd78c2235b9c0828d3f930d0ec2fe979a9510c48a50cdd0a",
+    "module.js": "bbc2a657eb19002201ad8f65239ebd95e1085ceb13c3931771ff8e71e0dbd37a",
+    "img/cassandra.svg": "a38ac4b899da5553d6a40cd962109e5fd71c9bcff53db8977e62276a527f648c",
+    "cassandra-plugin_linux_amd64": "cd29af03bd990be6534d6de22e403677c557bc125605c143d61b4cef49dc324e",
+    "cassandra-plugin_linux_arm64": "9fd693a1ef8723ebbafa874776a7e25e927f58652e1ad84fc3194539743be4b5",
+    "cassandra-plugin_windows_amd64.exe": "db6e6d5309f9160c3fe3b96d883f5d30716f37c49c5956ab8f3a70ebb0ddd86f",
+    "plugin.json": "fa80b6ccaec3d7bc72bed2449f8e6417e0e32ac42844c60041ee5ce1b6b3866a",
+    "cassandra-plugin_darwin_amd64": "b9e85eb3458e2fba445236b8f2b7c342bb6e1a94a283221667a915cb6d31802a",
+    "README.md": "2112ba77659b630cac9deb224645e54ed4f19ad2d841515263b474449a2a60bf"
+  }
+}
+-----BEGIN PGP SIGNATURE-----
+Version: OpenPGP.js v4.10.1
+Comment: https://openpgpjs.org
+
+wqIEARMKAAYFAmHd6zIACgkQfk0ManCIZudE+gIJAaO7eitNGYpBqKcVWbBE
+1sdQIfgmmz6pKJzleEfqr8if/RD+HEdzOvsYuMrkGp09TRQ0tkJxaJvlV7Le
+WjRI+vRJAgkBHGIAE8lzMJrVfgK1t5YM8TrVCD2WCpB2fGgyTw82+Hhfmn8I
+qaGcpm9dQfPWRpY/Q6q1SjQ7XzBOHy9Wwme716Y=
+=KagU
+-----END PGP SIGNATURE-----

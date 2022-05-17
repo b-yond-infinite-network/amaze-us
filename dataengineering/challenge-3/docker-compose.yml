@@ -1,0 +1,147 @@
+---
+version: '3'
+networks:
+    datapipeline:
+        driver: bridge
+        ipam:
+            driver: default
+            config:
+                - subnet: "172.18.0.0/27"
+
+services:
+  zookeeper-1:
+    image: confluentinc/cp-zookeeper:latest
+    restart: on-failure
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    ports:
+      - 22181:2181
+    networks:
+      datapipeline:
+        ipv4_address: 172.18.0.2
+
+  zookeeper-2:
+    image: confluentinc/cp-zookeeper:latest
+    restart: on-failure
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    ports:
+      - 32181:2181
+    networks:
+      datapipeline:
+        ipv4_address: 172.18.0.3
+
+  kafka-1:
+    image: confluentinc/cp-kafka:latest
+    restart: on-failure
+    depends_on:
+      - zookeeper-1
+      - zookeeper-2
+    ports:
+      - 29092:29092
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: 172.18.0.2:2181,172.18.0.3:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://172.18.0.5:9092,PLAINTEXT_HOST://localhost:29092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    networks:
+      datapipeline:
+        ipv4_address: 172.18.0.5
+  
+  
+  kafka-2:
+    image: confluentinc/cp-kafka:latest
+    restart: on-failure
+    depends_on:
+      - zookeeper-1
+      - zookeeper-2
+    ports:
+      - 39092:39092
+    environment:
+      KAFKA_BROKER_ID: 2
+      KAFKA_ZOOKEEPER_CONNECT: 172.18.0.2:2181,172.18.0.3:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://172.18.0.6:9092,PLAINTEXT_HOST://localhost:39092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    networks:
+      datapipeline:
+        ipv4_address: 172.18.0.6
+
+  producer:
+    build: producer
+    restart: on-failure
+    depends_on:
+      - kafka-2
+      - kafka-1
+    expose: 
+      - 9099
+    networks:
+      datapipeline:
+        ipv4_address: 172.18.0.8
+
+  cassandra:
+    image: 'bitnami/cassandra:latest'
+    container_name: cassandra
+    hostname: cassandra
+    restart: on-failure
+    volumes:
+        - ./scripts/cassandra_init.sh:/opt/bitnami/scripts/cassandra/run.sh
+    environment:
+      - CASSANDRA_START_RPC=true
+      - CASSANDRA_HOST=cassandra
+    # entrypoint: ["/entrypoint.sh"]
+    # command: ["/init.sh"]
+    ports:
+      - '9042:9042'
+    depends_on:   
+      - producer
+    networks:
+      datapipeline:
+        ipv4_address: 172.18.0.9
+
+  spark:
+    image: docker.io/bitnami/spark:3
+    container_name: spark_master
+    hostname: spark_master
+    user: root
+    restart: on-failure
+    environment:
+      - SPARK_MODE=master
+      - SPARK_RPC_AUTHENTICATION_ENABLED=no
+      - SPARK_RPC_ENCRYPTION_ENABLED=no
+      - SPARK_LOCAL_STORAGE_ENCRYPTION_ENABLED=no
+      - SPARK_SSL_ENABLED=no
+    ports:
+      - '8080:8080'
+    volumes:
+      - ./consumerscript:/home
+      - ./spark-defaults.conf:/opt/bitnami/spark/conf/spark-defaults.conf
+      - ./jars:/opt/bitnami/spark/ivy:z
+    entrypoint: [ "bash", "-c", "python /home/start-job.py"]
+    depends_on:
+      - cassandra
+    networks:
+      datapipeline:
+        ipv4_address: 172.18.0.10
+
+  grafana:
+    image: grafana/grafana:6.7.3
+    ports:
+      - 3000:3000
+    environment:
+      GF_LOG_LEVEL: debug
+      GF_INSTALL_PLUGINS: hadesarchitect-cassandra-datasource
+    volumes:
+      - ./grafana_data:/var/lib/grafana
+    networks:
+      datapipeline:
+        ipv4_address: 172.18.0.11
+
+# volumes:
+#   grafana_data:
+#     external: true

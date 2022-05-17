@@ -1,0 +1,34 @@
+{
+    "name": "Apache Cassandra",
+    "id": "hadesarchitect-cassandra-datasource",
+    "type": "datasource",
+  
+    "backend": true,
+    "alerting": false,
+    "executable": "cassandra-plugin",
+    "metrics": true,
+    "annotations": false,
+  
+    "info": {
+      "description": "Apache Cassandra Datasource for Grafana",
+      "keywords": ["cassandra", "apache cassandra", "datasource", "dse", "datastax", "datastax enterprise"],
+      "author": {
+        "name": "Aleksandr Volochnev",
+        "url": "https://github.com/HadesArchitect"
+      },
+      "logos": {
+        "small": "img/cassandra.svg",
+        "large": "img/cassandra.svg"
+      },
+      "links": [
+        {"name": "GitHub", "url": "https://github.com/HadesArchitect/grafana-cassandra-source"},
+        {"name": "MIT License", "url": "https://github.com/HadesArchitect/grafana-cassandra-source/blob/master/LICENSE"}
+      ],
+      "version": "1.1.4",
+      "updated": "2022-01-11"
+    },
+    "dependencies": {
+      "grafanaDependency": ">=5.0.0 <8.0.0",
+      "plugins": [ ]
+    }
+}
