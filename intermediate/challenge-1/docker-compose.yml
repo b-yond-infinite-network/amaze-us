@@ -6,7 +6,8 @@ services:
       dockerfile: Dockerfile
     command: "bash -c \"python initial_data.py && python main.py\"\n"
     depends_on: 
-      - postgres
+        postgres:
+            condition: service_healthy
     env_file: 
       - .env
     ports: 
@@ -17,6 +18,7 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_DB: Audela
       POSTGRES_PASSWORD: 123456789
+      POSTGRES_USER: root
     image: "postgres:latest"
     ports: 
       - "5555:5432"
@@ -24,6 +26,11 @@ services:
     volumes: 
       - "./init-db/:/docker-entrypoint-initdb.d/"
       - "pg-data:/var/lib/postgresql/data"
+    healthcheck:
+      test: [ "CMD", "pg_isready", "-q", "-d", "${POSTGRES_DB}", "-U", "${POSTGRES_USER}" ]
+      interval: 2s
+      timeout: 5s
+      retries: 5
 version: "3"
 volumes: 
   pg-data: ~
