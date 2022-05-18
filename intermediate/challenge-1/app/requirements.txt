@@ -1,0 +1,13 @@
+fastapi
+uvicorn
+GeoAlchemy2
+psycopg2
+Jinja2
+bcrypt
+emails
+pytest
+python-jose
+tenacity
+pydantic[email]
+passlib
+python-multipart

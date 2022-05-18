@@ -1,0 +1,29 @@
+--- 
+services: 
+  app: 
+    build: 
+      context: ./app
+      dockerfile: Dockerfile
+    command: "bash -c \"python initial_data.py && python main.py\"\n"
+    depends_on: 
+      - postgres
+    env_file: 
+      - .env
+    ports: 
+      - "8080:8080"
+  postgres: 
+    container_name: postgresDB
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_DB: Audela
+      POSTGRES_PASSWORD: 123456789
+    image: "postgres:latest"
+    ports: 
+      - "5555:5432"
+    restart: always
+    volumes: 
+      - "./init-db/:/docker-entrypoint-initdb.d/"
+      - "pg-data:/var/lib/postgresql/data"
+version: "3"
+volumes: 
+  pg-data: ~
