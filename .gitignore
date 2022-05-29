@@ -120,3 +120,6 @@ typings/
 
 results
 *.iml
+*.dblwr
+*.ibt
+*.000001

@@ -21,6 +21,7 @@ services:
 
   booster-app:
     platform: linux/x86_64
+    container_name: booster-app
     depends_on:
       - mysql-db
     build:
@@ -32,6 +33,7 @@ services:
 
   cargo-app:
     platform: linux/x86_64
+    container_name: cargo-app
     depends_on:
       - mongo-db
     build:
@@ -50,6 +52,19 @@ services:
     container_name: mongo-db
     ports:
       - 27017:27017
+    networks:
+      - app-network
+
+  stage-app:
+    image: python
+    restart: always
+    container_name: stage-app
+    build:
+      dockerfile: stage2/Dockerfile
+      context: ./
+    depends_on:
+      - booster-app
+      - cargo-app
     networks:
       - app-network
 

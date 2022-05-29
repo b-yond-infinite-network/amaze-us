@@ -28,6 +28,13 @@ Run the following command inside the folder `amaze-us/microservice/challenge-3`:
 
 Go to the browser and enter the URL http://0.0.0.0:8080 
 
+# To run the tests
+Login to container using following command
+> docker exec -it stage-app bash
+
+Run the command to run all the tests under 'tests' folder
+> python3 -m unittest tests/*
+
 # TODO
 + Implement wait-for service to check if the dependent containers are up and running. Currently, dependent containers fails and restarts several times
 until the dependent containers are up
