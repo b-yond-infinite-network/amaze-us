@@ -22,6 +22,15 @@ those rocket programmers need to write the rest.
 + Do you **_thang_** inside this folder (challenge-3)
 + Push your change inside a Pull Request to our master
 
+
+## How the solution is working
+Currently, we have created both the 'cargo' and 'booster' services in a separate docker container.
+When we bring up the containers using docker compose, both these services along with their dependent
+DBs will be booted up. Also, there is a `stage` container which can be used to run the tests. On running
+the tests in the container, it interact with the other 2 containers to see if the service endpoints are working
+as expected or not. A sample integration test is added and the command to run the tests can be seen in the
+following steps.
+
 # Steps to run the code
 Run the following command inside the folder `amaze-us/microservice/challenge-3`:
 > docker-compose up --build
