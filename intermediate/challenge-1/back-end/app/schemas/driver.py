@@ -6,6 +6,7 @@ from pydantic import BaseModel, EmailStr
 class DriverBase(BaseModel):
     first_name: str
     last_name: str
+    ssn: str
     email: EmailStr
 
 
@@ -16,6 +17,7 @@ class DriverCreate(DriverBase):
 class DriverUpdate(BaseModel):
     first_name: Optional[str]
     last_name: Optional[str]
+    ssn: Optional[str]
     email: Optional[EmailStr]
 
 
