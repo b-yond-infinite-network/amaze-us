@@ -33,6 +33,18 @@ const form = ({ values, touched, errors, isSubmitting, handleChange, handleBlur,
         fullWidth
       />
       <TextField
+        id="ssn"
+        label="Social Security Number"
+        value={values.ssn}
+        onChange={handleChange}
+        onBlur={handleBlur}
+        helperText={touched.ssn ? errors.ssn : ''}
+        error={touched.ssn && Boolean(errors.ssn)}
+        margin="dense"
+        variant="outlined"
+        fullWidth
+      />
+      <TextField
         id="email"
         label="Email"
         type="email"
@@ -56,10 +68,11 @@ const form = ({ values, touched, errors, isSubmitting, handleChange, handleBlur,
 };
 
 const NewDriver = withFormik({
-  mapPropsToValues: ({ first_name, last_name, email }) => {
+  mapPropsToValues: ({ first_name, last_name, ssn, email }) => {
     return {
       first_name: first_name || '',
       last_name: last_name || '',
+      ssn: ssn || '',
       email: email || ''
     };
   },

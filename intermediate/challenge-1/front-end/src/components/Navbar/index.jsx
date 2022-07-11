@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom';
 import './index.scss';
 
 const links = [
-  { to: '/', label: 'Home' },
-  { to: '/buses', label: 'Buses' },
-  { to: '/drivers', label: 'Drivers' }
+  { to: '/', label: 'Home' }
+  // { to: '/bus-schedules', label: 'Bus Schedules' },
+  // { to: '/driver-schedules', label: 'Driver Schedules' }
 ];
 
 const Navbar = () => (

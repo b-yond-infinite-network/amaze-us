@@ -6,6 +6,9 @@ export const headTitles = [
     name: 'Last Name'
   },
   {
+    name: 'Social Security Number'
+  },
+  {
     name: 'Email'
   }
 ];

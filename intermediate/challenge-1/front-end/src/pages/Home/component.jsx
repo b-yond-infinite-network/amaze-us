@@ -5,13 +5,16 @@ import NewDriver from './components/NewDriver';
 import NewBus from './components/NewBus';
 import DriverList from './components/DriversList';
 import BusList from './components/BusList';
+import NewSchedule from './components/NewSchedule';
 
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1
   },
   block: {
-    width: '100%'
+    width: '49%',
+    border: '1px solid #ccc',
+    margin: '10px'
   },
   control: {
     padding: theme.spacing(2)
@@ -31,7 +34,7 @@ const Home = ({ getDrivers, getBuses }) => {
   return (
     <Grid container className={classes.root} spacing={2}>
       <Grid item xs={12}>
-        <Grid container justifyContent="center" spacing={2}>
+        <Grid container justifyContent="space-between" spacing={2}>
           <Grid item className={classes.block}>
             <NewDriver />
             <DriverList />
@@ -41,7 +44,7 @@ const Home = ({ getDrivers, getBuses }) => {
             <BusList />
           </Grid>
           <Grid item className={classes.block}>
-            {/* <NewSchedule /> */}
+            <NewSchedule />
           </Grid>
         </Grid>
       </Grid>

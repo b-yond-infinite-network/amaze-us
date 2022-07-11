@@ -1,0 +1,2 @@
+export const GET_SCHEDULES = 'GET_SCHEDULES';
+export const CREATE_SCHEDULE = 'CREATE_SCHEDULE';

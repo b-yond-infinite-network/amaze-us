@@ -6,16 +6,10 @@ import store from 'store/config';
 
 import Layout from 'components/Layout';
 import Home from 'pages/Home';
-import Buses from 'pages/Buses';
-import Driver from 'pages/Driver';
 
 import './app.scss';
 
-const routes = [
-  { elem: <Home />, path: '/', index: true },
-  { elem: <Buses />, path: '/buses' },
-  { elem: <Driver />, path: '/driver' }
-];
+const routes = [{ elem: <Home />, path: '/', index: true }];
 
 function App() {
   return (
