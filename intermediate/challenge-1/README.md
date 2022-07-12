@@ -14,7 +14,6 @@ Open link "http://localhost:3000/"
 Open link "http://localhost:8000/docs#"
 
 ### Next steps
-- Add validation to create a schedule so that there are no collisions with driver or bus time. 
 - Extend logic to get schedules. Add query parameters with bus_id or driver_id and date range
 - Add authentication. Use OAuth2 with Password (and hashing), Bearer with JWT tokens.
 - Add tests. Use Pytest.
