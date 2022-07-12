@@ -1,0 +1,656 @@
+{
+	"info": {
+		"_postman_id": "01aaa702-7a39-412c-8499-cbafb455e5f1",
+		"name": "Bus Scheduling",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Signin",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"manager@test.com\",\n    \"password\": \"manager@123\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}auth/signin",
+							"host": [
+								"{{host}}auth"
+							],
+							"path": [
+								"signin"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "schedule",	
+			"item": [
+				{
+					"name": "Schedule Add",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{token}}"
+							},
+							{
+								"key": "Authorization",
+								"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZV9pZCI6MSwiZW1haWwiOiJhaG1hZC5hbGhvdXJhbmkuaXRlOTBAZ21haWwuY29tIiwicGFzc3dvcmQiOiIkMmEkMTAkYzRjc2lzUVQwOHYzQzM0bUl4R2pCT3lzNlV1Tk9FbzVqbFE3dXhsdGFXa1RESnF0d0QzWE8iLCJmdWxsbmFtZSI6IkFobWFkIEFsaG91cmFtaSIsInBob25lIjoiMDUwMzQ1MDMzMiIsImNyZWF0ZWRBdCI6IjIwMjItMDUtMjhUMTc6MzA6MzAuMDAwWiIsInVwZGF0ZWRBdCI6IjIwMjItMDUtMjhUMTc6MzA6MzAuMDAwWiIsImlhdCI6MTY1Mzc4MjA1OSwiZXhwIjoxNjU2Mzc0MDU5fQ.48VwwX8KbwTJIZ4_ieYOaYXBX_0gavzvp5kqgOBqsww",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{   \n    \"driver_id\": 2676,\n     \"bus_id\": 4,\n     \"from\": \"2022-07-20 07:52:49\",\n     \"to\": \"2022-07-20 011:52:49\"\n     \n}"
+						},
+						"url": {
+							"raw": "{{host}}schedules/add",
+							"host": [
+								"{{host}}schedules"
+							],
+							"path": [
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Schedule Update",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{   \n     \"bus_id\": 4,\n     \"from\": \"2022-07-23 12:24:43\",\n     \"to\": \"2022-07-23 22:24:43\"\n     \n}"
+						},
+						"url": {
+							"raw": "{{host}}schedules/3004",
+							"host": [
+								"{{host}}schedules"
+							],
+							"path": [
+								"3004"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Schedule Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{host}}schedules/3007",
+							"host": [
+								"{{host}}schedules"
+							],
+							"path": [
+								"3007"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "driver_schedules",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}schedules/driver_schedules?from=2022-07-20 01:24:43&to=2022-07-20 22:24:43",
+							"host": [
+								"{{host}}schedules"
+							],
+							"path": [
+								"driver_schedules"
+							],
+							"query": [
+								{
+									"key": "from",
+									"value": "2022-07-20 01:24:43"
+								},
+								{
+									"key": "to",
+									"value": "2022-07-20 22:24:43"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "top_driver_schedules",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"top\":2,\n   \"from\": \"2022-07-02 08:00:43\",\n     \"to\": \"2022-07-23 09:00:43\"\n     \n}"
+						},
+						"url": {
+							"raw": "{{host}}schedules/top_drivers_schedules?top=2&from=2020-05-26 08:00:43&to=2020-07-26 08:00:43",
+							"host": [
+								"{{host}}schedules"
+							],
+							"path": [
+								"top_drivers_schedules"
+							],
+							"query": [
+								{
+									"key": "top",
+									"value": "2"
+								},
+								{
+									"key": "from",
+									"value": "2020-05-26 08:00:43"
+								},
+								{
+									"key": "to",
+									"value": "2020-07-26 08:00:43"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "buses_schedules",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{host}}schedules/bus_schedules?from=2022-07-20 01:24:43&to=2022-07-20 22:24:43",
+							"host": [
+								"{{host}}schedules"
+							],
+							"path": [
+								"bus_schedules"
+							],
+							"query": [
+								{
+									"key": "from",
+									"value": "2022-07-20 01:24:43"
+								},
+								{
+									"key": "to",
+									"value": "2022-07-20 22:24:43"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "User Create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"ddw@gmail.com\",\n    \"fullname\": \"new Name\",\n    \"password\": \"123456\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}users/add",
+							"host": [
+								"{{host}}users"
+							],
+							"path": [
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Create Copy",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{token}}",
+								"disabled": true
+							},
+							{
+								"key": "Authorization",
+								"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZV9pZCI6MiwidXNlcm5hbWUiOiJlbXBsb3llZUB0ZXN0LmNvbSIsInBhc3N3b3JkIjoiJDJhJDEwJHouUlVBNnBFUmxSeXlBbFNkUmJzQ09aa2ZDSGUuejE1TDBJRFdScW5FV2dpNWhJM0JXcDlPIiwiZnVsbG5hbWUiOiJVc2VyMSIsImNyZWF0ZWRBdCI6IjIwMjItMDctMDVUMjE6MzM6NDcuMDAwWiIsInVwZGF0ZWRBdCI6IjIwMjItMDctMDVUMjE6MzM6NDcuMDAwWiIsImRlbGV0ZWRBdCI6bnVsbCwiaWF0IjoxNjU3NTU0NjMwLCJleHAiOjE2NjAxNDY2MzB9.Ff6f2Ls2s5o93QsAmex9wQC5DmqIrB-ZMeItpwkH7SE",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Authorization",
+								"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sZV9pZCI6MSwidXNlcm5hbWUiOiJtYW5hZ2VyQHRlc3QuY29tIiwicGFzc3dvcmQiOiIkMmEkMTAkVjR4eFdQbU5kQTBkMEVHdTllYU1BT09wVC85S200MXFqNFI2QmJqcTJuL3dtUFIuWlRnY0ciLCJmdWxsbmFtZSI6Ik1hbmFnZXIgVXNlciIsImNyZWF0ZWRBdCI6IjIwMjItMDctMDVUMjE6MzM6NDcuMDAwWiIsInVwZGF0ZWRBdCI6IjIwMjItMDctMDVUMjE6MzM6NDcuMDAwWiIsImRlbGV0ZWRBdCI6bnVsbCwiaWF0IjoxNjU3NTU0Njk1LCJleHAiOjE2NjAxNDY2OTV9.BceD1_egR-KI0-kUUnSr6d6yH3Ut1NkThDSQJIA4tkU",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"ddw@gmail.com\",\n    \"fullname\": \"new Name\",\n    \"password\": \"123456\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}users/add",
+							"host": [
+								"{{host}}users"
+							],
+							"path": [
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Update",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"role_id\": 2,\n    \"fullname\": \"new Name\"\n   \n}"
+						},
+						"url": {
+							"raw": "{{host}}users/22",
+							"host": [
+								"{{host}}users"
+							],
+							"path": [
+								"22"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}users/22",
+							"host": [
+								"{{host}}users"
+							],
+							"path": [
+								"22"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Driver",
+			"item": [
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \n    \"first_name\": \"new Name\",\n    \"last_name\": \"123456\",\n    \"email\": \"tete@gmail.com\",\n      \"social_security_number\": \"AAA-123\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}drivers/add",
+							"host": [
+								"{{host}}drivers"
+							],
+							"path": [
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Copy",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{token}}",
+								"disabled": true
+							},
+							{
+								"key": "Authorization",
+								"value": "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Miwicm9sZV9pZCI6MiwidXNlcm5hbWUiOiJlbXBsb3llZUB0ZXN0LmNvbSIsInBhc3N3b3JkIjoiJDJhJDEwJHouUlVBNnBFUmxSeXlBbFNkUmJzQ09aa2ZDSGUuejE1TDBJRFdScW5FV2dpNWhJM0JXcDlPIiwiZnVsbG5hbWUiOiJVc2VyMSIsImNyZWF0ZWRBdCI6IjIwMjItMDctMDVUMjE6MzM6NDcuMDAwWiIsInVwZGF0ZWRBdCI6IjIwMjItMDctMDVUMjE6MzM6NDcuMDAwWiIsImRlbGV0ZWRBdCI6bnVsbCwiaWF0IjoxNjU3NTU0NjMwLCJleHAiOjE2NjAxNDY2MzB9.Ff6f2Ls2s5o93QsAmex9wQC5DmqIrB-ZMeItpwkH7SE",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \n    \"first_name\": \"new Name\",\n    \"last_name\": \"123456\",\n    \"email\": \"tete@gmail.com\",\n      \"social_security_number\": \"AAA-123\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}drivers/add",
+							"host": [
+								"{{host}}drivers"
+							],
+							"path": [
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \n    \"first_name\": \"new Name\",\n    \"last_name\": \"123456\",\n  \"email\": \"tete@gmail.com\",\n     \"social_security_number\": \"AA-123\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}drivers/3",
+							"host": [
+								"{{host}}drivers"
+							],
+							"path": [
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}drivers/3010",
+							"host": [
+								"{{host}}drivers"
+							],
+							"path": [
+								"3010"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Bus",
+			"item": [
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "{{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \n    \"capacity\": 28,\n    \"model\": \"Volvo\",\n    \"make\": \"2018\",\n    \"associated_driver_id\": 4\n}"
+						},
+						"url": {
+							"raw": "{{host}}buses/add",
+							"host": [
+								"{{host}}buses"
+							],
+							"path": [
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \n    \"first_name\": \"new Name\",\n    \"last_name\": \"123456\",\n  \"email\": \"tete@gmail.com\",\n     \"social_security_number\": \"AA-123\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}buses/751",
+							"host": [
+								"{{host}}buses"
+							],
+							"path": [
+								"751"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}buses/751",
+							"host": [
+								"{{host}}buses"
+							],
+							"path": [
+								"751"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

@@ -1,0 +1,59 @@
+{
+  "name": "bus-schedules",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www",
+    "swagger-autogen": "node swagger.js",
+    "start-dev": "nodemon index.js",
+    "migrate": "npx sequelize-cli db:migrate",
+    "seed": "npx sequelize-cli db:seed:all",
+    "migrate:reset": "npx sequelize-cli db:migrate:undo:all && npm run migrate && npm run seed",
+    "test": "cross-env NODE_ENV=test jest --testTimeout=10000",
+    "pretest": "cross-env NODE_ENV=test npm run migrate:reset"
+  },
+  "dependencies": {
+    "@faker-js/faker": "^7.3.0",
+    "and": "^0.0.3",
+    "bcryptjs": "^2.4.3",
+    "chance": "^1.1.8",
+    "cookie-parser": "~1.4.4",
+    "cors": "^2.8.5",
+    "debug": "~2.6.9",
+    "dotenv": "^16.0.1",
+    "express": "~4.16.1",
+    "express-validator": "^6.14.2",
+    "faker": "^6.6.6",
+    "http-errors": "~1.6.3",
+    "jade": "^1.11.0",
+    "jest": "^28.1.0",
+    "jsonwebtoken": "^8.5.1",
+    "jstransformer": "^1.0.0",
+    "morgan": "~1.9.1",
+    "mysql2": "^2.3.0",
+    "passport": "^0.4.1",
+    "passport-jwt": "^4.0.0",
+    "pug": "^3.0.2",
+    "rxjs": "^7.5.5",
+    "sequelize": "^6.20.1",
+    "sequelize-auto": "^0.8.4",
+    "sequelize-cli": "^6.4.1",
+    "supertest": "^6.2.3",
+    "swagger-autogen": "^2.21.2",
+    "swagger-ui-express": "^4.4.0",
+    "transformers": "^1.8.3",
+    "uuidv4": "^6.2.13"
+  },
+  "devDependencies": {
+    "@types/jest": "^28.1.4",
+    "cross-env": "^7.0.3",
+    "jest": "^28.1.0",
+    "supertest": "^6.2.3"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
+    ]
+  }
+}

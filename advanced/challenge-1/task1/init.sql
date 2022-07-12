@@ -1,0 +1,16 @@
+-- CREATE USER 'user'@'%' IDENTIFIED BY '123456';
+-- GRANT ALL ON *.* TO 'user'@'%';
+-- GRANT ALL PRIVILEGES ON *.* TO 'root'@'%'
+
+CREATE USER 'db_user'@'%' IDENTIFIED BY '123456';
+grant all on *.* to 'db_user'@'%';
+grant all on *.* to 'db_user'@'loocalhost';
+FLUSH PRIVILEGES;
+-- DROP  DATABASE IF NOT EXISTS dev;
+-- DROP  DATABASE IF NOT EXISTS test;
+CREATE DATABASE IF NOT EXISTS dev;
+CREATE DATABASE IF NOT EXISTS test;
+GRANT ALL PRIVILEGES ON dev.* TO 'db_user'@'%' WITH GRANT OPTION;
+GRANT ALL PRIVILEGES ON test.* TO 'db_user'@'%' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
+USE dev;

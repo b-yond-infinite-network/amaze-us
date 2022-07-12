@@ -1,0 +1,143 @@
+version: '3.8'
+
+
+
+services:
+
+
+
+
+  mysqldb:
+    container_name: db_container
+    image: mysql:5.7
+    platform: linux/amd64
+    restart: unless-stopped
+    env_file: ./.env
+    environment:
+      - MYSQL_ROOT_PASSWORD=$MYSQLDB_ROOT_PASSWORD
+      - MYSQL_DATABASE=$MYSQLDB_DATABASE
+    ports:
+      - $MYSQLDB_LOCAL_PORT:$MYSQLDB_DOCKER_PORT
+    command: --init-file /data/application/init.sql
+    volumes:
+      - db:/var/lib/mysql
+      - ./init.sql:/data/application/init.sql
+
+  nginx:
+    depends_on:
+      - app
+      - client
+    restart: always
+    build:
+      dockerfile: Dockerfile
+      context: ./nginx
+    ports:
+      - "3050:80"    
+
+
+  app:
+    depends_on:
+      - mysqldb
+    build: ./server
+    restart: unless-stopped
+    env_file: ./.env
+    ports:
+      - $NODE_LOCAL_PORT:$NODE_DOCKER_PORT
+    environment:
+      - DB_HOST=mysqldb
+      - DB_USER=$MYSQLDB_DOCKER_USER
+      - DB_PASSWORD=$MYSQLDB_ROOT_PASSWORD
+      - DB_NAME=$MYSQLDB_DATABASE
+      - DB_PORT=$MYSQLDB_DOCKER_PORT
+    stdin_open: true
+    tty: true
+    links:
+      - mysqldb
+
+
+  
+  migration:
+    image: app:latest
+    build:
+      context: ./server
+    command:
+      [
+        "./wait-for-it/wait-for-it.sh",
+        "mysql:3306",
+        "--",
+        "npm",
+        "run",
+        "migrate"
+      ]
+    links:
+      - mysqldb
+    depends_on:
+      - mysqldb
+    env_file: ./.env
+    environment:
+      - MYSQL_ROOT_PASSWORD=$MYSQLDB_ROOT_PASSWORD
+      - MYSQL_DATABASE=$MYSQLDB_DATABASE
+      - DB_HOST=mysqldb
+      - DB_USER=$MYSQLDB_DOCKER_USER
+      - DB_PASSWORD=$MYSQLDB_ROOT_PASSWORD
+      - DB_NAME=$MYSQLDB_DATABASE
+      - DB_PORT=$MYSQLDB_DOCKER_PORT
+
+  seeder:
+ 
+    build:
+      context: ./server
+    command:
+      [
+        "./wait-for-it/wait-for-it.sh",
+        "mysql:3306",
+        "--",
+        "npm",
+        "run",
+        "seed"
+      ]
+    links:
+      - migration
+    depends_on:
+      - migration
+    env_file: ./.env
+    environment:
+      - MYSQL_ROOT_PASSWORD=$MYSQLDB_ROOT_PASSWORD
+      - MYSQL_DATABASE=$MYSQLDB_DATABASE
+      - DB_HOST=mysqldb
+      - DB_USER=$MYSQLDB_DOCKER_USER
+      - DB_PASSWORD=$MYSQLDB_ROOT_PASSWORD
+      - DB_NAME=$MYSQLDB_DATABASE
+      - DB_PORT=$MYSQLDB_DOCKER_PORT
+
+
+
+  client:
+        build: 
+            context: ./client
+            dockerfile: Dockerfile
+        command: npm run start
+        container_name: frontend
+        ports:
+            - 3000:3000        
+
+
+        environment:
+          env_file: ./.env
+          NODE_ENV: development
+        volumes:
+          - /app/node_modules
+          - ./client:/app
+  
+
+  adminer:
+    image: adminer:latest
+    restart: unless-stopped
+    ports:
+      - 8000:8080
+    depends_on:
+      - mysqldb
+    environment:
+      ADMINER_DEFAULT_SERVER: mysqldb
+volumes: 
+  db:
