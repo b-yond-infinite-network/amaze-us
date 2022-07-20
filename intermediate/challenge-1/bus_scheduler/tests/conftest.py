@@ -8,7 +8,7 @@ from typer.testing import CliRunner
 
 # This next line ensures tests uses its own database and settings environment
 os.environ["FORCE_ENV_FOR_DYNACONF"] = "testing"  # noqa
-# WARNING: Ensure imports from `fastapi_project_template` comes after this line
+# WARNING: Ensure imports from `bus_scheduler` comes after this line
 
 from src.models import Schedule, User
 from src.schemas import ScheduleCreate, UserCreate
