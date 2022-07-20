@@ -1,0 +1,15 @@
+[run]
+source = ./
+
+[report]
+exclude_lines =
+    pragma: no cover
+
+omit =
+    */python?.?/.*
+    src/__main__.py
+    *__init__*
+    *data_seed.py
+
+[html]
+directory = coverage_html

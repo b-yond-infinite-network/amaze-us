@@ -1,0 +1,34 @@
+[default]
+
+[default.security]
+ALGORITHM = "HS256"
+JWT_SECRET = "python-bus-schedule-api"
+ACCESS_TOKEN_EXPIRE_MINUTES = 30
+TOKEN_LOGIN_URL = "/api/v1/users/login"
+
+[default.server]
+port = 8001
+host = "0.0.0.0"
+log_level = "info"
+reload = true
+seed_db = true
+
+[default.db]
+dialect = "sqlite:///"
+name = "@jinja bus_scheduler_{{ this.current_env | lower }}.db"
+connect_args = {check_same_thread=false}
+echo = false
+
+[default.email]
+EMAIL_HOST = "smtp.mailtrap.io"
+EMAIL_PORT = "2525"
+EMAIL_USERNAME = "5e2fc56b2349f0"
+EMAIL_PASSWORD = "728034d7b4a49b"
+EMAIL_FROM = "team@busscheduler.com"
+
+[testing.email]
+EMAIL_HOST = "smtp.mailtrap.io"
+EMAIL_PORT = "2525"
+EMAIL_USERNAME = "5e2fc56b2349f0"
+EMAIL_PASSWORD = "728034d7b4a49b"
+EMAIL_FROM = "testing@busscheduler.com"
