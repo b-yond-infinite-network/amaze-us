@@ -4,6 +4,15 @@
 vendor
 composer.phar
 
+# tests
+/.tests
+
+# .vscode
+.vscode/
+
+# cache
+*.pyc
+
 # IntelliJ - PhpStorm and PyCharm
 .idea
 *.ipr
