@@ -1,11 +1,7 @@
-### VARIABLES
-# hospital
-# @host = 192.168.69.153
-# @host = 10.11.0.17
 @host = 0.0.0.0
-@port = 7000
+@port = 5000
 @socket = {{host}}:{{port}}
 @content_type = application/json
 
 ### * TEST
-GET http://{{socket}}/
+GET http://{{socket}}/test/
