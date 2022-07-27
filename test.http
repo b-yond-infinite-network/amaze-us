@@ -3,5 +3,50 @@
 @socket = {{host}}:{{port}}
 @content_type = application/json
 
+@prefix = api/v1
+
 ### * TEST
 GET http://{{socket}}/test/
+
+### ? BUS ##################################
+### GET BUS BY ID
+GET http://{{socket}}/{{prefix}}/bus/1
+
+### CREATE BUS
+POST http://{{socket}}/{{prefix}}/bus
+Content-Type: {{content_type}}
+
+{
+    "model": "C0",
+    "make": "BMW"
+}
+
+### ? DRIVER ###############################
+### GET DRIVER BY ID
+GET http://{{socket}}/{{prefix}}/driver/1
+
+### CREATE DRIVER
+POST http://{{socket}}/{{prefix}}/driver
+Content-Type: {{content_type}}
+
+{
+    "first_name": "Ray",
+    "last_name": "Sheha",
+    "email": "ray@mondo.ca",
+    "social_security_number": "0123456789"
+}
+
+### ? SCHEDULE #############################
+### GET SCHEDULE BY ID
+GET http://{{socket}}/{{prefix}}/driver/1
+
+### CREATE SCHEDULE
+POST http://{{socket}}/{{prefix}}/schedule
+Content-Type: {{content_type}}
+
+{
+    "driver_id": "05",
+    "bus_id": "05",
+    "dt_start": "2022-01-01 06:30",
+    "dt_end": "2022-01-01 12:30"
+}
