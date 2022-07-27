@@ -1,0 +1,12 @@
+-- init mySQL database
+
+-- ROOT USER
+CREATE USER IF NOT EXISTS 'root'@'%' IDENTIFIED BY 'password';
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' WITH GRANT OPTION;
+
+-- CREATE SCHEMA
+CREATE SCHEMA IF NOT EXISTS Schedules;
+
+-- ME
+CREATE USER IF NOT EXISTS 'tester'@'%' IDENTIFIED BY 'password';
+GRANT ALL PRIVILEGES ON Schedules.* to 'tester'@'%'
