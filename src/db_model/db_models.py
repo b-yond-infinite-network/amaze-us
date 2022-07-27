@@ -1,4 +1,8 @@
 from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime
+
+from src.common import DT_FMT
+
 db = SQLAlchemy()
 
 
@@ -10,6 +14,13 @@ class Bus(db.Model):
 
     def __repr__(self) -> str:
         return '{self.make}:{self.model}@{self.driver}'
+
+    def as_dict(self):
+        return {
+            'id': self.id,
+            'model': self.model,
+            'make': self.make,
+        }
 
 
 class Driver(db.Model):
@@ -23,6 +34,14 @@ class Driver(db.Model):
     def __repr__(self) -> str:
         return '{self.first_name} {self.last_name}'
 
+    def as_dict(self):
+        return {
+            'id': self.id,
+            'first_name': self.first_name,
+            'last_name': self.last_name,
+            'email': self.email,
+        }
+
 
 class Schedule(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -33,6 +52,21 @@ class Schedule(db.Model):
 
     def __repr__(self) -> str:
         return '{self.driver}@{self.bus_id} {self.dt_start} - {self.dt_end}'
+
+    def as_dict(self):
+        return {
+            'id': self.id,
+            'driver_id': f'{self.driver_id}',
+            'bus_id': self.bus_id,
+            'dt_start': datetime.strftime(self.dt_start, DT_FMT),
+            'dt_end': datetime.strftime(self.dt_end, DT_FMT)
+        }
+
+    def driver_is_free_at(driver_id: int, dt_start: datetime, dt_end: datetime) -> bool:
+        return True
+
+    def bus_is_free_at(bus_id: int, dt_start: datetime, dt_end: datetime) -> bool:
+        return True
 
 
 if __name__ == '__main__':
