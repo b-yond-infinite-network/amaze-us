@@ -15,6 +15,7 @@ volume/db_data/
 
 # cache
 *.pyc
+__pycache__
 
 # IntelliJ - PhpStorm and PyCharm
 .idea
