@@ -35,8 +35,8 @@ class Schedules():
     def post():
         body = request.json
 
-        driver = Driver.query.filter_by(email=body['driver_id']).first()
-        bus = Bus.query.filter_by(email=body['bus_id']).first()
+        driver = Driver.query.filter_by(id=body['driver_id']).first()
+        bus = Bus.query.filter_by(id=body['bus_id']).first()
 
         if driver is None:
             return jsonify({'error': 'No driver with such id ...'}), HTTP_400_BAD_REQUEST
