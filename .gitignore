@@ -5,7 +5,7 @@ vendor
 composer.phar
 
 # tests
-/.tests
+.tests
 
 # .vscode
 .vscode/
