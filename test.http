@@ -38,7 +38,7 @@ Content-Type: {{content_type}}
 
 ### ? SCHEDULE #############################
 ### GET SCHEDULE BY ID
-GET http://{{socket}}/{{prefix}}/driver/1
+GET http://{{socket}}/{{prefix}}/schedule/1
 
 ### CREATE SCHEDULE
 POST http://{{socket}}/{{prefix}}/schedule
@@ -46,7 +46,7 @@ Content-Type: {{content_type}}
 
 {
     "driver_id": "05",
-    "bus_id": "05",
+    "bus_id": "01",
     "dt_start": "2022-01-01 06:30",
     "dt_end": "2022-01-01 12:30"
 }
