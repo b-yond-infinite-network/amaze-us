@@ -13,7 +13,9 @@ class Bus(db.Model):
     slots = db.relationship('Schedule', backref='bus', lazy='select')
 
     def __repr__(self) -> str:
-        return '{self.make}:{self.model}@{self.driver}'
+        return f'{self.make}:{self.model}'
+
+    def __str__(self): return repr(self)
 
     def as_dict(self):
         return {
@@ -32,7 +34,9 @@ class Driver(db.Model):
     shifts = db.relationship('Schedule', backref='driver', lazy='select')
 
     def __repr__(self) -> str:
-        return '{self.first_name} {self.last_name}'
+        return f'{self.first_name} {self.last_name}'
+
+    def __str__(self): return repr(self)
 
     def as_dict(self):
         return {
@@ -51,7 +55,9 @@ class Schedule(db.Model):
     dt_end = db.Column(db.DateTime, nullable=False)
 
     def __repr__(self) -> str:
-        return '{self.driver}@{self.bus_id} {self.dt_start} - {self.dt_end}'
+        return f'D:{self.driver_id} B:{self.bus_id} {self.dt_start} - {self.dt_end}'
+
+    def __str__(self): return repr(self)
 
     def as_dict(self):
         return {
