@@ -75,6 +75,29 @@ class Schedule(db.Model):
         return True
 
 
-if __name__ == '__main__':
-    # * this will run only if the docker mySQL container doesn't detect a volume
-    db.create_all()
+class AvaiableSchedule(db.Model):       # TODO INHERIT
+    id = db.Column(db.Integer, primary_key=True)
+    driver_id = db.Column(db.Integer, db.ForeignKey('driver.id'))
+    bus_id = db.Column(db.Integer, db.ForeignKey('bus.id'))
+    dt_start = db.Column(db.DateTime, nullable=False)
+    dt_end = db.Column(db.DateTime, nullable=False)
+
+    def __repr__(self) -> str:
+        return f'D:{self.driver_id} B:{self.bus_id} {self.dt_start} - {self.dt_end}'
+
+    def __str__(self): return repr(self)
+
+    def as_dict(self):
+        return {
+            'id': self.id,
+            'driver_id': f'{self.driver_id}',
+            'bus_id': self.bus_id,
+            'dt_start': datetime.strftime(self.dt_start, DT_FMT),
+            'dt_end': datetime.strftime(self.dt_end, DT_FMT)
+        }
+
+    def driver_is_free_at(driver_id: int, dt_start: datetime, dt_end: datetime) -> bool:
+        return True
+
+    def bus_is_free_at(bus_id: int, dt_start: datetime, dt_end: datetime) -> bool:
+        return True
