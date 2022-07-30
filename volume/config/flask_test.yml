@@ -5,3 +5,4 @@ JWT_SECRET_KEY: eyJhbGciOiJIUzI1NiJ9
 # SQLALCHEMY_DATABASE_URI: mysql+pymysql://tester:password@mysql_db:3306/Schedules    # for docker-compose network
 SQLALCHEMY_DATABASE_URI: mysql+pymysql://tester:password@0.0.0.0:3306/Schedules   # for me
 SQLALCHEMY_TRACK_MODIFICATIONS: false
+TESTING: true
