@@ -25,6 +25,13 @@ Content-Type: {{content_type}}
 ### GET DRIVER BY ID
 GET http://{{socket}}/{{prefix}}/driver/1
 
+### GET TOP N DRIVERS
+GET http://{{socket}}/{{prefix}}/driver/top/5
+    ?from=2022-01-01 00:00
+    &to=2022-02-03 00:00
+    # &page=1
+    # &per_page=2
+
 ### CREATE DRIVER
 POST http://{{socket}}/{{prefix}}/driver
 Content-Type: {{content_type}}
@@ -40,13 +47,29 @@ Content-Type: {{content_type}}
 ### GET SCHEDULE BY ID
 GET http://{{socket}}/{{prefix}}/schedule/1
 
+### GET SCHEDULE BY BUS_ID, DRIVER_ID, WEEK
+GET http://{{socket}}/{{prefix}}/schedule
+    ?from=2022-01-01 00:00
+    &to=2022-02-03 00:00
+    &driver_id=999
+    # &bus_id=2
+    # &page=1
+    # &per_page=2
+
 ### CREATE SCHEDULE
 POST http://{{socket}}/{{prefix}}/schedule
 Content-Type: {{content_type}}
 
 {
-    "driver_id": "05",
-    "bus_id": "01",
+    "driver_id": "5",
+    "bus_id": "1",
     "dt_start": "2022-01-01 06:30",
     "dt_end": "2022-01-01 12:30"
 }
+
+### ! AVAILABLE SCHEDULE ###################
+### GET ALL AVAILABLE SCHEDULES
+GET http://{{socket}}/{{prefix}}/available_schedule
+    ?page=3
+    &per_page=5
+    &driver_id=3
