@@ -1,4 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import or_
+
 from datetime import datetime
 
 from src.common import DT_FMT
@@ -78,11 +80,16 @@ class Schedule(db.Model):
             'dt_end': datetime.strftime(self.dt_end, DT_FMT)
         }
 
-    def driver_is_free_at(driver_id: int, dt_start: datetime, dt_end: datetime) -> bool:
-        return True
-
-    def bus_is_free_at(bus_id: int, dt_start: datetime, dt_end: datetime) -> bool:
-        return True
+    @staticmethod
+    def get_scheds_for(
+        driver_id: int, bus_id: int, dt_start: datetime, dt_end: datetime
+    ) -> bool:
+        results = Schedule.query.filter(
+            or_(Schedule.bus_id == bus_id, Schedule.driver_id == driver_id),
+            Schedule.dt_start >= dt_start,
+            Schedule.dt_end <= dt_end
+        ).all()
+        return results
 
 
 class AvaiableSchedule(db.Model):
@@ -111,9 +118,3 @@ class AvaiableSchedule(db.Model):
             'dt_start': datetime.strftime(self.dt_start, DT_FMT),
             'dt_end': datetime.strftime(self.dt_end, DT_FMT)
         }
-
-    def driver_is_free_at(driver_id: int, dt_start: datetime, dt_end: datetime) -> bool:
-        return True
-
-    def bus_is_free_at(bus_id: int, dt_start: datetime, dt_end: datetime) -> bool:
-        return True

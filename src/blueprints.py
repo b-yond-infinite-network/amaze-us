@@ -81,17 +81,21 @@ class Schedules():
         driver = Driver.query.filter_by(id=body['driver_id']).first()
         bus = Bus.query.filter_by(id=body['bus_id']).first()
 
+        dt_from = datetime.strptime(body['dt_start'], DT_FMT)
+        dt_to = datetime.strptime(body['dt_end'], DT_FMT)
+
         if driver is None:
             return jsonify({'error': 'No driver with such id ...'}), HTTP_400_BAD_REQUEST
 
         if bus is None:
             return jsonify({'error': 'No bus with such id ...'}), HTTP_400_BAD_REQUEST
 
-        if not Schedule.bus_is_free_at(bus.id, body['dt_start'], body['dt_end']):
-            return jsonify({'error': 'Bus is occupied at the designated time slot ...'}), HTTP_409_CONFLICT
-
-        if not Schedule.driver_is_free_at(driver.id, body['dt_start'], body['dt_end']):
-            return jsonify({'error': 'driver already has a shift at the designated time slot ...'}), HTTP_409_CONFLICT
+        conflicting_scheds = Schedule.get_scheds_for(driver.id, bus.id, dt_from, dt_to)
+        if conflicting_scheds:
+            return jsonify({
+                'error': 'Bus is occupied at the designated time slot ...',
+                'conflicts': [sched.as_dict() for sched in conflicting_scheds]
+            }), HTTP_409_CONFLICT
 
         schedule = Schedule(
             driver_id=body['driver_id'],
