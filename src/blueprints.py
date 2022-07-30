@@ -54,9 +54,6 @@ class Schedules():
             driver_id = request.args.get('driver_id', type=int, default=None)
             bus_id = request.args.get('bus_id', type=int, default=None)
 
-            dt_from = datetime.strptime(dt_from, DT_FMT)
-            dt_to = datetime.strptime(dt_to, DT_FMT)
-
             conds = []
             if driver_id:
                 conds.append(Schedule.driver_id == driver_id)
@@ -64,8 +61,10 @@ class Schedules():
                 conds.append(Schedule.bus_id == bus_id)
 
             if dt_from:
+                dt_from = datetime.strptime(dt_from, DT_FMT)
                 conds.append(Schedule.dt_start >= dt_from)
             if dt_to:
+                dt_to = datetime.strptime(dt_to, DT_FMT)
                 conds.append(Schedule.dt_end >= dt_to)
 
             scheds_paginated = Schedule.query.filter(*conds).paginate(page, per_page)

@@ -14,10 +14,10 @@ coloredlogs.install(level='DEBUG')
 log = logging.getLogger(__name__)
 
 
-def create_app():
+def create_app(config: str = 'volume/config/flask.yml'):
     app = Flask(__name__, instance_relative_config=True)
 
-    with open('volume/config/flask.yml', mode='r') as f:
+    with open(config, mode='r') as f:
         app_config: dict = yaml.load(f, Loader=yaml.Loader)
 
     app.config.from_mapping(app_config)
@@ -35,7 +35,7 @@ def create_app():
     app.register_blueprint(driver_bp)
     app.register_blueprint(available_schedule_bp)
 
-    @app.get('/test')
+    @app.get('/')
     def test():
         return {'test': 'good'}, HTTP_200_OK
 
