@@ -8,13 +8,13 @@ from src.db_model.db_models import db
 from src.blueprints import schedule_bp, bus_bp, driver_bp, available_schedule_bp
 from src.constants.http_status_codes import HTTP_200_OK
 
-coloredlogs.install(level='DEBUG')
+coloredlogs.install(level=logging.DEBUG)
 
 
 log = logging.getLogger(__name__)
 
 
-def create_app(config: str = 'volume/config/flask.yml'):
+def create_app(config: str):
     app = Flask(__name__, instance_relative_config=True)
 
     with open(config, mode='r') as f:
