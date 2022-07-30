@@ -1,13 +1,24 @@
 version: '3.8'
 services:
   # * DATABASE
-  db:
+  mysql_db:
     container_name: mysql_db
     image: mysql/mysql-server:8.0.29
     volumes:
       - ./volume/db_data/:/var/lib/mysql
       - ./volume/db_init:/docker-entrypoint-initdb.d
-    network_mode: host
+    ports:
+      - 3306:3306
 
   # * API
-  # TODO
+  api:
+    container_name: api
+    build:
+      context: .
+      dockerfile: Dockerfile.app
+    volumes:
+      - ./volume/config/:/opt/app/volume/config
+    depends_on:
+      - mysql_db
+    ports:
+      - 5000:5000

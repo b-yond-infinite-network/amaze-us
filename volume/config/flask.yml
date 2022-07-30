@@ -1,7 +1,6 @@
 
 FLASK_ENV: development
-# SQLALCHEMY_DATABASE_URI: mysql://tester:password@0.0.0.0/Schedules?unix_socket=/var/lib/mysql/mysql.sock
-# SQLALCHEMY_DATABASE_URI: sqlite:///volume/sqlite/sched.db
-SQLALCHEMY_DATABASE_URI: mysql+pymysql://tester:password@localhost:3306/Schedules
-JWT_SECRET_KEY: eyJhbGciOiJIUzI1NiJ9.eyJSb2xlIjoiQWRtaW4iLCJJc3N1ZXIiOiJJc3N1ZXIiLCJVc2VybmFtZSI6IkphdmFJblVzZSIsImV4cCI6MTY1ODg4MTEyNiwiaWF0IjoxNjU4ODgxMTI2fQ.bhMyz1UCgvoO4YqsNGsP-vQlx7fUSgOVOaRRGyLZoGg'
 SQLALCHEMY_ECHO: false
+JWT_SECRET_KEY: eyJhbGciOiJIUzI1NiJ9
+# SQLALCHEMY_DATABASE_URI: mysql+pymysql://tester:password@mysql_db:3306/Schedules    # for docker-compose network
+SQLALCHEMY_DATABASE_URI: mysql+pymysql://tester:password@0.0.0.0:3306/Schedules   # for me
