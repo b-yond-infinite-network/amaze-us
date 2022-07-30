@@ -191,7 +191,7 @@ class Buses():
         return bus.as_dict(), HTTP_201_CREATED
 
 
-class AvaiableSchedules():
+class AvailableSchedules():
     ''' For displaying possible schedules to be inserted by the user in `schedules`
     '''
     available_schedule_bp = Blueprint('available_schedule', __name__, url_prefix='/api/v1/available_schedule')
@@ -212,4 +212,4 @@ class AvaiableSchedules():
 schedule_bp = Schedules.schedule_bp
 bus_bp = Buses.bus_bp
 driver_bp = Drivers.driver_bp
-available_schedule_bp = AvaiableSchedules.available_schedule_bp
+available_schedule_bp = AvailableSchedules.available_schedule_bp
