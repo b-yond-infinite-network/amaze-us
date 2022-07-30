@@ -1,0 +1,11 @@
+version: '3.8'
+services:
+  # * DATABASE
+  mysql_db:
+    container_name: mysql_db
+    image: mysql/mysql-server:8.0.29
+    volumes:
+      - ./volume/db_data/:/var/lib/mysql
+      - ./volume/db_init:/docker-entrypoint-initdb.d
+    ports:
+      - 3306:3306
