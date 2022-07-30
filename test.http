@@ -6,7 +6,7 @@
 @prefix = api/v1
 
 ### * TEST
-GET http://{{socket}}/test/
+GET http://{{socket}}/
 
 ### ? BUS ##################################
 ### GET BUS BY ID
