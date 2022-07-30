@@ -2,10 +2,15 @@
 inspiration: # ? source: https://testdriven.io/blog/flask-pytest/
 '''
 
+import logging
+
 from src import create_app
 from src.constants.http_status_codes import HTTP_200_OK, HTTP_405_METHOD_NOT_ALLOWED
 
+log = logging.getLogger(__name__)
+
 prefix = 'api/v1'
+flask_test_config = 'volume/config/flask_test.yml'
 
 
 def test_home_page():
@@ -14,7 +19,7 @@ def test_home_page():
     WHEN the '/' page is requested (GET)
     THEN check that the response is valid
     '''
-    flask_app = create_app('volume/config/flask_test.yml')
+    flask_app = create_app(flask_test_config)
 
     with flask_app.test_client() as test_client:
         response = test_client.get('/')
@@ -28,7 +33,7 @@ def test_home_page_post():
     WHEN the '/' page is is posted to (POST)
     THEN check that 405 is returned
     '''
-    flask_app = create_app('volume/config/flask_test.yml')
+    flask_app = create_app(flask_test_config)
 
     with flask_app.test_client() as test_client:
         response = test_client.post('/')
@@ -43,7 +48,7 @@ def test_get_schedules_all_args():
     WHEN GET http://{{socket}}/{{prefix}}/schedule
     THEN chek that 200 is returned
     '''
-    flask_app = create_app('volume/config/flask_test.yml')
+    flask_app = create_app(flask_test_config)
 
     with flask_app.test_client() as test_client:
         response = test_client.get(
@@ -61,7 +66,7 @@ def test_get_schedules_no_upper_time_bound():
     WHEN GET http://{{socket}}/{{prefix}}/schedule
     THEN chek that 200 is returned
     '''
-    flask_app = create_app('volume/config/flask_test.yml')
+    flask_app = create_app(flask_test_config)
 
     with flask_app.test_client() as test_client:
         response = test_client.get(
@@ -78,7 +83,7 @@ def test_get_schedules_no_lower_time_bound():
     WHEN GET http://{{socket}}/{{prefix}}/schedule
     THEN chek that 200 is returned
     '''
-    flask_app = create_app('volume/config/flask_test.yml')
+    flask_app = create_app(flask_test_config)
 
     with flask_app.test_client() as test_client:
         response = test_client.get(
@@ -95,7 +100,7 @@ def test_get_schedules_no_driver_id():
     WHEN GET http://{{socket}}/{{prefix}}/schedule
     THEN chek that 200 is returned
     '''
-    flask_app = create_app('volume/config/flask_test.yml')
+    flask_app = create_app(flask_test_config)
 
     with flask_app.test_client() as test_client:
         response = test_client.get(
@@ -114,7 +119,7 @@ def test_get_top_drivers():
     WHEN GET http://{{socket}}/{{prefix}}/schedule
     THEN chek that 200 is returned
     '''
-    flask_app = create_app('volume/config/flask_test.yml')
+    flask_app = create_app(flask_test_config)
 
     with flask_app.test_client() as test_client:
         response = test_client.get(
@@ -124,4 +129,7 @@ def test_get_top_drivers():
             '&page=1'
             '&per_page=100'
         )
+
+        import json
+        data = response.data.decode('utf-8')
         assert response.status_code == HTTP_200_OK

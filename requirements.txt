@@ -7,3 +7,5 @@ cryptography==37.0.4
 pyyaml==5.4.1
 PyJWT==2.4.0
 validators==0.18.2
+
+pytest==7.1.2
