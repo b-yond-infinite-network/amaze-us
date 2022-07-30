@@ -5,7 +5,7 @@ import yaml
 from flask import Flask
 
 from src.db_model.db_models import db
-from src.schedule import schedule_bp, bus_bp, driver_bp
+from src.schedule import schedule_bp, bus_bp, driver_bp, available_schedule_bp
 from src.constants.http_status_codes import HTTP_200_OK
 
 coloredlogs.install(level='DEBUG')
@@ -28,9 +28,12 @@ def create_app():
     db.app = app
     db.init_app(app=app)
 
+    db.create_all()
+
     app.register_blueprint(schedule_bp)
     app.register_blueprint(bus_bp)
     app.register_blueprint(driver_bp)
+    app.register_blueprint(available_schedule_bp)
 
     @app.get('/test')
     def test():
