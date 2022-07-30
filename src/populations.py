@@ -14,6 +14,8 @@ log = logging.getLogger(__name__)
 # GENERATORS #################################################
 
 def driver_gen(n: int):
+    ''' generator function for drivers
+    '''
     NUM_NAMES = n
 
     FIRST_NAMES = [
@@ -255,6 +257,8 @@ def driver_gen(n: int):
 
 
 def bus_gen(n: int):
+    ''' generator function for buses
+    '''
     NUM_BUSES = n
 
     make_list = [
@@ -287,7 +291,9 @@ def bus_gen(n: int):
         }
 
 
-def schedule_gen(dt_start: str = '2022-01-01', dt_end: str = '2022-12-01'):
+def schedule_gen(dt_start: str, dt_end: str):
+    ''' generator function for schedules
+    '''
     DATE_FMT = '%Y-%m-%d'
 
     DATE_START_STR, DATE_END_STR = dt_start, dt_end
@@ -297,6 +303,9 @@ def schedule_gen(dt_start: str = '2022-01-01', dt_end: str = '2022-12-01'):
     T_START, T_END = list(map(lambda t: time(*map(int, t.split(':'))), (TIME_START_STR, TIME_END_STR)))
 
     class BusSchedule():
+        ''' schedule for a particular bus.
+            determines a random trip_duration, trip_frequency for a given bus_id.
+        '''
         def __init__(self, id: int):
             self.id = id
 
@@ -328,7 +337,11 @@ def schedule_gen(dt_start: str = '2022-01-01', dt_end: str = '2022-12-01'):
                 'every': self.every,
             }
 
-    def add_delta_2_time(time: time, td: timedelta):
+    def add_delta_2_time(time: time, td: timedelta) -> time:
+        ''' add timedelta to time objects
+        return:
+            result time
+        '''
         start = datetime(2000, 1, 1, time.hour, time.minute, time.second)
         end = start + td
         return end.time()
@@ -374,20 +387,29 @@ def schedule_gen(dt_start: str = '2022-01-01', dt_end: str = '2022-12-01'):
 # POPULATE ###################################################
 
 def populate_drivers(n: int = 1000):
+    ''' populcate database with n drivers
+    '''
     for driver in driver_gen(n):
         db.session.add(Driver(**driver))
     db.session.commit()
 
 
 def populate_buses(n: int = 250):
+    ''' populcate database with n buses
+    '''
     for bus in bus_gen(n):
         db.session.add(Bus(**bus))
     db.session.commit()
 
 
-def populate_schedules(n: int = int(1e6)):
+def populate_schedules(dt_start: str, dt_end: str):
+    ''' populcate database with schedules from dt_start until dt_end
+    args:
+        dt_start: start date str following DATE_FMT = '%Y-%m-%d'
+        dt_end: end date str follwing DATE_FMT = '%Y-%m-%d'
+    '''
     EMPTY_SLOT_CHANCE = 0.10
-    for schedule in schedule_gen(dt_start='2022-01-01', dt_end='2022-03-01'):
+    for schedule in schedule_gen(dt_start, dt_end):
         if random.random() > EMPTY_SLOT_CHANCE:
             db.session.add(Schedule(**schedule))
         else:
@@ -402,12 +424,12 @@ if __name__ == '__main__':
     app = create_app(config='volume/config/flask.yml')
 
     log.info('populating Bus table ...')
-    populate_buses(25)
+    populate_buses(5)
 
     log.info('populating Driver table ...')
-    populate_drivers(100)
+    populate_drivers(10)
 
     log.info('populating Schedule table ...')
-    populate_schedules()
+    populate_schedules(dt_start='2022-01-01', dt_end='2022-02-01')
 
     log.info('done')
