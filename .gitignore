@@ -4,9 +4,6 @@
 vendor
 composer.phar
 
-# tests
-.tests
-
 # database
 volume/db_data/
 
