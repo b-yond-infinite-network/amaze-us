@@ -1,0 +1,60 @@
+components:
+  schemas:
+    BUS:
+      type: object
+      required: [make, model]
+      properties:
+        make:
+          type: string
+          example: BMW
+        model:
+          type: string
+          example: B01
+
+    DRIVER:
+      type: object
+      required: [first_name, last_name, email, social_security_number]
+      properties:
+        first_name:
+          type: string
+          example: Blue
+        last_name:
+          type: string
+          example: Max
+        email:
+          type: string
+          example: blue_max@gmail.com
+        social_security_number:
+          type: integer
+          example: 901894781
+
+    SCHEDULE:
+      type: object
+      required: [bus_id, driver_id, dt_start, dt_end]
+      properties:
+        bus_id:
+          type: integer
+          example: 1
+        driver_id:
+          type: integer
+          example: 1
+        dt_start:
+          type: string
+          example: '2022-01-01'
+        driver_id:
+          type: string
+          example: '2022-03-01'
+
+    META:
+      type: object
+      properties:
+        item_count:
+          type: integer
+        next_page:
+          type: integer
+        page:
+          type: integer
+        pages:
+          type: integer
+        prev_page:
+          type: integer
