@@ -1,11 +1,12 @@
 coloredlogs==15.0
 Flask==2.1.2
-Flask-JWT-Extended==4.4.2
 Flask-SQLAlchemy==2.5.1
 pymysql==1.0.2
-cryptography==37.0.4
 pyyaml==5.4.1
-PyJWT==2.4.0
 validators==0.18.2
 
+PyJWT==2.4.0
+Flask-JWT-Extended==4.4.2
+
 pytest==7.1.2
+flasgger==0.9.5
