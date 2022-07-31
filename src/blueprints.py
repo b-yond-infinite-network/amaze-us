@@ -60,12 +60,17 @@ class Schedules():
         if bus_id:
             conds.append(Schedule.bus_id == bus_id)
 
-        if dt_from:
-            dt_from = datetime.strptime(dt_from, DT_FMT)
-            conds.append(Schedule.dt_start >= dt_from)
-        if dt_to:
-            dt_to = datetime.strptime(dt_to, DT_FMT)
-            conds.append(Schedule.dt_end <= dt_to)
+        try:
+            if dt_from:
+                dt_from = datetime.strptime(dt_from, DT_FMT)
+                conds.append(Schedule.dt_start >= dt_from)
+            if dt_to:
+                dt_to = datetime.strptime(dt_to, DT_FMT)
+                conds.append(Schedule.dt_end <= dt_to)
+        except ValueError as err:
+            return jsonify({'error': err}), HTTP_400_BAD_REQUEST
+        except TypeError:
+            return jsonify({'error': 'Start date / end date not supplied in query ...'}), HTTP_400_BAD_REQUEST
 
         scheds_paginated = Schedule.query.filter(*conds).paginate(page, per_page)
 
@@ -79,11 +84,16 @@ class Schedules():
     def post():
         body = request.json
 
+        try:
+            dt_from = datetime.strptime(body['dt_start'], DT_FMT)
+            dt_to = datetime.strptime(body['dt_end'], DT_FMT)
+        except ValueError as err:
+            return jsonify({'error': err}), HTTP_400_BAD_REQUEST
+        except KeyError as key:
+            return jsonify({'error': f'{key} not supplied in request body ...'}), HTTP_400_BAD_REQUEST
+
         driver = Driver.query.filter_by(id=body['driver_id']).first()
         bus = Bus.query.filter_by(id=body['bus_id']).first()
-
-        dt_from = datetime.strptime(body['dt_start'], DT_FMT)
-        dt_to = datetime.strptime(body['dt_end'], DT_FMT)
 
         if driver is None:
             return jsonify({'error': 'No driver with such id ...'}), HTTP_400_BAD_REQUEST
@@ -131,8 +141,13 @@ class Drivers():
         dt_from = request.args.get('from', type=str, default=None)
         dt_to = request.args.get('to', type=str, default=None)
 
-        dt_from = datetime.strptime(dt_from, DT_FMT)
-        dt_to = datetime.strptime(dt_to, DT_FMT)
+        try:
+            dt_from = datetime.strptime(dt_from, DT_FMT)
+            dt_to = datetime.strptime(dt_to, DT_FMT)
+        except ValueError as err:
+            return jsonify({'error': err}), HTTP_400_BAD_REQUEST
+        except TypeError:
+            return jsonify({'error': 'Start date / end date not supplied in query ...'}), HTTP_400_BAD_REQUEST
 
         top_driver_ids = Schedule.query.with_entities(
             Schedule.driver_id, func.count(Schedule.driver_id).label('count')
@@ -166,12 +181,16 @@ class Drivers():
         if Driver.query.filter_by(social_security_number=body['social_security_number']).first() is not None:
             return jsonify({'error': 'SSN is taken ...'}), HTTP_409_CONFLICT
 
-        driver = Driver(
-            first_name=body['first_name'],
-            last_name=body['last_name'],
-            email=body['email'],
-            social_security_number=body['social_security_number']
-        )
+        try:
+            driver = Driver(
+                first_name=body['first_name'],
+                last_name=body['last_name'],
+                email=body['email'],
+                social_security_number=body['social_security_number']
+            )
+        except KeyError as key:
+            return jsonify({'error': f'{key} not supplied in request body ...'}), HTTP_409_CONFLICT
+
         db.session.add(driver)
         db.session.commit()
 
@@ -194,7 +213,11 @@ class Buses():
     @bus_bp.post('')
     def post():
         body = request.json
-        bus = Bus(model=body['model'], make=body['make'])
+        try:
+            bus = Bus(model=body['model'], make=body['make'])
+        except KeyError as key:
+            return jsonify({'error': f'{key} not supplied in request body ...'}), HTTP_409_CONFLICT
+
         db.session.add(bus)
         db.session.commit()
 
