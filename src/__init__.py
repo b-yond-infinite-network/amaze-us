@@ -42,7 +42,7 @@ def create_app(conf: str):
 
     Swagger(
         app,
-        # config=swagger_config, template=swagger_template
+        config=swagger_config, template=swagger_template
     )
 
     @app.get('/')
