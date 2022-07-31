@@ -6,7 +6,6 @@ composer.phar
 
 # tests
 .tests
-doc/
 
 # database
 volume/db_data/

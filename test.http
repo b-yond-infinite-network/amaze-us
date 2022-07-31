@@ -50,8 +50,8 @@ GET http://{{socket}}/{{prefix}}/schedule/3
 ### GET SCHEDULE BY BUS_ID, DRIVER_ID, WEEK
 GET http://{{socket}}/{{prefix}}/schedule
     ?from=2022-01-01 00:00
-    &to=2022-02-03 00:00
-    &driver_id=999
+    &to=2022-12-03 00:00
+    &driver_id=2
     # &bus_id=2
     # &page=1
     # &per_page=2
