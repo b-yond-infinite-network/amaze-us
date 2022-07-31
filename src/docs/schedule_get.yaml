@@ -1,0 +1,32 @@
+---
+tags:
+  - schedules
+summary: get schedule by id
+parameters:
+  - in: path
+    name: id
+    type: integer
+    description: item id
+responses:
+  200:
+    description: schedule retrieved
+
+    schema:
+      type: object
+      required: [bus_id, driver_id, dt_start, dt_end]
+      properties:
+        bus_id:
+          type: integer
+          example: 1
+        driver_id:
+          type: integer
+          example: 2
+        dt_start:
+          type: string
+          example: '2022-01-01'
+        dt_end:
+          type: string
+          example: '2022-01-30'
+
+  404:
+    description: schedule not found

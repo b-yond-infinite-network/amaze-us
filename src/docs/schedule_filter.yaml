@@ -1,0 +1,61 @@
+---
+tags:
+  - schedules
+summary: get schedules filtered by bus_id, driver_id, start date or end date
+parameters:
+  - in: query
+    name: from
+    type: string
+    description: start date
+    example: '2022-01-01'
+  - in: query
+    name: to
+    type: string
+    description: end date
+    example: '2022-01-30'
+  - in: query
+    name: bus_id
+    type: integer
+    example: 1
+  - in: query
+    name: driver_id
+    type: integer
+    example: 2
+responses:
+  201:
+    description: when item is created
+
+    schema:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              bus_id:
+                type: integer
+                example: 1
+              driver_id:
+                type: integer
+                example: 2
+              dt_start:
+                type: string
+                example: '2022-01-01'
+              dt_end:
+                type: integer
+                example: '2022-01-30'
+
+        meta:
+          type: object
+          properties:
+            item_count:
+              type: integer
+            next_page:
+              type: integer
+            page:
+              type: integer
+            pages:
+              type: integer
+            prev_page:
+              type: integer

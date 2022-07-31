@@ -1,0 +1,34 @@
+---
+tags:
+  - schedules
+summary: create schedule
+parameters:
+  - in: body
+    name: schedule
+
+    schema:
+      type: object
+      required: [bus_id, driver_id, dt_start, dt_end]
+      properties:
+        bus_id:
+          type: integer
+          example: 1
+        driver_id:
+          type: integer
+          example: 2
+        dt_start:
+          type: string
+          example: '2022-01-01'
+        dt_end:
+          type: string
+          example: '2022-01-30'
+
+responses:
+  201:
+    description: schedule is created
+
+  409:
+    description: schedule is in conflict with another due to bus or driver occupying that time slot
+
+  400:
+    description: bus_id or driver_id are not registered in the system

@@ -1,0 +1,16 @@
+Driver:
+  type: object
+  required: [first_name, last_name, email, social_security_number]
+  properties:
+    first_name:
+      type: string
+      example: Blue
+    last_name:
+      type: string
+      example: Max
+    email:
+      type: string
+      example: blue_max@gmail.com
+    social_security_number:
+      type: integer
+      example: 901894781

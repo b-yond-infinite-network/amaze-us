@@ -1,0 +1,21 @@
+---
+tags:
+  - buses
+summary: create bus
+parameters:
+  - in: body
+    name: bus
+  
+    schema:
+      type: object
+      required: [make, model]
+      properties:
+        make:
+          type: string
+          example: BMW
+        model:
+          type: string
+          example: B01
+responses:
+  201:
+    description: bus is created

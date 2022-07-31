@@ -1,0 +1,16 @@
+Schedule:
+  type: object
+  required: [bus_id, driver_id, dt_start, dt_end]
+  properties:
+    bus_id:
+      type: integer
+      example: 1
+    driver_id:
+      type: integer
+      example: 1
+    dt_start:
+      type: string
+      example: '2022-01-01'
+    driver_id:
+      type: string
+      example: '2022-03-01'

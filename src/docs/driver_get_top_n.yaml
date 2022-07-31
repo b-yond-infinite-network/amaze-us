@@ -1,0 +1,57 @@
+---
+tags:
+  - drivers
+summary: get buses with highest number of schedules at a diven time window
+parameters:
+  - in: path
+    name: n
+    type: int
+    description: top n drivers
+    example: 5
+  - in: query
+    name: from
+    type: string
+    description: start date
+    example: '2022-01-01'
+  - in: query
+    name: to
+    type: string
+    description: end date
+    example: '2022-01-30'
+responses:
+  200:
+    description: drivers retrieved
+    schema:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              first_name:
+                type: string
+                example: Blue
+              last_name:
+                type: string
+                example: Max
+              email:
+                type: string
+                example: blue_max@gmail.com
+              social_security_number:
+                type: integer
+                example: 901894781
+
+        meta:
+          type: object
+          properties:
+            item_count:
+              type: integer
+            next_page:
+              type: integer
+            page:
+              type: integer
+            pages:
+              type: integer
+            prev_page:
+              type: integer

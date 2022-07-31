@@ -1,0 +1,12 @@
+components:
+  schemas:
+    Bus:
+      type: object
+      required: [make, model]
+      properties:
+        make:
+          type: string
+          example: BMW
+        model:
+          type: string
+          example: B01

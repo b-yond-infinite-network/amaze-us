@@ -3,6 +3,7 @@ from sqlalchemy import func, desc
 
 import validators
 from flask import Blueprint, request, jsonify
+from flasgger import swag_from
 from datetime import datetime
 
 from src.common import DT_FMT, PAGINATION_PER_PAGE
@@ -30,50 +31,50 @@ def get_page_meta(pagination):
 
 
 class Schedules():
-    schedule_bp = Blueprint('schedule', __name__, url_prefix='/api/v1/schedule')
+    schedule_bp = Blueprint('schedule', 'Schedules', url_prefix='/api/v1/schedule')
 
+    @swag_from('docs/schedule_get.yaml')
     @schedule_bp.get('/<int:id>')
-    @schedule_bp.get('')
     def get(id: int = None):
-        # * get schedule by id
-        if id is not None:
-            schedule = Schedule.query.filter_by(id=id).first()
-            if not schedule:
-                return jsonify({'message': 'Item not found'}), HTTP_404_NOT_FOUND
+        schedule = Schedule.query.filter_by(id=id).first()
+        if not schedule:
+            return jsonify({'message': 'Item not found'}), HTTP_404_NOT_FOUND
 
-            return jsonify(schedule.as_dict()), HTTP_200_OK
+        return jsonify(schedule.as_dict()), HTTP_200_OK
 
-        # * get schedule driver_id, bus_id or/and week
-        else:
-            page = request.args.get('page', type=int, default=1)
-            per_page = request.args.get('per_page', type=int, default=PAGINATION_PER_PAGE)
+    @swag_from('docs/schedule_filter.yaml')
+    @schedule_bp.get('')
+    def filter():
+        page = request.args.get('page', type=int, default=1)
+        per_page = request.args.get('per_page', type=int, default=PAGINATION_PER_PAGE)
 
-            dt_from = request.args.get('from', type=str, default=None)
-            dt_to = request.args.get('to', type=str, default=None)
+        dt_from = request.args.get('from', type=str, default=None)
+        dt_to = request.args.get('to', type=str, default=None)
 
-            driver_id = request.args.get('driver_id', type=int, default=None)
-            bus_id = request.args.get('bus_id', type=int, default=None)
+        driver_id = request.args.get('driver_id', type=int, default=None)
+        bus_id = request.args.get('bus_id', type=int, default=None)
 
-            conds = []
-            if driver_id:
-                conds.append(Schedule.driver_id == driver_id)
-            if bus_id:
-                conds.append(Schedule.bus_id == bus_id)
+        conds = []
+        if driver_id:
+            conds.append(Schedule.driver_id == driver_id)
+        if bus_id:
+            conds.append(Schedule.bus_id == bus_id)
 
-            if dt_from:
-                dt_from = datetime.strptime(dt_from, DT_FMT)
-                conds.append(Schedule.dt_start >= dt_from)
-            if dt_to:
-                dt_to = datetime.strptime(dt_to, DT_FMT)
-                conds.append(Schedule.dt_end >= dt_to)
+        if dt_from:
+            dt_from = datetime.strptime(dt_from, DT_FMT)
+            conds.append(Schedule.dt_start >= dt_from)
+        if dt_to:
+            dt_to = datetime.strptime(dt_to, DT_FMT)
+            conds.append(Schedule.dt_end <= dt_to)
 
-            scheds_paginated = Schedule.query.filter(*conds).paginate(page, per_page)
+        scheds_paginated = Schedule.query.filter(*conds).paginate(page, per_page)
 
-            return jsonify({
-                'data': [av_sched.as_dict() for av_sched in scheds_paginated.items],
-                'meta': get_page_meta(scheds_paginated)
-            }), HTTP_200_OK
+        return jsonify({
+            'data': [av_sched.as_dict() for av_sched in scheds_paginated.items],
+            'meta': get_page_meta(scheds_paginated)
+        }), HTTP_200_OK
 
+    @swag_from('docs/schedule_post.yaml')
     @schedule_bp.post('')
     def post():
         body = request.json
@@ -110,8 +111,9 @@ class Schedules():
 
 
 class Drivers():
-    driver_bp = Blueprint('driver', __name__, url_prefix='/api/v1/driver')
+    driver_bp = Blueprint('driver', 'Drivers', url_prefix='/api/v1/driver')
 
+    @swag_from('docs/driver_get.yaml')
     @driver_bp.get('/<int:id>')
     def get(id: int):
         driver = Driver.query.filter_by(id=id).first()
@@ -120,6 +122,7 @@ class Drivers():
 
         return jsonify(driver.as_dict()), HTTP_200_OK
 
+    @swag_from('docs/driver_get_top_n.yaml')
     @driver_bp.get('/top/<int:n>')
     def get_top_n(n: int):
         page = request.args.get('page', type=int, default=1)
@@ -143,6 +146,7 @@ class Drivers():
             'meta': get_page_meta(drivers_paginated)
         }), HTTP_200_OK
 
+    @swag_from('docs/driver_post.yaml')
     @driver_bp.post('')
     def post():
         body = request.json
@@ -175,9 +179,10 @@ class Drivers():
 
 
 class Buses():
-    bus_bp = Blueprint('bus', __name__, url_prefix='/api/v1/bus')
+    bus_bp = Blueprint('bus', 'Buses', url_prefix='/api/v1/bus')
 
     @bus_bp.get('/<int:id>')
+    @swag_from('docs/bus_get.yaml')
     def get(id: int):
         bus = Bus.query.filter_by(id=id).first()
         if not bus:
@@ -185,6 +190,7 @@ class Buses():
 
         return jsonify(bus.as_dict()), HTTP_200_OK
 
+    @swag_from('docs/bus_post.yaml')
     @bus_bp.post('')
     def post():
         body = request.json
@@ -198,7 +204,7 @@ class Buses():
 class AvailableSchedules():
     ''' For displaying possible schedules to be inserted by the user in `schedules`
     '''
-    available_schedule_bp = Blueprint('available_schedule', __name__, url_prefix='/api/v1/available_schedule')
+    available_schedule_bp = Blueprint('available_schedule', 'AvailableSchedules', url_prefix='/api/v1/available_schedule')
 
     @available_schedule_bp.get('')
     def get():
