@@ -439,7 +439,9 @@ def delete_all():
 if __name__ == '__main__':
     from src import create_app
 
-    app = create_app(config='volume/config/flask.yml')
+    app = create_app(conf='volume/config/flask.yml')
+    db.create_all()
+    delete_all()
 
     log.info('populating Bus table ...')
     populate_buses(5)
@@ -451,3 +453,4 @@ if __name__ == '__main__':
     populate_schedules(dt_start='2022-01-01', dt_end='2022-02-01')
 
     log.info('done')
+    # db.drop_all()

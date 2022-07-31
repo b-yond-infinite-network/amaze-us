@@ -4,6 +4,7 @@ inspiration: # ? source: https://testdriven.io/blog/flask-pytest/
 
 import logging
 import json
+from datetime import datetime
 
 from src.constants.http_status_codes import (
     HTTP_200_OK,
@@ -39,7 +40,7 @@ def test_get_schedules_all_args(test_client, init_database):
     '''
     GIVEN a Flask application configured for testing
     WHEN GET http://{{socket}}/{{prefix}}/schedule
-    THEN chek that 200 is returned
+    THEN chek that 200 is returned 
     '''
     response = test_client.get(
         f'/{prefix}/schedule'
@@ -56,7 +57,7 @@ def test_get_top_drivers(test_client, init_database):
     '''
     GIVEN a Flask application configured for testing
     WHEN GET http://{{socket}}/{{prefix}}/schedule
-    THEN chek that 200 is returned
+    THEN chek that 200 is returned and length of data == `N`
     '''
     N = 5
 
@@ -122,4 +123,19 @@ def test_driver_duplicate_ssn(test_client, init_database):
     assert response_2.status_code == HTTP_409_CONFLICT
 
 
-# CONFLICTS #####################################################
+# SCHEDULE CONFLICTS ############################################
+
+def test_schedule_overlap(test_client, init_database):
+    '''
+    GIVEN a Flask application configured for testing
+    WHEN creating a driver with same ssn
+    THEN chek that 409 is returned
+    '''
+    response = test_client.get(f'/{prefix}/available_schedule', query_string={
+        'per_page': 1
+    })
+    response_body = json.loads(response.data.decode('utf-8'))
+    log.critical()
+    available_sched = response_body['data'][0]
+
+    # TODO ADD TO DATETIME
