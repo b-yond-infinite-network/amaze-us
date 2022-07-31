@@ -88,7 +88,7 @@ class Schedule(db.Model):
             or_(Schedule.bus_id == bus_id, Schedule.driver_id == driver_id),
             Schedule.dt_start >= dt_start,
             Schedule.dt_end <= dt_end
-        ).all()
+        ).limit(10).all()
         return results
 
 
