@@ -40,7 +40,7 @@ Content-Type: {{content_type}}
     "first_name": "Ray",
     "last_name": "Sheha",
     "email": "ray@mondo.ca",
-    "social_security_number": "0123456789"
+    "social_security_number": 1234567890
 }
 
 ### ? SCHEDULE #############################

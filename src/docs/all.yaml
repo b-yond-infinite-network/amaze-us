@@ -1,0 +1,52 @@
+---
+paths:
+  /api/v1/bus/{id}/:
+    get:
+      tags:
+        - buses
+      summary: get bus by id
+      parameters:
+        - in: path
+          name: id
+          type: integer
+          description: item id
+      responses:
+        200:
+          description: bus retrieved
+
+          schema:
+            type: object
+            required: [make, model]
+            properties:
+              make:
+                type: string
+                example: BMW
+              model:
+                type: string
+                example: B01
+
+        404:
+          description: bus not found
+
+  /api/v1/bus:
+    post:
+      tags:
+        - buses
+      summary: create bus
+      parameters:
+        - in: body
+          name: bus
+        
+          schema:
+            type: object
+            required: [make, model]
+            properties:
+              make:
+                type: string
+                example: BMW
+              model:
+                type: string
+                example: B01
+      responses:
+        201:
+          description: bus is created
