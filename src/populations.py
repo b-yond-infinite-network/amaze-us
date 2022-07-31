@@ -418,6 +418,24 @@ def populate_schedules(dt_start: str, dt_end: str):
     db.session.commit()
 
 
+def delete_all():
+    ''' delete all rows in all tables
+    '''
+    log.info('deleting Schedule table ...')
+    Schedule.query.delete()
+
+    log.info('deleting Available_Schedule table ...')
+    AvaiableSchedule.query.delete()
+
+    log.info('deleting Bus table ...')
+    Bus.query.delete()
+
+    log.info('deleting Driver table ...')
+    Driver.query.delete()
+
+    db.session.commit()
+
+
 if __name__ == '__main__':
     from src import create_app
 
@@ -429,7 +447,7 @@ if __name__ == '__main__':
     log.info('populating Driver table ...')
     populate_drivers(10)
 
-    log.info('populating Schedule table ...')
+    log.info('populating Schedule & Available_Schedule tables ...')
     populate_schedules(dt_start='2022-01-01', dt_end='2022-02-01')
 
     log.info('done')
