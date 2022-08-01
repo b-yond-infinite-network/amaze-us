@@ -15,7 +15,7 @@ log = logging.getLogger(__name__)
 @pytest.fixture(scope='module')
 def test_client():
     log.info('creating app ...')
-    flask_app = create_app('volume/config/flask_test.yml')
+    flask_app = create_app('tests/flask.yaml')
 
     with flask_app.test_client() as testing_client:
         with flask_app.app_context():

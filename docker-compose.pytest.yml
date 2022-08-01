@@ -22,4 +22,4 @@ services:
       - mysql_db
     ports:
       - 5000:5000
-    command: [ --config, volume/config/flask_production.yaml, --host, api, --port, '5000' ]
+    entrypoint: [ python3, pytests.py ]

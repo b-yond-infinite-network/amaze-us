@@ -470,7 +470,7 @@ def delete_all():
 if __name__ == '__main__':
     from src import create_app
 
-    app = create_app(conf='volume/config/flask.yml')
+    app = create_app(conf='volume/config/flask.yaml')
     db.create_all()
     delete_all()
 

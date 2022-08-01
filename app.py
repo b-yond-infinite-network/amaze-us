@@ -10,7 +10,7 @@ log = logging.getLogger(__name__)
 def run():
     parser = argparse.ArgumentParser()
     parser.add_argument('--config', '-c',
-                        nargs='?', type=str, default='volume/config/flask.yml',
+                        nargs='?', type=str, default='volume/config/flask.yaml',
                         help='flask config. Default: %(default)s'
                         )
     parser.add_argument('--host',

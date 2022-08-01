@@ -1,4 +1,4 @@
-FROM python:3.8-slim-buster
+FROM python:3.10.5-slim-buster
 
 ARG WORKDIR=/opt/app
 RUN mkdir -p ${WORKDIR}
@@ -13,5 +13,10 @@ RUN pip3 install -r requirements.txt
 COPY assets ./assets
 COPY src ./src
 COPY app.py .
+
+# * FOR CONTAINERIZED PYTESTING WE OVERRIDE THE FLASK CONFIG USING SO DB HOST IS RECOGNIZED ON THE NETWROK BRIDGE
+COPY tests ./tests
+COPY volume/config/flask_test_docker.yaml tests/flask.yaml
+COPY pytests.py .
 
 ENTRYPOINT [ "python3", "app.py" ]
