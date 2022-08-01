@@ -1,12 +1,12 @@
 import logging
 from sqlalchemy import func, desc
 
-import validators
+from email_validator import validate_email
 from flask import Blueprint, request, jsonify
 from flasgger import swag_from
 from datetime import datetime
 
-from src.common import DT_FMT, PAGINATION_PER_PAGE
+from src.common import DT_FMT, PAGINATION_PER_PAGE, MAX_NAME_LEN, MAX_EMAIL_LEN
 from src.db_model.db_models import Schedule, Driver, Bus, AvaiableSchedule, db
 from src.constants.http_status_codes import (
     HTTP_200_OK,
@@ -101,10 +101,10 @@ class Schedules():
         if bus is None:
             return jsonify({'error': 'No bus with such id ...'}), HTTP_400_BAD_REQUEST
 
-        conflicting_scheds = Schedule.get_scheds_for(driver.id, bus.id, dt_from, dt_to)
+        conflicting_scheds = Schedule.get_overlapping_scheds(driver.id, bus.id, dt_from, dt_to)
         if conflicting_scheds:
             return jsonify({
-                'error': 'Bus is occupied at the designated time slot ...',
+                'error': 'bus/driver is occupied at the designated time slot ...',
                 'conflicts': [sched.as_dict() for sched in conflicting_scheds]
             }), HTTP_409_CONFLICT
 
@@ -172,8 +172,19 @@ class Drivers():
         if not body['last_name'].isalpha() or ' ' in body['last_name']:
             return jsonify({'error': 'last name contains bad characters ...'}), HTTP_400_BAD_REQUEST
 
-        if not validators.email(body['email']):
-            return jsonify({'error': 'Email is invalid ...'}), HTTP_400_BAD_REQUEST
+        if len(body['first_name']) > MAX_NAME_LEN:
+            return jsonify({'error': f'first name should not exceed {MAX_NAME_LEN} characters ...'}), HTTP_400_BAD_REQUEST
+
+        if len(body['last_name']) > MAX_NAME_LEN:
+            return jsonify({'error': f'last name should not exceed {MAX_NAME_LEN} characters ...'}), HTTP_400_BAD_REQUEST
+
+        try:
+            validate_email(body['email'])
+        except Exception as err:
+            return jsonify({'error': f'Email is invalid: {err}'}), HTTP_400_BAD_REQUEST
+
+        if len(body['email']) > MAX_EMAIL_LEN:
+            return jsonify({'error': f'email should not exceed {MAX_EMAIL_LEN} characters ...'}), HTTP_400_BAD_REQUEST
 
         if Driver.query.filter_by(email=body['email']).first() is not None:
             return jsonify({'error': 'Email is taken ...'}), HTTP_409_CONFLICT
@@ -185,7 +196,7 @@ class Drivers():
             driver = Driver(
                 first_name=body['first_name'],
                 last_name=body['last_name'],
-                email=body['email'],
+                email=body['email'].lower(),
                 social_security_number=body['social_security_number']
             )
         except KeyError as key:
