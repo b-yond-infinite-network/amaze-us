@@ -1,0 +1,41 @@
+---
+tags:
+  - available schedules
+summary: get all available schedules
+responses:
+  200:
+    description: available schedules retrieved
+    schema:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              bus_id:
+                type: integer
+                example: 1
+              driver_id:
+                type: integer
+                example: 2
+              dt_start:
+                type: string
+                example: '2022-01-01'
+              dt_end:
+                type: string
+                example: '2022-01-30'
+
+        meta:
+          type: object
+          properties:
+            item_count:
+              type: integer
+            next_page:
+              type: integer
+            page:
+              type: integer
+            pages:
+              type: integer
+            prev_page:
+              type: integer
