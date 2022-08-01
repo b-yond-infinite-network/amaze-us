@@ -7,7 +7,7 @@ import logging
 import pytest
 from src import create_app, db
 from src.populations import populate_drivers, populate_buses, populate_schedules, delete_all
-from src.db_model.db_models import Bus, Driver
+from src.db_model.db_models import AvaiableSchedule, Driver, Schedule
 
 log = logging.getLogger(__name__)
 
@@ -47,23 +47,43 @@ def init_database(test_client):
     delete_all()
 
 
-@pytest.fixture(scope='module')
-def new_bus() -> dict:
-    ''' pass a bus
-    '''
-    return dict(
-        make='TEST',
-        mode='T123'
-    )
-
-
-@pytest.fixture(scope='module')
+@pytest.fixture(scope='function')
 def new_driver() -> dict:
     ''' pass a driver
     '''
-    return dict(
+    driver = dict(
         first_name='Blue',
         last_name='Max',
         email='blue.max@gmail.com',
-        social_security_number=333555777,
+        social_security_number=777333555,
     )
+
+    yield dict(driver)
+
+    Driver.query.filter_by(email=driver['email']).delete()
+
+
+@pytest.fixture(scope='function')
+def new_schedules() -> list[Schedule]:
+    ''' pass a schedule
+    '''
+    n = 5
+    scheds = AvaiableSchedule.query.limit(n).all()
+
+    yield scheds
+
+    for sched in scheds:
+        Schedule.query.filter_by(id=sched.id).delete()
+
+
+@pytest.fixture(scope='function')
+def existing_schedules() -> list[Schedule]:
+    ''' pass a schedule
+    '''
+    n = 5
+    scheds = Schedule.query.limit(n).all()
+
+    yield scheds
+
+    for sched in scheds:
+        Schedule.query.filter_by(id=sched.id).delete()
