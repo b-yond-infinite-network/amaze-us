@@ -26,11 +26,11 @@ Content-Type: {{content_type}}
 GET http://{{socket}}/{{prefix}}/driver/1
 
 ### GET TOP N DRIVERS
-GET http://{{socket}}/{{prefix}}/driver/top/5
-    ?from=2022-01-01 00:00
-    &to=2022-02-03 00:00
-    # &page=1
-    # &per_page=2
+GET http://{{socket}}/{{prefix}}/driver/top/10
+    ?from=2022-01-02 00:00
+    &to=2022-01-06 00:00
+    &page=1
+    &per_page=5
 
 ### CREATE DRIVER
 POST http://{{socket}}/{{prefix}}/driver
@@ -79,7 +79,7 @@ POST http://{{socket}}/{{prefix}}/population
     ?buses=5
     &drivers=10
     ?from=2022-01-01
-    &to=2022-2-01
+    &to=2022-02-01
 
 ### ! DELETE ALL ###########################
 DELETE http://{{socket}}/{{prefix}}/population

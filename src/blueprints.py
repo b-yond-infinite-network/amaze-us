@@ -163,13 +163,20 @@ class Drivers():
         except TypeError:
             return jsonify({'error': 'Start date / end date not supplied in query ...'}), HTTP_400_BAD_REQUEST
 
-        # TODO use dts...
         # * select from schedules table, grouping by driver id schedules
-        top_driver_ids = Schedule.query.with_entities(
-            Schedule.driver_id, func.count(Schedule.driver_id).label('count')
-        ).group_by(Schedule.driver_id).order_by(desc('count')).limit(5).all()
+        top_driver_ids_counts = Schedule.query.with_entities(
+            Schedule.driver_id,
+            func.count(Schedule.driver_id).label('COUNT')
+        ).filter(
+            dt_from <= Schedule.dt_start,
+            Schedule.dt_start <= dt_to      # we may have used dt_end <= dt_to here ...
+        ).group_by(
+            Schedule.driver_id
+        ).order_by(
+            desc('COUNT')
+        ).limit(n).all()
 
-        top_driver_ids = [res[0] for res in top_driver_ids]
+        top_driver_ids = [res[0] for res in top_driver_ids_counts]
         drivers_paginated = Driver.query.filter(Driver.id.in_(top_driver_ids)).paginate(page, per_page)
 
         return jsonify({
@@ -182,6 +189,7 @@ class Drivers():
     def post():
         body = request.json
 
+        # * name check
         if not body['first_name'].isalpha() or ' ' in body['first_name']:
             return jsonify({'error': 'first name contains bad characters ...'}), HTTP_400_BAD_REQUEST
 
@@ -194,6 +202,7 @@ class Drivers():
         if len(body['last_name']) > MAX_NAME_LEN:
             return jsonify({'error': f'last name should not exceed {MAX_NAME_LEN} characters ...'}), HTTP_400_BAD_REQUEST
 
+        # * email check
         try:
             validate_email(body['email'])
         except Exception as err:
@@ -202,9 +211,11 @@ class Drivers():
         if len(body['email']) > MAX_EMAIL_LEN:
             return jsonify({'error': f'email should not exceed {MAX_EMAIL_LEN} characters ...'}), HTTP_400_BAD_REQUEST
 
+        # * email duplicates check
         if Driver.query.filter_by(email=body['email']).first() is not None:
             return jsonify({'error': 'Email is taken ...'}), HTTP_409_CONFLICT
 
+        # * ssn duplicates check
         if Driver.query.filter_by(social_security_number=body['social_security_number']).first() is not None:
             return jsonify({'error': 'SSN is taken ...'}), HTTP_409_CONFLICT
 
