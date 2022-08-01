@@ -1,9 +1,8 @@
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import or_, and_
-
 from datetime import datetime
 
-from src.common import DT_FMT
+from src.common import DT_FMT, MAX_EMAIL_LEN, MAX_NAME_LEN
 
 db = SQLAlchemy()
 
@@ -12,8 +11,8 @@ class Bus(db.Model):
     ''' model for bus
     '''
     id = db.Column(db.Integer, primary_key=True)
-    model = db.Column(db.String(30), nullable=False)
-    make = db.Column(db.String(30), nullable=False)
+    model = db.Column(db.String(MAX_NAME_LEN), nullable=False)
+    make = db.Column(db.String(MAX_NAME_LEN), nullable=False)
     slots = db.relationship('Schedule', backref='bus', lazy='dynamic')
 
     def __repr__(self) -> str:
@@ -33,9 +32,9 @@ class Driver(db.Model):
     ''' model for driver
     '''
     id = db.Column(db.Integer, primary_key=True)
-    first_name = db.Column(db.String(30), nullable=False)
-    last_name = db.Column(db.String(30), nullable=False)
-    email = db.Column(db.String(120), unique=True, nullable=False)
+    first_name = db.Column(db.String(MAX_NAME_LEN), nullable=False)
+    last_name = db.Column(db.String(MAX_NAME_LEN), nullable=False)
+    email = db.Column(db.String(MAX_EMAIL_LEN), unique=True, nullable=False)
     social_security_number = db.Column(db.Integer, unique=True, nullable=False)
     shifts = db.relationship('Schedule', backref='driver', lazy='dynamic')
 
@@ -62,6 +61,7 @@ class Schedule(db.Model):
     dt_start = db.Column(db.DateTime, nullable=False)
     dt_end = db.Column(db.DateTime, nullable=False)
 
+    # attempted inheritance but there's conflict in mro...
     __mapper_args__ = {
         'polymorphic_identity': 'schedule',
     }
@@ -103,6 +103,7 @@ class AvaiableSchedule(db.Model):
     dt_start = db.Column(db.DateTime, nullable=False)
     dt_end = db.Column(db.DateTime, nullable=False)
 
+    # attempted inheritance but there's conflict in mro...
     __mapper_args__ = {
         'polymorphic_identity': 'schedule',
     }

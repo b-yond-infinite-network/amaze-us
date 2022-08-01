@@ -1,3 +1,6 @@
+''' blueprints for database models
+'''
+
 import logging
 from sqlalchemy import func, desc
 
@@ -6,7 +9,7 @@ from flask import Blueprint, request, jsonify
 from flasgger import swag_from
 from datetime import datetime
 
-from src.common import DT_FMT, PAGINATION_PER_PAGE, MAX_NAME_LEN, MAX_EMAIL_LEN
+from src.common import DT_FMT, PAGINATION_PER_PAGE, MAX_NAME_LEN, MAX_EMAIL_LEN, VERSION
 from src.db_model.db_models import Schedule, Driver, Bus, AvaiableSchedule, db
 from src.constants.http_status_codes import (
     HTTP_200_OK,
@@ -16,11 +19,13 @@ from src.constants.http_status_codes import (
     HTTP_409_CONFLICT
 )
 
-
+PREFIX = f'/api/{VERSION}'
 log = logging.getLogger(__name__)
 
 
-def get_page_meta(pagination):
+def get_page_meta(pagination) -> dict:
+    ''' return metadata concerning a list of retrieved items
+    '''
     return {
         'page': pagination.page,
         'pages': pagination.pages,
@@ -31,7 +36,9 @@ def get_page_meta(pagination):
 
 
 class Schedules():
-    schedule_bp = Blueprint('schedule', 'Schedules', url_prefix='/api/v1/schedule')
+    ''' wraps API calls concerning schedules
+    '''
+    schedule_bp = Blueprint('schedule', 'Schedules', url_prefix=f'{PREFIX}/schedule')
 
     @swag_from('docs/schedule_get.yaml')
     @schedule_bp.get('/<int:id>')
@@ -54,7 +61,7 @@ class Schedules():
         driver_id = request.args.get('driver_id', type=int, default=None)
         bus_id = request.args.get('bus_id', type=int, default=None)
 
-        conds = []
+        conds = []      # all conditions are optional; append if provided
         if driver_id:
             conds.append(Schedule.driver_id == driver_id)
         if bus_id:
@@ -95,12 +102,15 @@ class Schedules():
         driver = Driver.query.filter_by(id=body['driver_id']).first()
         bus = Bus.query.filter_by(id=body['bus_id']).first()
 
+        # * check if driver exists in database
         if driver is None:
             return jsonify({'error': 'No driver with such id ...'}), HTTP_400_BAD_REQUEST
 
+        # * check if bus exists in database
         if bus is None:
             return jsonify({'error': 'No bus with such id ...'}), HTTP_400_BAD_REQUEST
 
+        # * check for overlapping schedules
         conflicting_scheds = Schedule.get_overlapping_scheds(driver.id, bus.id, dt_from, dt_to)
         if conflicting_scheds:
             return jsonify({
@@ -121,7 +131,9 @@ class Schedules():
 
 
 class Drivers():
-    driver_bp = Blueprint('driver', 'Drivers', url_prefix='/api/v1/driver')
+    ''' wraps API calls concerning drivers
+    '''
+    driver_bp = Blueprint('driver', 'Drivers', url_prefix=f'{PREFIX}/driver')
 
     @swag_from('docs/driver_get.yaml')
     @driver_bp.get('/<int:id>')
@@ -149,6 +161,8 @@ class Drivers():
         except TypeError:
             return jsonify({'error': 'Start date / end date not supplied in query ...'}), HTTP_400_BAD_REQUEST
 
+        # TODO use dts...
+        # * select from schedules table, grouping by driver id schedules
         top_driver_ids = Schedule.query.with_entities(
             Schedule.driver_id, func.count(Schedule.driver_id).label('count')
         ).group_by(Schedule.driver_id).order_by(desc('count')).limit(5).all()
@@ -209,7 +223,9 @@ class Drivers():
 
 
 class Buses():
-    bus_bp = Blueprint('bus', 'Buses', url_prefix='/api/v1/bus')
+    ''' wraps API calls concerning buses
+    '''
+    bus_bp = Blueprint('bus', 'Buses', url_prefix=f'{PREFIX}/bus')
 
     @bus_bp.get('/<int:id>')
     @swag_from('docs/bus_get.yaml')
@@ -229,6 +245,7 @@ class Buses():
         except KeyError as key:
             return jsonify({'error': f'{key} not supplied in request body ...'}), HTTP_409_CONFLICT
 
+        # no need to check before adding bus; nothing is unique
         db.session.add(bus)
         db.session.commit()
 
@@ -236,10 +253,12 @@ class Buses():
 
 
 class AvailableSchedules():
-    ''' For displaying possible schedules to be inserted by the user in `schedules`
+    ''' wraps API calls concerning available schedules
+        For displaying possible schedules to be inserted by the user in `schedules`
     '''
-    available_schedule_bp = Blueprint('available_schedule', 'AvailableSchedules', url_prefix='/api/v1/available_schedule')
+    available_schedule_bp = Blueprint('available_schedule', 'AvailableSchedules', url_prefix=f'{PREFIX}/available_schedule')
 
+    @swag_from('docs/available_schedule_get.yaml')
     @available_schedule_bp.get('')
     def get():
         page = request.args.get('page', type=int, default=1)

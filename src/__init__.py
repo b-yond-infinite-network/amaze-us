@@ -17,7 +17,9 @@ coloredlogs.install(level=logging.DEBUG)
 log = logging.getLogger(__name__)
 
 
-def create_app(conf: str):
+def create_app(conf: str) -> Flask:
+    ''' create app, bind db, register blueprints, config swagger
+    '''
     app = Flask(__name__, instance_relative_config=True)
 
     with open(conf, mode='r') as f:

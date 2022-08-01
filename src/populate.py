@@ -1,20 +1,27 @@
+''' blueprint for helping user interact with database using the application...
+    ** error checks not fully implemented here as this module is mainly for testing purposes...
+'''
+
 import logging
 
 from flask import Blueprint, request, jsonify
 from flasgger import swag_from
 
+from src.common import VERSION
 from src.populations import populate_buses, populate_drivers, populate_schedules, delete_all
 from src.constants.http_status_codes import (
     HTTP_201_CREATED,
     HTTP_204_NO_CONTENT
 )
 
-
+PREFIX = f'/api/{VERSION}'
 log = logging.getLogger(__name__)
 
 
 class Populations():
-    population_bp = Blueprint('population', 'Population', url_prefix='/api/v1/population')
+    ''' for controlling bus, driver and schedule populations
+    '''
+    population_bp = Blueprint('population', 'Population', url_prefix=f'{VERSION}/population')
 
     @swag_from('docs/population_post.yaml')
     @population_bp.post('')

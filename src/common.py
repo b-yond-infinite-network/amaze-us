@@ -1,3 +1,4 @@
+VERSION = 'v1'
 
 DT_FMT = '%Y-%m-%d %H:%M'
 PAGINATION_PER_PAGE = 100

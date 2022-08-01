@@ -1,4 +1,8 @@
+''' for managing database populations
+'''
+
 import logging
+from typing import Tuple
 
 import random
 from random import randint, gauss
@@ -15,6 +19,11 @@ log = logging.getLogger(__name__)
 
 def driver_gen(n: int):
     ''' generator function for drivers
+        first / last names fetched from: # ? source: https://www.name-generator.org.uk/quick/
+    args:
+        n: number of items
+    yields:
+        driver dict
     '''
     NUM_NAMES = n
 
@@ -258,6 +267,10 @@ def driver_gen(n: int):
 
 def bus_gen(n: int):
     ''' generator function for buses
+    args:
+        n: number of items
+    yields:
+        bus dict
     '''
     NUM_BUSES = n
 
@@ -293,6 +306,11 @@ def bus_gen(n: int):
 
 def schedule_gen(dt_start: str, dt_end: str):
     ''' generator function for schedules
+    args:
+        dt_start: start date str in `DATE_FMT`
+        dt_end: end date str in `DATE_FMT`
+    yields:
+        schedule dict
     '''
     DATE_FMT = '%Y-%m-%d'
 
@@ -309,15 +327,15 @@ def schedule_gen(dt_start: str, dt_end: str):
         def __init__(self, id: int):
             self.id = id
 
-            self.t_start = T_START.replace(
+            self.t_start = T_START.replace(                             # bus schedule starting hour
                 hour=T_START.hour + abs(int(gauss(0, 0.5))),
                 minute=T_START.minute + abs(int(gauss(0, 10)))
             )
 
-            self.time_now = self.t_start
+            self.time_now = self.t_start                                # running time
+            self.trip_duration = timedelta(minutes=randint(20, 60))     # duration of bus trip
 
-            self.trip_duration = timedelta(minutes=randint(20, 60))
-            self.every = self.trip_duration + timedelta(
+            self.every = self.trip_duration + timedelta(                # trip period
                 hours=abs(int(gauss(0, 0.4))),
                 minutes=randint(20, 40)
             )
@@ -357,15 +375,16 @@ def schedule_gen(dt_start: str, dt_end: str):
     drivers_dicts = [driver.as_dict() for driver in drivers_in_db]
 
     today = DT_START
-
     while today < DT_END:
         today += timedelta(days=1)
 
+        # * GENERATE SCHEDULES FOR EVERY DAY
         for bus in bus_dicts:
             time_now: time = bus['sched'].time_now
             every: timedelta = bus['sched'].every
             trip_duration: time = bus['sched'].trip_duration
 
+            # * KEEP GENERATING SO LONG AS TIME IS INBOUND
             while time_now < T_END:
                 time_now = add_delta_2_time(time_now, every)
                 bus['sched'].time_now = time_now
@@ -374,8 +393,7 @@ def schedule_gen(dt_start: str, dt_end: str):
                 time_end = add_delta_2_time(dt_today, trip_duration)
                 dt_end = datetime(today.year, today.month, today.day, time_end.hour, time_end.minute)
 
-                # driver_i = drivers_dicts.pop(randint(0, len(drivers_dicts) - 1))
-                driver_i = drivers_dicts.pop(0)
+                driver_i = drivers_dicts.pop(0)     # pop driver for this slot
 
                 yield {
                     'driver_id': driver_i['id'],
@@ -383,8 +401,8 @@ def schedule_gen(dt_start: str, dt_end: str):
                     'dt_start': dt_today,
                     'dt_end': dt_end
                 }
-                drivers_dicts.append(driver_i)
-            bus['sched'].reset()
+                drivers_dicts.append(driver_i)      # driver is returned to deque
+            bus['sched'].reset()                    # when bus finished the day, restart running hour
 
 
 # POPULATE ###################################################
@@ -405,11 +423,17 @@ def populate_buses(n: int = 250):
     db.session.commit()
 
 
-def populate_schedules(dt_start: str, dt_end: str):
-    ''' populcate database with schedules from dt_start until dt_end
+def populate_schedules(dt_start: str, dt_end: str) -> Tuple[int]:
+    ''' populcate database with schedules from dt_start until dt_end.
+        here populate Schedules and AvailableSchedules.
+        `EMPTY_SLOT_CHANCE` determines if the schedule makes it inside Schedules or AvailableSchedules table.
+        this way we may have a table of available schedules so we may add them to the
+        schedules table without having to worry about conflicts.
     args:
         dt_start: start date str following DATE_FMT = '%Y-%m-%d'
         dt_end: end date str follwing DATE_FMT = '%Y-%m-%d'
+    returns:
+        number of schedules added, number of schedules available
     '''
     EMPTY_SLOT_CHANCE = 0.10
     num_scheds, num_available_scheds = 0, 0
