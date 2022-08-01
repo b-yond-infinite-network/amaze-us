@@ -61,10 +61,10 @@ POST http://{{socket}}/{{prefix}}/schedule
 Content-Type: {{content_type}}
 
 {
-    "bus_id": 2,
-    "driver_id": 7,
-    "dt_start": "2022-01-02 12:21",
-    "dt_end": "2022-02-02 10:02"
+    "bus_id": 50,
+    "driver_id": 110,
+    "dt_start": "2022-01-06 15:47",
+    "dt_end": "2022-01-06 16:20"
 }
 
 ### ! AVAILABLE SCHEDULE ###################
@@ -73,3 +73,14 @@ GET http://{{socket}}/{{prefix}}/available_schedule
     ?page=3
     &per_page=5
     &driver_id=3
+
+
+### ! POPULATE ALL #########################
+POST http://{{socket}}/{{prefix}}/population
+    ?buses=5
+    &drivers=10
+    ?from=2022-01-01
+    &to=2022-12-02
+
+### ! DELETE ALL ###########################
+DELETE http://{{socket}}/{{prefix}}/population
