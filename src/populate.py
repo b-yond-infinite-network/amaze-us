@@ -21,7 +21,7 @@ log = logging.getLogger(__name__)
 class Populations():
     ''' for controlling bus, driver and schedule populations
     '''
-    population_bp = Blueprint('population', 'Population', url_prefix=f'{VERSION}/population')
+    population_bp = Blueprint('population', 'Population', url_prefix=f'{PREFIX}/population')
 
     @swag_from('docs/population_post.yaml')
     @population_bp.post('')

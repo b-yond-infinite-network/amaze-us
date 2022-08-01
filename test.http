@@ -67,20 +67,19 @@ Content-Type: {{content_type}}
     "dt_end": "2022-01-06 16:20"
 }
 
-### ! AVAILABLE SCHEDULE ###################
+### * AVAILABLE SCHEDULE ###################
 ### GET ALL AVAILABLE SCHEDULES
 GET http://{{socket}}/{{prefix}}/available_schedule
     ?page=3
     &per_page=5
     &driver_id=3
 
-
 ### ! POPULATE ALL #########################
 POST http://{{socket}}/{{prefix}}/population
     ?buses=5
     &drivers=10
     ?from=2022-01-01
-    &to=2022-12-02
+    &to=2022-2-01
 
 ### ! DELETE ALL ###########################
 DELETE http://{{socket}}/{{prefix}}/population

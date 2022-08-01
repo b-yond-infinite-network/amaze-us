@@ -54,6 +54,7 @@ class Schedules():
     def filter():
         page = request.args.get('page', type=int, default=1)
         per_page = request.args.get('per_page', type=int, default=PAGINATION_PER_PAGE)
+        per_page = min(PAGINATION_PER_PAGE, per_page)
 
         dt_from = request.args.get('from', type=str, default=None)
         dt_to = request.args.get('to', type=str, default=None)
@@ -149,6 +150,7 @@ class Drivers():
     def get_top_n(n: int):
         page = request.args.get('page', type=int, default=1)
         per_page = request.args.get('per_page', type=int, default=PAGINATION_PER_PAGE)
+        per_page = min(PAGINATION_PER_PAGE, per_page)
 
         dt_from = request.args.get('from', type=str, default=None)
         dt_to = request.args.get('to', type=str, default=None)
@@ -263,9 +265,9 @@ class AvailableSchedules():
     def get():
         page = request.args.get('page', type=int, default=1)
         per_page = request.args.get('per_page', type=int, default=PAGINATION_PER_PAGE)
+        per_page = min(PAGINATION_PER_PAGE, per_page)
 
         av_scheds_paginated = AvaiableSchedule.query.paginate(page, per_page)
-
         return jsonify({
             'data': [av_sched.as_dict() for av_sched in av_scheds_paginated.items],
             'meta': get_page_meta(av_scheds_paginated)
