@@ -1,0 +1,34 @@
+---
+tags:
+  - population
+summary: create random drivers, buses and drivers. *for testing purposes
+parameters:
+  - in: query
+    name: buses
+    type: int
+    example: 5
+  - in: query
+    name: drivers
+    type: int
+    example: 10
+  - in: query
+    name: from
+    type: string
+    example: '2022-01-01'
+  - in: query
+    name: to
+    type: string
+    example: '2022-01-30'
+responses:
+  201:
+    description: population has been created
+    schema:
+      type: object
+      properties:
+        data:
+          created:
+            type: int
+            example: 1000
+          available:
+            type: int
+            example: 100

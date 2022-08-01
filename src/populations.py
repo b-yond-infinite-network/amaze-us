@@ -368,11 +368,14 @@ def schedule_gen(dt_start: str, dt_end: str):
 
             while time_now < T_END:
                 time_now = add_delta_2_time(time_now, every)
+                bus['sched'].time_now = time_now
+
                 dt_today = datetime(today.year, today.month, today.day, time_now.hour, time_now.minute)
                 time_end = add_delta_2_time(dt_today, trip_duration)
                 dt_end = datetime(today.year, today.month, today.day, time_end.hour, time_end.minute)
 
-                driver_i = drivers_dicts.pop(randint(0, len(drivers_dicts) - 1))
+                # driver_i = drivers_dicts.pop(randint(0, len(drivers_dicts) - 1))
+                driver_i = drivers_dicts.pop(0)
 
                 yield {
                     'driver_id': driver_i['id'],
@@ -409,13 +412,17 @@ def populate_schedules(dt_start: str, dt_end: str):
         dt_end: end date str follwing DATE_FMT = '%Y-%m-%d'
     '''
     EMPTY_SLOT_CHANCE = 0.10
+    num_scheds, num_available_scheds = 0, 0
     for schedule in schedule_gen(dt_start, dt_end):
         if random.random() > EMPTY_SLOT_CHANCE:
             db.session.add(Schedule(**schedule))
+            num_scheds += 1
         else:
             db.session.add(AvaiableSchedule(**schedule))
+            num_available_scheds += 1
 
     db.session.commit()
+    return num_scheds, num_available_scheds
 
 
 def delete_all():
@@ -453,4 +460,5 @@ if __name__ == '__main__':
     populate_schedules(dt_start='2022-01-01', dt_end='2022-02-01')
 
     log.info('done')
+    # delete_all()
     # db.drop_all()

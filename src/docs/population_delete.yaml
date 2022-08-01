@@ -1,0 +1,8 @@
+---
+tags:
+  - population
+summary: delete all drivers, buses and schedules
+
+responses:
+  204:
+    description: population has been removed
