@@ -1,5 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import or_
+from sqlalchemy import or_, and_
 
 from datetime import datetime
 
@@ -74,20 +74,22 @@ class Schedule(db.Model):
     def as_dict(self):
         return {
             'id': self.id,
-            'driver_id': f'{self.driver_id}',
+            'driver_id': self.driver_id,
             'bus_id': self.bus_id,
             'dt_start': datetime.strftime(self.dt_start, DT_FMT),
             'dt_end': datetime.strftime(self.dt_end, DT_FMT)
         }
 
     @staticmethod
-    def get_scheds_for(
-        driver_id: int, bus_id: int, dt_start: datetime, dt_end: datetime
+    def get_overlapping_scheds(
+        driver_id: int, bus_id: int, inc_dt_start: datetime, inc_dt_end: datetime
     ) -> bool:
         results = Schedule.query.filter(
             or_(Schedule.bus_id == bus_id, Schedule.driver_id == driver_id),
-            Schedule.dt_start >= dt_start,
-            Schedule.dt_end <= dt_end
+            or_(
+                and_(Schedule.dt_start <= inc_dt_start, inc_dt_start <= Schedule.dt_end),
+                and_(Schedule.dt_start <= inc_dt_end, inc_dt_end <= Schedule.dt_end)
+            )
         ).limit(10).all()
         return results
 
@@ -113,7 +115,7 @@ class AvaiableSchedule(db.Model):
     def as_dict(self):
         return {
             'id': self.id,
-            'driver_id': f'{self.driver_id}',
+            'driver_id': self.driver_id,
             'bus_id': self.bus_id,
             'dt_start': datetime.strftime(self.dt_start, DT_FMT),
             'dt_end': datetime.strftime(self.dt_end, DT_FMT)
