@@ -7,6 +7,7 @@ from flasgger import Swagger
 
 from src.db_model.db_models import db
 from src.blueprints import schedule_bp, bus_bp, driver_bp, available_schedule_bp
+from src.populate import population_bp
 from src.constants.http_status_codes import HTTP_200_OK
 from src.config.swagger import swagger_config, swagger_template
 
@@ -39,6 +40,7 @@ def create_app(conf: str):
     app.register_blueprint(bus_bp)
     app.register_blueprint(driver_bp)
     app.register_blueprint(available_schedule_bp)
+    app.register_blueprint(population_bp)
 
     Swagger(
         app,
