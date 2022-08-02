@@ -105,20 +105,20 @@ POST http://{{socket}}/{{prefix}}/schedule
 2. The application should allow a user to retrieve the schedule for every driver for a given week.
 ```
 GET http://{{socket}}/{{prefix}}/schedule/by_driver
-    ?from=2022-01-01 00:00
-    &to=2022-03-03 00:00
+    ?from=2022-01-01
+    &to=2022-03-03
 ```
 3. The application should allow a user to retrieve the schedule for every bus for a given week.
 ```
 GET http://{{socket}}/{{prefix}}/schedule/by_bus
-    ?from=2022-01-01 00:00
-    &to=2022-03-03 00:00
+    ?from=2022-01-01
+    &to=2022-03-03
 ```
 4. The application should allow a user to retrieve top X drivers with more shedules per week, during a number of consecutive weeks (from ... to)
 ```
 GET http://{{socket}}/{{prefix}}/driver/top/10
-    ?from=2022-01-02 00:00
-    &to=2022-03-16 00:00
+    ?from=2022-01-02
+    &to=2022-03-16
 ```
 
 ## Discussion

@@ -65,20 +65,20 @@ def test_get_top_drivers(test_client, init_database):
     WHEN GET http://{{socket}}/{{PREFIX}}/schedule
     THEN chek that 200 is returned and length of data == `N`
     '''
-    N = 5
-    response = test_client.get(
-        f'/{PREFIX}/driver/top/{N}'
-        '?from=2022-01-01 00:00'
-        '&to=2022-02-03 00:00'
-        '&page=1'
-        '&per_page=100'
-    )
+    
+    for N in [5, 10, 20]:
+        response = test_client.get(
+            f'/{PREFIX}/driver/top/{N}'
+            '?from=2022-01-01'
+            '&to=2022-05-03'
+            '&page=1'
+            '&per_page=100'
+        )
 
-    response_body = json.loads(response.data.decode('utf-8'))
-
-    for weekly_result in response_body.values():
-        assert len(weekly_result) <= N
-    assert response.status_code == HTTP_200_OK
+        response_body = json.loads(response.data.decode('utf-8'))
+        for weekly_result in response_body.values():
+            assert len(weekly_result) <= N
+        assert response.status_code == HTTP_200_OK
 
 
 # CONFLICTS #####################################################
