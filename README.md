@@ -24,7 +24,7 @@ $ pip3 install -r requirements.txt                  # install requirements for v
 ## Testing API requests
 ---
 > Given that the APP (both containers) is runnning, user may test API calls either:
-1. Using vscode addon: [__REST CLIENT__](https://marketplace.visualstudio.com/items?), user may use the `./test.http` file which contains all the possible requrests. User may edit: body, queries and path for every request if necessary.
+1. Using `./test.http` given that vscode addon: [__REST CLIENT__](https://marketplace.visualstudio.com/items?) is installed.
 2. Using swagger endpoint: `0.0.0.0:5000/apidocs`, where a `swagger.io UI` is provided.
 
 ## Running the APP

@@ -1,0 +1,517 @@
+basePath: /api/v1
+definitions: {}
+info:
+  contact:
+    email: exccomrade@gmail.com
+    responsibleDeveloper: ''
+    responsibleOrganization: ''
+  description: API for Schedules
+  termsOfService: ''
+  title: Schedule API
+  version: '1.0'
+paths:
+  /available_schedule:
+    get:
+      description: get all available schedules
+      responses:
+        '200':
+          description: available schedules retrieved
+          schema:
+            properties:
+              data:
+                items:
+                  properties:
+                    bus_id:
+                      example: 1
+                      type: integer
+                    driver_id:
+                      example: 2
+                      type: integer
+                    dt_end:
+                      example: '2022-01-30'
+                      type: string
+                    dt_start:
+                      example: '2022-01-01'
+                      type: string
+                  type: object
+                type: array
+              meta:
+                properties:
+                  item_count:
+                    type: integer
+                  next_page:
+                    type: integer
+                  page:
+                    type: integer
+                  pages:
+                    type: integer
+                  prev_page:
+                    type: integer
+                type: object
+            type: object
+        '404':
+          description: if page not found
+      summary: '---'
+      tags:
+      - available schedules
+  /bus:
+    post:
+      description: create bus
+      parameters:
+      - in: body
+        name: bus
+        schema:
+          properties:
+            make:
+              example: BMW
+              type: string
+            model:
+              example: B01
+              type: string
+          required:
+          - make
+          - model
+          type: object
+      responses:
+        '201':
+          description: bus is created
+      summary: '---'
+      tags:
+      - buses
+  /bus/{id}:
+    get:
+      description: get bus by id
+      parameters:
+      - description: item id
+        in: path
+        name: id
+        type: integer
+      responses:
+        '200':
+          description: bus retrieved
+          schema:
+            properties:
+              make:
+                example: BMW
+                type: string
+              model:
+                example: B01
+                type: string
+            required:
+            - make
+            - model
+            type: object
+        '404':
+          description: bus not found
+      summary: '---'
+      tags:
+      - buses
+  /driver:
+    post:
+      description: create driver
+      parameters:
+      - in: body
+        name: driver
+        schema:
+          properties:
+            email:
+              example: blue_max@gmail.com
+              type: string
+            first_name:
+              example: Blue
+              type: string
+            last_name:
+              example: Max
+              type: string
+            social_security_number:
+              example: 901894781
+              type: integer
+          required:
+          - first_name
+          - last_name
+          - email
+          - social_security_number
+          type: object
+      responses:
+        '201':
+          description: driver is created
+        '400':
+          description: first/last name is not alphabetic or if email is invalid
+        '409':
+          description: user email or SSN is already taken
+      summary: '---'
+      tags:
+      - drivers
+  /driver/top/{n}:
+    get:
+      description: get buses with highest number of schedules at a diven time window
+      parameters:
+      - description: top n drivers
+        example: 5
+        in: path
+        name: n
+        type: int
+      - description: start date
+        example: '2022-01-01'
+        in: query
+        name: from
+        type: string
+      - description: end date
+        example: '2022-01-30'
+        in: query
+        name: to
+        type: string
+      responses:
+        '200':
+          description: drivers retrieved
+          schema:
+            properties:
+              meta:
+                properties:
+                  item_count:
+                    type: integer
+                  next_page:
+                    type: integer
+                  page:
+                    type: integer
+                  pages:
+                    type: integer
+                  prev_page:
+                    type: integer
+                type: object
+              week_day:
+                properties:
+                  driver_id:
+                    example:
+                      '11': 23
+                      '23': 43
+                      '6': 55
+                    type: object
+                type: object
+            type: object
+        '404':
+          description: if page not found
+      summary: '---'
+      tags:
+      - drivers
+  /driver/{id}:
+    get:
+      description: get driver by id
+      parameters:
+      - description: item id
+        in: path
+        name: id
+        type: integer
+      responses:
+        '200':
+          description: driver retrieved
+          schema:
+            properties:
+              email:
+                example: blue_max@gmail.com
+                type: string
+              first_name:
+                example: Blue
+                type: string
+              last_name:
+                example: Max
+                type: string
+              social_security_number:
+                example: 901894781
+                type: integer
+            required:
+            - first_name
+            - last_name
+            - email
+            - social_security_number
+            type: object
+        '404':
+          description: driver not found
+      summary: '---'
+      tags:
+      - drivers
+  /population:
+    delete:
+      description: delete all drivers, buses and schedules
+      responses:
+        '204':
+          description: population has been removed
+      summary: '---'
+      tags:
+      - population
+    post:
+      description: create random drivers, buses and drivers. *for testing purposes
+      parameters:
+      - example: 5
+        in: query
+        name: buses
+        type: int
+      - example: 10
+        in: query
+        name: drivers
+        type: int
+      - example: '2022-01-01'
+        in: query
+        name: from
+        type: string
+      - example: '2022-01-30'
+        in: query
+        name: to
+        type: string
+      responses:
+        '201':
+          description: population has been created
+          schema:
+            properties:
+              data:
+                available:
+                  example: 100
+                  type: int
+                created:
+                  example: 1000
+                  type: int
+            type: object
+      summary: '---'
+      tags:
+      - population
+  /schedule:
+    get:
+      description: get schedules filtered by bus_id, driver_id, start date or end
+        date
+      parameters:
+      - description: start date
+        example: '2022-01-01'
+        in: query
+        name: from
+        type: string
+      - description: end date
+        example: '2022-01-30'
+        in: query
+        name: to
+        type: string
+      - example: 1
+        in: query
+        name: bus_id
+        type: integer
+      - example: 2
+        in: query
+        name: driver_id
+        type: integer
+      responses:
+        '201':
+          description: when item is created
+          schema:
+            properties:
+              data:
+                items:
+                  properties:
+                    bus_id:
+                      example: 1
+                      type: integer
+                    driver_id:
+                      example: 2
+                      type: integer
+                    dt_end:
+                      example: '2022-01-30'
+                      type: integer
+                    dt_start:
+                      example: '2022-01-01'
+                      type: string
+                  type: object
+                type: array
+              meta:
+                properties:
+                  item_count:
+                    type: integer
+                  next_page:
+                    type: integer
+                  page:
+                    type: integer
+                  pages:
+                    type: integer
+                  prev_page:
+                    type: integer
+                type: object
+            type: object
+        '404':
+          description: if page not found
+      summary: '---'
+      tags:
+      - schedules
+    post:
+      description: create schedule
+      parameters:
+      - in: body
+        name: schedule
+        schema:
+          properties:
+            bus_id:
+              example: 1
+              type: integer
+            driver_id:
+              example: 2
+              type: integer
+            dt_end:
+              example: '2022-01-30'
+              type: string
+            dt_start:
+              example: '2022-01-01'
+              type: string
+          required:
+          - bus_id
+          - driver_id
+          - dt_start
+          - dt_end
+          type: object
+      responses:
+        '201':
+          description: schedule is created
+        '400':
+          description: bus_id or driver_id are not registered in the system
+        '409':
+          description: schedule is in conflict with another due to bus or driver occupying
+            that time slot
+      summary: '---'
+      tags:
+      - schedules
+  /schedule/by_bus:
+    get:
+      description: get schedule per bus
+      parameters:
+      - example: '2022-01-01'
+        in: query
+        name: from
+        type: string
+      - example: '2022-01-30'
+        in: query
+        name: to
+        type: string
+      responses:
+        '200':
+          description: schedules by bus retrieved
+          schema:
+            properties:
+              data:
+                properties:
+                  bus_id:
+                    properties:
+                      driver_id:
+                        items:
+                          example:
+                          - 2022-01-01 12:00
+                          - 2022-01-01 12:30
+                          type: array
+                        type: array
+                    type: object
+                  type: array
+                type: object
+              meta:
+                properties:
+                  item_count:
+                    type: integer
+                  next_page:
+                    type: integer
+                  page:
+                    type: integer
+                  pages:
+                    type: integer
+                  prev_page:
+                    type: integer
+                type: object
+            type: object
+        '404':
+          description: page not found
+      summary: '---'
+      tags:
+      - schedules
+  /schedule/by_driver:
+    get:
+      description: get schedule per driver
+      parameters:
+      - example: '2022-01-01'
+        in: query
+        name: from
+        type: string
+      - example: '2022-01-30'
+        in: query
+        name: to
+        type: string
+      responses:
+        '200':
+          description: schedules by driver retrieved
+          schema:
+            properties:
+              data:
+                properties:
+                  driver_id:
+                    properties:
+                      bus_id:
+                        items:
+                          example:
+                          - 2022-01-01 12:00
+                          - 2022-01-01 12:30
+                          type: array
+                        type: array
+                    type: object
+                  type: array
+                type: object
+              meta:
+                properties:
+                  item_count:
+                    type: integer
+                  next_page:
+                    type: integer
+                  page:
+                    type: integer
+                  pages:
+                    type: integer
+                  prev_page:
+                    type: integer
+                type: object
+            type: object
+        '404':
+          description: page not found
+      summary: '---'
+      tags:
+      - schedules
+  /schedule/{id}:
+    get:
+      description: get schedule by id
+      parameters:
+      - description: item id
+        in: path
+        name: id
+        type: integer
+      responses:
+        '200':
+          description: schedule retrieved
+          schema:
+            properties:
+              bus_id:
+                example: 1
+                type: integer
+              driver_id:
+                example: 2
+                type: integer
+              dt_end:
+                example: '2022-01-30'
+                type: string
+              dt_start:
+                example: '2022-01-01'
+                type: string
+            required:
+            - bus_id
+            - driver_id
+            - dt_start
+            - dt_end
+            type: object
+        '404':
+          description: schedule not found
+      summary: '---'
+      tags:
+      - schedules
+schemes:
+- http
+- https
+securityDefinitions: {}
+swagger: '2.0'
