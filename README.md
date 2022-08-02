@@ -81,19 +81,17 @@ GET http://{{socket}}/{{prefix}}/schedule
 ```
 3. The application should allow a user to retrieve the schedule for every bus for a given week.
 ```
-GET http://{{socket}}/{{prefix}}/schedule
+GET http://{{socket}}/{{prefix}}/schedule/by_bus
     ?from=2022-01-01 00:00
-    &to=2022-01-08 00:00
-    &bus_id=1
+    &to=2022-03-03 00:00
 ```
 4. The application should allow a user to retrieve top X drivers with more shedules per week, during a number of consecutive weeks (from ... to)
 ```
-GET http://{{socket}}/{{prefix}}/driver/top/10
+GET http://{{socket}}/{{prefix}}/schedule/by_driver
     ?from=2022-01-01 00:00
-    &to=2022-01-08 00:00
+    &to=2022-03-03 00:00
 ```
 
 ## My Notes
 * Swagger API documentation swallowed most of my time... There must be a more efficient way to utilze swagger I am sure.
 * The yaml summary in swagger yaml in `/src/docs/` does not display next to API endpoints on the `swagger.io UI` for some reason...
-* I am aware I was given the _intermidiate challenge_ , but I took the _advanced challenge_ for fun.

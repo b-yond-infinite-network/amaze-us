@@ -28,16 +28,14 @@ GET http://{{socket}}/{{prefix}}/driver/1
 ### GET TOP N DRIVERS
 GET http://{{socket}}/{{prefix}}/driver/top/10
     ?from=2022-01-02 00:00
-    &to=2022-01-06 00:00
+    &to=2022-03-16 00:00
     &page=1
     &per_page=5
 
 ### GET SCHEDULES BY DRIVER
-GET http://{{socket}}/{{prefix}}/driver/top/10
-    ?from=2022-01-02 00:00
-    &to=2022-01-06 00:00
-    &page=1
-    &per_page=5
+GET http://{{socket}}/{{prefix}}/driver/top/5
+    ?from=2022-01-01 00:00
+    &to=2022-01-26 00:00
 
 ### CREATE DRIVER
 POST http://{{socket}}/{{prefix}}/driver
@@ -99,7 +97,7 @@ POST http://{{socket}}/{{prefix}}/population
     ?buses=5
     &drivers=10
     ?from=2022-01-01
-    &to=2022-02-01
+    &to=2022-03-01
 
 ### ! DELETE ALL ###########################
 DELETE http://{{socket}}/{{prefix}}/population
