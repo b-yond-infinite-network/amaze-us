@@ -1,7 +1,7 @@
 ---
 tags:
   - buses
-summary: create bus
+description: create bus
 parameters:
   - in: body
     name: bus

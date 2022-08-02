@@ -1,7 +1,7 @@
 ---
 tags:
   - available schedules
-summary: get all available schedules
+description: get all available schedules
 responses:
   200:
     description: available schedules retrieved
@@ -25,7 +25,6 @@ responses:
               dt_end:
                 type: string
                 example: '2022-01-30'
-
         meta:
           type: object
           properties:

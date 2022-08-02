@@ -1,7 +1,7 @@
 ---
 tags:
   - population
-summary: create random drivers, buses and drivers. *for testing purposes
+description: create random drivers, buses and drivers. *for testing purposes
 parameters:
   - in: query
     name: buses

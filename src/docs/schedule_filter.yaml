@@ -1,7 +1,7 @@
 ---
 tags:
   - schedules
-summary: get schedules filtered by bus_id, driver_id, start date or end date
+description: get schedules filtered by bus_id, driver_id, start date or end date
 parameters:
   - in: query
     name: from

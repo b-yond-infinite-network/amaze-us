@@ -1,7 +1,7 @@
 ---
 tags:
   - drivers
-summary: get buses with highest number of schedules at a diven time window
+description: get buses with highest number of schedules at a diven time window
 parameters:
   - in: path
     name: n

@@ -1,7 +1,7 @@
 ---
 tags:
   - drivers
-summary: create driver
+description: create driver
 parameters:
   - in: body
     name: driver

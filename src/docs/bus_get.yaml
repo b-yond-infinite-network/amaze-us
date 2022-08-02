@@ -1,7 +1,7 @@
 ---
 tags:
   - buses
-summary: get bus by id
+description: get bus by id
 parameters:
   - in: path
     name: id

@@ -1,7 +1,7 @@
 ---
 tags:
   - drivers
-summary: get driver by id
+description: get driver by id
 parameters:
   - in: path
     name: id

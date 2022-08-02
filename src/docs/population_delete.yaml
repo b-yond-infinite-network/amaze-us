@@ -1,7 +1,7 @@
 ---
 tags:
   - population
-summary: delete all drivers, buses and schedules
+description: delete all drivers, buses and schedules
 
 responses:
   204:

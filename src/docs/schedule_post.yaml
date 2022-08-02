@@ -1,7 +1,7 @@
 ---
 tags:
   - schedules
-summary: create schedule
+description: create schedule
 parameters:
   - in: body
     name: schedule
