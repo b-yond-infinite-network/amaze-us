@@ -12,14 +12,16 @@ $ source ~/<PATH>/api_project/venv/bin/activate     # activate
 $ pip3 install -r requirements.txt                  # install requirements for venv
 ```
 * User might need to specify python interpreter if the IDE has not selected the venv python interpreter automatically...
+* default `{{socket}}/{{prefix}}` is `0.0.0.0:5000/api/v1`
+* default database URI is `tester:password@0.0.0.0:3306/Schedules`
 
 ## Docker compose solutions
 ---
 | file | functionality |
 | --- | --- |
 | `docker-compose.db.yml` | for running a mysql contianer accessible by: `tester:password@0.0.0.0:3306/Schedules` |
-| `volume/config/flask_test_docker.yaml` | for running mysql, API containers and giving the pytest results defined in `./tests/`; it accesses the containerized data at `tester:password@mysql_db:3306/Schedules` |
-| `docker-compose.yml` | for running mysql, API containers on the same docker bridge network where db can be accessed by: `tester:password@mysql_db:3306/Schedules` |
+| `volume/config/flask_test_docker.yaml` | for running mysql, API containers and giving the pytest results defined in `./tests/` |
+| `docker-compose.yml` | for running mysql, API containers on the same docker bridge network where app accesses db by: `tester:password@mysql_db:3306/Schedules` |
 
 ## Testing API requests
 ---
@@ -29,7 +31,7 @@ $ pip3 install -r requirements.txt                  # install requirements for v
 
 ## Running the APP
 ---
-> using `docker-compose.yml`:
+> using `docker-compose.yml`
 ```
 $ docker-compose -f docker-compose.yml up
 ```
@@ -52,16 +54,19 @@ GET http://{{socket}}/{{prefix}}/available_schedule
 ---
 > using `pytest`, either:
 1. Using `docker-compose.pytest.yml` where pytest logs may be observed from docker logs
-2. Using `docker-compose.db.yml` alongside:
+2. Using `docker-compose.db.yml` with:
 ```shell
-$ docker-compose -f docker-compose.yml up -d
-$ python -m pytest -v -s
+$ docker-compose -f docker-compose.yml up       # spin the db container only
+$ # alongside
+$ python -m pytest -v -s                        # for pytests (on venv)
+$ # or
+$ python3 app.py                                # for interacting with app (on venv)
 ```
 if for some reason, all tests fail, try removing the database volume with:
 ```shell
 $ rm -rf volume/db_data/
 ```
-and restarting the test
+and restarting the test...
 
 ## Missing
 ---
@@ -87,10 +92,9 @@ POST http://{{socket}}/{{prefix}}/schedule
 
 2. The application should allow a user to retrieve the schedule for every driver for a given week.
 ```
-GET http://{{socket}}/{{prefix}}/schedule
+GET http://{{socket}}/{{prefix}}/schedule/by_driver
     ?from=2022-01-01 00:00
-    &to=2022-01-08 00:00
-    &driver_id=1
+    &to=2022-03-03 00:00
 ```
 3. The application should allow a user to retrieve the schedule for every bus for a given week.
 ```
