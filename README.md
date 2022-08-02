@@ -16,8 +16,8 @@ $ pip3 install -r requirements.txt                  # install requirements for v
 | file | functionality |
 | --- | --- |
 | `docker-compose.db.yml` | for running a mysql contianer accessible by: `tester:password@0.0.0.0:3306/Schedules` |
-| `volume/config/flask_test_docker.yaml` | for running mysql, API containers and giving the pytest results defined in `tests/` |
-| `docker-compose.yml` | for running mysql, API containers where db can be accessed by: `tester:password@mysql_db:3306/Schedules` |
+| `volume/config/flask_test_docker.yaml` | for running mysql, API containers and giving the pytest results defined in `./tests/`; it accesses the containerized data at `tester:password@mysql_db:3306/Schedules` |
+| `docker-compose.yml` | for running mysql, API containers on the same docker bridge network where db can be accessed by: `tester:password@mysql_db:3306/Schedules` |
 
 ## Testing API requests
 > Given that the APP (both containers) is runnning, user may test API calls either:
@@ -52,6 +52,11 @@ GET http://{{socket}}/{{prefix}}/available_schedule
 $ docker-compose -f docker-compose.yml up -d
 $ python -m pytest -v -s
 ```
+if for some reason, all tests fail, try removing the database volume with:
+```shell
+$ rm -rf volume/db_data/
+```
+and restarting the test
 
 ## Missing
 1. securing the API
@@ -87,9 +92,9 @@ GET http://{{socket}}/{{prefix}}/schedule/by_bus
 ```
 4. The application should allow a user to retrieve top X drivers with more shedules per week, during a number of consecutive weeks (from ... to)
 ```
-GET http://{{socket}}/{{prefix}}/schedule/by_driver
-    ?from=2022-01-01 00:00
-    &to=2022-03-03 00:00
+GET http://{{socket}}/{{prefix}}/driver/top/10
+    ?from=2022-01-02 00:00
+    &to=2022-03-16 00:00
 ```
 
 ## My Notes

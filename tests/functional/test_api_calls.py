@@ -76,7 +76,8 @@ def test_get_top_drivers(test_client, init_database):
 
     response_body = json.loads(response.data.decode('utf-8'))
 
-    assert len(response_body['data']) == N
+    for weekly_result in response_body.values():
+        assert len(weekly_result) <= N
     assert response.status_code == HTTP_200_OK
 
 

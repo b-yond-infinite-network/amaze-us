@@ -12,6 +12,12 @@ from src.db_model.db_models import AvaiableSchedule, Driver, Schedule
 log = logging.getLogger(__name__)
 
 
+@pytest.fixture(scope='session')
+def clean_start():
+    log.info('deleting all ...')
+    delete_all()
+
+
 @pytest.fixture(scope='module')
 def test_client():
     log.info('creating app ...')
@@ -26,6 +32,7 @@ def test_client():
 def init_database(test_client):
     ''' initialize and populate datebase
     '''
+    delete_all()
     db.create_all()
     db.session.commit()
 

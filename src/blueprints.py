@@ -149,6 +149,7 @@ class Schedules():
             Schedule.dt_start <= dt_to
         ).paginate(page, per_page)
 
+        # * group by driver_id
         driver_scheds = collections.defaultdict(dict)
         for driver_id, bus_id, dt_start, dt_end in schedules.items:
             if bus_id not in driver_scheds[driver_id]:
@@ -180,6 +181,7 @@ class Schedules():
             Schedule.dt_start <= dt_to
         ).paginate(page, per_page)
 
+        # * group by bus_id
         bus_scheds = collections.defaultdict(dict)
         for driver_id, bus_id, dt_start, dt_end in schedules.items:
             if driver_id not in bus_scheds[bus_id]:
