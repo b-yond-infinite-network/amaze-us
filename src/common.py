@@ -1,5 +1,6 @@
 VERSION = 'v1'
 
+DATE_FMT = '%Y-%m-%d'
 DT_FMT = '%Y-%m-%d %H:%M'
 PAGINATION_PER_PAGE = 100
 MAX_NAME_LEN = 40

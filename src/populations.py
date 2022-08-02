@@ -2,12 +2,13 @@
 '''
 
 import logging
-from typing import Tuple
+from typing import Tuple, Dict
 
 import random
 from random import randint, gauss
 from datetime import datetime, timedelta, time
 
+from src.common import DATE_FMT
 from src.db_model.db_models import Schedule, Driver, Bus, AvaiableSchedule, db
 
 random.seed(0)
@@ -312,13 +313,20 @@ def schedule_gen(dt_start: str, dt_end: str):
     yields:
         schedule dict
     '''
-    DATE_FMT = '%Y-%m-%d'
-
     DATE_START_STR, DATE_END_STR = dt_start, dt_end
     TIME_START_STR, TIME_END_STR = '06:00', '22:00'
 
     DT_START, DT_END = list(map(lambda dt_str: datetime.strptime(dt_str, DATE_FMT), (DATE_START_STR, DATE_END_STR)))
     T_START, T_END = list(map(lambda t: time(*map(int, t.split(':'))), (TIME_START_STR, TIME_END_STR)))
+
+    def add_delta_2_time(time: time, td: timedelta) -> time:
+            ''' add timedelta to time objects
+            return:
+                result time
+            '''
+            start = datetime(2000, 1, 1, time.hour, time.minute, time.second)
+            end = start + td
+            return end.time()
 
     class BusSchedule():
         ''' schedule for a particular bus.
@@ -340,6 +348,18 @@ def schedule_gen(dt_start: str, dt_end: str):
                 minutes=randint(20, 40)
             )
 
+            self.day_slots = self.daily_schedule()
+
+        def daily_schedule(self) -> list:
+            curr_time = self.t_start
+            all_slots = []
+            while curr_time < T_END:
+                t_end_trip = add_delta_2_time(curr_time, self.trip_duration)
+                all_slots.append((curr_time, t_end_trip))
+                curr_time = add_delta_2_time(curr_time, self.every)
+
+            return all_slots
+
         def reset(self): self.time_now = self.t_start
 
         def __repr__(self):
@@ -355,54 +375,35 @@ def schedule_gen(dt_start: str, dt_end: str):
                 'every': self.every,
             }
 
-    def add_delta_2_time(time: time, td: timedelta) -> time:
-        ''' add timedelta to time objects
-        return:
-            result time
-        '''
-        start = datetime(2000, 1, 1, time.hour, time.minute, time.second)
-        end = start + td
-        return end.time()
-
+ 
     # * QUERY BUSES
-    all_buses = Bus.query.all()
-    bus_dicts = [bus.as_dict() for bus in all_buses]
-    for bus in bus_dicts:
-        bus['sched'] = BusSchedule(id=bus['id'])
+    db_bus_ids = [_id[0] for _id in Bus.query.with_entities(Bus.id).all()]
 
-    # * QUEY DRIVERS
-    drivers_in_db = Driver.query.all()
-    drivers_dicts = [driver.as_dict() for driver in drivers_in_db]
+    # * QUERY DRIVERS
+    db_drivers = Driver.query.all()
+
+    # * PREDETERMINE SCHEDULE DT SHIFTS
+    bus_scheds: Dict[int, BusSchedule] = {}
+    for bus_id in db_bus_ids:
+        bus_scheds[bus_id] = BusSchedule(id=bus_id)
 
     today = DT_START
     while today < DT_END:
-        today += timedelta(days=1)
-
-        # * GENERATE SCHEDULES FOR EVERY DAY
-        for bus in bus_dicts:
-            time_now: time = bus['sched'].time_now
-            every: timedelta = bus['sched'].every
-            trip_duration: time = bus['sched'].trip_duration
-
-            # * KEEP GENERATING SO LONG AS TIME IS INBOUND
-            while time_now < T_END:
-                time_now = add_delta_2_time(time_now, every)
-                bus['sched'].time_now = time_now
-
-                dt_today = datetime(today.year, today.month, today.day, time_now.hour, time_now.minute)
-                time_end = add_delta_2_time(dt_today, trip_duration)
-                dt_end = datetime(today.year, today.month, today.day, time_end.hour, time_end.minute)
-
-                driver_i = drivers_dicts.pop(0)     # pop driver for this slot
+        for bus_id, sched in bus_scheds.items():
+            for t_start, t_end in sched.day_slots:
+                dt_today = datetime(today.year, today.month, today.day, t_start.hour, t_start.minute)
+                dt_end = datetime(today.year, today.month, today.day, t_end.hour, t_end.minute)
+                driver_i = db_drivers.pop(0)
 
                 yield {
-                    'driver_id': driver_i['id'],
-                    'bus_id': bus['id'],
+                    'driver_id': driver_i.id,
+                    'bus_id': bus_id,
                     'dt_start': dt_today,
                     'dt_end': dt_end
                 }
-                drivers_dicts.append(driver_i)      # driver is returned to deque
-            bus['sched'].reset()                    # when bus finished the day, restart running hour
+                db_drivers.append(driver_i)     # append driver back in front
+
+        today += timedelta(days=1)
 
 
 # POPULATE ###################################################
@@ -437,15 +438,56 @@ def populate_schedules(dt_start: str, dt_end: str) -> Tuple[int]:
     '''
     EMPTY_SLOT_CHANCE = 0.10
     num_scheds, num_available_scheds = 0, 0
-    for schedule in schedule_gen(dt_start, dt_end):
-        if random.random() > EMPTY_SLOT_CHANCE:
-            db.session.add(Schedule(**schedule))
-            num_scheds += 1
-        else:
-            db.session.add(AvaiableSchedule(**schedule))
-            num_available_scheds += 1
 
-    db.session.commit()
+    def get_next_month(dt: datetime) -> datetime:
+        ''' get next month dt
+        '''
+        try:
+            return dt.replace(month=dt.month + 1, day=1)
+        except ValueError:
+            return dt.replace(year=dt.year + 1, month=1 , day=1)
+
+    def get_month_slots(dt_start: str, dt_end: str) -> list[datetime, datetime]:
+        ''' split datetime window into monthly windows
+        '''
+        dt_start, dt_end = list(map(
+            lambda dt: datetime.strptime(dt, DATE_FMT),
+            (dt_start, dt_end)
+        ))
+
+        month_slots = []
+        curr_dt = dt_start
+        next_dt = get_next_month(curr_dt)
+        while next_dt < dt_end:
+            month_slots.append((curr_dt, next_dt))
+            curr_dt, next_dt = next_dt, get_next_month(next_dt)
+
+        if curr_dt < dt_end:
+            month_slots.append((curr_dt, dt_end))
+
+        str_slots = list(map(
+            lambda slot: [datetime.strftime(slot[0], DATE_FMT), datetime.strftime(slot[1], DATE_FMT)],
+            month_slots
+        ))
+        return str_slots
+
+    # * IN CASE POPULATING MILLIONS OF SCHEDS TAKES LONG, SPLIT THE TIME WINDOW INTO MONTHS
+    # * AND KEEP LOGGING FOR FEEDBACK SO USER DOES NOT GET BORED ...
+
+    dt_slots = get_month_slots(dt_start, dt_end)
+    for i, (dt_s, dt_e) in enumerate(dt_slots):
+        log.info(f'---{i + 1:>3}/{len(dt_slots):<3} populating from {dt_s} to {dt_e} ...')
+        for schedule in schedule_gen(dt_s, dt_e):
+            if random.random() > EMPTY_SLOT_CHANCE:
+                db.session.add(Schedule(**schedule))
+                num_scheds += 1
+            else:
+                db.session.add(AvaiableSchedule(**schedule))
+                num_available_scheds += 1
+
+        db.session.commit()
+        log.info(f'+++ populated from {dt_s} to {dt_e} created:{num_scheds:>10}, avaialable:{num_available_scheds:>10}')
+
     return num_scheds, num_available_scheds
 
 
@@ -481,7 +523,8 @@ if __name__ == '__main__':
     populate_drivers(10)
 
     log.info('populating Schedule & Available_Schedule tables ...')
-    populate_schedules(dt_start='2022-01-01', dt_end='2022-02-01')
+    created, available = populate_schedules(dt_start='2022-01-01', dt_end='2022-05-01')
+    log.info(f'created, avaialbe: {created}, {available}')
 
     log.info('done')
     # delete_all()
