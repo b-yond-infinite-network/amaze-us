@@ -211,10 +211,6 @@ class Drivers():
     @swag_from('docs/driver_get_top_n.yaml')
     @driver_bp.get('/top/<int:n>')
     def get_top_n(n: int):
-        page = request.args.get('page', type=int, default=1)
-        per_page = request.args.get('per_page', type=int, default=PAGINATION_PER_PAGE)
-        per_page = min(PAGINATION_PER_PAGE, per_page)
-
         dt_from = request.args.get('from', type=str, default=None)
         dt_to = request.args.get('to', type=str, default=None)
 
@@ -227,25 +223,32 @@ class Drivers():
             return jsonify({'error': 'Start date / end date not supplied in query ...'}), HTTP_400_BAD_REQUEST
 
         # * select from schedules table, grouping by driver id schedules
-        top_driver_ids_counts = Schedule.query.with_entities(
+        group_counts = db.session.query(Schedule).with_entities(
+            func.year(Schedule.dt_start).label('YEAR'),
+            func.week(Schedule.dt_start).label('WEEK'),
             Schedule.driver_id,
             func.count(Schedule.driver_id).label('COUNT')
         ).filter(
             dt_from <= Schedule.dt_start,
-            Schedule.dt_start <= dt_to      # we may have used dt_end <= dt_to here ...
+            Schedule.dt_start <= dt_to
         ).group_by(
-            Schedule.driver_id
+            'YEAR', 'WEEK', Schedule.driver_id
         ).order_by(
             desc('COUNT')
-        ).limit(n).all()
+        ).all()
 
-        top_driver_ids = [res[0] for res in top_driver_ids_counts]
-        drivers_paginated = Driver.query.filter(Driver.id.in_(top_driver_ids)).paginate(page, per_page)
+        # * group by week day until each weekday has N entries
+        driver_scores = collections.defaultdict(dict)
+        for year, week_number, driver_id, count in group_counts:
+            day = f'{year}-W{week_number}'
+            day = datetime.strftime(
+                # ? week day to date source: https://stackoverflow.com/questions/17087314/get-date-from-week-number
+                datetime.strptime(day + '-1', '%Y-W%W-%w'), '%Y-%m-%d %H:%M'
+            )
+            if len(driver_scores[day]) == n: continue
+            driver_scores[day][driver_id] = count
 
-        return jsonify({
-            'data': [driver.as_dict() for driver in drivers_paginated.items],
-            'meta': get_page_meta(drivers_paginated)
-        }), HTTP_200_OK
+        return jsonify(driver_scores), HTTP_200_OK
 
     @swag_from('docs/driver_post.yaml')
     @driver_bp.post('')

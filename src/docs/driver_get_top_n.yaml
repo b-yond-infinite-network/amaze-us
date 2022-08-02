@@ -24,23 +24,12 @@ responses:
     schema:
       type: object
       properties:
-        data:
-          type: array
-          items:
-            type: object
-            properties:
-              first_name:
-                type: string
-                example: Blue
-              last_name:
-                type: string
-                example: Max
-              email:
-                type: string
-                example: blue_max@gmail.com
-              social_security_number:
-                type: integer
-                example: 901894781
+        week_day:
+          type: object
+          properties:
+            driver_id:
+              type: object
+              example: {'6': 55, '23': 43, '11': 23}
 
         meta:
           type: object
