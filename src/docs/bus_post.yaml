@@ -5,7 +5,7 @@ description: create bus
 parameters:
   - in: body
     name: bus
-  
+
     schema:
       type: object
       required: [make, model]

@@ -33,10 +33,10 @@ $ pip3 install -r requirements.txt                  # install requirements for v
 ## Running the APP
 ---
 > using `docker-compose.yml`
+```shell
+$ docker-compose -f docker-compose.yml up [--build]
 ```
-$ docker-compose -f docker-compose.yml up
-```
-* The database is instantiated by not populated. (more on populating the database in a second)
+* The database is instantiated but not populated.
 * Database can be populated using the following request which user may send using the `./tests.http` file or `swagger.io UI`
 ```text
 POST http://{{socket}}/{{prefix}}/population
@@ -57,11 +57,11 @@ GET http://{{socket}}/{{prefix}}/available_schedule
 1. Using `docker-compose.pytest.yml` where pytest logs may be observed from docker logs
 2. Using `docker-compose.db.yml` with:
 ```shell
-$ docker-compose -f docker-compose.yml up       # spin the db container only
+$ docker-compose -f docker-compose.yml up <--build>       # spin the db only
 $ # alongside
-$ python -m pytest -v -s                        # for pytests (on venv)
+$ python -m pytest -v -s                                  # for pytests (on venv)
 $ # or
-$ python3 app.py                                # for interacting with app (on venv)
+$ python3 app.py                                          # for interacting with app (on venv)
 ```
 if for some reason, all tests fail, try removing the database volume with:
 ```shell
@@ -110,8 +110,100 @@ GET http://{{socket}}/{{prefix}}/driver/top/10
     &to=2022-03-16 00:00
 ```
 
+## Discussion
+---
+### _mysql_
+* container shares `volume/db_data` with host
+* if `volume/db_data` doesn't exist, database container will initialize the database and run all `.sql` and `.sh` files inside `volume/db_init` where we only create a schema and a user
+* `MySQL v5.6.7` vscode extension was used for direct interaction with database during development.
+
+### _API_
+* python `flask`, `sqlalchemy` and `flasgger` were used for API, database interface and documentation
+
+### _data preparation_
+> python generators were used for a memory friendly approach to populating the database in large quantities.
+* in `src/populations.py`, logic for populating tables is defined
+* in `src/populate.py`, API calls are defined for populating the database
+* `driver` table is populated using combinations of [first/last names generator](https://www.name-generator.org.uk/quick/)
+* `bus` table is populated in a similar fashion
+* `Schedule` table is populated by associating a time schedule for every bus
+    * there is designated a probability that a generated schedule gets enrolled inside `Available_Schedule` table instead of `Schedule`; so we may have a pool of available schedules that we may add to the `Schedule` table without having to guess whether a schedule fits without conflicts.
+    * each bus has a random _start hour_, _trip duration_ and _trip period_
+
+| variable | definition | value |
+| --- | --- | --- |
+| _start hour_ | time at which a bus makes its first time in the day | µ = 06:00 ± HH:MM where HH:MM = gauss(0, 0.5):gauss(0, 10) |
+| _trip duration_ | time taken for a bus to complete its trip | random(20, 60) |
+| _trip period_ | time period between each trip | `_trip duration_` + random number of minutes |
+
+### _pytest_
+> functional tests cover testing:
+1. basic app socket connection
+2. querying `Schedule` with any quey param filter combination
+3. getting top N drivers over a weekly rolling window
+4. inserting duplicate emails in `Driver`
+5. inserting duplicate social security numbers in `Driver`
+6. inserting compatible schedules for a certain bus / driver in `Schedule`
+7. inserting overlapping schedules for a certain bus / driver in `Schedule`
+8. getting non-existing items
+9. inserting invalid emails in `Driver`
+10. inserting invalid first/last names in `Driver`
+
+> pytest fixtures used to make testing smoother:
+* initializing database on a modular level --> yielding control --> then deleting all content
+* yielding a flask test client on a functional level
+* yielding sample schedules, drivers --> deleting them from database
+* deleting all data on a session level
+
+## Dir structure
+---
+```bash
+.
+├── api_docs.yaml . . . . . . . .   # generater API docs
+├── app.py . . . . . . . . . . . .  # main app
+├── assets . . . . . . . . . . . .  # where I would add the email notification service
+├── Dockerfile.app . . . . . . . .  # API Dockerfile
+├── docker-compose.db.yaml . . . .  # mysql database only
+├── docker-compose.yaml . . . . . . # mysql + API; `0.0.0.0:5000/` is default
+├── docker-compose.pytest.yaml . .  # override docker entrypoint to run pytest instead of API
+├── LICENSE
+├── pytests.py . . . . . . . . . .  # entrypoint for `docker-compose.pytest.yaml`
+├── README.md
+├── requirements.txt . . . . . . .  # app requirements
+├── src
+│   ├── blueprints.py . . . . . .   # flask blueprints
+│   ├── common.py
+│   ├── config
+│   │   └── swagger.py . . . . . .  # API documentation config
+│   ├── constants
+│   │   └── http_status_codes.py .  # http return codes
+│   ├── db_model
+│   │   └── db_models.py . . . . .  # database models
+│   ├── docs/ . . . . . . . . . .   # yaml swagger documentation
+│   ├── __init__.py . . . . . . . . # app configured here
+│   ├── populate.py . . . . . . . . # flask blueprint for allowing user to populate / remove database items
+│   └── populations.py . . . . . .  # population generators
+├── test.http . . . . . . . . . .   # vscode "REST CLIENT" http client (like postman)
+├── tests
+│   ├── conftest.py . . . . . . . . # fixtures defined here
+│   ├── flask.yaml . . . . . . . .  # app config for testing
+│   ├── functional
+│   │   ├── __init__.py
+│   │   └── test_api_calls.py . .   # e2e testing
+│   └── unit
+│       └── __init__.py
+├── tests.ipynb . . . . . . . . . . # for development uses... (testing queries, rough drafts, etc ...)
+├── venv/ . . . . . . . . . . . .   # python venv
+└── volume . . . . . . . . . . . .  # shared volume for containers
+    ├── config/ . . . . . . . . . . # flask, sqlalchemy configs
+    ├── db_data/ . . . . . . . . .  # the actual database `container:/var/lib/mysql`
+    └── db_init . . . . . . . . . . # mapped to `container:/docker-entrypoint-initdb.d`
+        └── 1_db_init.sql . . . .   # sql initialization script
+```
+
 ## My Notes
 ---
 * Swagger API documentation swallowed most of my time... There must be a more efficient way to utilze swagger I am sure.
-* The yaml summary in swagger yaml in `/src/docs/` does not display next to API endpoints on the `swagger.io UI` for some reason...
+* The yaml summary in swagger yaml in `/src/docs/` does not display next to API endpoints on the `swagger.io UI` for some reason... I suspect version incompatibility between `pyyaml` and `flasgger`... but I cannot be so sure.
+* I am aware that every flask blueprint deserves its own python module, but for simplicity I've placed them in the same module.
 * I am ready to discuss anything about my app:)
