@@ -31,8 +31,6 @@ class Populations():
         dt_from = request.args.get('from', type=str, default='2022-01-01')
         dt_to = request.args.get('to', type=str, default='2022-02-01')
 
-        delete_all()
-
         log.info('populating Bus table ...')
         populate_buses(num_buses)
 

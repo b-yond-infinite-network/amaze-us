@@ -1,6 +1,7 @@
 ''' for managing database populations
 '''
 
+from lib2to3.pgen2.pgen import generate_grammar
 import logging
 from typing import Tuple, Dict
 
@@ -306,12 +307,16 @@ def bus_gen(n: int):
 
 
 def schedule_gen(dt_start: str, dt_end: str):
-    ''' generator function for schedules
+    ''' populcate database with schedules from dt_start until dt_end.
+        here populate Schedules and AvailableSchedules.
+        `EMPTY_SLOT_CHANCE` determines if the schedule makes it inside Schedules or AvailableSchedules table.
+        this way we may have a table of available schedules so we may add them to the
+        schedules table without having to worry about conflicts.
     args:
-        dt_start: start date str in `DATE_FMT`
-        dt_end: end date str in `DATE_FMT`
-    yields:
-        schedule dict
+        dt_start: start date str following `DATE_FMT`
+        dt_end: end date str follwing `DATE_FMT`
+    returns:
+        number of schedules added, number of schedules available
     '''
     DATE_START_STR, DATE_END_STR = dt_start, dt_end
     TIME_START_STR, TIME_END_STR = '06:00', '22:00'
@@ -375,7 +380,7 @@ def schedule_gen(dt_start: str, dt_end: str):
                 'every': self.every,
             }
 
- 
+
     # * QUERY BUSES
     db_bus_ids = [_id[0] for _id in Bus.query.with_entities(Bus.id).all()]
 
@@ -387,24 +392,75 @@ def schedule_gen(dt_start: str, dt_end: str):
     for bus_id in db_bus_ids:
         bus_scheds[bus_id] = BusSchedule(id=bus_id)
 
-    today = DT_START
-    while today < DT_END:
-        for bus_id, sched in bus_scheds.items():
-            for t_start, t_end in sched.day_slots:
-                dt_today = datetime(today.year, today.month, today.day, t_start.hour, t_start.minute)
-                dt_end = datetime(today.year, today.month, today.day, t_end.hour, t_end.minute)
-                driver_i = db_drivers.pop(0)
+    def get_next_month(dt: datetime) -> datetime:
+        ''' get next month dt
+        '''
+        try:
+            return dt.replace(month=dt.month + 1, day=1)
+        except ValueError:
+            return dt.replace(year=dt.year + 1, month=1 , day=1)
 
-                yield {
-                    'driver_id': driver_i.id,
-                    'bus_id': bus_id,
-                    'dt_start': dt_today,
-                    'dt_end': dt_end
-                }
-                db_drivers.append(driver_i)     # append driver back in front
+    def get_month_slots(dt_start: str, dt_end: str) -> list[datetime, datetime]:
+        ''' split datetime window into monthly windows
+        '''
+        month_slots = []
+        curr_dt = dt_start
+        next_dt = get_next_month(curr_dt)
+        while next_dt < dt_end:
+            month_slots.append((curr_dt, next_dt))
+            curr_dt, next_dt = next_dt, get_next_month(next_dt)
 
-        today += timedelta(days=1)
+        if curr_dt < dt_end:
+            month_slots.append((curr_dt, dt_end))
 
+        return month_slots
+
+    EMPTY_SLOT_CHANCE = 0.1
+    num_scheds, num_available_scheds = 0, 0
+
+    # * DIVIDE TIME WINDOW INTO MONTHS SUCH THAT USER MAY GET FEEDBACK
+    # * ON DATABASE POPULATION PROGRESS IN CASE OF MILLIONS OF ENTRIES
+    # * SO THAT USER MAY NOT GET BORED ...
+    dt_slots = get_month_slots(DT_START, DT_END)
+    for i, (dt_month_s, dt_month_e) in enumerate(dt_slots):
+        log.info(f'---{i + 1:>3}/{len(dt_slots):<3} populating from {dt_month_s} to {dt_month_e} ...')
+
+        today = dt_month_s
+        while today < dt_month_e:
+            for bus_id, sched in bus_scheds.items():
+                for t_start, t_end in sched.day_slots:
+                    # * get datetime for next slot
+                    dt_s = datetime(today.year, today.month, today.day, t_start.hour, t_start.minute)
+                    dt_e = datetime(today.year, today.month, today.day, t_end.hour, t_end.minute)
+
+                    # * select a random driver
+                    driver_i = db_drivers.pop(0)
+
+                    # * produce the schedule
+                    schedule = dict(
+                        driver_id=driver_i.id,
+                        bus_id=bus_id,
+                        dt_start=dt_s,
+                        dt_end=dt_e
+                    )
+                    # * enroll in either Schedule or Available_Schedule
+                    if random.random() > EMPTY_SLOT_CHANCE:
+                        db.session.add(Schedule(**schedule))
+                        num_scheds += 1
+                    else:
+                        db.session.add(AvaiableSchedule(**schedule))
+                        num_available_scheds += 1
+
+                    # * append driver back in front
+                    db_drivers.append(driver_i)
+
+            today += timedelta(days=1)
+        
+        # * COMMIT EVERY MONTH
+        db.session.commit()
+        log.info(f'+++ populated from {dt_month_s} to {dt_month_e} created:{num_scheds:>10}, avaialable:{num_available_scheds:>10}')
+
+    return num_scheds, num_available_scheds
 
 # POPULATE ###################################################
 
@@ -425,70 +481,7 @@ def populate_buses(n: int = 250):
 
 
 def populate_schedules(dt_start: str, dt_end: str) -> Tuple[int]:
-    ''' populcate database with schedules from dt_start until dt_end.
-        here populate Schedules and AvailableSchedules.
-        `EMPTY_SLOT_CHANCE` determines if the schedule makes it inside Schedules or AvailableSchedules table.
-        this way we may have a table of available schedules so we may add them to the
-        schedules table without having to worry about conflicts.
-    args:
-        dt_start: start date str following `DATE_FMT`
-        dt_end: end date str follwing `DATE_FMT`
-    returns:
-        number of schedules added, number of schedules available
-    '''
-    EMPTY_SLOT_CHANCE = 0.10
-    num_scheds, num_available_scheds = 0, 0
-
-    def get_next_month(dt: datetime) -> datetime:
-        ''' get next month dt
-        '''
-        try:
-            return dt.replace(month=dt.month + 1, day=1)
-        except ValueError:
-            return dt.replace(year=dt.year + 1, month=1 , day=1)
-
-    def get_month_slots(dt_start: str, dt_end: str) -> list[datetime, datetime]:
-        ''' split datetime window into monthly windows
-        '''
-        dt_start, dt_end = list(map(
-            lambda dt: datetime.strptime(dt, DATE_FMT),
-            (dt_start, dt_end)
-        ))
-
-        month_slots = []
-        curr_dt = dt_start
-        next_dt = get_next_month(curr_dt)
-        while next_dt < dt_end:
-            month_slots.append((curr_dt, next_dt))
-            curr_dt, next_dt = next_dt, get_next_month(next_dt)
-
-        if curr_dt < dt_end:
-            month_slots.append((curr_dt, dt_end))
-
-        str_slots = list(map(
-            lambda slot: [datetime.strftime(slot[0], DATE_FMT), datetime.strftime(slot[1], DATE_FMT)],
-            month_slots
-        ))
-        return str_slots
-
-    # * IN CASE POPULATING MILLIONS OF SCHEDS TAKES LONG, SPLIT THE TIME WINDOW INTO MONTHS
-    # * AND KEEP LOGGING FOR FEEDBACK SO USER DOES NOT GET BORED ...
-
-    dt_slots = get_month_slots(dt_start, dt_end)
-    for i, (dt_s, dt_e) in enumerate(dt_slots):
-        log.info(f'---{i + 1:>3}/{len(dt_slots):<3} populating from {dt_s} to {dt_e} ...')
-        for schedule in schedule_gen(dt_s, dt_e):
-            if random.random() > EMPTY_SLOT_CHANCE:
-                db.session.add(Schedule(**schedule))
-                num_scheds += 1
-            else:
-                db.session.add(AvaiableSchedule(**schedule))
-                num_available_scheds += 1
-
-        db.session.commit()
-        log.info(f'+++ populated from {dt_s} to {dt_e} created:{num_scheds:>10}, avaialable:{num_available_scheds:>10}')
-
-    return num_scheds, num_available_scheds
+    return schedule_gen(dt_start, dt_end)
 
 
 def delete_all():
@@ -527,5 +520,3 @@ if __name__ == '__main__':
     log.info(f'created, avaialbe: {created}, {available}')
 
     log.info('done')
-    # delete_all()
-    # db.drop_all()
