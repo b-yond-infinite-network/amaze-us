@@ -19,3 +19,6 @@ parameters:
 responses:
   201:
     description: bus is created
+
+  400:
+    description: make / model names too long

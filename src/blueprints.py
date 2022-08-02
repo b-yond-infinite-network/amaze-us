@@ -10,7 +10,7 @@ from flask import Blueprint, request, jsonify
 from flasgger import swag_from
 from datetime import datetime
 
-from src.common import DT_FMT, PAGINATION_PER_PAGE, MAX_NAME_LEN, MAX_EMAIL_LEN, VERSION
+from src.common import DT_FMT, DATE_FMT, PAGINATION_PER_PAGE, MAX_NAME_LEN, MAX_EMAIL_LEN, VERSION
 from src.db_model.db_models import Schedule, Driver, Bus, AvaiableSchedule, db
 from src.constants.http_status_codes import (
     HTTP_200_OK,
@@ -77,7 +77,7 @@ class Schedules():
                 dt_to = datetime.strptime(dt_to, DT_FMT)
                 conds.append(Schedule.dt_end <= dt_to)
         except ValueError as err:
-            return jsonify({'error': err}), HTTP_400_BAD_REQUEST
+            return jsonify({'error': str(err)}), HTTP_400_BAD_REQUEST
         except TypeError:
             return jsonify({'error': 'Start date / end date not supplied in query ...'}), HTTP_400_BAD_REQUEST
 
@@ -97,7 +97,7 @@ class Schedules():
             dt_from = datetime.strptime(body['dt_start'], DT_FMT)
             dt_to = datetime.strptime(body['dt_end'], DT_FMT)
         except ValueError as err:
-            return jsonify({'error': err}), HTTP_400_BAD_REQUEST
+            return jsonify({'error': str(err)}), HTTP_400_BAD_REQUEST
         except KeyError as key:
             return jsonify({'error': f'{key} not supplied in request body ...'}), HTTP_400_BAD_REQUEST
 
@@ -123,8 +123,8 @@ class Schedules():
         schedule = Schedule(
             driver_id=body['driver_id'],
             bus_id=body['bus_id'],
-            dt_start=datetime.strptime(body['dt_start'], DT_FMT),
-            dt_end=datetime.strptime(body['dt_end'], DT_FMT)
+            dt_start=dt_from,
+            dt_end=dt_to
         )
         db.session.add(schedule)
         db.session.commit()
@@ -140,6 +140,14 @@ class Schedules():
 
         dt_from = request.args.get('from', type=str, default=None)
         dt_to = request.args.get('to', type=str, default=None)
+
+        try:
+            dt_from = datetime.strptime(dt_from, DATE_FMT)
+            dt_to = datetime.strptime(dt_to, DATE_FMT)
+        except ValueError as err:
+            return jsonify({'error': str(err)}), HTTP_400_BAD_REQUEST
+        except KeyError as key:
+            return jsonify({'error': f'{key} not supplied in request body ...'}), HTTP_400_BAD_REQUEST
 
         schedules = db.session.query(
             Schedule.driver_id, Schedule.bus_id,
@@ -172,6 +180,14 @@ class Schedules():
 
         dt_from = request.args.get('from', type=str, default=None)
         dt_to = request.args.get('to', type=str, default=None)
+
+        try:
+            dt_from = datetime.strptime(dt_from, DATE_FMT)
+            dt_to = datetime.strptime(dt_to, DATE_FMT)
+        except ValueError as err:
+            return jsonify({'error': str(err)}), HTTP_400_BAD_REQUEST
+        except KeyError as key:
+            return jsonify({'error': f'{key} not supplied in request body ...'}), HTTP_400_BAD_REQUEST
 
         schedules = db.session.query(
             Schedule.driver_id, Schedule.bus_id,
@@ -215,12 +231,11 @@ class Drivers():
     def get_top_n(n: int):
         dt_from = request.args.get('from', type=str, default=None)
         dt_to = request.args.get('to', type=str, default=None)
-
         try:
-            dt_from = datetime.strptime(dt_from, DT_FMT)
-            dt_to = datetime.strptime(dt_to, DT_FMT)
+            dt_from = datetime.strptime(dt_from, DATE_FMT)
+            dt_to = datetime.strptime(dt_to, DATE_FMT)
         except ValueError as err:
-            return jsonify({'error': err}), HTTP_400_BAD_REQUEST
+            return jsonify({'error': str(err)}), HTTP_400_BAD_REQUEST
         except TypeError:
             return jsonify({'error': 'Start date / end date not supplied in query ...'}), HTTP_400_BAD_REQUEST
 
@@ -245,7 +260,7 @@ class Drivers():
             day = f'{year}-W{week_number}'
             day = datetime.strftime(
                 # ? week day to date source: https://stackoverflow.com/questions/17087314/get-date-from-week-number
-                datetime.strptime(day + '-1', '%Y-W%W-%w'), '%Y-%m-%d %H:%M'
+                datetime.strptime(day + '-1', '%Y-W%W-%w'), DATE_FMT
             )
             if len(driver_scores[day]) == n: continue
             driver_scores[day][driver_id] = count
@@ -321,12 +336,20 @@ class Buses():
     @bus_bp.post('')
     def post():
         body = request.json
+
+        # * name lengths check
+        if len(body['model']) > MAX_NAME_LEN:
+            return jsonify({'error': 'model name too long ...'}), HTTP_400_BAD_REQUEST
+
+        if len(body['make']) > MAX_NAME_LEN:
+            return jsonify({'error': 'make name too long ...'}), HTTP_400_BAD_REQUEST
+
         try:
             bus = Bus(model=body['model'], make=body['make'])
         except KeyError as key:
             return jsonify({'error': f'{key} not supplied in request body ...'}), HTTP_409_CONFLICT
 
-        # no need to check before adding bus; nothing is unique
+        # * no need to check before adding bus; nothing is unique here
         db.session.add(bus)
         db.session.commit()
 

@@ -18,10 +18,10 @@ parameters:
           example: 2
         dt_start:
           type: string
-          example: '2022-01-01'
+          example: '2022-01-01 08:40'
         dt_end:
           type: string
-          example: '2022-01-30'
+          example: '2022-01-30 09:20'
 
 responses:
   201:

@@ -31,4 +31,4 @@ responses:
     description: user email or SSN is already taken
 
   400:
-    description: first/last name is not alphabetic or if email is invalid
+    description: first/last name is not alphabetic or if email is invalid or too long

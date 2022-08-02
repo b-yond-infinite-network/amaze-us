@@ -31,19 +31,5 @@ responses:
               type: object
               example: {'6': 55, '23': 43, '11': 23}
 
-        meta:
-          type: object
-          properties:
-            item_count:
-              type: integer
-            next_page:
-              type: integer
-            page:
-              type: integer
-            pages:
-              type: integer
-            prev_page:
-              type: integer
-
   404:
     description: if page not found
