@@ -27,7 +27,7 @@ def test_home_page(test_client, init_database):
     '''
     GIVEN a Flask application configured for testing
     WHEN the '/' page is requested (GET)
-    THEN check that the response is valid
+    THEN chek that 200 is returned
     '''
     response = test_client.get('/')
     assert response.status_code == HTTP_200_OK
@@ -39,8 +39,8 @@ def test_home_page(test_client, init_database):
 def test_get_schedules_all_args(test_client, init_database):
     '''
     GIVEN a Flask application configured for testing
-    WHEN GET http://{{socket}}/{{PREFIX}}/schedule
-    THEN chek that 200 is returned
+    WHEN GET http://{{socket}}/{{PREFIX}}/schedule is called
+    THEN chek that 200 is returned to make sure every query is optional
     '''
     query_params = [
         "from=2022-01-01 00:00",
@@ -87,7 +87,7 @@ def test_driver_duplicate_email(test_client, init_database, new_driver):
     '''
     GIVEN a Flask application configured for testing
     WHEN creating a driver with same email address
-    THEN chek that 409 is returned
+    THEN chek that 409 is returned to ensure conflict detection logic is working
     '''
     driver_clone = dict(new_driver)
     driver_clone['social_security_number'] += 1
@@ -103,7 +103,7 @@ def test_driver_duplicate_ssn(test_client, init_database, new_driver):
     '''
     GIVEN a Flask application configured for testing
     WHEN creating a driver with same ssn
-    THEN chek that 409 is returned
+    THEN chek that 409 is returned to ensure conflict detection logic is working
     '''
     driver_clone = dict(new_driver)
     driver_clone['email'] = 'test.email@test.com'
@@ -120,8 +120,8 @@ def test_driver_duplicate_ssn(test_client, init_database, new_driver):
 def test_schedule_overlap(test_client, init_database, new_schedules):
     '''
     GIVEN a Flask application configured for testing
-    WHEN creating schedules that are ensured to have no overlap
-    THEN chek that 200 is returned
+    WHEN creating schedules that are ensured to have NO overlap
+    THEN chek that 200 is returned to ensure conflict detection logic is working
     '''
     scheds = list(map(lambda sched: sched.as_dict(), new_schedules))
     list(map(lambda sched: sched.pop('id'), scheds))
@@ -134,8 +134,8 @@ def test_schedule_overlap(test_client, init_database, new_schedules):
 def test_schedule_overlap_2(test_client, init_database, existing_schedules):
     '''
     GIVEN a Flask application configured for testing
-    WHEN creating schedules that overlap with the existing schedules
-    THEN chek that 409 is returned
+    WHEN creating schedules that DO overlap with the existing schedules
+    THEN chek that 409 is returned to ensure conflict detection logic is working
     '''
     # * add random time on dt_start and dt_end
     for sched in existing_schedules:
@@ -181,7 +181,7 @@ def test_bad_email(test_client, init_database, new_driver):
     '''
     GIVEN a Flask application configured for testing
     WHEN inserting a driver with bad email
-    THEN chek that 400 is returned
+    THEN chek that 400 is returned to ensure email validation logic is working
     '''
     invalid_emails = [
         'gmail.com',
@@ -189,12 +189,12 @@ def test_bad_email(test_client, init_database, new_driver):
         'not[]email@gmail.com',
         'not()email@gmail.com',
         'not"n"email@gmail',
-        'not/email@gmail'
+        'not/email@gmail',
+        'l' + 'o' * 400 + 'ng@gmail.com'
     ]
 
     for email in invalid_emails:
         new_driver['email'] = email
-
         response = test_client.post(f'/{PREFIX}/driver', json=new_driver)
         assert response.status_code == HTTP_400_BAD_REQUEST
 
@@ -203,7 +203,7 @@ def test_bad_name(test_client, init_database, new_driver):
     '''
     GIVEN a Flask application configured for testing
     WHEN inserting a driver with bad email
-    THEN chek that 400 is returned
+    THEN chek that 400 is returned to ensure first/last name validation logic is working
     '''
     invalid_names = [
         '12',
@@ -213,6 +213,7 @@ def test_bad_name(test_client, init_database, new_driver):
         'space in name',
         'coolname!',
         'number1',
+        'ToooooooooooLoooooooooooooooooooooooooooong'
     ]
 
     for name in invalid_names:
