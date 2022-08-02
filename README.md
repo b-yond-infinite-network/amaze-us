@@ -14,6 +14,7 @@ $ pip3 install -r requirements.txt                  # install requirements for v
 * User might need to specify python interpreter if the IDE has not selected the venv python interpreter automatically...
 * default `{{socket}}/{{prefix}}` is `0.0.0.0:5000/api/v1`
 * default database URI is `tester:password@0.0.0.0:3306/Schedules`
+* API docs accessible at `./api_docs.yaml` or better, at `0.0.0.0:5000/apidocs` given that the app is running
 
 ## Docker compose solutions
 ---

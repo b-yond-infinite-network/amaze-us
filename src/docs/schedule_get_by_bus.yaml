@@ -13,7 +13,7 @@ parameters:
     example: '2022-01-30'
 responses:
   200:
-    description: schedules by bus retrieved
+    description: schedules grouped by bus and then driver
 
     schema:
       type: object
