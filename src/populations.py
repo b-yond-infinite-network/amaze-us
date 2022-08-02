@@ -431,8 +431,8 @@ def populate_schedules(dt_start: str, dt_end: str) -> Tuple[int]:
         this way we may have a table of available schedules so we may add them to the
         schedules table without having to worry about conflicts.
     args:
-        dt_start: start date str following DATE_FMT = '%Y-%m-%d'
-        dt_end: end date str follwing DATE_FMT = '%Y-%m-%d'
+        dt_start: start date str following `DATE_FMT`
+        dt_end: end date str follwing `DATE_FMT`
     returns:
         number of schedules added, number of schedules available
     '''
