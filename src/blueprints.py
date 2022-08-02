@@ -10,8 +10,12 @@ from flask import Blueprint, request, jsonify
 from flasgger import swag_from
 from datetime import datetime
 
-from src.common import DT_FMT, DATE_FMT, PAGINATION_PER_PAGE, MAX_NAME_LEN, MAX_EMAIL_LEN, VERSION
 from src.db_model.db_models import Schedule, Driver, Bus, AvaiableSchedule, db
+from src.common import (
+    DT_FMT, DATE_FMT, PAGINATION_PER_PAGE,
+    MAX_NAME_LEN, SSN_MAX_LEN, MAX_EMAIL_LEN,
+    VERSION
+)
 from src.constants.http_status_codes import (
     HTTP_200_OK,
     HTTP_201_CREATED,
@@ -297,6 +301,9 @@ class Drivers():
         # * email duplicates check
         if Driver.query.filter_by(email=body['email']).first() is not None:
             return jsonify({'error': 'Email is taken ...'}), HTTP_409_CONFLICT
+
+        if len(str(body['social_security_number'])) > SSN_MAX_LEN:
+            return jsonify({'error': 'SSN too long ...'}), HTTP_400_BAD_REQUEST
 
         # * ssn duplicates check
         if Driver.query.filter_by(social_security_number=body['social_security_number']).first() is not None:
