@@ -25,12 +25,6 @@ $ (venv) pip3 install -r requirements.txt           # install requirements for v
 | `volume/config/flask_test_docker.yaml` | for running mysql, API containers and giving the pytest results defined in `./tests/` |
 | `docker-compose.yml` | for running mysql, API containers on the same docker bridge network where app accesses db by: `tester:password@mysql_db:3306/Schedules` |
 
-## Testing API requests
----
-> Given that the APP (both containers) is runnning, user may test API calls either:
-1. Using `./test.http` given that vscode addon: [__REST CLIENT__](https://marketplace.visualstudio.com/items?) is installed.
-2. Using swagger endpoint: `0.0.0.0:5000/apidocs`, where a `swagger.io UI` is provided.
-
 ## Running the APP
 ---
 > using `docker-compose.yml`
@@ -51,6 +45,18 @@ POST http://{{socket}}/{{prefix}}/population
 ```
 GET http://{{socket}}/{{prefix}}/available_schedule
 ```
+* User may insert a schedule via:
+```
+POST http://{{socket}}/{{prefix}}/schedule
+Content-Type: application/json
+
+{
+    "bus_id": 2,
+    "driver_id": 1,
+    "dt_start": "2022-01-06 15:47",
+    "dt_end": "2022-01-06 16:20"
+}
+```
 
 ## Testing
 ---
@@ -65,19 +71,20 @@ $ docker-compose -f docker-compose.yml up [--build]       # spin database contai
 $ # alongside
 $ (venv) python -m pytest -v -s                           # for pytests
 $ # or
-$ (venv) python3 app.py                                   # for interacting with app
+$ (venv) python3 app.py [--debug True]                    # for interacting with app
 ```
-if for some reason, all tests fail, try removing the database volume with:
-```shell
-$ [sudo] rm -rf volume/db_data/
-```
-and restarting the test; although it should work just fine...
+> make sure to run app / pytests on venv if you only want to containerize the database.
+
+> Given that the APP (both containers) is runnning, user may test API calls either:
+1. Using `./test.http` given that vscode addon: [__REST CLIENT__](https://marketplace.visualstudio.com/items?) is installed.
+2. Using swagger endpoint: `0.0.0.0:5000/apidocs`, where a `swagger.io UI` is hosted upon running the app.
 
 ## Missing
 ---
 1. securing the API
 2. adding role based access control
 3. adding service hooks (email notifications)
+4. consider using SSN instead of id as PK in `Driver`; (more on that in the _discussion_ section)
 
 ## TODOs
 ---
@@ -143,13 +150,13 @@ It sure would save space, but I considered drivers' privacy and used an autoincr
     * there is designated a probability that a generated schedule gets enrolled inside `Available_Schedule` table instead of `Schedule`; so we may have a pool of available schedules that we may add to the `Schedule` table without having to guess whether a schedule fits without conflicts. This comes useful for `pytest` runs
     * each bus has a random _start hour_, _trip duration_ and _trip period_
 
-* IMPORTANT: there is no duplicate entries detection for the `available_schedule` blueprint... it is only for testing purposes...
+* IMPORTANT: there is no duplicate entries detection for the `available_schedule` blueprint... it is only for testing purposes... To get around this, use `DELETE http://{{socket}}/{{prefix}}/population` and repopulate with `POST http://{{socket}}/{{prefix}}/population`
 
 | variable | definition | value |
 | --- | --- | --- |
 | _start hour_ | time at which a bus makes its first time in the day | µ = 06:00 ± HH:MM where HH:MM = gauss(0, 0.5):gauss(0, 10) |
 | _trip duration_ | time taken for a bus to complete its trip | random(20, 60) |
-| _trip period_ | time period between each trip | `_trip duration_` + random number of minutes |
+| _trip period_ | time period between each trip | _trip duration_ + random number of minutes |
 
 ### _pytest_
 > functional tests cover testing:
