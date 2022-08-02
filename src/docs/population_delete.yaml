@@ -2,6 +2,7 @@
 tags:
   - population
 description: delete all drivers, buses and schedules
+text: delete all drivers, buses and schedules
 
 responses:
   204:

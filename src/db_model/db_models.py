@@ -13,7 +13,7 @@ class Bus(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     model = db.Column(db.String(MAX_NAME_LEN), nullable=False)
     make = db.Column(db.String(MAX_NAME_LEN), nullable=False)
-    slots = db.relationship('Schedule', backref='bus', lazy='dynamic')
+    shifts = db.relationship('Schedule', backref='bus', lazy='joined')
 
     def __repr__(self) -> str:
         return f'{self.make}:{self.model}'
@@ -36,7 +36,7 @@ class Driver(db.Model):
     last_name = db.Column(db.String(MAX_NAME_LEN), nullable=False)
     email = db.Column(db.String(MAX_EMAIL_LEN), unique=True, nullable=False)
     social_security_number = db.Column(db.Integer, unique=True, nullable=False)
-    shifts = db.relationship('Schedule', backref='driver', lazy='dynamic')
+    shifts = db.relationship('Schedule', backref='driver', lazy='joined')
 
     def __repr__(self) -> str:
         return f'{self.first_name} {self.last_name}'
@@ -83,7 +83,7 @@ class Schedule(db.Model):
     @staticmethod
     def get_overlapping_scheds(
         driver_id: int, bus_id: int, inc_dt_start: datetime, inc_dt_end: datetime
-    ) -> bool:
+    ) -> dict:
         results = Schedule.query.filter(
             or_(Schedule.bus_id == bus_id, Schedule.driver_id == driver_id),
             or_(

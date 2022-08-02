@@ -2,6 +2,7 @@
 '''
 
 import logging
+import collections
 from sqlalchemy import func, desc
 
 from email_validator import validate_email
@@ -129,6 +130,68 @@ class Schedules():
         db.session.commit()
 
         return schedule.as_dict(), HTTP_201_CREATED
+
+    @swag_from('docs/schedule_get_by_driver.yaml')
+    @schedule_bp.get('/by_driver')
+    def get_scheds_by_driver():
+        page = request.args.get('page', type=int, default=1)
+        per_page = request.args.get('per_page', type=int, default=PAGINATION_PER_PAGE)
+        per_page = min(PAGINATION_PER_PAGE, per_page)
+
+        dt_from = request.args.get('from', type=str, default=None)
+        dt_to = request.args.get('to', type=str, default=None)
+
+        schedules = db.session.query(
+            Schedule.driver_id, Schedule.bus_id,
+            Schedule.dt_start, Schedule.dt_end
+        ).filter(
+            dt_from <= Schedule.dt_start,
+            Schedule.dt_start <= dt_to
+        ).paginate(page, per_page)
+
+        driver_scheds = collections.defaultdict(dict)
+        for driver_id, bus_id, dt_start, dt_end in schedules.items:
+            if bus_id not in driver_scheds[driver_id]:
+                driver_scheds[driver_id][bus_id] = []
+            driver_scheds[driver_id][bus_id].append([
+                datetime.strftime(dt_start, DT_FMT), datetime.strftime(dt_end, DT_FMT),
+            ])
+
+        return jsonify({
+            'data': driver_scheds,
+            'meta': get_page_meta(schedules)
+        }), HTTP_200_OK
+
+    @swag_from('docs/schedule_get_by_bus.yaml')
+    @schedule_bp.get('/by_bus')
+    def get_scheds_by_bus():
+        page = request.args.get('page', type=int, default=1)
+        per_page = request.args.get('per_page', type=int, default=PAGINATION_PER_PAGE)
+        per_page = min(PAGINATION_PER_PAGE, per_page)
+
+        dt_from = request.args.get('from', type=str, default=None)
+        dt_to = request.args.get('to', type=str, default=None)
+
+        schedules = db.session.query(
+            Schedule.driver_id, Schedule.bus_id,
+            Schedule.dt_start, Schedule.dt_end
+        ).filter(
+            dt_from <= Schedule.dt_start,
+            Schedule.dt_start <= dt_to
+        ).paginate(page, per_page)
+
+        bus_scheds = collections.defaultdict(dict)
+        for driver_id, bus_id, dt_start, dt_end in schedules.items:
+            if driver_id not in bus_scheds[bus_id]:
+                bus_scheds[bus_id][driver_id] = []
+            bus_scheds[bus_id][driver_id].append([
+                datetime.strftime(dt_start, DT_FMT), datetime.strftime(dt_end, DT_FMT),
+            ])
+
+        return jsonify({
+            'data': bus_scheds,
+            'meta': get_page_meta(schedules)
+        }), HTTP_200_OK
 
 
 class Drivers():

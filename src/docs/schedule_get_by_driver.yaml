@@ -1,0 +1,49 @@
+---
+tags:
+  - schedules
+description: get schedule per driver
+parameters:
+  - in: query
+    name: from
+    type: string
+    example: '2022-01-01'
+  - in: query
+    name: to
+    type: string
+    example: '2022-01-30'
+responses:
+  200:
+    description: schedules by driver retrieved
+
+    schema:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            type: array
+            driver_id:
+              type: object
+              properties:
+                bus_id:
+                  type: array
+                  items:
+                    type: array
+                    example: ['2022-01-01 12:00', '2022-01-01 12:30']
+
+        meta:
+          type: object
+          properties:
+            item_count:
+              type: integer
+            next_page:
+              type: integer
+            page:
+              type: integer
+            pages:
+              type: integer
+            prev_page:
+              type: integer
+
+  404:
+    description: page not found
