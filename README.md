@@ -44,9 +44,9 @@ POST http://{{socket}}/{{prefix}}/population
     ?buses=250
     &drivers=1000
     ?from=2022-01-01
-    &to=2022-12-01
+    &to=2022-10-01
 ```
-* The above request would insert ~1M schedules in the `Schedule` table, and ~200k in the `Available_Schedule` table.
+* The above request would insert ~1M schedules in the `Schedule` table, and ~100k in the `Available_Schedule` table. This operation would take about 2 minutes...
 * User may retreive available schedules via:
 ```
 GET http://{{socket}}/{{prefix}}/available_schedule
@@ -77,7 +77,7 @@ and restarting the test; although it should work just fine...
 ---
 1. securing the API
 2. adding role based access control
-1. adding service hooks (email notifications)
+3. adding service hooks (email notifications)
 
 ## TODOs
 ---
@@ -120,6 +120,13 @@ GET http://{{socket}}/{{prefix}}/driver/top/10
 * container shares `volume/db_data` with host
 * if `volume/db_data` doesn't exist, database container will initialize the database and run all `.sql` and `.sh` files inside `volume/db_init` where we only create a schema and a user
 * `MySQL v5.6.7` vscode extension was used for direct interaction with database during development.
+### _ER diagram_
+![alt text](src/docs/images/er_diagram.png)
+Driver social_security number may have served as PK for the `Driver` table with:
+```python
+    social_security_number = db.Column(db.Integer, primary_key=True, autoincrement=False)
+```
+It sure would save space, but I considered drivers' privacy and used an autoincrentable id instead...
 
 ### _API_
 * python `flask`, `sqlalchemy` and `flasgger` were used for API, database interface and documentation
@@ -131,8 +138,10 @@ GET http://{{socket}}/{{prefix}}/driver/top/10
 * `driver` table is populated using combinations of [first/last names generator](https://www.name-generator.org.uk/quick/)
 * `bus` table is populated in a similar fashion
 * `Schedule` table is populated by associating a time schedule for every bus
-    * there is designated a probability that a generated schedule gets enrolled inside `Available_Schedule` table instead of `Schedule`; so we may have a pool of available schedules that we may add to the `Schedule` table without having to guess whether a schedule fits without conflicts.
+    * there is designated a probability that a generated schedule gets enrolled inside `Available_Schedule` table instead of `Schedule`; so we may have a pool of available schedules that we may add to the `Schedule` table without having to guess whether a schedule fits without conflicts. This comes useful for `pytest` runs
     * each bus has a random _start hour_, _trip duration_ and _trip period_
+
+* IMPORTANT: there is no duplicate entries detection for the `available_schedule` blueprint... it is only for testing purposes...
 
 | variable | definition | value |
 | --- | --- | --- |
