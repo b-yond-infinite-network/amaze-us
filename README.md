@@ -54,10 +54,13 @@ GET http://{{socket}}/{{prefix}}/available_schedule
 ## Testing
 ---
 > using `pytest`, either:
-1. Using `docker-compose.pytest.yml` where pytest logs may be observed from docker logs
+1. Using `docker-compose.pytest.yml` where pytest logs may be observed from docker logs:
+```shell
+$ docker-compose -f docker-compose.pytest.yaml up --abort-on-container-exit [--build]
+```
 2. Using `docker-compose.db.yml` with:
 ```shell
-$ docker-compose -f docker-compose.yml up <--build>       # spin the db only
+$ docker-compose -f docker-compose.yml up [--build]       # spin database container only
 $ # alongside
 $ python -m pytest -v -s                                  # for pytests (on venv)
 $ # or
@@ -65,9 +68,9 @@ $ python3 app.py                                          # for interacting with
 ```
 if for some reason, all tests fail, try removing the database volume with:
 ```shell
-$ rm -rf volume/db_data/
+$ [sudo] rm -rf volume/db_data/
 ```
-and restarting the test...
+and restarting the test; although it should work just fine...
 
 ## Missing
 ---
@@ -205,5 +208,5 @@ GET http://{{socket}}/{{prefix}}/driver/top/10
 ---
 * Swagger API documentation swallowed most of my time... There must be a more efficient way to utilze swagger I am sure.
 * The yaml summary in swagger yaml in `/src/docs/` does not display next to API endpoints on the `swagger.io UI` for some reason... I suspect version incompatibility between `pyyaml` and `flasgger`... but I cannot be so sure.
-* I am aware that every flask blueprint deserves its own python module, but for simplicity I've placed them in the same module.
+* I am aware that every flask blueprint deserves its own python module, but this project is simple enough to have them in one module I thought.
 * I am ready to discuss anything about my app:)
