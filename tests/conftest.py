@@ -87,7 +87,7 @@ def new_schedules() -> list[Schedule]:
 def existing_schedules() -> list[Schedule]:
     ''' pass a schedule
     '''
-    n = 5
+    n = 10
     scheds = Schedule.query.limit(n).all()
 
     yield scheds
