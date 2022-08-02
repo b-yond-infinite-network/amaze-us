@@ -43,7 +43,7 @@ def run():
             return 0
         except Exception as err:
             log.error(f'on starting app: {err}')
-            log.info(f'retrying in {retry_time}s ...')
+            log.error(f'retrying in {retry_time}s ...')
             sleep(5)
         else:
             return 0

@@ -32,6 +32,13 @@ GET http://{{socket}}/{{prefix}}/driver/top/10
     &page=1
     &per_page=5
 
+### GET SCHEDULES BY DRIVER
+GET http://{{socket}}/{{prefix}}/driver/top/10
+    ?from=2022-01-02 00:00
+    &to=2022-01-06 00:00
+    &page=1
+    &per_page=5
+
 ### CREATE DRIVER
 POST http://{{socket}}/{{prefix}}/driver
 Content-Type: {{content_type}}
@@ -56,6 +63,20 @@ GET http://{{socket}}/{{prefix}}/schedule
     # &page=1
     # &per_page=2
 
+### GET SCHEDULE BY DRIVER
+GET http://{{socket}}/{{prefix}}/schedule/by_driver
+    ?from=2022-01-01 00:00
+    &to=2022-03-03 00:00
+    # &page=1
+    # &per_page=2
+
+### GET SCHEDULE BY BUS
+GET http://{{socket}}/{{prefix}}/schedule/by_bus
+    ?from=2022-01-01 00:00
+    &to=2022-03-03 00:00
+    # &page=1
+    # &per_page=2
+
 ### CREATE SCHEDULE
 POST http://{{socket}}/{{prefix}}/schedule
 Content-Type: {{content_type}}
@@ -70,9 +91,8 @@ Content-Type: {{content_type}}
 ### * AVAILABLE SCHEDULE ###################
 ### GET ALL AVAILABLE SCHEDULES
 GET http://{{socket}}/{{prefix}}/available_schedule
-    ?page=3
+    ?page=1
     &per_page=5
-    &driver_id=3
 
 ### ! POPULATE ALL #########################
 POST http://{{socket}}/{{prefix}}/population
