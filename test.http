@@ -50,7 +50,7 @@ Content-Type: {{content_type}}
 ### GET SCHEDULE BY ID
 GET http://{{socket}}/{{prefix}}/schedule/3
 
-### GET SCHEDULE BY BUS_ID, DRIVER_ID, WEEK
+### GET SCHEDULE BY PARAMS
 GET http://{{socket}}/{{prefix}}/schedule
     ?from=2022-01-01 00:00
     &to=2022-12-03 00:00
