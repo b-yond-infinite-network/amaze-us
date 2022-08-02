@@ -121,7 +121,9 @@ GET http://{{socket}}/{{prefix}}/driver/top/10
 * if `volume/db_data` doesn't exist, database container will initialize the database and run all `.sql` and `.sh` files inside `volume/db_init` where we only create a schema and a user
 * `MySQL v5.6.7` vscode extension was used for direct interaction with database during development.
 ### _ER diagram_
+
 ![alt text](src/docs/images/er_diagram.png)
+
 Driver social_security number may have served as PK for the `Driver` table with:
 ```python
     social_security_number = db.Column(db.Integer, primary_key=True, autoincrement=False)
