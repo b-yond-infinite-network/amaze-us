@@ -31,7 +31,7 @@ def run():
         mySQL container takes time to init and so connection may fail once or
         twice until the db container opens the connection socket.
         ---
-        connection fails only if the db container does not find a shared volume...
+        connection initially fails only if the db container does not find a shared volume...
         in which case it will create it which takes a couple of seconds; thus this loop is necessary.
     '''
     retry_time = 5

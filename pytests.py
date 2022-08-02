@@ -15,6 +15,13 @@ def run_pytests():
         app_config: dict = yaml.load(f, Loader=yaml.Loader)
         conn_string = app_config['SQLALCHEMY_DATABASE_URI']
 
+    ''' even though app container 'depends' on db container,
+        mySQL container takes time to init and so connection may fail once or
+        twice until the db container opens the connection socket.
+        ---
+        connection initially fails only if the db container does not find a shared volume...
+        in which case it will create it which takes a couple of seconds; thus this loop is necessary.
+    '''
     retry_time = 5
     while True:
         try:
