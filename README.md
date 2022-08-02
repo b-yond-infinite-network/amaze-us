@@ -8,8 +8,9 @@ The system can be run fully containerized using the `docker-compose` scripts or 
 ```shell
 $ pip3 install virtualenv                           # installation
 $ python3 -m virtualenv venv                        # init venv
-$ source ~/<PATH>/api_project/venv/bin/activate     # activate
-$ pip3 install -r requirements.txt                  # install requirements for venv
+$ source venv/bin/activate                          # activate
+$ (venv) pip3 install --upgrade pip
+$ (venv) pip3 install -r requirements.txt           # install requirements for venv
 ```
 * User might need to specify python interpreter if the IDE has not selected the venv python interpreter automatically...
 * default `{{socket}}/{{prefix}}` is `0.0.0.0:5000/api/v1`
@@ -62,9 +63,9 @@ $ docker-compose -f docker-compose.pytest.yaml up --abort-on-container-exit [--b
 ```shell
 $ docker-compose -f docker-compose.yml up [--build]       # spin database container only
 $ # alongside
-$ python -m pytest -v -s                                  # for pytests (on venv)
+$ (venv) python -m pytest -v -s                           # for pytests
 $ # or
-$ python3 app.py                                          # for interacting with app (on venv)
+$ (venv) python3 app.py                                   # for interacting with app
 ```
 if for some reason, all tests fail, try removing the database volume with:
 ```shell
