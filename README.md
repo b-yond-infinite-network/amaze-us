@@ -29,7 +29,7 @@ $ (venv) pip3 install -r requirements.txt           # install requirements for v
 ---
 > using `docker-compose.yml`
 ```shell
-$ docker-compose -f docker-compose.yml up [--build]
+$ [sudo] docker-compose -f docker-compose.yml up [--build]
 ```
 * The database is instantiated but not populated.
 * Database can be populated using the following request which user may send using the `./tests.http` file or `swagger.io UI`
@@ -63,11 +63,11 @@ Content-Type: application/json
 > using `pytest`, either:
 1. Using `docker-compose.pytest.yml` where pytest logs may be observed from docker logs:
 ```shell
-$ docker-compose -f docker-compose.pytest.yaml up --abort-on-container-exit [--build]
+$ [sudo] docker-compose -f docker-compose.pytest.yaml up --abort-on-container-exit [--build]
 ```
 2. Using `docker-compose.db.yml` with:
 ```shell
-$ docker-compose -f docker-compose.yml up [--build]       # spin database container only
+$ [sudo] docker-compose -f docker-compose.yml up [--build]       # spin database container only
 $ # alongside
 $ (venv) python -m pytest -v -s                           # for pytests
 $ # or
