@@ -28,11 +28,10 @@ def run():
     ARGS = parser.parse_args()
 
     ''' even though app container 'depends' on db container,
-        mySQL container takes time to init and so connection may fail once or
-        twice until the db container opens the connection socket.
+        mySQL container may take a couple of seconds in case the container does
+        not detect a shared db volume (eg: when it runs for the first time)
         ---
-        connection initially fails only if the db container does not find a shared volume...
-        in which case it will create it which takes a couple of seconds; thus this loop is necessary.
+        this loop ensures that the app container starts running the API only when db socket is open.
     '''
     retry_time = 5
     while True:
