@@ -1,6 +1,7 @@
 # SCHEDULE MANAGEMENT APP
 
 ## Summary
+---
 This solution attempts to solve the `advanced` challenge using a `flask` API and a `mysql` database.
 
 The system can be run fully containerized using the `docker-compose` scripts or on a python venv using:
@@ -13,6 +14,7 @@ $ pip3 install -r requirements.txt                  # install requirements for v
 * User might need to specify python interpreter if the IDE has not selected the venv python interpreter automatically...
 
 ## Docker compose solutions
+---
 | file | functionality |
 | --- | --- |
 | `docker-compose.db.yml` | for running a mysql contianer accessible by: `tester:password@0.0.0.0:3306/Schedules` |
@@ -20,11 +22,13 @@ $ pip3 install -r requirements.txt                  # install requirements for v
 | `docker-compose.yml` | for running mysql, API containers on the same docker bridge network where db can be accessed by: `tester:password@mysql_db:3306/Schedules` |
 
 ## Testing API requests
+---
 > Given that the APP (both containers) is runnning, user may test API calls either:
 1. Using vscode addon: [__REST CLIENT__](https://marketplace.visualstudio.com/items?), user may use the `./test.http` file which contains all the possible requrests. User may edit: body, queries and path for every request if necessary.
 2. Using swagger endpoint: `0.0.0.0:5000/apidocs`, where a `swagger.io UI` is provided.
 
 ## Running the APP
+---
 > using `docker-compose.yml`:
 ```
 $ docker-compose -f docker-compose.yml up
@@ -45,6 +49,7 @@ GET http://{{socket}}/{{prefix}}/available_schedule
 ```
 
 ## Testing
+---
 > using `pytest`, either:
 1. Using `docker-compose.pytest.yml` where pytest logs may be observed from docker logs
 2. Using `docker-compose.db.yml` alongside:
@@ -59,16 +64,19 @@ $ rm -rf volume/db_data/
 and restarting the test
 
 ## Missing
+---
 1. securing the API
 2. adding role based access control
 1. adding service hooks (email notifications)
 
 ## TODOs
+---
 1. Figuring out a way to import schemas into swagger yaml files (I tried for hours follwing [swagger.io Using $ref](https://swagger.io/docs/specification/using-ref/) but could not...)
 2. Figuring out how to aggregate yaml files together in a way that is more organized that in `/src/docs` (I tried for hours follwing [swagger.io Paths and Operations](https://swagger.io/docs/specification/paths-and-operations/) but could not...)
 3. Verifying request body keys using `swagger validate` but I did not allocate time for it and did not want to extend my duedate
 
 ## Fulfillment of the challenge requirements
+---
 1. The application should allow a user to manage the schedule and add new entries for buses, drivers and assign shifts to drivers.
 ```
 POST http://{{socket}}/{{prefix}}/bus
@@ -98,5 +106,7 @@ GET http://{{socket}}/{{prefix}}/driver/top/10
 ```
 
 ## My Notes
+---
 * Swagger API documentation swallowed most of my time... There must be a more efficient way to utilze swagger I am sure.
 * The yaml summary in swagger yaml in `/src/docs/` does not display next to API endpoints on the `swagger.io UI` for some reason...
+* I am ready to discuss anything about my app:)

@@ -19,4 +19,5 @@ COPY tests ./tests
 COPY volume/config/flask_test_docker.yaml tests/flask.yaml
 COPY pytests.py .
 
+# * ENTRYPOINT IS OVERRIDEN BY DOCKER-COMPOSE FILES IN CASE WE WANT TO RUN THE CONTAINERIZED PYTEST / OR WITH DIFFERENT CONFIGS
 ENTRYPOINT [ "python3", "app.py" ]
