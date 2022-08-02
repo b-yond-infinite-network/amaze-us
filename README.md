@@ -143,7 +143,7 @@ GET http://{{socket}}/{{prefix}}/driver/top/10
 ### _pytest_
 > functional tests cover testing:
 1. basic app socket connection
-2. querying `Schedule` with any quey param filter combination
+2. querying `Schedule` with any query param filter combination
 3. getting top N drivers over a weekly rolling window
 4. inserting duplicate emails in `Driver`
 5. inserting duplicate social security numbers in `Driver`

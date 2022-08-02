@@ -92,10 +92,10 @@ GET http://{{socket}}/{{prefix}}/available_schedule
 
 ### ! POPULATE ALL #########################
 POST http://{{socket}}/{{prefix}}/population
-    ?buses=5
-    &drivers=10
+    ?buses=25
+    &drivers=100
     ?from=2022-01-01
-    &to=2022-03-01
+    &to=2022-06-01
 
 ### ! DELETE ALL ###########################
 DELETE http://{{socket}}/{{prefix}}/population
