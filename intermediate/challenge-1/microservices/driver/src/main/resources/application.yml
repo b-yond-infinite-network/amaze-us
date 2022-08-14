@@ -14,17 +14,7 @@ spring:
                 headers: false
     listener:
       missing-topics-fatal: false
-      ack-mode: MANUAL
-    consumer:
-      group-id: bus
-      value-deserializer: com.beyond.microservice.bus.event.DriverDeserializer
-      auto-offset-reset: earliest
-      enable-auto-commit: false
-      properties:
-        spring:
-          json:
-            trusted:
-              packages: 'com.beyond.microservice.driver'
+
   ###### database ######
   jpa:
     hibernate:
@@ -64,4 +54,3 @@ logging:
       beyond:
         microservice:
           settings: info
-

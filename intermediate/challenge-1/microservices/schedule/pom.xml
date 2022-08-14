@@ -38,6 +38,12 @@
       <artifactId>modelmapper</artifactId>
       <version>${model.mapper.version}</version>
     </dependency>
+    <!-- https://mvnrepository.com/artifact/org.springframework.data/spring-data-rest-core -->
+    <dependency>
+      <groupId>org.springframework.data</groupId>
+      <artifactId>spring-data-rest-core</artifactId>
+    </dependency>
+
   </dependencies>
   <build>
     <plugins>
@@ -49,7 +55,7 @@
           <archive>
             <manifest>
               <mainClass>
-                com.siemens.gmb.settings.ProjectSettingsApplication
+                com.beyond.microservice.schedule.ScheduleApplication
               </mainClass>
             </manifest>
           </archive>

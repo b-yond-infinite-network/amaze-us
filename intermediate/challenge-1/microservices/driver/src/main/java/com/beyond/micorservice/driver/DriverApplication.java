@@ -1,11 +1,11 @@
-package com.beyond.microservice.bus;
+package com.beyond.micorservice.driver;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class BusApp {
+public class DriverApplication {
     public static void main(String[] args) {
-        SpringApplication.run(BusApp.class, args);
+        SpringApplication.run(DriverApplication.class, args);
     }
 }
