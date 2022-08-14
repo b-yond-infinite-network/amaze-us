@@ -7,6 +7,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.Email;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,6 +18,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
+@Builder
 public class Driver {
     @Id
     @Column(nullable = false)
@@ -26,7 +28,7 @@ public class Driver {
     private String firstName;
     
     @Column(nullable = false)
-    private String lastName;
+    private String name;
     
     @Column(nullable = false)
     private String socicalNum;

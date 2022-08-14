@@ -64,6 +64,16 @@
       <version>${springboot.version}</version>
       <scope>test</scope>
     </dependency>
+    <dependency><!--for Bearer Token auth-->
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
+      <version>${springboot.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-oauth2-client</artifactId>
+      <version>${springboot.version}</version>
+    </dependency>
     <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
@@ -98,21 +108,21 @@
       <artifactId>logback-classic</artifactId>
       <version>${logback.classic.version}</version>
     </dependency>
+    <dependency>
+      <groupId>org.testng</groupId>
+      <artifactId>testng</artifactId>
+      <version>6.8.5</version>
+    </dependency>
   </dependencies>
 
   <build>
     <pluginManagement>
       <plugins>
-        <plugin><!-- run both jUnit & testNG tests -->
+        <plugin><!-- run testNG tests -->
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-surefire-plugin</artifactId>
           <version>${surefire.plugin.version}</version>
           <dependencies>
-            <dependency><!-- test provider for jUnit 5 -->
-              <groupId>org.apache.maven.surefire</groupId>
-              <artifactId>surefire-junit-platform</artifactId>
-              <version>${surefire.plugin.version}</version>
-            </dependency>
             <dependency><!-- test provider for testNG -->
               <groupId>org.apache.maven.surefire</groupId>
               <artifactId>surefire-testng</artifactId>

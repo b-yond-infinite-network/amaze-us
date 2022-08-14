@@ -16,7 +16,7 @@ public class DriverKafkaListener {
     
     @KafkaListener(topics = "driver")
     public void createDriver(Driver driver, Acknowledgment acknowledgment) {
-        log.info("Received invoice " + driver.getId());
+        log.info("Received driver " + driver.getId());
         busService.createDriver(driver);
         acknowledgment.acknowledge();
     }

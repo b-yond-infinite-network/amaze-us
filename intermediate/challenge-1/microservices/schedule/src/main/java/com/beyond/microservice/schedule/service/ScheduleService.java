@@ -1,7 +1,6 @@
 package com.beyond.microservice.schedule.service;
 
 import java.util.Locale;
-import java.util.UUID;
 import javax.transaction.Transactional;
 
 import com.beyond.microservice.schedule.bus.Bus;
@@ -45,10 +44,10 @@ public class ScheduleService {
     }
     @Transactional
     public Schedule createSchedule(final Schedule schedule) {
-        if (scheduleRepository.existsById(schedule.getScheduleId())) {
-            log.info("Invoice id {} already exists - ignored", schedule.getScheduleId());
+        if (scheduleRepository.existsById(schedule.getId())) {
+            log.info("Invoice id {} already exists - ignored", schedule.getId());
             //after retrive can the schedule be updated
-            retrieveSchedule(schedule.getScheduleId());
+            retrieveSchedule(schedule.getId());
         }
         return scheduleRepository.save(schedule);
        

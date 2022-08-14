@@ -1,9 +1,8 @@
 package com.beyond.microservice.schedule.entity;
 
-import javax.persistence.AttributeOverride;
-import javax.persistence.AttributeOverrides;
+import java.time.DayOfWeek;
+import java.util.Date;
 import javax.persistence.Column;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -25,14 +24,17 @@ public class Schedule {
     
     @Id
     @Column(name = "SCHEDULE_ID", nullable = false)
-    private Long scheduleId;
+    private Long id;
     
     @ManyToOne
-    @JoinColumn(name = "BUS_ID")
     private Bus bus;
     
     @ManyToOne
-    @JoinColumn(name = "DRIVER_NAME")
     private Driver driver;
-   
+    
+    private DayOfWeek day;
+    
+    private Date start;
+    
+   private Date end;
 }

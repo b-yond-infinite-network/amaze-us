@@ -1,9 +1,7 @@
 package com.beyond.microservice.bus.controller;
 
 import com.beyond.microservice.bus.entity.Bus;
-import com.beyond.microservice.bus.repository.BusRepository;
 import com.beyond.microservice.bus.service.BusService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;

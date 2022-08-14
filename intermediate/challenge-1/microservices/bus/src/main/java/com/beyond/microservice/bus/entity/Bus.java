@@ -1,15 +1,15 @@
 package com.beyond.microservice.bus.entity;
 
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
 import com.beyond.microservice.bus.driver.Driver;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -19,15 +19,15 @@ import lombok.Setter;
 @Entity(name ="BUSTABLE")
 @Getter
 @Setter
+@Builder
 public class Bus {
     @Id
-    @Column(name = "bus_id", nullable = false)
-    private Long busId;
+    @Column(name = "id", nullable = false)
+    private Long id;
     private int capacity;
     private String model;
     private String maker;
     
-    @OneToOne
-    private Driver driver;
-
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Driver> driver;
 }
