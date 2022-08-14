@@ -1,4 +1,4 @@
-package com.beyond.micorservice.driver;
+package com.beyond.microservice.driver;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

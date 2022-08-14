@@ -39,7 +39,7 @@
           <archive>
             <manifest>
               <mainClass>
-                com.beyond.microservice.driver.BusApplication
+                com.beyond.microservice.bus.BusApplication
               </mainClass>
             </manifest>
           </archive>

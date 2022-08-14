@@ -1,8 +1,8 @@
-package com.beyond.micorservice.driver.controller;
+package com.beyond.microservice.driver.controller;
 
 import lombok.RequiredArgsConstructor;
-import com.beyond.micorservice.driver.entity.Driver;
-import com.beyond.micorservice.driver.service.DriverService;
+import com.beyond.microservice.driver.entity.Driver;
+import com.beyond.microservice.driver.service.DriverService;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;

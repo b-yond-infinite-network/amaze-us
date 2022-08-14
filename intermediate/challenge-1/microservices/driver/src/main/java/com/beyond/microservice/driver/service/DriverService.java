@@ -1,8 +1,8 @@
-package com.beyond.micorservice.driver.service;
+package com.beyond.microservice.driver.service;
 
-import com.beyond.micorservice.driver.entity.Driver;
+import com.beyond.microservice.driver.entity.Driver;
 import lombok.RequiredArgsConstructor;
-import com.beyond.micorservice.driver.repository.DriverRepository;
+import com.beyond.microservice.driver.repository.DriverRepository;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 

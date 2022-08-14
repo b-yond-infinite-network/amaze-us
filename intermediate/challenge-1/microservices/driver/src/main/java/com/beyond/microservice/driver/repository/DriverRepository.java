@@ -1,6 +1,6 @@
-package com.beyond.micorservice.driver.repository;
+package com.beyond.microservice.driver.repository;
 
-import com.beyond.micorservice.driver.entity.Driver;
+import com.beyond.microservice.driver.entity.Driver;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 

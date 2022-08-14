@@ -1,4 +1,4 @@
-package com.beyond.micorservice.driver.entity;
+package com.beyond.microservice.driver.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
