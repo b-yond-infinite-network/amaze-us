@@ -1,5 +1,0 @@
-com\beyond\microservice\bus\BusApp.class
-com\beyond\microservice\bus\entity\Bus.class
-com\beyond\microservice\bus\repository\BusRepository.class
-com\beyond\microservice\bus\controller\BusController.class
-com\beyond\microservice\bus\service\BusService.class
