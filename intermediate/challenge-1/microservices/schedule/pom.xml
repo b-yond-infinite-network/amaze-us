@@ -33,12 +33,14 @@
       <artifactId>maven-site-plugin</artifactId>
       <version>${maven.site.plugin.version}</version>
     </dependency>
+
     <dependency>
-      <groupId>org.modelmapper</groupId>
-      <artifactId>modelmapper</artifactId>
-      <version>${model.mapper.version}</version>
+      <groupId>org.testcontainers</groupId>
+      <artifactId>kafka</artifactId>
+      <version>1.14.3</version>
+      <scope>test</scope>
     </dependency>
-    <!-- https://mvnrepository.com/artifact/org.springframework.data/spring-data-rest-core -->
+
     <dependency>
       <groupId>org.springframework.data</groupId>
       <artifactId>spring-data-rest-core</artifactId>

@@ -11,13 +11,12 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Driver {
-    
     @Id
-    @Column(name = "driver_id", nullable = false)
-    private Long driverId;
+    @Column(name = "id", nullable = false)
+    private Long id;
     
     @Column(nullable = false)
-    private String name;
+    private String lastName;
     
     @Column(nullable = false)
     private String firstname;

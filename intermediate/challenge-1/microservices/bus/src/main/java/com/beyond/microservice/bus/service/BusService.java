@@ -1,8 +1,5 @@
 package com.beyond.microservice.bus.service;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 import com.beyond.microservice.bus.driver.Driver;
 import com.beyond.microservice.bus.driver.DriverRepository;
 import com.beyond.microservice.bus.entity.Bus;
@@ -23,16 +20,12 @@ public class BusService {
     private final KafkaTemplate<String, Bus> kafkaTemplate;
     
     public Bus createBus(final Bus bus) {
-        for(Driver driver: bus.getDriver()) {
-            final List<String> driverFirstNames =
-                driverRepository.findByName(driver.getName()).stream().map(Driver::getFirstName).collect(
-                    Collectors.toList());
-            if (!driverFirstNames.contains(driver.getFirstName())) {
-                log.error("driver does not exists");
-                throw new NullPointerException("driver not found.");
-            }
+        Driver driver = driverRepository.findById(bus.getDriver().getId()).orElse(null);
+        if (driver == null) {
+            log.error("driver does not exists");
+            throw new NullPointerException("driver not found.");
         }
-       
+        
         Bus newBus = busRepository.save(bus);
         fireBusCreatedEvent(bus);
         return newBus;

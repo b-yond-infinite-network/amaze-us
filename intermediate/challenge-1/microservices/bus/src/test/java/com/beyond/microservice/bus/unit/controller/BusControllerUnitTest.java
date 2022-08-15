@@ -38,8 +38,9 @@ public class BusControllerUnitTest {
                             "Inserted bus make should be" + bus.getMaker());
         Assert.assertEquals(actualBus.getModel(), bus.getModel(),
                             "Inserted bus model should be" + bus.getModel());
-        Assert.assertEquals(actualBus.getDriver().size(), bus.getDriver().size(),
-                            "Inserted bus should have " + bus.getDriver().size() +  " drivers");
+        Assert.assertEquals(actualBus.getDriver().getId(), bus.getDriver().getId(),
+                            "Inserted bus should have driver's first name  " + bus.getDriver().getId() +
+                                " drivers");
         
         Mockito.verify(busService, times(1)).createBus(bus);
         Mockito.verifyNoMoreInteractions(busService);

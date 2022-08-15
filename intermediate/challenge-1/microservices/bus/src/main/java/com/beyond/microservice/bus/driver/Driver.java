@@ -18,14 +18,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Driver {
+public class Driver{
     @Id
     @Column(name = "id", nullable = false)
     private Long id;
-    
-    @Column(nullable = false)
-    private String name;
-    
-    @Column(nullable = false)
-    private String firstName;
 }

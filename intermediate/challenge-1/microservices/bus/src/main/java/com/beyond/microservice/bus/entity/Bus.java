@@ -1,11 +1,10 @@
 package com.beyond.microservice.bus.entity;
 
-import java.util.List;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 import com.beyond.microservice.bus.driver.Driver;
 import lombok.AllArgsConstructor;
@@ -24,10 +23,10 @@ public class Bus {
     @Id
     @Column(name = "id", nullable = false)
     private Long id;
-    private int capacity;
+    private Integer capacity;
     private String model;
     private String maker;
-    
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<Driver> driver;
+    @OneToOne
+    @JoinColumn(name = "driver_id")
+    private Driver driver;
 }

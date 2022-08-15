@@ -20,6 +20,6 @@ public class BusFormatter implements Formatter<Bus> {
     
     @Override
     public String print(final Bus bus, final Locale locale) {
-        return bus.getBusId().toString();
+        return bus.getId().toString();
     }
 }

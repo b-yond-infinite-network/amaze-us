@@ -7,13 +7,21 @@ import com.beyond.microservice.driver.repository.DriverRepository;
 import com.beyond.microservice.driver.service.DriverService;
 import com.beyond.microservice.driver.util.DriverTestUtil;
 import org.mockito.Mockito;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 public class DriverServiceTest {
     private DriverRepository driverRepository;
     private DriverService driverService;
     
+    @BeforeMethod
+    public void setup() {
+        driverRepository    = Mockito.mock(DriverRepository.class);
+        KafkaTemplate kafkaTemplate = Mockito.mock(KafkaTemplate.class);
+        driverService = new DriverService(driverRepository, kafkaTemplate);
+    }
     
     @Test
     public void insertDriver_should_insert_valid_Driver() {
@@ -40,7 +48,7 @@ public class DriverServiceTest {
     
     @Test
     public void insertBusById_should_return_null() {
-        Driver driver =  null;
+        Driver driver =  new Driver();
         Mockito.when(driverRepository.save(driver)).thenReturn(null);
         Driver actualDriver = driverService.createDriver(driver);
         Assert.assertNull(actualDriver, "Service expected to return null");
