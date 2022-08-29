@@ -1,0 +1,16 @@
+# Ignore files that must not be commited
+#.env-*
+# IDE
+../../../../scheduler/.idea
+.vscode
+
+# OS
+.DS_Store
+desktop.ini
+
+# Language specific
+venv
+.pytest_cache
+bus_service/.pytest_cache
+driver_service/.pytest_cache
+scheduler_service/.pytest_cache

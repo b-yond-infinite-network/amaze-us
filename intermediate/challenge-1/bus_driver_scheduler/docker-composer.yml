@@ -1,0 +1,55 @@
+version: '3.4'
+
+services:
+  bus:
+    build:
+      context: .
+      dockerfile: bus_service/src/Dockerfile
+    container_name: bus_service
+    env_file:
+      - ./bus_service/.env-bus-dev
+    ports:
+      - "127.0.0.1:8080:8080"
+    volumes:
+      - ./bus_service/src:/app/
+    command: uvicorn app.main:app --host 0.0.0.0 --workers 1 --port 8080
+    depends_on:
+      - db
+  driver:
+    build:
+      context: .
+      dockerfile: driver_service/src/Dockerfile
+    container_name: driver_service
+    env_file:
+      - driver_service/.env-driver-dev
+    ports:
+      - "127.0.0.1:8081:8081"
+    volumes:
+      - ./driver_service/src:/app/
+    command: uvicorn app.main:app --host 0.0.0.0 --workers 1 --port 8081
+    depends_on:
+      - db
+  scheduler:
+    build:
+      context: .
+      dockerfile: scheduler_service/src/Dockerfile
+    container_name: scheduler_service
+    env_file:
+      - scheduler_service/.env-scheduler-dev
+    ports:
+      - "127.0.0.1:8082:8082"
+    volumes:
+      - ./scheduler_service/src:/app/
+    command: uvicorn app.main:app --host 0.0.0.0 --workers 1 --port 8082
+    depends_on:
+      - db
+  db:
+    image: postgres:13-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    env_file:
+      - ./.env-postgres
+volumes:
+  postgres_data:
