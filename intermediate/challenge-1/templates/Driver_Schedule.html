@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block title %}{% endblock %}
+
+{% block body %}
+
+
+
+<ul class="list-group col-md-8 col-lg-8" style="margin-left:auto; margin-right:auto; margin-top:40px;">
+    <li class="list-group-item"><h2 class="text-center">{{get_driver.First_Name}} {{get_driver.First_Name}}</h2></li>
+<!--    {% for i in all_bus %}-->
+<!--  <li class="list-group-item">({{forloop.counter}}). {{i.model}}</li>-->
+<!--    {% endfor %}-->
+</ul>
+
+
+<div class="col-md-8 col-lg-8" style="margin-left:auto; margin-right:auto; margin-top:20px;">
+    <table class="table table-dark table-striped-columns">
+      <thead>
+        <tr>
+          <th scope="col">Bus</th>
+<!--          <th scope="col">Driver</th>-->
+          <th scope="col">Day</th>
+          <th scope="col">From</th>
+          <th scope="col">To</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for bs in this_driver_schedule %}
+        <tr>
+          <th scope="row">{{bs.Bus.model}}</th>
+<!--          <td>{{bs.Driver.First_Name}} {{bs.Driver.Last_Name}}</td>-->
+          <td>{{bs.Day}}</td>
+          <td>{{bs.from_time}}</td>
+          <td>{{bs.to_time}}</td>
+        </tr>
+      {% endfor %}
+
+
+      </tbody>
+    </table>
+</div>
+
+
+
+
+{% endblock %}

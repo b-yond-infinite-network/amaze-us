@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block title %}{% endblock %}
+
+{% block body %}
+
+
+
+<ul class="list-group col-md-6 col-lg-6" style="margin-left:auto; margin-right:auto; margin-top:40px;">
+    <li class="list-group-item"><h2 class="text-center">Drivers</h2></li>
+<!--    {% for i in all_bus %}-->
+<!--  <li class="list-group-item">({{forloop.counter}}). {{i.model}}</li>-->
+<!--    {% endfor %}-->
+</ul>
+
+<div class="col-md-8 col-lg-8" style="margin-left:auto; margin-right:auto; margin-top:20px;">
+    <table class="table table-striped-columns">
+      <thead>
+          <th scope="col">#</th>
+          <th scope="col">Name</th>
+          <th scope="col">Social Security Number</th>
+          <th scope="col">Email</th>
+      </thead>
+      <tbody>
+        {% for i in var_all_drivers %}
+        <tr>
+          <th scope="row">{{forloop.counter}}</th>
+          <td><a href="{% url 'driver_schedule' i.id %}">{{i.First_Name}} {{i.First_Name}}</a></td>
+          <td>{{i.Social_Security_Number}}</td>
+          <td>{{i.Email}}</td>
+        </tr>
+        {% endfor %}
+
+
+      </tbody>
+    </table>
+</div>
+
+
+{% endblock %}

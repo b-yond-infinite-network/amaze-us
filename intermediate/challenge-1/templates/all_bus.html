@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block title %}{% endblock %}
+
+{% block body %}
+
+
+
+<ul class="list-group col-md-6 col-lg-6" style="margin-left:auto; margin-right:auto; margin-top:40px;">
+    <li class="list-group-item"><h2 class="text-center">Buses</h2></li>
+<!--    {% for i in all_bus %}-->
+<!--  <li class="list-group-item">({{forloop.counter}}). {{i.model}}</li>-->
+<!--    {% endfor %}-->
+</ul>
+
+{% for i in var_all_bus %}
+<div class="card col-md-6 col-lg-6" style="margin-left:auto; margin-right:auto; margin-top:20px;">
+  <div class="row g-0">
+    <div class="col-md-4">
+      <img src="{%if i.bus_image%}{{i.bus_image.url}}{% else %}/media/default_images/default_image.jpg{% endif %}" class="img-fluid rounded-start" alt="...">
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-title"><a href="{% url 'bus_schedule' i.id %}">{{i.model}}</a></h5>
+        <p class="card-text"><small class="text-muted">Capacity : {{i.capacity}}, Make: {{i.make}}</small></p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %}
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}{% endblock %}
+
+{% block body %}
+
+
+
+
+<div class="row" style="margin-top:40px;">
+  <div class="col-sm-2 col-md-2 col-lg-2"></div>
+  <div class="col-sm-4 col-md-4 col-lg-4">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Bus Schedule</h5>
+        <p class="card-text">Bus Quantity : {{all_bus_qty}}</p>
+        <a href="{% url 'all_bus' %}" class="btn btn-warning">See Schedule</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-4 col-md-4 col-lg-4">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Driver Schedule</h5>
+        <p class="card-text">Drivers Quantity : {{all_driver_qty}}</p>
+        <a href="{% url 'all_driver' %}" class="btn btn-info">See Schedule</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-2 col-md-2 col-lg-2"></div>
+</div>
+{% endblock %}
