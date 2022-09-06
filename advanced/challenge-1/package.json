@@ -1,0 +1,67 @@
+{
+  "name": "challenge-1",
+  "version": "1.0.0",
+  "description": "Bus Drivers Schedule ",
+  "private": true,
+  "main": "src/index.tsx",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "webpack serve",
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tiangolo/fastapi.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tiangolo/fastapi/issues"
+  },
+  "homepage": "https://github.com/tiangolo/fastapi#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.18.10",
+    "@babel/core": "^7.19.0",
+    "@babel/plugin-transform-runtime": "^7.18.10",
+    "@babel/preset-env": "^7.19.0",
+    "@babel/preset-react": "^7.18.6",
+    "@babel/runtime": "^7.19.0",
+    "babel-eslint": "^10.1.0",
+    "babel-loader": "^8.2.5",
+    "babel-plugin-styled-components": "^2.x",
+    "bootstrap": "^5.x",
+    "bootstrap-icons": "^1.x",
+    "eslint": "^7.x",
+    "eslint-config-airbnb": "^19.x",
+    "eslint-config-prettier": "^8.x",
+    "eslint-plugin-import": "^2.x",
+    "eslint-plugin-jsx-a11y": "^6.x",
+    "eslint-plugin-prettier": "^4.x",
+    "eslint-plugin-react": "^7.x",
+    "eslint-plugin-react-hooks": "^4.x",
+    "file-loader": "^6.2.0",
+    "html-webpack-plugin": "^5.5.0",
+    "mini-css-extract-plugin": "^2.6.1",
+    "postcss": "^8.4.16",
+    "postcss-loader": "^7.0.1",
+    "prettier": "^2.x",
+    "sass": "^1.54.8",
+    "sass-loader": "^13.0.2",
+    "ts-loader": "^9.3.1",
+    "typescript": "^4.8.2",
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.10.0",
+    "webpack-dev-server": "^4.10.1"
+  },
+  "dependencies": {
+    "@types/node": "^17.x",
+    "@types/react": "^18.0.18",
+    "@types/react-dom": "^18.0.6",
+    "@types/styled-components": "^5.x",
+    "dotenv": "^16.0.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-helmet": "^6.x",
+    "styled-components": "^5.x"
+  }
+}
