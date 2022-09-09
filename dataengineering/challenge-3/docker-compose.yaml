@@ -1,0 +1,74 @@
+version: "3.9"
+volumes:
+  my-db:
+services:
+  zookeeper:
+    image: 'bitnami/zookeeper:latest'
+    ports:
+      - '2181:2181'
+    environment:
+      ALLOW_ANONYMOUS_LOGIN: yes
+  kafka:
+    image: 'bitnami/kafka:latest'
+    restart: always
+    ports:
+      - '9093:9093'
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_CFG_LISTENERS: CLIENT://0.0.0.0:9092,EXTERNAL://0.0.0.0:9093
+      KAFKA_CFG_ADVERTISED_LISTENERS: CLIENT://kafka:9092,EXTERNAL://localhost:9093
+      KAFKA_CFG_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP: CLIENT:PLAINTEXT,EXTERNAL:PLAINTEXT
+      ALLOW_PLAINTEXT_LISTENER: yes
+      KAFKA_CFG_INTER_BROKER_LISTENER_NAME: CLIENT
+    depends_on:
+      - zookeeper
+  streamer:
+    build: streamer
+    restart: always
+    environment:
+      KAFKA_BROKER: kafka:9092
+      KAFKA_TOPIC: tweets
+    depends_on:
+      - kafka
+  database:
+    image: mysql:8
+    restart: always
+    ports:
+      - '3306:3306'
+    expose:
+      - '3306'
+    environment:
+      MYSQL_ROOT_PASSWORD: evil
+      MYSQL_DATABASE: evil_tweets
+    volumes:
+      - my-db:/var/lib/mysql
+  processor:
+    build: processor
+    environment:
+      APP_NAME: evilnet
+      KAFKA_BROKER: kafka:9092
+      KAFKA_TOPIC: tweets
+      TIME_WIN: "15 minutes"
+      PROC_TIME: "60 seconds"
+      DB_URL: jdbc:mysql://database:3306/evil_tweets?user=root&password=evil
+      DB_DRIVER: com.mysql.cj.jdbc.Driver
+      JAVA_HOME: /usr/lib/jvm/java-1.8-openjdk
+      PYSPARK_SUBMIT_ARGS: "--master local[3] pyspark-shell"
+    depends_on:
+      - kafka
+      - database
+  visualizer:
+    build: visualizer
+    restart: always
+    environment:
+      DB_HOST: database
+      DB_USER: root
+      DB_NAME: evil_tweets
+      DB_PASSWORD: evil
+    ports:
+      - '8080:8080'
+    expose:
+      - '8080'
+    depends_on: 
+      - database

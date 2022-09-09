@@ -1,0 +1,77 @@
+<style>
+    .container {
+        height: 700px;
+        width: 500px;
+        position: relative;
+        vertical-align: middle;
+        border: 3px solid gray;
+    }
+    .center {
+        margin: 0;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+    }
+    .button {
+        background-color: #989b98; /* Green */
+        border: none;
+        border-radius: 12px;
+        color: black;
+        padding: 16px 32px;
+        margin: 25px;
+        min-width: 150px;
+        min-height: 64px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 18px;
+    }
+    .button:hover{
+        border: 3px solid;
+    }
+</style>
+
+<body>
+    <center>
+        <h3>Evil Net Dashboard (Canada)</h3>
+    <div class="container">
+        <div class="center">
+        <label for="city">City:</label>
+        <select name="city" id="city">
+            {% for item in cities %}
+                <option value="{{ item }}",>{{ item }}</option>
+            {% endfor %}
+        </select>
+        <button class="button"
+            onclick="goToMetricForCity('tweets')"
+            type="button">
+            Tweet Counts
+        </button>
+        <button class="button"
+            onclick="goToMetricForCity('retweets')"
+            type="button">
+            Retweet Counts
+        </button>
+        <button class="button"
+            onclick="goToMetricForCity('users')"
+            type="button">
+            Active Tweeters
+        </button>
+        <button class="button"
+            onclick="location.href='../topfive'"
+            type="button">
+            Top Five Cities
+        </button>
+        <button class="button"
+            onclick="location.href='../worstfive'"
+            type="button">
+            Worst Five Cities
+        </button>
+        </div>
+    </div>
+    </center>
+    <script src='static/menu.js'></script>
+</body>
+<meta http-equiv="refresh" content="60" />
