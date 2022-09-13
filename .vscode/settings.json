@@ -1,0 +1,22 @@
+{
+  "[javascript]": {
+    "editor.formatOnSave": true
+  },
+  "[typescript]": {
+    "editor.formatOnSave": true
+  },
+  "[typescriptreact]": {
+    "editor.formatOnSave": true
+  },
+  "editor.formatOnSave": true,
+  "eslint.codeActionsOnSave.mode": "problems",
+  "eslint.packageManager": "pnpm",
+  "eslint.format.enable": true,
+  "eslint.alwaysShowStatus": true,
+  "editor.tabSize": 2,
+  "editor.renderWhitespace": "all",
+  "editor.detectIndentation": false,
+  "search.exclude": {
+    "**/node_modules": false
+  }
+}

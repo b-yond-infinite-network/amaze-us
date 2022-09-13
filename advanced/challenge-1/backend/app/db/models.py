@@ -1,17 +1,11 @@
-from datetime import datetime, timedelta
-from random import choice, randbytes, randrange
-
-from faker import Faker
-from passlib.crypto.digest import pbkdf2_hmac
 from sqlalchemy import Column, ForeignKey, Integer, DateTime, String
-from sqlalchemy.orm import relationship, Session
-from sqlalchemy.exc import IntegrityError, PendingRollbackError
+from sqlalchemy.orm import relationship
 
 from .database import Base
 
 
 class User(Base):
-    __tablename__ = 'users'
+    __tablename__ = 'user'
 
     id = Column(Integer, primary_key=True, index=True)
     email = Column(String, unique=True, index=True)
@@ -55,83 +49,3 @@ class Schedule(Base):
 
     bus = relationship('Bus', back_populates='schedules')
     driver = relationship('Driver', back_populates='schedules')
-
-
-def initialize_db(db: Session):
-    '''Provided test data:
-    - +1000 (1K) unique drivers
-    - +250 unique buses
-    - +1000000 (1M) schedules over 3 months period'''
-
-    salt = randbytes(256)
-    hash = str.decode(pbkdf2_hmac('sha256', str.encode('admin'), salt, 100_000, 256))
-    admin = User(email='admin@admin.com', hash=hash, salt=salt)
-    db.add(admin)
-    db.commit()
-
-    fake = Faker()
-
-    drivers = []
-    for i in range(0, 1000):
-        drivers.append(add_driver(db, fake))
-    db.commit()
-
-    for driver in drivers:
-        db.refresh(driver)
-
-    buses = []
-    for i in range(0, 250):
-        buses.append(add_bus(db, fake))
-    db.commit()
-
-    for bus in buses:
-        db.refresh(bus)
-
-    schedules = []
-    for i in range(0, 100_000_000):
-        random_minutes = timedelta(minutes=randrange(3 * 30 * 24 * 60))
-        schedules.append(Schedule(bus=choice(buses),
-                                  driver=choice(drivers),
-                                  timestamp=datetime.now() + random_minutes))
-
-        if i % 100_000 == 0:  # commit every 100k records
-            db.add_all(schedules)
-            db.commit()
-            schedules = []
-
-    return
-
-def add_driver(db, fake):
-    added = False
-    driver = None
-    while not added:
-        try:
-            first_name = fake.first_name()
-            last_name = fake.last_name()
-            email = f'{first_name}{last_name + str(randrange(1000))}@example.com'
-            driver = Driver(first_name=first_name,
-                            last_name=last_name,
-                            ssn=fake.ssn(),
-                            email=email)
-            db.add(driver)
-            db.commit()
-            added = True
-        except (IntegrityError, PendingRollbackError) as error:
-            pass
-    return driver
-
-
-def add_bus(db, fake):
-    added = False
-    bus = None
-    while not added:
-        try:
-            bus = Bus(capacity=choice([20, 30, 40, 50]),
-                      model=fake.last_name() + str(randrange(1000)),
-                      make=fake.company())
-            db.add(bus)
-            db.commit()
-            added = True
-        except (IntegrityError, PendingRollbackError) as error:
-            pass
-    return bus
