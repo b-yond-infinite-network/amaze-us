@@ -16,7 +16,10 @@ database_password = os.environ.get("DB_PASSWORD")
 
 
 ########### SQL QUERIES 
-query_cities = "SELECT DISTINCT place FROM tweets ORDER BY place"
+query_cities = "SELECT DISTINCT place \
+                FROM tweets \
+                WHERE time > DATE_SUB(UTC_TIMESTAMP(), INTERVAL 1 HOUR) \
+                ORDER BY place"
 
 query_trend = "SELECT CONVERT_TZ(time, 'UTC', 'America/New_York') as start_time,place,sum(`count`) as total \
                 FROM {} \
@@ -29,7 +32,8 @@ query_ranking = "SELECT place,sum(`count`) as total \
                 FROM {} \
                 WHERE time > DATE_SUB(UTC_TIMESTAMP(), INTERVAL 1 HOUR) \
                 GROUP BY place \
-                ORDER BY total"
+                ORDER BY total {} \
+                LIMIT 5"
 
 ###########
 
@@ -58,9 +62,9 @@ def query_database(query):
 
 @app.route('/topfive')
 def topfive():
-    result = query_database(query=query_ranking.format("tweets"))
-    labels = get_key_values_from_result(result, "place")[-5:]
-    values = get_key_values_from_result(result, "total")[-5:]
+    result = query_database(query=query_ranking.format("tweets", "DESC"))
+    labels = get_key_values_from_result(result, "place")
+    values = get_key_values_from_result(result, "total")
     return render_template('bar_chart.html',
                            title=f'Top 5 Cities based on #tweets',
                            max=max(values)+1,
@@ -69,9 +73,9 @@ def topfive():
 
 @app.route('/worstfive')
 def worstfive():
-    result = query_database(query=query_ranking.format("retweets"))
-    labels = get_key_values_from_result(result, "place")[:5]
-    values = get_key_values_from_result(result, "total")[:5]
+    result = query_database(query=query_ranking.format("retweets", "ASC"))
+    labels = get_key_values_from_result(result, "place")
+    values = get_key_values_from_result(result, "total")
     return render_template('bar_chart.html',
                            title=f'Worst 5 Cities based on #retweets',
                            max=max(values)+1,
