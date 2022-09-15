@@ -20,8 +20,7 @@ As the data comes in, the active twitter cities are added to the list of cities.
 ![Demo](docs/demo.gif)
 
 ## Checklist
-- explore the twitter API using the links provided in the [README.md](.\READ-ME.md).
-- 
+- [X] explore the twitter API using the links provided in the [README.md](.\READ-ME.md).
 - [X] stream tweets with the appropriate query into Kafka producer
     - [X] stream only Canadian tweets (set as rule)
     - [x] ask for `place` info in query and include city name in Kafka object.
@@ -44,6 +43,10 @@ As the data comes in, the active twitter cities are added to the list of cities.
 
 ![Data flow](docs/dataflow.png)
 
+### Reprocess
+[TO DO in code]
+Reprocess is a very important function for the time where there is a shutdown in the `processor` service and can no longer update the database. In these cases, we need a mechanism to reprocess the data from the past times and add them to the database. For this, since the data is persisted in Kafka, I can use the offset component in Kafka to access the data in the past and pass it to Spark for processing and `UPSERT` into the SQL database to repalce the already existing rows with the same `place` and `timestamp`.
+
 ### Scalability
 Each of the components used along the data pipeline are highly scalable and can be used to serve multiple data sources, more processings and more users.
 
@@ -54,6 +57,15 @@ Each of the components used along the data pipeline are highly scalable and can 
 - To do so, we can use consumer groups, to further reduce the weight on one single Kafka Consumer (Spark here), and further optimize high data throughputs.
 
 ### Testing
+#### Unit testing:
+- To showcase the unit test, a sample unit test is added to the `/processor` folder. To run the test:
+```bash
+# from /processor
+$ pytest app/tests/test_app.py
+```
+You can see the results after the tests are done. To improve, I would add more edge cases and error/warning checks to the test cases.
+Also, the app is moved to a package for further addition of components and better packaging for testing.
+- Kafa: In order to test the Kafka components, I would have created mock producer and consumers to check the input/output pairs and used them as producer/consumer for the existing code in order to check if Kafka is running correctly. 
 
 ## Notes
 ### Timing Values
