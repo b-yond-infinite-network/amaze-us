@@ -67,27 +67,40 @@ def start_spark():
     return ds
 
 
-def process_batch(df, batch_id):
-    logger.info(f"Data batch #{batch_id} with size {df.count()}, was received!")
-    
+def _process_tweets(df):
     count_df = df \
         .groupBy(["place", window("timestamp", time_window).alias("time_bin")]) \
         .agg(count("id").alias("count")) \
         .withColumn("time", col("time_bin.start")) \
         .drop("time_bin")
-    
+    return count_df
+
+
+def _process_users(df):
     user_df = df \
         .groupBy(["place", window("timestamp", time_window).alias("time_bin")]) \
         .agg(count("author_id").alias("count")) \
         .withColumn("time", col("time_bin.start")) \
         .drop("time_bin")
-    
+    return user_df
+
+
+def _process_retweets(df):
     retweet_df = df \
         .filter("is_retweet == True") \
         .groupBy(["place", window("timestamp", time_window).alias("time_bin")]) \
         .agg(count("id").alias("count")) \
         .withColumn("time", col("time_bin.start")) \
         .drop("time_bin")
+    return retweet_df
+    
+
+def process_batch(df, batch_id):
+    logger.info(f"Data batch #{batch_id} with size {df.count()}, was received!")
+    
+    count_df = _process_tweets(df)
+    user_df = _process_users(df)
+    retweet_df = _process_retweets(df)
     
     save_proc_batch(count_df, table_name="tweets")
     save_proc_batch(user_df, table_name="users")
