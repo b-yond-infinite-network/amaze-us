@@ -65,9 +65,10 @@ def topfive():
     result = query_database(query=query_ranking.format("tweets", "DESC"))
     labels = get_key_values_from_result(result, "place")
     values = get_key_values_from_result(result, "total")
+    mv = max(values) + 1 if len(values) > 0 else 1
     return render_template('bar_chart.html',
                            title=f'Top 5 Cities based on #tweets',
-                           max=max(values)+1,
+                           max=mv,
                            labels=labels,
                            values=values)
 
@@ -76,9 +77,10 @@ def worstfive():
     result = query_database(query=query_ranking.format("retweets", "ASC"))
     labels = get_key_values_from_result(result, "place")
     values = get_key_values_from_result(result, "total")
+    mv = max(values) + 1 if len(values) > 0 else 1
     return render_template('bar_chart.html',
                            title=f'Worst 5 Cities based on #retweets',
-                           max=max(values)+1,
+                           max=mv,
                            labels=labels,
                            values=values)
 
@@ -87,9 +89,10 @@ def tweet_count(city):
     result = query_database(query=query_trend.format("tweets", city))
     labels = get_key_values_from_result(result, "start_time")
     values = get_key_values_from_result(result, "total")
+    mv = max(values) + 1 if len(values) > 0 else 1
     return render_template('line_chart.html',
                            title=f'Total tweets over 15 minutes: ({city})',
-                           max=max(values)+1,
+                           max=mv,
                            labels=labels,
                            values=values)
 
@@ -98,9 +101,10 @@ def retweet_count(city):
     result = query_database(query=query_trend.format("retweets", city))
     labels = get_key_values_from_result(result, "start_time")
     values = get_key_values_from_result(result, "total")
+    mv = max(values) + 1 if len(values) > 0 else 1
     return render_template('line_chart.html',
                            title=f'Total retweets over 15 minutes: ({city})',
-                           max=max(values),
+                           max=mv,
                            labels=labels,
                            values=values)
 
@@ -109,9 +113,10 @@ def user_count(city):
     result = query_database(query=query_trend.format("users", city))
     labels = get_key_values_from_result(result, "start_time")
     values = get_key_values_from_result(result, "total")
+    mv = max(values) + 1 if len(values) > 0 else 1
     return render_template('line_chart.html',
                            title=f'Total active tweeters over 15 minutes: ({city})',
-                           max=max(values),
+                           max=mv,
                            labels=labels,
                            values=values)
 
