@@ -68,7 +68,7 @@ def initialize_db(db: Session):
     salt = b64encode(randbytes(256))
     hash = pbkdf2_hmac('sha256', b64encode(
         password.encode()), salt, 100_000, 256)
-    admin = models.User(email=email, hash=hash, salt=salt)
+    admin = models.User(email=email, hash=hash, salt=salt, scope='manager')
     db.add(admin)
     db.commit()
 
