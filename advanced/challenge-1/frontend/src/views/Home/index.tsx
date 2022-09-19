@@ -1,11 +1,17 @@
-import React from 'react'
+import React, { useContext } from 'react'
 
 import { MainContainer } from '../../components/MainContainer'
+import { ScheduleManager } from '../../components/ScheduleManager'
 import { TopDriversChart } from '../../components/TopDriversChart'
+import { AppContext } from '../../types/AppContext'
 
 export const Home = () => {
-  return <MainContainer>
-    {user.role == 'manager' ? <ScheduleManager /> : null}
-    <TopDriversChart />
-  </MainContainer>
+  const appContext = useContext(AppContext)
+
+  return (
+    <MainContainer>
+      {appContext.context.user?.role == 'manager' ? <ScheduleManager /> : null}
+      <TopDriversChart />
+    </MainContainer>
+  )
 }

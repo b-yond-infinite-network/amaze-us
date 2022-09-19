@@ -1,18 +1,31 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
+import React, { useState } from 'react'
+import { Form } from 'react-bootstrap'
 
 type WeekSelectorProps = {
-  onChange: function
+  onChange: (start: Date, end: Date) => void
 }
+
+export const WEEK_IN_MILLIS = 7 * 24 * 60 * 60 * 1000
 
 export const WeekSelector = ({ onChange }: WeekSelectorProps) => {
   let valid: boolean = true
-  let startWeek: Date = new Date()
-  let endWeek: Date = new Date() + 7
+  let aux: Date = new Date()
+  const weeks: Date[] = [aux]
+  let limit: Date = new Date(new Date().getTime() + 11 * WEEK_IN_MILLIS)
 
-  const changeHandler = (start: Date, end: Date) => {
-    startWeek = start ?? startWeek
-    endWeek = end ?? endWeek
+  while (aux.getTime() < limit.getTime()) {
+    aux = new Date(aux.getTime() + WEEK_IN_MILLIS)
+    weeks.push(aux)
+  }
+
+  const [startWeek, setStartWeek] = useState(new Date())
+  const [endWeek, setEndWeek] = useState(
+    new Date(new Date().getTime() + WEEK_IN_MILLIS)
+  )
+
+  const changeHandler = (start: Date | null, end: Date | null) => {
+    if (start) setStartWeek(start)
+    if (end) setEndWeek(end)
 
     if (endWeek < startWeek) {
       valid = false
@@ -21,18 +34,34 @@ export const WeekSelector = ({ onChange }: WeekSelectorProps) => {
     onChange(startWeek, endWeek)
   }
 
-  const format = (date: Date) => date.toString()
+  const format = (date: Date) => date.toISOString()
 
   return (
-    <div className="row">
-      <div className="col">
-        <Label for="start">From {format(startWeek)}</Label>
-        <Select options={weeks} onChange={changeHandler(this.value, null)} />
+    <div className='row'>
+      <div className='col'>
+        <Form.Label for='start'>From {format(startWeek)}</Form.Label>
+        <Form.Select
+          onChange={(event) =>
+            changeHandler(new Date(event.target.value), null)
+          }
+        >
+          {weeks.map((week) => (
+            <option>{week.toISOString()}</option>
+          ))}
+        </Form.Select>
       </div>
 
-      <div className="col">
-        <Label for="end">To {format(endWeek)}</Label>
-        <Select options={weeks}  onChange={changeHandler(null, this.value)} />
+      <div className='col'>
+        <Form.Label for='end'>To {format(endWeek)}</Form.Label>
+        <Form.Select
+          onChange={(event) =>
+            changeHandler(null, new Date(event.target.value))
+          }
+        >
+          {weeks.map((week) => (
+            <option>{week.toISOString()}</option>
+          ))}
+        </Form.Select>
       </div>
     </div>
   )

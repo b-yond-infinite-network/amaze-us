@@ -1,18 +1,16 @@
-import React, { PropsWithChildren, useMemo, useState } from 'react'
+import React, { PropsWithChildren, useContext } from 'react'
 
-import { AppContext, initialContext } from '../../types/AppContext'
+import { AppContext } from '../../types/AppContext'
 import { Navigation } from '../Navigation'
 
 export const MainContainer = ({ children }: PropsWithChildren) => {
-  const [context, setContext] = useState(initialContext)
-  const user = context.user
+  const appContext = useContext(AppContext)
+  const token = appContext.context.token
 
-  return <AppContext.Provider
-    value={useMemo(() => ({ context, setContext }), [context])}
-  >
-    <div className="container">
-      {user ? <Navigation /> : null}
+  return (
+    <div className='container'>
+      {token ? <Navigation /> : null}
       {children}
     </div>
-  </AppContext.Provider>
+  )
 }

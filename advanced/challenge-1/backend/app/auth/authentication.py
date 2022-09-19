@@ -1,18 +1,29 @@
 from datetime import datetime, timedelta
 
 from fastapi import Depends, HTTPException, Security, status
-from fastapi.security import SecurityScopes
+from fastapi.security import OAuth2PasswordBearer, SecurityScopes
 from jose import JWTError, jwt
 from passlib.context import CryptContext
 from pydantic import ValidationError
 from sqlalchemy.orm import Session
 
-from backend.main import oauth2_scheme, settings
-from backend.app.db import models, schemas
-from backend.app.db.crud import get_user_by_email
+from app.utils import settings
+from app.db import models, schemas
+from app.db.crud import get_user_by_email
 
 
-def verify_password(pwd_context: CryptContext, plain_password: str, hashed_password: str):
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token", scopes={
+    "employee": "Read-only access to drivers/buses schedules",
+    "manager": "Write access to buses, drivers and shifts"
+})
+
+
+def verify_password(
+    pwd_context: CryptContext,
+    plain_password: str,
+    hashed_password: str
+):
     return pwd_context.verify(plain_password, hashed_password)
 
 
@@ -43,7 +54,11 @@ def create_access_token(data: dict, expires_delta: timedelta | None = None):
     return encoded_jwt
 
 
-async def get_current_user(db, security_scopes: SecurityScopes, token: str = Depends(oauth2_scheme)):
+async def get_current_user(
+    db,
+    security_scopes: SecurityScopes,
+    token: str = Depends(oauth2_scheme)
+):
     if security_scopes.scopes:
         authenticate_value = f'Bearer scope="{security_scopes.scope_str}"'
     else:
@@ -80,7 +95,12 @@ async def get_current_user(db, security_scopes: SecurityScopes, token: str = Dep
     return user
 
 
-async def get_current_active_user(current_user: models.User = Security(get_current_user, scopes=['employee', 'manager'])):
+async def get_current_active_user(
+    current_user: models.User = Security(
+        get_current_user,
+        scopes=['employee', 'manager']
+    )
+):
     if current_user.disabled:
         raise HTTPException(status_code=400, detail='Inactive user')
     return current_user
