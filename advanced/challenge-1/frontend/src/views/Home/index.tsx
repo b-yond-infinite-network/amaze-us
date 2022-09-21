@@ -10,7 +10,10 @@ export const Home = () => {
 
   return (
     <MainContainer>
-      {appContext.context.user?.role == 'manager' ? <ScheduleManager /> : null}
+      {appContext.context.user?.scopes == 'manager' ? (
+        <ScheduleManager />
+      ) : null}
+
       <TopDriversChart />
     </MainContainer>
   )

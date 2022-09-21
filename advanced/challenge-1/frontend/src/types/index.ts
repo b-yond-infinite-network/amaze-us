@@ -1,6 +1,6 @@
 export type User = {
-  id: Number
-  role: String
+  sub: string
+  scopes: string
 }
 
 export type Schedule = {

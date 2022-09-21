@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Form } from 'react-bootstrap'
+import { Col, Form, Row } from 'react-bootstrap'
 
 type WeekSelectorProps = {
   onChange: (start: Date, end: Date) => void
@@ -37,8 +37,8 @@ export const WeekSelector = ({ onChange }: WeekSelectorProps) => {
   const format = (date: Date) => date.toISOString()
 
   return (
-    <div className='row'>
-      <div className='col'>
+    <Row>
+      <Col>
         <Form.Label htmlFor='start'>From {format(startWeek)}</Form.Label>
         <Form.Select
           id='start'
@@ -50,9 +50,9 @@ export const WeekSelector = ({ onChange }: WeekSelectorProps) => {
             <option key={week.toString()}>{week.toString()}</option>
           ))}
         </Form.Select>
-      </div>
+      </Col>
 
-      <div className='col'>
+      <Col>
         <Form.Label htmlFor='end'>To {format(endWeek)}</Form.Label>
         <Form.Select
           id='end'
@@ -64,7 +64,7 @@ export const WeekSelector = ({ onChange }: WeekSelectorProps) => {
             <option key={week.toString()}>{week.toString()}</option>
           ))}
         </Form.Select>
-      </div>
-    </div>
+      </Col>
+    </Row>
   )
 }
