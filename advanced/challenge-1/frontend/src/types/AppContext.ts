@@ -1,11 +1,11 @@
 import { createContext, useContext } from 'react'
-import { DriverSummary } from './DriverSummary'
-import { Schedule } from './Schedule'
-import { User } from './User'
+import { Bus, Driver, DriverSummary, Schedule, User } from '.'
 
 export type AppContextType = {
   token?: string
   user?: User
+  drivers?: Driver[],
+  buses?: Bus[],
   topDrivers?: DriverSummary[],
   schedules?: Schedule[]
 }
@@ -21,4 +21,3 @@ export const AppContext = createContext<CustomContext>({
   // eslint-disable-next-line no-console
   setContext: (context) => console.warn(`no provider for ${context}`)
 })
-export const useAppContext = () => useContext(AppContext)

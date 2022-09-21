@@ -2,7 +2,7 @@ const path = require('path')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-require('dotenv').config({ path: 'env' })
+require('dotenv').config({ path: '.env' })
 const devMode = process.env.NODE_ENV !== 'production'
 
 const plugins = [

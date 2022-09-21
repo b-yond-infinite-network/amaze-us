@@ -1,6 +1,4 @@
 import { CustomContext } from "./types/AppContext"
-import { DriverSummary } from "./types/DriverSummary"
-import { User } from "./types/User"
 
 export const login = (contextProvider: CustomContext,
   username: string,
@@ -17,10 +15,56 @@ export const login = (contextProvider: CustomContext,
     return response.json()
   }).then((res) => {
     if (res.status === 201) {
-      const token = res.token
-      const user: User = res.user
-      contextProvider.setContext({ token, user, ...contextProvider })
+      contextProvider.setContext({
+        token: res.token,
+        user: res.user,
+        ...contextProvider
+      })
     }
+  }).catch((error) => {
+    console.log(error)
+  })
+}
+
+export const getDrivers = async (contextProvider: CustomContext) => {
+  if (!contextProvider.context.token) {
+    return
+  }
+
+  const headers: HeadersInit = new Headers()
+  headers.set('Accept', 'application/json')
+  headers.set('Content-Type', 'application/json')
+  headers.set('bearer', contextProvider.context.token)
+
+  await fetch('/api/drivers', {
+    method: 'get',
+    headers
+  }).then((response) => {
+    return response.json()
+  }).then((res) => {
+    contextProvider.setContext({ drivers: res.data, ...contextProvider })
+  }).catch((error) => {
+    console.log(error)
+  })
+}
+
+export const getBuses = async (contextProvider: CustomContext) => {
+  if (!contextProvider.context.token) {
+    return
+  }
+
+  const headers: HeadersInit = new Headers()
+  headers.set('Accept', 'application/json')
+  headers.set('Content-Type', 'application/json')
+  headers.set('bearer', contextProvider.context.token)
+
+  await fetch('/api/bus', {
+    method: 'get',
+    headers
+  }).then((response) => {
+    return response.json()
+  }).then((res) => {
+    contextProvider.setContext({ buses: res.data, ...contextProvider })
   }).catch((error) => {
     console.log(error)
   })
@@ -40,22 +84,14 @@ export const getTopDrivers = async (contextProvider: CustomContext,
   headers.set('Content-Type', 'application/json')
   headers.set('bearer', contextProvider.context.token)
 
-  await fetch('/api/topdrivers', {
-    method: 'post',
+  await fetch('/api/drivers/top', {
+    method: 'get',
     body: JSON.stringify({ startWeek, endWeek, size }),
     headers
   }).then((response) => {
     return response.json()
   }).then((res) => {
-    const records: DriverSummary[] = []
-
-    res.data.forEach((retrieved: { id: any; totalTasks: any; totalDistance: any }) => records.push({
-      id: retrieved.id,
-      totalTasks: retrieved.totalTasks,
-      totalDistance: retrieved.totalDistance
-    }))
-
-    contextProvider.setContext({ topDrivers: records, ...contextProvider })
+    contextProvider.setContext({ topDrivers: res.data, ...contextProvider })
   }).catch((error) => {
     console.log(error)
   })

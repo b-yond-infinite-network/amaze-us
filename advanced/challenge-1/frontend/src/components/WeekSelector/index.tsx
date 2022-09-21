@@ -39,27 +39,29 @@ export const WeekSelector = ({ onChange }: WeekSelectorProps) => {
   return (
     <div className='row'>
       <div className='col'>
-        <Form.Label for='start'>From {format(startWeek)}</Form.Label>
+        <Form.Label htmlFor='start'>From {format(startWeek)}</Form.Label>
         <Form.Select
+          id='start'
           onChange={(event) =>
             changeHandler(new Date(event.target.value), null)
           }
         >
           {weeks.map((week) => (
-            <option>{week.toISOString()}</option>
+            <option key={week.toString()}>{week.toString()}</option>
           ))}
         </Form.Select>
       </div>
 
       <div className='col'>
-        <Form.Label for='end'>To {format(endWeek)}</Form.Label>
+        <Form.Label htmlFor='end'>To {format(endWeek)}</Form.Label>
         <Form.Select
+          id='end'
           onChange={(event) =>
             changeHandler(null, new Date(event.target.value))
           }
         >
           {weeks.map((week) => (
-            <option>{week.toISOString()}</option>
+            <option key={week.toString()}>{week.toString()}</option>
           ))}
         </Form.Select>
       </div>
