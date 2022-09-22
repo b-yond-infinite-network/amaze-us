@@ -1,6 +1,7 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Col, Form, Row } from 'react-bootstrap'
 
+import { getBuses, getDrivers } from '../../api'
 import { Bus, Driver } from '../../types'
 import { AppContext } from '../../types/AppContext'
 
@@ -12,6 +13,11 @@ export const DriverBusSelector = ({ callback }: DriverBusSelectorProps) => {
   const [driver, setDriver] = useState<Driver | undefined>()
   const [bus, setBus] = useState<Bus | undefined>()
   const appContext = useContext(AppContext)
+
+  useEffect(() => {
+    getDrivers(appContext)
+    getBuses(appContext)
+  }, [])
 
   const drivers = appContext.context.drivers
   const buses = appContext.context.buses

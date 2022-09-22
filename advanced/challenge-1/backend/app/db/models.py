@@ -10,7 +10,6 @@ class User(Base):
     id = Column(Integer, primary_key=True, index=True)
     email = Column(String, unique=True, index=True)
     hash = Column(String, nullable=False)
-    salt = Column(String, nullable=False)
     scope = Column(String, nullable=False, default='employee')
 
 

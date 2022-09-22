@@ -1,23 +1,35 @@
 import jwt_decode from 'jwt-decode'
+import _ from 'lodash'
 import { Bus, Driver, User } from './types'
 
 import { CustomContext } from './types/AppContext'
+
+const proxy = 'http://localhost:8000'
+const fetchProxy = (url: string, params: RequestInit | undefined) => {
+  return fetch(proxy + url, params)
+}
 
 export const login = (contextProvider: CustomContext,
   username: string,
   password: string
 ) => {
-  fetch('/api/token', {
+  const formData = new URLSearchParams();
+  formData.append('username', username)
+  formData.append('password', password)
+
+  fetchProxy('/api/token', {
     method: 'post',
-    body: JSON.stringify({ username, password }),
+    body: formData,
     headers: {
       'Accept': 'application/json',
-      'Content-Type': 'application/json'
     }
   }).then((response) => {
-    return response.json()
+    if (response.status === 201) {
+      return response.json()
+    }
+    return response.text()
   }).then((res) => {
-    if (res.status === 201) {
+    if (!_.isString(res)) {
       const token = res.access_token
       const payload = jwt_decode<User>(token)
 
@@ -26,13 +38,15 @@ export const login = (contextProvider: CustomContext,
         user: payload,
         ...contextProvider
       })
+    } else {
+      throw new Error(res);
     }
   }).catch((error) => {
     console.log(error)
   })
 }
 
-export const getDrivers = async (contextProvider: CustomContext) => {
+export const getDrivers = (contextProvider: CustomContext) => {
   if (!contextProvider.context.token) {
     return
   }
@@ -40,9 +54,9 @@ export const getDrivers = async (contextProvider: CustomContext) => {
   const headers: HeadersInit = new Headers()
   headers.set('Accept', 'application/json')
   headers.set('Content-Type', 'application/json')
-  headers.set('bearer', contextProvider.context.token)
+  headers.set('Authorization', `Bearer ${contextProvider.context.token}`)
 
-  await fetch('/api/drivers', {
+  fetchProxy('/api/driver', {
     method: 'get',
     headers
   }).then((response) => {
@@ -54,7 +68,7 @@ export const getDrivers = async (contextProvider: CustomContext) => {
   })
 }
 
-export const getBuses = async (contextProvider: CustomContext) => {
+export const getBuses = (contextProvider: CustomContext) => {
   if (!contextProvider.context.token) {
     return
   }
@@ -62,9 +76,9 @@ export const getBuses = async (contextProvider: CustomContext) => {
   const headers: HeadersInit = new Headers()
   headers.set('Accept', 'application/json')
   headers.set('Content-Type', 'application/json')
-  headers.set('bearer', contextProvider.context.token)
+  headers.set('Authorization', `Bearer ${contextProvider.context.token}`)
 
-  await fetch('/api/bus', {
+  fetchProxy('/api/bus', {
     method: 'get',
     headers
   }).then((response) => {
@@ -76,7 +90,7 @@ export const getBuses = async (contextProvider: CustomContext) => {
   })
 }
 
-export const getTopDrivers = async (contextProvider: CustomContext,
+export const getTopDrivers = (contextProvider: CustomContext,
   startWeek: Date,
   endWeek: Date,
   size: number
@@ -88,9 +102,9 @@ export const getTopDrivers = async (contextProvider: CustomContext,
   const headers: HeadersInit = new Headers()
   headers.set('Accept', 'application/json')
   headers.set('Content-Type', 'application/json')
-  headers.set('bearer', contextProvider.context.token)
+  headers.set('Authorization', `Bearer ${contextProvider.context.token}`)
 
-  await fetch('/api/drivers/top', {
+  fetchProxy('/api/drivers/top', {
     method: 'get',
     body: JSON.stringify({ startWeek, endWeek, size }),
     headers
@@ -103,7 +117,7 @@ export const getTopDrivers = async (contextProvider: CustomContext,
   })
 }
 
-export const createSchedule = async (
+export const createSchedule = (
   contextProvider: CustomContext,
   driverId: number,
   busId: number,
@@ -119,10 +133,10 @@ export const createSchedule = async (
   const headers: HeadersInit = new Headers()
   headers.set('Accept', 'application/json')
   headers.set('Content-Type', 'application/json')
-  headers.set('bearer', contextProvider.context.token)
+  headers.set('Authorization', `Bearer ${contextProvider.context.token}`)
 
-  await fetch('/api/drivers/top', {
-    method: 'get',
+  fetchProxy('/api/schedule', {
+    method: 'post',
     body: JSON.stringify({
       driverId,
       busId,

@@ -42,7 +42,9 @@ export const TopDriversChart = () => {
 
   return (
     <>
-      <Row>
+      <h4>Top Drivers</h4>
+
+      <Row className='my-3'>
         <Col xs={6} lg={3}>
           <Form.Label>Number of Drivers</Form.Label>
           <Form.Select
@@ -64,8 +66,8 @@ export const TopDriversChart = () => {
         </Col>
       </Row>
 
-      <Row>
-        <Col>
+      <Row className='justify-content-md-center'>
+        <Col xs={4}>
           <Pie data={data} />
         </Col>
       </Row>

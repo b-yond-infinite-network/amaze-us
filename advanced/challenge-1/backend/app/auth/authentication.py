@@ -1,4 +1,6 @@
+import logging
 from datetime import datetime, timedelta
+from pydoc import plain
 
 from fastapi import Depends, HTTPException, Security, status
 from fastapi.security import OAuth2PasswordBearer, SecurityScopes
@@ -12,22 +14,26 @@ from app.db import models, schemas
 from app.db.crud import get_user_by_email
 
 
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token", scopes={
-    "employee": "Read-only access to drivers/buses schedules",
-    "manager": "Write access to buses, drivers and shifts"
+logger = logging.getLogger(__name__)
+pwd_context = CryptContext(schemes=['bcrypt'], deprecated='auto')
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl='token', scopes={
+    'employee': 'Read-only access to drivers/buses schedules',
+    'manager': 'Write access to buses, drivers and shifts'
 })
 
 
 def verify_password(
-    pwd_context: CryptContext,
     plain_password: str,
     hashed_password: str
 ):
-    return pwd_context.verify(plain_password, hashed_password)
+    result = pwd_context.verify(plain_password, hashed_password)
+    input_hash = get_password_hash(plain_password)
+    logger.debug(
+        f'Checking hashes: {input_hash} == {hashed_password}? {result}')
+    return result
 
 
-def get_password_hash(pwd_context: CryptContext, password: str):
+def get_password_hash(password: str):
     return pwd_context.hash(password)
 
 
@@ -36,7 +42,7 @@ def authenticate_user(db: Session, email: str, password: str):
 
     if not user:
         return False
-    if not verify_password(password, user.hashed_password):
+    if not verify_password(password, user.hash):
         return False
 
     return user
@@ -50,7 +56,10 @@ def create_access_token(data: dict, expires_delta: timedelta | None = None):
         expire = datetime.utcnow() + timedelta(minutes=15)
     to_encode.update({'exp': expire})
     encoded_jwt = jwt.encode(
-        to_encode, settings.SECRET_KEY, algorithm=settings.ALGORITHM)
+        to_encode,
+        settings['SECRET_KEY'],
+        algorithm=settings['ALGORITHM']
+    )
     return encoded_jwt
 
 
@@ -71,8 +80,14 @@ async def get_current_user(
     )
 
     try:
-        payload = jwt.decode(token, settings.SECRET_KEY,
-                             algorithms=[settings.ALGORITHM])
+        logger.info(f'Verifying token: {token}')
+        payload = jwt.decode(
+            token,
+            settings['SECRET_KEY'],
+            algorithms=[settings['ALGORITHM']]
+        )
+        logger.info(f'Decoded payload: {payload}')
+
         username: str = payload.get('sub')
         if username is None:
             raise credentials_exception
@@ -81,7 +96,7 @@ async def get_current_user(
     except (JWTError, ValidationError):
         raise credentials_exception
 
-    user = get_user_by_email(db, username=token_data.username)
+    user = get_user_by_email(db, username)
     if user is None:
         raise credentials_exception
 

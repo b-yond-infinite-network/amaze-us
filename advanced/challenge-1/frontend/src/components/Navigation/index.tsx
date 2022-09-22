@@ -7,11 +7,8 @@ export const Navigation = () => {
 
   return (
     <Row>
-      <Col xs='6' lg='3'>
-        <Button onClick={() => navigate('/')}>Home</Button>
-      </Col>
-
-      <Col>
+      <Col className='text-center mb-3'>
+        <Button onClick={() => navigate('/')}>Home</Button>{' '}
         <Button onClick={() => navigate('/details')}>Details</Button>
       </Col>
     </Row>

@@ -25,6 +25,8 @@ export const ScheduleManager = () => {
 
   return (
     <>
+      <h4>Schedule Manager</h4>
+
       <DriverBusSelector callback={handleDriverBusChange} />
 
       <Row className='mb-3'>
@@ -66,6 +68,7 @@ export const ScheduleManager = () => {
       </Row>
 
       <Button
+        className='mt-3'
         onClick={() => {
           if (!driver || !bus || !date || !origin || !destination || !distance)
             return
@@ -81,8 +84,10 @@ export const ScheduleManager = () => {
           )
         }}
       >
-        LOGIN
+        Save
       </Button>
+
+      <hr />
     </>
   )
 }

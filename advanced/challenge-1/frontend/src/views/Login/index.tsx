@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react'
 import { Button, Col, Form, FormControl, Row } from 'react-bootstrap'
+import { Navigate } from 'react-router-dom'
 
 import { MainContainer } from '../../components/MainContainer'
 import { login } from '../../api'
@@ -10,6 +11,10 @@ export const Login = () => {
   const [password, setPassword] = useState('')
   const appContext = useContext(AppContext)
 
+  if (appContext.context.token) {
+    return <Navigate to='/' />
+  }
+
   return (
     <MainContainer>
       <Row className='justify-content-md-center'>
@@ -17,22 +22,22 @@ export const Login = () => {
           <Form.Group className='mb-3' controlId='username'>
             <Form.Label>Username</Form.Label>
             <Form.Control
-              id='username'
               value={username}
               onChange={(event) => setUsername(event.target.value)}
             />
           </Form.Group>
+
           <Form.Group className='mb-3' controlId='password'>
             <Form.Label>Password</Form.Label>
             <FormControl
-              placeholder='password'
+              type='password'
               value={password}
               onChange={(event) => setPassword(event.target.value)}
             />
           </Form.Group>
 
           <Button onClick={() => login(appContext, username, password)}>
-            LOGIN
+            Login
           </Button>
         </Col>
       </Row>
