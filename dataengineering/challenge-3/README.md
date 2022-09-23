@@ -2,7 +2,7 @@
 
 ***1 - Architecture***
 
-![](Architecture.png)
+![](images/Architecture.png)
 
 In this architecture a container app will stream tweets using the Twitter v2 api, and will produce to a replicated kafka topic which has a time retention period to be determines.
 
@@ -29,9 +29,10 @@ Grafana was chosen as the visualizer for its aesthetics, ease of use, and abilit
 
  Please use ./start-all.sh, it currently contains the "docker-compose up" but further functions might be added to it.
 
-
-
- ***4 - Tests***
+***4 - Visualization, queries, and restrictions ***
+![](images/trends.png)
+![](images/count.png)
+ ***5 - Tests***
 
   A. Fidelity tests: It's possible to miss messages coming from twitter due to routing or networking issues.
 
@@ -50,4 +51,4 @@ Grafana was chosen as the visualizer for its aesthetics, ease of use, and abilit
 
   ***6 - resource footprint analysis***
 
-  ***5- Scalability plan***
+  ***7- Scalability plan***
