@@ -96,7 +96,7 @@ Select city,CAST(count(count) as double),date as aggcount from evilnet.tweets  w
 
          If the components are owned they can be monitored using prometheus and grafana.
          
-         We could run the apps for a large enough period of time, ideally the CPU and memory should be 80 % of the peak usage over this period.
+         We could run the apps for a large enough period of time, ideally the peak usage should be 80 % of the total resource limit.
           
          Points and details will be added soon. 
           
