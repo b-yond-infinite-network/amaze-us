@@ -23,7 +23,7 @@ Grafana was chosen as the visualizer for its aesthetics, and ease of use.
 
 
   C. Stream processor: A python driver script has been written to run against the master spark, it will perform structured streaming from Kafka to Cassandra.
-                       The aggregation count of tweets by city by time has been implement in this script, some tests are being done before proceeding to re-tweets, and                           users
+                       The aggregation count  by city,time has been implement in this script. The first time the job launches it will start from the earliest offset of the topic, if a failure occurs, the container will relaunch with and consume from the latest offset.
 
  ***3 - Startup script***
 
