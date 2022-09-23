@@ -92,5 +92,18 @@ Select city,CAST(count(count) as double),date as aggcount from evilnet.tweets  w
 
 
   ***6 - resource footprint analysis***
+         Kafka queus and tables will have retention period, this will limit storage usage.
 
+         If the components are owned they can be monitored using prometheus and grafana.
+         
+         We could run the apps for a large enough period of time, ideally the CPU and memory should be 80 % of the peak usage over this period.
+          
+         Points and details will be added soon. 
+          
   ***7- Scalability plan***
+  
+        Code scalibality:
+        
+        Infra scalibality
+        
+        Will be added soon. 
