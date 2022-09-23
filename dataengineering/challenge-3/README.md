@@ -28,10 +28,14 @@ Grafana was chosen as the visualizer for its aesthetics, ease of use, and abilit
  ***3 - Startup script***
 
  Please use ./start-all.sh, it currently contains the "docker-compose up" but further functions might be added to it.
+ 
+ ***4 - Visualization, queries, and restrictions***
 
-***4 - Visualization, queries, and restrictions ***
+
 ![](images/trends.png)
 ![](images/count.png)
+
+
  ***5 - Tests***
 
   A. Fidelity tests: It's possible to miss messages coming from twitter due to routing or networking issues.
