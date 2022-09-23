@@ -59,7 +59,7 @@ The $__timeFrom and date <= $__timeTo can be controlled from the time bar and ar
 
 ![](images/trends.png)
 
-The below queries were used for trends, another imperfection was made in the query, as it was not possible to ORDER BY count, and LIMIT 5.
+The below queries were used for counts by cities over last hour, another imperfection was made in the query, as it was not possible to ORDER BY count, and LIMIT 5.
 
 Instead the aggregation over cities was returned, the maximum number of values that could be returned is 1130.
 
