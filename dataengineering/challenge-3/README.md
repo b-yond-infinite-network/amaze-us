@@ -12,7 +12,7 @@ The kafka cluster has two brokers, and two zookeepers, it's possible to use both
 
  The batch streaming is orchestrated by a "structured streaming" python app, which will stream data from kafka aggregate it and save it to Cassandra DB.
 
-Grafana was chosen as the visualizer for its aesthetics, ease of use, and ability to integrate with most of data sources.( It has not been implemented yet)
+Grafana was chosen as the visualizer for its aesthetics.
 
 ***2 - Code***
 
