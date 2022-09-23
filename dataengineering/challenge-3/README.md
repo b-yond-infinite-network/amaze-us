@@ -31,6 +31,11 @@ Grafana was chosen as the visualizer for its aesthetics, ease of use, and abilit
  
  ***4 - Visualization, queries, and restrictions***
 
+Please use the following http://localhost:3000/ to enter the grafana visualizer , use 'admin' as username and password.
+
+In the dashboard section you will find counts and trends which are shown below.
+
+Please wait for the services to start and tables to be populated, the casssandra db was not configured for data persistency. 
 
 ![](images/trends.png)
 ![](images/count.png)
