@@ -37,6 +37,25 @@ In the dashboard section you will find counts and trends which are shown below.
 
 Please wait for the services to start and tables to be populated, the casssandra db was not configured for data persistency. 
 
+
+The below queries were used for trends, however a Where condition is missing on the city which will allow to return data of a single or multiple cities, the reason is  due to a bug in grafana, it was not able to query the unique cities for a time interval.
+
+It's true that the query is returning data of all cities, but cassandra can offord such queries continiously as the schema design was created to perform aggregation by city,date.
+
+The maximum number of returned values from this query for an hour interval would be at worse 
+1130 (number of all cities in canada) * 12 ( number of 5 mins points) = 13,560
+Which can be handeled by grafana without compromising the refresh rate.
+
+The approach is not perfect, but on the plus side the visualiser will display all the cities below the table instead of choosing from a variable list.
+
+Select city,CAST(count(count) as double),date from evilnet.tweets  where  date >= $__timeFrom and date <= $__timeTogroup by city,date  ALLOW FILTERING;
+
+Select city,CAST(count(count) as double),date from evilnet.retweets  where  date >= $__timeFrom and date <= $__timeTogroup by city,date ALLOW FILTERING;
+
+Select city,CAST(count(count) as double),date from evilnet.uniqueuserswhere  date >= $__timeFrom and date <= $__timeTogroup by city,date  ALLOW FILTERING;
+
+(unique users for time window were counted in spark streaming)
+
 ![](images/trends.png)
 ![](images/count.png)
 
