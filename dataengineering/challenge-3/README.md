@@ -57,7 +57,7 @@ The approach is not perfect, but on the plus side the visualiser will display fo
 
 The $__timeFrom and date <= $__timeTo can be controlled from the time bar and are passed to the query.
 
-The idea of using cassandra for this challenge is to explore it, and learn it, as it provides high performance and scalability.
+The idea of using cassandra for this challenge is to explore it and learn it, as it provides high performance and scalability. The query issue can be solved by switching to mongodb or pgsql,mysql.
 
 ![](images/trends.png)
 
@@ -65,7 +65,7 @@ The below queries were used for counts by cities over last hour, another imperfe
 
 Instead the aggregation over cities was returned, the maximum number of values that could be returned is 1130.
 
-Cassandra schema is a query based schema which will ensure performance, and data integrity on distributed machines, the schema was created to aggregate by city,date. And its not possible to sort without specifing a WHERE is equal operation. 
+Cassandra schema is a query based schema which will ensure performance, and data integrity on distributed machines, the schema was created to aggregate by city,date. And its not possible to sort without specifing a WHERE is equal operation. A solution is to add a partition key for all records, for exp key=1, and choose add the where condition key=1. 
 
 The sorting is taking place in grafana instead.
 
