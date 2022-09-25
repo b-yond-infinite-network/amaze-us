@@ -65,7 +65,7 @@ The below queries were used for counts by cities over last hour, another imperfe
 
 Instead the aggregation over cities was returned, the maximum number of values that could be returned is 1130.
 
-Cassandra schema is a query based schema which will ensure performance, and data integrity on distributed machines, the schema was created to aggregate by city,date. And its not possible to sort without specifing a WHERE is equal operation. A solution is to add a partition key for all records, for exp key=1, and choose add the where condition key=1. 
+Cassandra schema is a query based schema which will ensure performance, and data integrity on distributed machines, the schema was created to aggregate by city,date. And its not possible to sort without specifing a WHERE is equal operation. A solution is to add a partition key for all records, for exp key=1, and when sorting we can user the where condition key=1. 
 
 The sorting is taking place in grafana instead.
 
