@@ -57,6 +57,8 @@ The approach is not perfect, but on the plus side the visualiser will display fo
 
 The $__timeFrom and date <= $__timeTo can be controlled from the time bar and are passed to the query.
 
+The idea of using cassandra for this challenge is to explore it, and learn it, as it provides high performance and scalability.
+
 ![](images/trends.png)
 
 The below queries were used for counts by cities over last hour, another imperfection was made in the query, as it was not possible to ORDER BY count, and LIMIT 5.
