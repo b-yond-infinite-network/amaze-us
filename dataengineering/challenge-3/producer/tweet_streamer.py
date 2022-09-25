@@ -31,13 +31,11 @@ class TweetStream:
 
     + to do: add args 
     """
-    def __init__(self , bearer_token , process, country_codes='CA', only_tweets_or_retweets=True , retweets=False):
+    def __init__(self , bearer_token, country_codes='CA'):
         # to extend and add filters 
         self.bearer_token = bearer_token
         self.country_codes = country_codes
-        self.only_tweets_or_retweets = only_tweets_or_retweets
-        self.retweets = retweets
-        self.process = process
+ 
 
     def bearer_oauth(self,request):
         
@@ -97,14 +95,8 @@ class TweetStream:
         """"
         Sets rules 
         """ 
-        if (self.only_tweets_or_retweets and self.retweets ):
-            filterstring="is:retweet"
 
-        elif (self.only_tweets_or_retweets and not self.retweets):
-            filterstring="-is:retweet"
-        
-        else:
-            filterstring=""
+        filterstring=""
 
 
         countries_list = self.country_codes.split(',')
@@ -170,19 +162,23 @@ class Tweet_Stream_KAFKA(TweetStream):
 
     to add args 
     """ 
-    def __init__(self , bearer_token , process, kafka_brokers, kafka_topic, country_codes='CA', only_tweets_or_retweets=True , retweets=False):
-        super().__init__( bearer_token , process,country_codes='CA', only_tweets_or_retweets=True , retweets=False)
+    def __init__(self , bearer_token , kafka_brokers, kafka_topic,is_test, country_codes='CA'):
+        super().__init__( bearer_token ,country_codes='CA')
         self.kafka_brokers = kafka_brokers
         self.kafka_topic = kafka_topic
-
+        self.is_test = is_test
+    
     def producer_instance(self):
         
-
          producer = KafkaProducer(bootstrap_servers=self.kafka_brokers,value_serializer=lambda x: json.dumps(x).encode('utf-8'))
 
          return producer
  
- 
+   
+    def test_tweet(self):
+        file_content = [json.loads(line) for line in open('tweets.json', 'r',encoding='utf-8')]
+
+        return file_content
 
     def publish_tweet(self):
 
@@ -190,25 +186,45 @@ class Tweet_Stream_KAFKA(TweetStream):
 
         Publishes tweets to kafka
         """ 
-
-        
         producer=self.producer_instance()
 
-        for line in self.get_stream().iter_lines():
-            if line:
-                object = json.loads(line)
+        if self.is_test == 1:
+
+            raw_tweets = self.test_tweet()
+
+            for line in raw_tweets:
+                if line:
+                    object = json.loads(line)
+                    
+                    if (object["includes"]["places"][0]["place_type"]) == 'city':
+                        tweet= {
+                            "id" :  object["data"]["id"],
+                            "author_id" : object["data"]["author_id"],
+                            "timestamp" : object["data"]["created_at"],
+                            "is_retweet": "referenced_tweets" in object["data"],
+                            "city" : object["includes"]["places"][0]["full_name"]
+                           
+                        }
+                        print (tweet)
+                        producer.send(topic=self.kafka_topic, value=tweet) 
+
+        elif self.is_test == 0:
+
+            for line in self.get_stream().iter_lines():
+                if line:
+                    object = json.loads(line)
+                    
+                    if (object["includes"]["places"][0]["place_type"]) == 'city':
+                        tweet= {
+                            "id" :  object["data"]["id"],
+                            "author_id" : object["data"]["author_id"],
+                            "timestamp" : object["data"]["created_at"],
+                            "is_retweet": "referenced_tweets" in object["data"],
+                            "city" : object["includes"]["places"][0]["full_name"]
+                           
+                        }
+                        print (tweet)
+                        producer.send(topic=self.kafka_topic, value=tweet) 
                 
-                if (object["includes"]["places"][0]["place_type"]) == 'city':
-                    tweet= {
-                        "id" :  object["data"]["id"],
-                        "author_id" : object["data"]["author_id"],
-                        "timestamp" : object["data"]["created_at"],
-                        "is_retweet": "referenced_tweets" in object["data"],
-                        "city" : object["includes"]["places"][0]["full_name"]
-                       
-                    }
-                    print (tweet)
-                    producer.send(topic=self.kafka_topic, value=tweet) 
-                    print(self.process)
             
-        
+        print('done')

@@ -27,7 +27,9 @@ Grafana was chosen as the visualizer for its aesthetics, and ease of use.
 
  ***3 - Startup script***
 
- Please use ./start-all.sh, it contains the "docker-compose up", and "sed -i -e 's/\r$//' ./scripts/cassandra_init.sh" was added.
+ Please use ./start-all.sh, it contains the "docker-compose up". 
+ 
+ The following was added "sed -i -e 's/\r$//' ./scripts/cassandra_init.sh".
 
 This deals with replacing the encoding of CRLF file with LF.
 

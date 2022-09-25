@@ -78,8 +78,9 @@ services:
     depends_on:
       - kafka-2
       - kafka-1
-    expose: 
-      - 9099
+    environment:
+      - IS_TEST=0
+
     networks:
       datapipeline:
         ipv4_address: 172.18.0.8
@@ -94,8 +95,6 @@ services:
     environment:
       - CASSANDRA_START_RPC=true
       - CASSANDRA_HOST=cassandra
-    # entrypoint: ["/entrypoint.sh"]
-    # command: ["/init.sh"]
     ports:
       - '9042:9042'
     depends_on:   
@@ -141,6 +140,14 @@ services:
     networks:
       datapipeline:
         ipv4_address: 172.18.0.11
+  
+  tester:
+    build: tester
+    depends_on:
+      - cassandra
+    networks:
+      datapipeline:
+        ipv4_address: 172.18.0.12
 
 # volumes:
 #   grafana_data:
