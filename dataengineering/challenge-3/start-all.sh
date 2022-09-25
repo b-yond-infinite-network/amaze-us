@@ -1,3 +1,4 @@
+sed -i -e 's/\r$//' ./scripts/cassandra_init.sh
 nohup docker-compose up >> output.log &
 echo 'Staring services, and sleeping for 20 seconds'
 sleep 20

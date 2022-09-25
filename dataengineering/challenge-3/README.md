@@ -94,6 +94,7 @@ Select city,CAST(count(count) as double),date as aggcount from evilnet.tweets  w
 
 
   ***6 - resource footprint analysis***
+  
          Kafka queus and tables will have retention period, this will limit storage usage.
 
          If the components are owned they can be monitored using prometheus and grafana.
