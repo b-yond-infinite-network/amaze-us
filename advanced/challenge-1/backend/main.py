@@ -4,9 +4,9 @@ import coloredlogs
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.router import router
 from app.db.initialize import initialize_db
 from app.db.database import Base, engine, get_conn
+from app.router import router
 
 
 logging.config.fileConfig('logging.conf', disable_existing_loggers=False)

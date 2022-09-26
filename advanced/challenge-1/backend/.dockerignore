@@ -17,6 +17,7 @@
 **/node_modules
 **/npm-debug.log
 **/obj
+**/*.log
 **/secrets.dev.yaml
 **/values.dev.yaml
 README.md

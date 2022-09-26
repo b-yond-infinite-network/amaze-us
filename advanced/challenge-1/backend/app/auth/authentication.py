@@ -1,6 +1,5 @@
 import logging
 from datetime import datetime, timedelta
-from pydoc import plain
 
 from fastapi import Depends, HTTPException, Security, status
 from fastapi.security import OAuth2PasswordBearer, SecurityScopes
@@ -9,9 +8,10 @@ from passlib.context import CryptContext
 from pydantic import ValidationError
 from sqlalchemy.orm import Session
 
-from app.utils import settings
 from app.db import models, schemas
 from app.db.crud import get_user_by_email
+from app.db.database import get_db
+from app.utils import settings
 
 
 logger = logging.getLogger(__name__)
@@ -64,8 +64,8 @@ def create_access_token(data: dict, expires_delta: timedelta | None = None):
 
 
 async def get_current_user(
-    db,
     security_scopes: SecurityScopes,
+    db: Session = Depends(get_db),
     token: str = Depends(oauth2_scheme)
 ):
     if security_scopes.scopes:
@@ -100,22 +100,16 @@ async def get_current_user(
     if user is None:
         raise credentials_exception
 
+    found = False
     for scope in security_scopes.scopes:
-        if scope not in token_data.scopes:
-            raise HTTPException(
-                status_code=status.HTTP_401_UNAUTHORIZED,
-                detail='Not enough permissions',
-                headers={'WWW-Authenticate': authenticate_value},
-            )
+        if scope == user.scope:
+            found = True
+            break
+
+    if not found:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail='Not enough permissions',
+            headers={'WWW-Authenticate': authenticate_value},
+        )
     return user
-
-
-async def get_current_active_user(
-    current_user: models.User = Security(
-        get_current_user,
-        scopes=['employee', 'manager']
-    )
-):
-    if current_user.disabled:
-        raise HTTPException(status_code=400, detail='Inactive user')
-    return current_user
