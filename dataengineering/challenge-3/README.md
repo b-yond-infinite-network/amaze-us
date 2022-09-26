@@ -122,17 +122,29 @@ If you don't need the test and did not activate the IS_TEST, it's better to remo
 
   ***6 - resource footprint analysis***
   
-         Kafka queues and tables will have retention period, this will limit storage usage.
+Kafka queues and tables will have retention period, this will limit storage usage.
 
-         We can monitor the components using prometheus and grafana.
+We can monitor the components using prometheus and grafana.
          
-         We could run the apps for a large enough period of time, ideally the peak usage should be 80 % of the total resource limit.
+We could run the apps for a large enough period of time, ideally the peak usage should be 80 % of the total resource limit.
           
           
   ***7- Scalability plan***
   
-        Code scalibality:
+In this pipline we need to take care of two main components, the producer, and the consumer (spark jobs).
+The rest of the components are scalable by nature (kafka,spark,cassandra), if we manage these clusters we can monitor the nodes, and add nodes when needed.
         
-        Infra scalibality
-        
-        Will be added soon. 
+***Producer scalability:*** 
+
+***Strategy 1:*** 
+
+The producer can take multiple Cities as argument, and for enterprise accounts, it's possible to change the rules while streaming is running.
+
+***Strategy 2:*** 
+
+We need seggregation in the cities and topics. It's possible to perform threading or async in the contianer for multiple cities and topics.
+
+***Strategy 3***
+
+We can scale by adding producer containers that have specific city/cities and topic, this can be done using jenkins, for example the inputs would look like the below.
+
