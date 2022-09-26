@@ -25,6 +25,9 @@ Grafana was chosen as the visualizer for its aesthetics, and ease of use.
   C. Stream processor: A python driver script has been written to run against the master spark, it will perform structured streaming from Kafka to Cassandra.
                        The aggregation count  by city,time has been implement in this script. The first time the job launches it will start from the earliest offset of the topic, if a failure occurs, the container will relaunch with and consume from the latest offset.
 
+  D. Tester: A tester container has been added, please refer to testing section for details.
+  
+  
  ***3 - Startup script***
 
  Please use ./start-all.sh, it contains the "docker-compose up". 
@@ -95,9 +98,12 @@ Select city,CAST(count(count) as double),date as aggcount from evilnet.tweets  w
 
  Finally, it’s possible to collect the data and compare it, the comparison will allow us to infer which host has least missing records.
 
- B. Unit testing:
+ B. Automated test: A test container has been added for the purpose of data validation. The goal of the test is to simulate the whole data pipline.
+   
+    In order for the pipline to go into test mode we need to change the IS_TEST=0 into IS_TEST=1 in the docker compose file as shown below.
+    
 
- C. Full testing:
+
 
 
   ***6 - resource footprint analysis***
