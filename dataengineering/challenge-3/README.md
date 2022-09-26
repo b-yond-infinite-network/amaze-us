@@ -98,9 +98,11 @@ Select city,CAST(count(count) as double),date as aggcount from evilnet.tweets  w
 
  Finally, it’s possible to collect the data and compare it, the comparison will allow us to infer which host has least missing records.
 
- B. Automated test: A test container has been added for the purpose of data validation. The goal of the test is to simulate the whole data pipline.
-   
-    In order for the pipline to go into test mode we need to change the IS_TEST=0 into IS_TEST=1 in the docker compose file as shown below.
+ B. Automated test: A test container has been added for the purpose of data validation. The goal of the test is to simulate the whole data pipline. In order for the
+ 
+ pipline to go into test mode we need to change the IS_TEST=0 into IS_TEST=1 in the docker compose file as shown below.
+ ![](images/producerconfig.png)
+ ![](images/producerconfig.png)
     
 
 
