@@ -88,7 +88,7 @@ Select city,CAST(count(count) as double),date as aggcount from evilnet.tweets  w
 
  ***5 - Tests***
 
-  A. Fidelity tests: It's possible to miss messages coming from twitter due to routing or networking issues.
+  ***A. Fidelity test:*** It's possible to miss messages coming from twitter due to routing or networking issues.
 
  Twitter infra is mostly on GCP and it's preferable to deploy next to an edge there, or in a GCP datacenter.
 
@@ -98,15 +98,17 @@ Select city,CAST(count(count) as double),date as aggcount from evilnet.tweets  w
 
  Finally, it’s possible to collect the data and compare it, the comparison will allow us to infer which host has least missing records.
 
- B. Automated test: A test container has been added for the purpose of data validation. The goal of the test is to simulate the whole data pipline. In order for the
-    pipline to go into test mode we need to change the IS_TEST=0 into IS_TEST=1 in the docker compose file as shown below.
+ ***B. Automated test:*** A test container has been added for the purpose of data validation. The goal of the test is to simulate the whole data pipline. In order for the
+    pipline to go into test mode we need to change the variable IS_TEST=0 into IS_TEST=1 for the the producer in the docker compose file.
     
  ![](images/producerconfig.png)
  ![](images/producerconfig1.png)
     
-    This will enable the producer to load a twitter json file instead of streaming from twitter, it will send the data to kafka as if the pipline is working normally, after that, spark will perform batch streaming and load the data into cassandra.
+ This will enable the producer to load a twitter json file instead of streaming from twitter, it will send the data to kafka as if the pipline is working normally, after that, spark will perform batch streaming and load the data into cassandra.
 
-The tester container will query tweets,re-tweets, and unique users, and will also load anchor data that was validated, it will then compare the data using pandas assert_frame_equal if any difference occurs the container will output an error. 
+The tester container will query tweets,re-tweets, and unique users from cassandra, and will also load anchor data that was validated, it will then compare the data using pandas assert_frame_equal, if any difference occurs the container will output what it is.
+
+NB: If the tester container is spin up when the producer is in a non testing mode (IS_TEST=0), it will absolutley return schema inqueality as it's comparing fresh data to anchored data. 
 
 
 
