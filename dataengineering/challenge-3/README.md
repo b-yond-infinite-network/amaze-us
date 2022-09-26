@@ -18,12 +18,11 @@ Grafana was chosen as the visualizer for its aesthetics, and ease of use.
 
   ***A. Docker-compose :*** a docker-compose file has been created, which upon start up will spin up the containers and run all the services.
 
-  ***B. Producer:*** An encapsulated module was written for the purpose of streaming from twitter and producing to kafka, this can be upgraded by adding a generic filter or r                rules.
+  ***B. Producer:*** An encapsulated module was written for the purpose of streaming from twitter and producing to kafka, this can be upgraded by adding a generic filter or rules.
                As a future task, this module will be improved to stream and produce asynchronously by using asyncio and aiokafka.
 
 
-  ***C. Stream processor:*** A python driver script has been written to run against the master spark, it will perform structured streaming from Kafka to Cassandra.
-                       The aggregation count  by city,time has been implement in this script.
+  ***C. Stream processor:*** A python driver script has been written to run against the master spark, the job will perform structured streaming from Kafka to Cassandra. The job will aggregate by city,time for a window of 5 minutes, it will also run every 1 minute.
 
   ***D. Tester:*** A tester container has been added, please refer to "tests" section for details.
   
@@ -65,7 +64,7 @@ Select city,CAST(count(count) as double),date from evilnet.uniqueuserswhere  dat
 It's true that the queries are returning data of all cities, but cassandra can offord such queries continiously as the schema design was created to perform aggregation by city,date.
 
 The maximum number of returned values from this query for an hour interval would be at worse 
-1130 (number of all cities in canada) * 12 ( number of 5 mins points) = 13,560
+1130 (number of all cities in canada) * 12 ( number of 5 mins points) = 13560
 Which can be handeled by grafana without compromising the refresh rate.
 
 The approach is not perfect, but on the plus side the visualiser will display for the user the queried cities below the table without choosing from a list of variables.
