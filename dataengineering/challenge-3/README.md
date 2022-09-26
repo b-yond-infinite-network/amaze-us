@@ -38,6 +38,10 @@ Grafana was chosen as the visualizer for its aesthetics, and ease of use.
 This deals with replacing the encoding of CRLF file with LF.
 
 If git is configured to transform the file from LF to CRLF, the mentioned line will fix it.
+
+In order for the services to start correctly a wait time has been added to apps in the container, please be patient.
+
+Please check section 5.B (Automated test) before starting the services.
  
  
  ***4 - Visualization, queries, and restrictions***
@@ -111,8 +115,9 @@ The tester container will query tweets,re-tweets, and unique users from cassandr
 
 NB: If the tester container is spin up when the producer is in a non testing mode (IS_TEST=0), it will absolutley return schema inqueality as it's comparing fresh data to anchored data. 
 
+Please note that first time you start the test container, it will take time to build, this because it's building wheels for the phython libraries.
 
-
+If you don't need the test and did not activate the IS_TEST, it's better to remoce the container.
 
 
   ***6 - resource footprint analysis***
