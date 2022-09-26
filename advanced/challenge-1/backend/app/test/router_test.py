@@ -1,3 +1,4 @@
+from datetime import datetime, timedelta
 from fastapi import FastAPI
 from fastapi.security import OAuth2PasswordRequestForm
 from fastapi.testclient import TestClient
@@ -54,3 +55,20 @@ def test_get_buses():
     assert response.status_code == 200
     body = response.json()
     assert len(body) == 250
+
+
+def test_get_top_drivers():
+    start = datetime.now()
+    end = datetime.now() + timedelta(days=7)
+
+    response = client.get(f'/api/driver/top?start={start}&end={end}&n=5',
+                          headers={
+                              'Authorization': f'Bearer {MANAGER_TOKEN}'
+                          })
+    assert response.status_code == 200
+    body = response.json()
+    assert len(body) == 5
+
+    first = body[0]
+    second = body[1]
+    assert first['total_distance'] > second['total_distance']
