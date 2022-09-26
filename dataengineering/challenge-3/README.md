@@ -100,6 +100,7 @@ Select city,CAST(count(count) as double),date as aggcount from evilnet.tweets  w
 
  B. Automated test: A test container has been added for the purpose of data validation. The goal of the test is to simulate the whole data pipline. In order for the
     pipline to go into test mode we need to change the IS_TEST=0 into IS_TEST=1 in the docker compose file as shown below.
+    
  ![](images/producerconfig.png)
  ![](images/producerconfig1.png)
     
