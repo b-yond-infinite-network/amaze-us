@@ -10,8 +10,8 @@ const plugins = [
   new HtmlWebpackPlugin({
     template: path.join(__dirname, 'public', 'index.html')
   }),
-  devMode && new ReactRefreshWebpackPlugin(),
-  new MiniCssExtractPlugin()
+  new MiniCssExtractPlugin(),
+  devMode && new ReactRefreshWebpackPlugin()
 ].filter(Boolean)
 
 module.exports = {

@@ -10,7 +10,6 @@
   },
   "editor.formatOnSave": true,
   "eslint.codeActionsOnSave.mode": "problems",
-  "eslint.packageManager": "pnpm",
   "eslint.format.enable": true,
   "eslint.alwaysShowStatus": true,
   "editor.tabSize": 2,
