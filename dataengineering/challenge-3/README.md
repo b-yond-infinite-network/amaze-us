@@ -132,19 +132,28 @@ We could run the apps for a large enough period of time, ideally the peak usage 
   ***7- Scalability plan***
   
 In this pipline we need to take care of two main components, the producer, and the consumer (spark jobs).
+
 The rest of the components are scalable by nature (kafka,spark,cassandra), if we manage these clusters we can monitor the nodes, and add nodes when needed.
         
 ***Producer scalability:*** 
 
 ***Strategy 1:*** 
 
-The producer can take multiple Cities as argument, and for enterprise accounts, it's possible to change the rules while streaming is running.
+The producer can take multiple Cities as argument, and for enterprise accounts, it's possible to change the rules while streaming.
 
 ***Strategy 2:*** 
 
-We need seggregation in the cities and topics. It's possible to perform threading or async in the contianer for multiple cities and topics.
+We need seggregation for cities and topics. It's possible to perform threading or async in the contianer for multiple cities and topics.
 
 ***Strategy 3***
 
+We need seggrecation in data volume, cities, topics.
+
 We can scale by adding producer containers that have specific city/cities and topic, this can be done using jenkins, for example the inputs would look like the below.
+
+![](images/producer.png)
+
+The last startegy can really ease up the deploy especially if EvilNet wants to scale for the whole cities.
+
+It's possible to combine the last two strategies for swift and effective scaling.
 
