@@ -16,16 +16,17 @@ Grafana was chosen as the visualizer for its aesthetics, and ease of use.
 
 ***2 - Code***
 
-  A. Docker-compose : a docker-compose file has been created, which upon start up will spin up the containers and run all the services.
+  ***A. Docker-compose :*** a docker-compose file has been created, which upon start up will spin up the containers and run all the services.
 
-  B. Producer: An encapsulated module was written for the purpose of streaming from twitter and producing to kafka, this can be upgraded by adding a generic filter or r                rules.
+  ***B. Producer:*** An encapsulated module was written for the purpose of streaming from twitter and producing to kafka, this can be upgraded by adding a generic filter or r                rules.
                As a future task, this module will be improved to stream and produce asynchronously by using asyncio and aiokafka.
 
 
-  C. Stream processor: A python driver script has been written to run against the master spark, it will perform structured streaming from Kafka to Cassandra.
-                       The aggregation count  by city,time has been implement in this script. The first time the job launches it will start from the earliest offset of the topic, if a failure occurs, the container will relaunch with and consume from the latest offset.
+  ***C. Stream processor:*** A python driver script has been written to run against the master spark, it will perform structured streaming from Kafka to Cassandra.
+                       The aggregation count  by city,time has been implement in this script.
 
-  D. Tester: A tester container has been added, please refer to testing section for details.
+  ***D. Tester:*** A tester container has been added, please refer to "tests" section for details.
+  
   
   
  ***3 - Startup script***
@@ -116,13 +117,12 @@ NB: If the tester container is spin up when the producer is in a non testing mod
 
   ***6 - resource footprint analysis***
   
-         Kafka queus and tables will have retention period, this will limit storage usage.
+         Kafka queues and tables will have retention period, this will limit storage usage.
 
-         If the components are owned they can be monitored using prometheus and grafana.
+         We can monitor the components using prometheus and grafana.
          
          We could run the apps for a large enough period of time, ideally the peak usage should be 80 % of the total resource limit.
           
-         Points and details will be added soon. 
           
   ***7- Scalability plan***
   
