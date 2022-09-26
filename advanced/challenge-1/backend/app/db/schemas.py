@@ -67,6 +67,9 @@ class Bus(BusBase):
 
 class ScheduleBase(BaseModel):
     timestamp: datetime
+    origin: str
+    destination: str
+    distance: int
 
 
 class ScheduleCreate(ScheduleBase):
@@ -80,3 +83,10 @@ class Schedule(ScheduleBase):
 
     class Config:
         orm_mode = True
+
+
+class DriverSummary(BaseModel):
+    first_name: str
+    last_name: str
+    total_tasks: int
+    total_distance: int

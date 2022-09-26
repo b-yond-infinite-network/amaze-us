@@ -1,6 +1,6 @@
 import logging
 from datetime import datetime, timedelta
-from random import choice, randrange
+from random import choice, randint, randrange
 
 from faker import Faker
 from sqlalchemy.exc import IntegrityError, PendingRollbackError
@@ -83,10 +83,14 @@ def initialize_db(db: Session):
     logger.info(f'Creating {n} schedules...')
     for i in range(0, n):
         logger.debug(f'Creating schedule {i} of {n}')
-        random_minutes = timedelta(minutes=randrange(3 * 30 * 24 * 60))
+        rand = randrange(3 * 30 * 24 * 60)
+        mins = timedelta(minutes=rand)
         schedules.append(models.Schedule(bus=choice(buses),
                                          driver=choice(drivers),
-                                         timestamp=datetime.now() + random_minutes))
+                                         timestamp=datetime.now() + mins,
+                                         origin=fake.last_name(),
+                                         destination=fake.last_name(),
+                                         distance=rand))
 
         if i % 100_000 == 0:  # commit every 100k records
             db.add_all(schedules)

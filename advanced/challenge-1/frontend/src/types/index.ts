@@ -1,6 +1,6 @@
 export type User = {
-  sub: string
-  scopes: string
+  sub: string | null
+  scopes: string | null
 }
 
 export type Schedule = {
@@ -30,8 +30,8 @@ export type Bus = {
 
 export type DriverSummary = {
   id: number
-  firstName: string
-  lastName: string
-  totalTasks: number
-  totalDistance: number
+  first_name: string
+  last_name: string
+  total_tasks: number
+  total_distance: number
 }

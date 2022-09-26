@@ -1,12 +1,12 @@
 import React, { PropsWithChildren, useContext } from 'react'
 import { Container } from 'react-bootstrap'
 
-import { AppContext } from '../../types/AppContext'
+import { AuthContext } from '../../types/AppContext'
 import { Navigation } from '../Navigation'
 
 export const MainContainer = ({ children }: PropsWithChildren) => {
-  const appContext = useContext(AppContext)
-  const token = appContext.context.token
+  const { authContext } = useContext(AuthContext)
+  const token = authContext.token
 
   return (
     <Container>

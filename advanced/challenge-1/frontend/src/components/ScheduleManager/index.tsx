@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react'
 import { Button, Col, Form, Row } from 'react-bootstrap'
 import { createSchedule } from '../../api'
 import { Bus, Driver } from '../../types'
-import { AppContext } from '../../types/AppContext'
+import { AppContext, AuthContext } from '../../types/AppContext'
 
 import { DriverBusSelector } from '../DriverBusSelector'
 
@@ -13,6 +13,8 @@ export const ScheduleManager = () => {
   const [origin, setOrigin] = useState('')
   const [destination, setDestination] = useState('')
   const [distance, setDistance] = useState(0)
+
+  const { authContext } = useContext(AuthContext)
   const appContext = useContext(AppContext)
 
   const handleDriverBusChange = (
@@ -74,6 +76,7 @@ export const ScheduleManager = () => {
             return
 
           createSchedule(
+            authContext,
             appContext,
             driver.id,
             bus.id,

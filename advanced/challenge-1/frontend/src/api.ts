@@ -1,17 +1,18 @@
 import jwt_decode from 'jwt-decode'
 import _ from 'lodash'
-import { Bus, Driver, User } from './types'
+import { Bus, Driver, DriverSummary, User } from './types'
 
-import { CustomContext } from './types/AppContext'
+import { AuthContextType, AuthCustomContext, CustomContext } from './types/AppContext'
 
 const proxy = 'http://localhost:8000'
 const fetchProxy = (url: string, params: RequestInit | undefined) => {
   return fetch(proxy + url, params)
 }
 
-export const login = (contextProvider: CustomContext,
+export const login = (contextProvider: AuthCustomContext,
   username: string,
-  password: string
+  password: string,
+  callback: () => void
 ) => {
   const formData = new URLSearchParams();
   formData.append('username', username)
@@ -33,11 +34,15 @@ export const login = (contextProvider: CustomContext,
       const token = res.access_token
       const payload = jwt_decode<User>(token)
 
-      contextProvider.setContext({
+      localStorage.setItem('token', token)
+      localStorage.setItem('username', payload.sub!)
+      localStorage.setItem('scopes', payload.scopes!)
+
+      contextProvider.setAuthContext({
         token: res.access_token,
-        user: payload,
-        ...contextProvider
+        user: payload
       })
+      callback()
     } else {
       throw new Error(res);
     }
@@ -46,15 +51,18 @@ export const login = (contextProvider: CustomContext,
   })
 }
 
-export const getDrivers = (contextProvider: CustomContext) => {
-  if (!contextProvider.context.token) {
+export const getDrivers = (
+  authContext: AuthContextType,
+  contextProvider: CustomContext
+) => {
+  if (!authContext.token) {
     return
   }
 
   const headers: HeadersInit = new Headers()
   headers.set('Accept', 'application/json')
   headers.set('Content-Type', 'application/json')
-  headers.set('Authorization', `Bearer ${contextProvider.context.token}`)
+  headers.set('Authorization', `Bearer ${authContext.token}`)
 
   fetchProxy('/api/driver', {
     method: 'get',
@@ -68,15 +76,18 @@ export const getDrivers = (contextProvider: CustomContext) => {
   })
 }
 
-export const getBuses = (contextProvider: CustomContext) => {
-  if (!contextProvider.context.token) {
+export const getBuses = (
+  authContext: AuthContextType,
+  contextProvider: CustomContext
+) => {
+  if (!authContext.token) {
     return
   }
 
   const headers: HeadersInit = new Headers()
   headers.set('Accept', 'application/json')
   headers.set('Content-Type', 'application/json')
-  headers.set('Authorization', `Bearer ${contextProvider.context.token}`)
+  headers.set('Authorization', `Bearer ${authContext.token}`)
 
   fetchProxy('/api/bus', {
     method: 'get',
@@ -90,34 +101,40 @@ export const getBuses = (contextProvider: CustomContext) => {
   })
 }
 
-export const getTopDrivers = (contextProvider: CustomContext,
+export const getTopDrivers = (
+  authContext: AuthContextType,
   startWeek: Date,
   endWeek: Date,
-  size: number
+  size: number,
+  callback: (newData: DriverSummary[]) => void
 ) => {
-  if (!contextProvider.context.token) {
+  if (!authContext.token) {
     return
   }
 
   const headers: HeadersInit = new Headers()
   headers.set('Accept', 'application/json')
   headers.set('Content-Type', 'application/json')
-  headers.set('Authorization', `Bearer ${contextProvider.context.token}`)
+  headers.set('Authorization', `Bearer ${authContext.token}`)
 
-  fetchProxy('/api/drivers/top', {
+  fetchProxy('/api/driver/top?' + new URLSearchParams({
+    start: startWeek.toISOString(),
+    end: endWeek.toISOString(),
+    n: size.toString()
+  }), {
     method: 'get',
-    body: JSON.stringify({ startWeek, endWeek, size }),
     headers
   }).then((response) => {
     return response.json()
   }).then((res) => {
-    contextProvider.setContext({ topDrivers: res.data, ...contextProvider })
+    callback(res)
   }).catch((error) => {
     console.log(error)
   })
 }
 
 export const createSchedule = (
+  authContext: AuthContextType,
   contextProvider: CustomContext,
   driverId: number,
   busId: number,
@@ -126,14 +143,14 @@ export const createSchedule = (
   destination: string,
   distance: number
 ) => {
-  if (!contextProvider.context.token) {
+  if (!authContext.token) {
     return
   }
 
   const headers: HeadersInit = new Headers()
   headers.set('Accept', 'application/json')
   headers.set('Content-Type', 'application/json')
-  headers.set('Authorization', `Bearer ${contextProvider.context.token}`)
+  headers.set('Authorization', `Bearer ${authContext.token}`)
 
   fetchProxy('/api/schedule', {
     method: 'post',

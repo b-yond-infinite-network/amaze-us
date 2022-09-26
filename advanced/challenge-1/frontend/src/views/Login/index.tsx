@@ -1,17 +1,18 @@
 import React, { useContext, useState } from 'react'
 import { Button, Col, Form, FormControl, Row } from 'react-bootstrap'
-import { Navigate } from 'react-router-dom'
+import { Navigate, useNavigate } from 'react-router-dom'
 
 import { MainContainer } from '../../components/MainContainer'
 import { login } from '../../api'
-import { AppContext } from '../../types/AppContext'
+import { AuthContext } from '../../types/AppContext'
 
 export const Login = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
-  const appContext = useContext(AppContext)
+  const navigate = useNavigate()
+  const authContextProvider = useContext(AuthContext)
 
-  if (appContext.context.token) {
+  if (authContextProvider.authContext.token) {
     return <Navigate to='/' />
   }
 
@@ -36,7 +37,13 @@ export const Login = () => {
             />
           </Form.Group>
 
-          <Button onClick={() => login(appContext, username, password)}>
+          <Button
+            onClick={() => {
+              login(authContextProvider, username, password, () =>
+                navigate('/')
+              )
+            }}
+          >
             Login
           </Button>
         </Col>

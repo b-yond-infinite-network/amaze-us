@@ -8,10 +8,11 @@ type ScheduleTableProps = {
 
 export const ScheduleTable = ({ identifier }: ScheduleTableProps) => {
   const appContext = useContext(AppContext)
-  let totalDistance = 0
   appContext.context.schedules?.forEach(
     (schedule) => (totalDistance += schedule.distance)
   )
+
+  let totalDistance = 0
 
   return (
     <Table>

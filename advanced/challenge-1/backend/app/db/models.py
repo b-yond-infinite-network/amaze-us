@@ -46,6 +46,9 @@ class Schedule(Base):
     bus_id = Column(Integer, ForeignKey('bus.id'), nullable=False)
     driver_id = Column(Integer, ForeignKey('driver.id'), nullable=False)
     timestamp = Column(DateTime, nullable=False)
+    origin = Column(String, nullable=False)
+    destination = Column(String, nullable=False)
+    distance = Column(Integer, nullable=False)
 
     bus = relationship('Bus', back_populates='schedules')
     driver = relationship('Driver', back_populates='schedules')

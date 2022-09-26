@@ -3,7 +3,7 @@ import { Col, Form, Row } from 'react-bootstrap'
 
 import { getBuses, getDrivers } from '../../api'
 import { Bus, Driver } from '../../types'
-import { AppContext } from '../../types/AppContext'
+import { AppContext, AuthContext } from '../../types/AppContext'
 
 type DriverBusSelectorProps = {
   callback: (driver: Driver | undefined, bus: Bus | undefined) => void
@@ -12,11 +12,13 @@ type DriverBusSelectorProps = {
 export const DriverBusSelector = ({ callback }: DriverBusSelectorProps) => {
   const [driver, setDriver] = useState<Driver | undefined>()
   const [bus, setBus] = useState<Bus | undefined>()
+
+  const { authContext } = useContext(AuthContext)
   const appContext = useContext(AppContext)
 
   useEffect(() => {
-    getDrivers(appContext)
-    getBuses(appContext)
+    getDrivers(authContext, appContext)
+    getBuses(authContext, appContext)
   }, [])
 
   const drivers = appContext.context.drivers
