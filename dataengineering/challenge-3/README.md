@@ -102,7 +102,7 @@ Select city,CAST(count(count) as double),date as aggcount from evilnet.tweets  w
  
  pipline to go into test mode we need to change the IS_TEST=0 into IS_TEST=1 in the docker compose file as shown below.
  ![](images/producerconfig.png)
- ![](images/producerconfig.png)
+ ![](images/producerconfig1.png)
     
 
 
