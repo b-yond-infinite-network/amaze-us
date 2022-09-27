@@ -127,7 +127,7 @@ NB: If the tester container is spin up when the producer is in a non testing mod
 
 Please note that first time you start the test container, it will take time to build, this because it's building wheels for the phython libraries.
 
-If you don't need the test and did not activate the IS_TEST, it's better to remoce the container.
+If you don't need the test and did not activate the IS_TEST, it's better to remove the container from docker compose.
 
 
 ## 6 - resource footprint analysis
