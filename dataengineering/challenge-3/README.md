@@ -1,6 +1,7 @@
 # Challenge 3 - EvilNet rules the world
 
-***1 - Architecture***
+
+## 1 - Architecture
 
 ![](images/Architecture.png)
 
@@ -14,21 +15,25 @@ The kafka cluster has two brokers, and two zookeepers, it's possible to use both
 
 Grafana was chosen as the visualizer for its aesthetics, and ease of use.
 
-***2 - Code***
+## 2 - Code
 
-  ***A. Docker-compose :*** a docker-compose file has been created, which upon start up will spin up the containers and run all the services.
+#### A. Docker-compose :
+a docker-compose file has been created, which upon start up will spin up the containers and run all the services.
 
-  ***B. Producer:*** An encapsulated module was written for the purpose of streaming from twitter and producing to kafka, this can be upgraded by adding a generic filter or rules.
-               As a future task, this module will be improved to stream and produce asynchronously by using asyncio and aiokafka.
+#### B. Producer:
+An encapsulated module was written for the purpose of streaming from twitter and producing to kafka, this can be upgraded by adding a generic filter or rules.
+As a future task, this module will be improved to stream and produce asynchronously by using asyncio and aiokafka.
 
 
-  ***C. Stream processor:*** A python driver script has been written to run against the master spark, the job will perform structured streaming from Kafka to Cassandra. The job will aggregate by city,time for a window of 5 minutes, it will also run every 1 minute.
+#### C. Stream processor:
+A python driver script has been written to run against the master spark, the job will perform structured streaming from Kafka to Cassandra. The job will aggregate by city,time for a window of 5 minutes, it will also run every 1 minute.
 
-  ***D. Tester:*** A tester container has been added, please refer to "tests" section for details.
+#### D. Tester:
+A tester container has been added, please refer to "tests" section for details.
   
   
   
- ***3 - Startup script***
+## 3 - Startup script
 
  Please use ./start-all.sh, it contains the "docker-compose up". 
  
@@ -43,7 +48,7 @@ In order for the services to start correctly a wait time has been added to apps 
 Please check section 5.B (Automated test) before starting the services.
  
  
- ***4 - Visualization, queries, and restrictions***
+## 4 - Visualization, queries, and restrictions
 
 Please use the following http://localhost:3000/ to enter the grafana visualizer , use 'admin' as username and password.
 
@@ -53,14 +58,16 @@ Please wait for the services to start and tables to be populated, the casssandra
 
 
 The below queries were used for trends, however a Where condition is missing on the city which will allow to return data of a single or multiple cities, the reason is  due to a bug in grafana, it was not able to query the unique cities from cassandra and return as a list of variables.
-
+```
 Select city,CAST(count(count) as double),date from evilnet.tweets  where  date >= $__timeFrom and date <= $__timeTo group by city,date  ALLOW FILTERING;
-
+```
+```
 Select city,CAST(count(count) as double),date from evilnet.retweets  where  date >= $__timeFrom and date <= $__timeTo group by city,date ALLOW FILTERING;
-
+```
+```
 Select city,CAST(count(count) as double),date from evilnet.uniqueuserswhere  date >= $__timeFrom and date <= $__timeTo group by city,date  ALLOW FILTERING;
 (unique users for time window were counted in spark streaming)
-
+```
 It's true that the queries are returning data of all cities, but cassandra can offord such queries continiously as the schema design was created to perform aggregation by city,date.
 
 The maximum number of returned values from this query for an hour interval would be at worse 
@@ -82,17 +89,20 @@ Instead the aggregation over cities was returned, the maximum number of values t
 Cassandra schema is a query based schema which will ensure performance, and data integrity on distributed machines, the schema was created to aggregate by city,date. And its not possible to sort without specifing a WHERE is equal operation. A solution is to add a partition key for all records, for exp key=1, and when sorting we can user the where condition key=1. 
 
 The sorting is taking place in grafana instead.
-
+```
 Select city,CAST(count(count) as double),date as aggcount from evilnet.retweets  where  date >= (toTimestamp(now()) - 1h) group by city  ALLOW FILTERING;
-
+```
+```
 Select city,CAST(count(count) as double),date as aggcount from evilnet.tweets  where  date >= (toTimestamp(now()) - 1h) group by city  ALLOW FILTERING;
+```
 ![](images/count.png)
 
 
 
- ***5 - Tests***
+## 5 - Tests
 
-  ***A. Fidelity test:*** It's possible to miss messages coming from twitter due to routing or networking issues.
+#### A. Fidelity test:
+It's possible to miss messages coming from twitter due to routing or networking issues.
 
  Twitter infra is mostly on GCP and it's preferable to deploy next to an edge there, or in a GCP datacenter.
 
@@ -102,7 +112,8 @@ Select city,CAST(count(count) as double),date as aggcount from evilnet.tweets  w
 
  Finally, it’s possible to collect the data and compare it, the comparison will allow us to infer which host has least missing records.
 
- ***B. Automated test:*** A test container has been added for the purpose of data validation. The goal of the test is to simulate the whole data pipline. In order for the
+ #### B. Automated test:
+ A test container has been added for the purpose of data validation. The goal of the test is to simulate the whole data pipline. In order for the
     pipline to go into test mode we need to change the variable IS_TEST=0 into IS_TEST=1 for the the producer in the docker compose file.
     
  ![](images/producerconfig.png)
@@ -119,7 +130,7 @@ Please note that first time you start the test container, it will take time to b
 If you don't need the test and did not activate the IS_TEST, it's better to remoce the container.
 
 
-  ***6 - resource footprint analysis***
+## 6 - resource footprint analysis
   
 Kafka queues and tables will have retention period, this will limit storage usage.
 
@@ -128,23 +139,23 @@ We can monitor the components using prometheus and grafana.
 We could run the apps for a large enough period of time, ideally the peak usage should be 80 % of the total resource limit.
           
           
-  ***7- Scalability plan***
+## 7- Scalability plan
   
 In this pipline we need to take care of two main components, the producer, and the consumer (spark jobs).
 
 The rest of the components are scalable by nature (kafka,spark,cassandra), if we manage these clusters we can monitor the nodes, and add nodes when needed.
         
-***Producer scalability:*** 
+ #### Producer scalability:
 
-***Strategy 1:*** 
+ #### Strategy 1:
 
 The producer can take multiple Cities as argument, and for enterprise accounts, it's possible to change the rules while streaming.
 
-***Strategy 2:*** 
+ #### Strategy 2:
 
 We need seggregation for cities and topics. It's possible to perform threading or async in the contianer for multiple cities and topics.
 
-***Strategy 3***
+ #### Strategy 3
 
 We need seggrecation in data volume, cities, topics.
 
