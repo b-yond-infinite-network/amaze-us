@@ -149,17 +149,17 @@ The rest of the components are scalable by nature (kafka,spark,cassandra), if we
 
  #### Strategy 1:
 
-The producer can take multiple Cities as argument, and for enterprise accounts, it's possible to change the rules while streaming.
+The producer app can take multiple Countries as argument, and for enterprise accounts, it's possible to add rules while streaming.
 
  #### Strategy 2:
 
-We need seggregation for cities and topics. It's possible to perform threading or async in the contianer for multiple cities and topics.
+We need to segregate (cities,topics) in the same container. It's possible to perform threading or async in the same container in order to send each country tweet to a corresponding topic.
 
  #### Strategy 3
 
-We need seggrecation in data volume, cities, topics.
+We need to segregate the load, cities, topics.
 
-We can scale by adding producer containers that have specific city/cities and topic, this can be done using jenkins, for example the inputs would look like the below.
+We can scale by adding producer containers that have specific County/Countries and topic, this can be done using jenkins, for example the inputs would look like the below.
 
 ![](images/producer.png)
 
