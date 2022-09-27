@@ -1,17 +1,49 @@
 from pyspark.sql import SparkSession
 from pyspark.sql.types import StructType, StructField, StringType, BooleanType
 from pyspark.sql.functions import  countDistinct,col, to_timestamp, count, from_json, window
-import time
+import os
 
+cassandra_username = str(os.environ.get('CASSANDRA_USERNAME'))
+cassandra_password = str(os.environ.get('CASSANDRA_PASSWORD'))
+cassandra_key_space = str(os.environ.get('CASSANDRA_KEY_SPACE'))
+cassandra_host = str(os.environ.get('CASSANDRA_HOST'))
+cassandra_port = str(os.environ.get('CASSANDRA_PORT'))
 
+kafka_topic = str(os.environ.get('KAFKA_TOPIC'))
+kafka_host_port = str(os.environ.get('KAFKA_HOST_PORT'))
 
 def writeToCassandra(writeDF,table):
   writeDF.write \
     .format("org.apache.spark.sql.cassandra")\
     .mode('append')\
-    .options(table=table, keyspace="evilnet")\
+    .options(table=table, keyspace=cassandra_key_space)\
     .save()
 
+spark = SparkSession \
+        .builder \
+        .appName("tweet_batch_stream") \
+        .config("spark.driver.host", "localhost")\
+        .getOrCreate()
+
+spark = SparkSession \
+        .builder \
+        .appName("SparkStructuredStreaming") \
+        .config("spark.cassandra.connection.host",cassandra_host)\
+        .config("spark.cassandra.connection.port",cassandra_port)\
+        .config("spark.cassandra.auth.username",cassandra_username)\
+        .config("spark.cassandra.auth.password",cassandra_password)\
+        .config("spark.driver.host", "localhost")\
+        .getOrCreate()
+
+spark.sparkContext.setLogLevel("ERROR")
+
+raw = spark \
+      .readStream \
+      .format("kafka") \
+      .option("kafka.bootstrap.servers", kafka_host_port) \
+      .option("startingOffsets", "earliest")\
+      .option("subscribe", kafka_topic) \
+      .load() 
 
 tweet_schema = StructType(
           [
@@ -23,40 +55,11 @@ tweet_schema = StructType(
           ]
       )
 
-
-
-spark = SparkSession \
-        .builder \
-        .appName("tweet_batch_stream") \
-        .config("spark.driver.host", "localhost")\
-        .getOrCreate()
-
-spark = SparkSession \
-        .builder \
-        .appName("SparkStructuredStreaming") \
-        .config("spark.cassandra.connection.host","172.18.0.9")\
-        .config("spark.cassandra.connection.port","9042")\
-        .config("spark.cassandra.auth.username","cassandra")\
-        .config("spark.cassandra.auth.password","cassandra")\
-        .config("spark.driver.host", "localhost")\
-        .getOrCreate()
-
-spark.sparkContext.setLogLevel("ERROR")
-
-raw = spark \
-      .readStream \
-      .format("kafka") \
-      .option("kafka.bootstrap.servers", "172.18.0.6:9092") \
-      .option("startingOffsets", "earliest")\
-      .option("subscribe", "evilnet-tweet-info") \
-      .load() 
-
 df = raw.selectExpr("CAST(key AS STRING)", "CAST(value AS STRING)")
 df1 = df.withColumn("data", from_json("value", tweet_schema)).select(col('data.*'))
 df1 = df1.withColumn("times", to_timestamp("timestamp", "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")).drop("timestamp")
 
 
-# tweeking time window and topic retention period
 def get_tweetcount_df(df1):
     df_tweetcount = df1 \
                     .groupBy(["city", window("times", '5 minutes').alias("win")]) \

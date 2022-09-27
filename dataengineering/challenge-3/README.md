@@ -21,7 +21,7 @@ Grafana was chosen as the visualizer for its aesthetics, and ease of use.
 a docker-compose file has been created, which upon start up will spin up the containers and run all the services.
 
 #### B. Producer:
-An encapsulated module was written for the purpose of streaming from twitter and producing to kafka, this can be upgraded by adding a generic filter or rules.
+An encapsulated module was written for the purpose of streaming from twitter and producing to kafka, it is operated using two threads. this can be upgraded by adding a generic filter or rules.
 As a future task, this module will be improved to stream and produce asynchronously by using asyncio and aiokafka.
 
 
@@ -59,13 +59,13 @@ Please wait for the services to start and tables to be populated, the casssandra
 
 The below queries were used for trends, however a Where condition is missing on the city which will allow to return data of a single or multiple cities, the reason is  due to a bug in grafana, it was not able to query the unique cities from cassandra and return as a list of variables.
 ```
-Select city,CAST(count(count) as double),date from evilnet.tweets  where  date >= $__timeFrom and date <= $__timeTo group by city,date  ALLOW FILTERING;
+Select city,CAST(sum(count) as double),date from evilnet.tweets  where  date >= $__timeFrom and date <= $__timeTo group by city,date  ALLOW FILTERING;
 ```
 ```
-Select city,CAST(count(count) as double),date from evilnet.retweets  where  date >= $__timeFrom and date <= $__timeTo group by city,date ALLOW FILTERING;
+Select city,CAST(sum(count) as double),date from evilnet.retweets  where  date >= $__timeFrom and date <= $__timeTo group by city,date ALLOW FILTERING;
 ```
 ```
-Select city,CAST(count(count) as double),date from evilnet.uniqueuserswhere  date >= $__timeFrom and date <= $__timeTo group by city,date  ALLOW FILTERING;
+Select city,CAST(sum(count) as double),date from evilnet.uniqueuserswhere  date >= $__timeFrom and date <= $__timeTo group by city,date  ALLOW FILTERING;
 (unique users for time window were counted in spark streaming)
 ```
 It's true that the queries are returning data of all cities, but cassandra can offord such queries continiously as the schema design was created to perform aggregation by city,date.
@@ -90,10 +90,10 @@ Cassandra schema is a query based schema which will ensure performance, and data
 
 The sorting is taking place in grafana instead.
 ```
-Select city,CAST(count(count) as double),date as aggcount from evilnet.retweets  where  date >= (toTimestamp(now()) - 1h) group by city  ALLOW FILTERING;
+Select city,CAST(sum(count) as double),date as aggsum from evilnet.retweets  where  date >= (toTimestamp(now()) - 1h) group by city  ALLOW FILTERING;
 ```
 ```
-Select city,CAST(count(count) as double),date as aggcount from evilnet.tweets  where  date >= (toTimestamp(now()) - 1h) group by city  ALLOW FILTERING;
+Select city,CAST(sum(count) as double),date as aggsum from evilnet.tweets  where  date >= (toTimestamp(now()) - 1h) group by city  ALLOW FILTERING;
 ```
 ![](images/count.png)
 
@@ -153,7 +153,7 @@ The producer app can take multiple Countries as argument, and for enterprise acc
 
  #### Strategy 2:
 
-We need to segregate (cities,topics) in the same container. It's possible to perform threading or async in the same container in order to send each country tweet to a corresponding topic.
+We need to segregate (Countries,topics) in the same container. It's possible to perform threading or async in the same container in order to send each country tweet to a corresponding topic.
 
  #### Strategy 3
 
