@@ -71,7 +71,7 @@ Select city,CAST(count(count) as double),date from evilnet.uniqueuserswhere  dat
 It's true that the queries are returning data of all cities, but cassandra can offord such queries continiously as the schema design was created to perform aggregation by city,date.
 
 The maximum number of returned values from this query for an hour interval would be at worse 
-1130 (number of all cities in canada) * 12 ( number of 5 mins points) = 13560
+1130 (number of all cities in canada) * 12 ( number of 5 mins in one hour) = 13560
 Which can be handeled by grafana without compromising the refresh rate.
 
 The approach is not perfect, but on the plus side the visualiser will display for the user the queried cities below the table without choosing from a list of variables.
