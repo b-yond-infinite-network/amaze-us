@@ -9,7 +9,8 @@ export const SearchSection = (
     value,
     setValue,
     title,
-  }) => {
+  },
+) => {
   const [options, setOptions] = useState([]);
 
   const handleSearch = async query => setOptions(await onSearch(query));
