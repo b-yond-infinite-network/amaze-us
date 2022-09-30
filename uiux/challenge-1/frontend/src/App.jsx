@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { getLyrics, searchArtist, searchTrack } from './api/requests.js';
-import { SearchSection } from './components/SearchSection/index.js';
-import { LyricsView } from './components/LyricsView/index.js';
+import { SearchSection } from './components/SearchSection';
+import { LyricsView } from './components/LyricsView';
 
 export const App = () => {
   const [artist, setArtist] = useState(null);

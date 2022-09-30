@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { SearchForm } from './components/SearchForm/index.js';
-import { SearchOptions } from './components/SearchOptions/index.js';
+import { SearchForm } from './components/SearchForm';
+import { SearchOptions } from './components/SearchOptions';
 import styles from './styles.module.css';
 
 export const SearchSection = (
@@ -24,6 +24,6 @@ export const SearchSection = (
     </button>
     <h2>{title}</h2>
     <SearchForm onSearch={handleSearch} />
-    <SearchOptions options={options} onSelect={setValue} value={value}/>
+    <SearchOptions options={options} onSelect={setValue} value={value} />
   </div>;
 };
