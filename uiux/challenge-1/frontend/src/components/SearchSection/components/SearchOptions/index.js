@@ -1,1 +1,1 @@
-export { SearchOptions } from './SearchOptions.jsx';
+export { SearchOptions } from './SearchOptions';

@@ -1,0 +1,16 @@
+version: '3'
+services:
+  backend:
+    build: backend
+    environment:
+      PORT: 9090
+    ports:
+      - '9090:9090'
+  frontend:
+    build:
+      context: frontend
+      args:
+        API_URL: 'http://localhost:9090'
+        PORT: 4000
+    ports:
+      - '4000:4000'

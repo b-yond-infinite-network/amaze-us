@@ -2,13 +2,16 @@
 
 All data provided by [Musixmatch](https://www.musixmatch.com).
 
-## How to run?
+Uses as few libraries as possible
+
+## How to run for development?
 
 ### 1. Run backend
 
 ```bash
-$ cd backend
-$ npm run start
+> cd backend
+
+> npm run start
 ```
 
 Listen on 8080 port by default
@@ -16,12 +19,20 @@ Listen on 8080 port by default
 ### 2. Run frontend
 
 ```bash
-$ cd frontend
-$ npm run dev
+> cd frontend
+
+> npm run dev
 ```
 
 Listens on 3000 port. If your server is not on 8080 port,
 you should change it in `frontend/.env` file.
+
+## How to run in docker?
+```bash
+> docker compose up
+```
+
+Now your app should be available on http://localhost:4000
 
 ## Task Description
 
@@ -32,7 +43,7 @@ Develop an app for karaoke.
 - [x] Search by artist
 - [x] Search by song of selected artist
 - [ ] Ability to sort the songs by the number of lyrics they have, title, and
-  duration
+      duration
 - [x] Display the song lyrics
 - [x] Protection against drunk user
 

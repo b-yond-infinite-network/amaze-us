@@ -1,10 +1,16 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
-/** @type {import('vite').UserConfig} */
-export default defineConfig({
+export default defineConfig(() => ({
   plugins: [react()],
+  define: {
+    __APP_ENV__: process.env,
+  },
   server: {
     port: 3000,
   },
-});
+  preview: {
+    host: true,
+    port: process.env.PORT || 3000,
+  },
+}));

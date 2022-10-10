@@ -1,20 +1,20 @@
 .container {
-    width: 100%;
-    text-align: center;
-    padding: 50px 20px 20px;
-    height: 100%;
-    overflow: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
+  width: 100%;
+  text-align: center;
+  padding: 50px 20px 20px;
+  height: 100%;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
 }
 
 .lyrics {
-    line-height: 25px;
-    letter-spacing: 1px;
+  line-height: 25px;
+  letter-spacing: 1px;
 }
 
 .copyright {
-    font-size: 10px;
-    color: gray;
+  font-size: 10px;
+  color: gray;
 }

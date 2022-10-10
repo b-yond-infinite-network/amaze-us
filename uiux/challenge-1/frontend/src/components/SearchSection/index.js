@@ -1,1 +1,1 @@
-export { SearchSection } from './SearchSection.jsx';
+export { SearchSection } from './SearchSection';

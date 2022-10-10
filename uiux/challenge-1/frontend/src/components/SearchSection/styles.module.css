@@ -1,32 +1,32 @@
 :root {
-    --section-size: 300px;
+  --section-size: 300px;
 }
 
 .clearButton {
-    background: transparent;
-    border: none;
-    padding: 5px;
-    width: fit-content;
-    cursor: pointer;
+  background: transparent;
+  border: none;
+  padding: 5px;
+  width: fit-content;
+  cursor: pointer;
 }
 
 .clearButton:hover {
-    background: rgba(0, 0, 0, 0.1);
+  background: rgba(0, 0, 0, 0.1);
 }
 
 .clearButton:disabled {
-    pointer-events: none;
+  pointer-events: none;
 }
 
 .searchSection {
-    height: 100%;
-    width: var(--section-size);
-    min-width: var(--section-size);
-    display: flex;
-    flex-direction: column;
-    padding: 30px 20px 10px;
-    background: white;
-    border-right: 2px solid rgba(0, 0, 0, 0.1);
-    gap: 20px;
-    overflow: auto;
+  height: 100%;
+  width: var(--section-size);
+  min-width: var(--section-size);
+  display: flex;
+  flex-direction: column;
+  padding: 30px 20px 10px;
+  background: white;
+  border-right: 2px solid rgba(0, 0, 0, 0.1);
+  gap: 20px;
+  overflow: auto;
 }

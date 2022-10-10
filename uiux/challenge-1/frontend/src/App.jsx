@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getLyrics, searchArtist, searchTrack } from './api/requests.js';
+import { getLyrics, searchArtist, searchTrack } from './api/requests';
 import { SearchSection } from './components/SearchSection';
 import { LyricsView } from './components/LyricsView';
 
@@ -14,43 +14,48 @@ export const App = () => {
   }, [artist]);
 
   useEffect(() => {
-    if (track)
-      getLyrics(track.track.track_id).then(setLyrics);
-    else
+    if (track) {
+      getLyrics(track.track.track_id)
+        .then(setLyrics);
+    } else {
       setLyrics(null);
+    }
   }, [track]);
 
   return (
     <>
       <SearchSection
-        title='Artist'
+        title="Artist"
         onSearch={query => searchArtist(query)
-          .then(({ artist_list }) => artist_list.map(artist => ({
-            key: artist.artist.artist_id,
-            name: artist.artist.artist_name,
-            value: artist,
-          })))
-        }
+          .then(({ artist_list }) => artist_list.map(a => ({
+            key: a.artist.artist_id,
+            name: a.artist.artist_name,
+            value: a,
+          })))}
         setValue={setArtist}
         value={artist}
       />
-      {artist !== null && <SearchSection
-        key={artist.artist.artist_id}
-        title='Track'
-        onSearch={query => searchTrack(artist.artist.artist_id, query)
-          .then(({ track_list }) => track_list.map(track => ({
-            key: track.track.track_id,
-            name: track.track.track_name,
-            value: track,
-          })))}
-        setValue={setTrack}
-        value={track}
-      />}
-      {lyrics !== null && <LyricsView
-        lyrics={lyrics}
-        artistName={artist?.artist?.artist_name}
-        trackName={track?.track?.track_name}
-      />}
+      {artist !== null && (
+        <SearchSection
+          key={artist.artist.artist_id}
+          title="Track"
+          onSearch={query => searchTrack(artist.artist.artist_id, query)
+            .then(({ track_list }) => track_list.map(t => ({
+              key: t.track.track_id,
+              name: t.track.track_name,
+              value: t,
+            })))}
+          setValue={setTrack}
+          value={track}
+        />
+      )}
+      {lyrics !== null && (
+        <LyricsView
+          lyrics={lyrics}
+          artistName={artist?.artist?.artist_name}
+          trackName={track?.track?.track_name}
+        />
+      )}
     </>
   );
 };

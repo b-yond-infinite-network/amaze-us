@@ -1,1 +1,1 @@
-export { SearchForm } from './SearchForm.jsx';
+export { SearchForm } from './SearchForm';

@@ -1,1 +1,1 @@
-export { LyricsView } from './LyricsView.jsx';
+export { LyricsView } from './LyricsView';
