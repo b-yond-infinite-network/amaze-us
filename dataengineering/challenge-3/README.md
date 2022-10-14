@@ -21,9 +21,9 @@ Grafana was chosen as the visualizer for its aesthetics, and ease of use.
 a docker-compose file has been created, which upon start up will spin up the containers and run all the services.
 
 #### B. Producer:
-An encapsulated module was written for the purpose of streaming from twitter and producing to kafka, it is operated using two threads. this can be upgraded by adding a generic filter or rules.
-As a future task, this module will be improved to stream and produce asynchronously by using asyncio and aiokafka.
+An encapsulated module was written for the purpose of streaming from twitter and producing to kafka, this can be upgraded by adding a generic filter or rules.
 
+The producer has been updated so it can handle full kafka outages, when full kafka outage occurs the producer will write messages to disk instead of keep them in memory, please refer to section "8- Survive Kafka outages" for more details.
 
 #### C. Stream processor:
 A python driver script has been written to run against the master spark, the job will perform structured streaming from Kafka to Cassandra. The job will aggregate by city,time for a window of 5 minutes, it will also run every 1 minute.
@@ -167,3 +167,47 @@ The last startegy can really ease up the deploy especially if EvilNet wants to s
 
 It's possible to combine the last two strategies for swift and effective scaling.
 
+## 8- Survive Kafka outages. 
+
+The producer has been updated so that it can handle Kafka full outages by writing messages to disk with 0 message loss.
+
+The idea is to not keep messages in a queue or in the kafka producer queue when no brokers are avaialable, this will ensure not keeping data in Memory and will avoid crashing the app when dealing with big volume and velocity.
+
+When no brokers are available, the app will flush queue data to a file, and when kafka is available again data in the file will be put in the queue.
+
+Before ellaborating the architecture, two vital points for interacting with kafka from python will be discussed.
+
+ ##### Python Kafka producer: 
+ If a broker issue/disconnection happens, python kafka producer will not return any error even when the whole cluster is down, and even when                            its own queue gets full (buffer_memory), instead it will delete the oldest messages. 
+
+ ##### Health check: 
+ For doing continious healthcheck on brokers, KafkaAdminClient has been used. Its assumed that if KafkaAdminClient can connect to a broker and                           validate topic creation, then it's more than enough to ensure that we can produce using this broker.
+ 
+### Architecture
+The architecture consists of 5 threads described below:
+
+#### 1- Streamer: 
+Always streaming data from twitter to a queue.
+
+#### 2- check_brokers_and_switch_condition: 
+Acts as a circuit switcher, Will perform continious health checks on kafka brokers, will count the kafka broker, and set/unset two events accordingly (one_broker_is_up,all_brokers_are_down)
+
+#### 3- produce to kafka:
+Takes messages from queue and sends it to kafka when the event one_broker_is_up is set. The event is set by the previous thread if at least one broker is up.
+
+#### 4- queue to file:
+Will flush elements of queue to file when all_brokers_are_down is set. The event is set when all brokers are down.
+
+#### 5- file to queue:
+Will read elements from file and add it to queue when the event one_broker_is_up is set.
+
+In practice, the streamer and circuit switcher are always working:
+
+If at least one broker is up, the thread "produce to kafka" will get messages from queue and send it to kafka.
+Concurrently, if there is any data in the file, the thread "file to queue" will put it in the queue.
+
+![](images/prod_logic_up.png)
+
+If all brokers are down, the thread "queue to file" will get data from Queue and send it to the temp file
+
+![](images/prod_logic_down.png)
