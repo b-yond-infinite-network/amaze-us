@@ -190,7 +190,7 @@ The architecture consists of 5 threads described below:
 Always streaming data from twitter to a queue.
 
 #### 2- check_brokers_and_switch_condition: 
-Acts as a circuit switcher, Will perform continious health checks on kafka brokers, will count the kafka broker, and set/unset two events accordingly (one_broker_is_up,all_brokers_are_down)
+Acts as a circuit switcher, Will perform continious health checks on kafka brokers, will return the available number of kafka brokers, and set/unset two events accordingly (one_broker_is_up,all_brokers_are_down)
 
 #### 3- produce to kafka:
 Takes messages from queue and sends it to kafka when the event one_broker_is_up is set. The event is set by the previous thread if at least one broker is up.
