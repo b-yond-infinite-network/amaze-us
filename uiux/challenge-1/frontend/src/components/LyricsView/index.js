@@ -1,0 +1,1 @@
+export { LyricsView } from './LyricsView';
