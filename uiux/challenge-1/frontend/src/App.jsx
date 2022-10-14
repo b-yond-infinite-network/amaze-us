@@ -51,7 +51,9 @@ export const App = () => {
       )}
       {lyrics !== null && (
         <LyricsView
-          lyrics={lyrics}
+          lyrics={lyrics.lyrics.lyrics_body}
+          copyright={lyrics.lyrics.lyrics_copyright}
+          trackingUrl={lyrics.lyrics.script_tracking_url}
           artistName={artist?.artist?.artist_name}
           trackName={track?.track?.track_name}
         />
