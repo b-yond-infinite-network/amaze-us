@@ -180,8 +180,6 @@ Before ellaborating the architecture, two vital points for interacting with kafk
  ##### Python Kafka producer: 
  If a broker issue/disconnection happens, python kafka producer will not return any error even when the whole cluster is down, and even when                            its own queue gets full (buffer_memory), instead it will delete the oldest messages.
  
-It's claimed that buffer_memory of python kafka producer is 32 MB, however after testing, the value that was found for the buffer_memory is 3 MB for the used kafka-python version, It's important to set this value explicitity if we have a heavy stream. This will ensure that no messages are lost while switching from producing to writing on disk.
-
 
  ##### Health check: 
  For doing continious healthcheck on brokers, KafkaAdminClient has been used. For our case where kafka is on the same physical machine, Its assumed that if KafkaAdminClient can connect to a broker and validate topic creation, then it's more than enough to ensure that we can produce using this broker.
