@@ -188,7 +188,7 @@ It's claimed that buffer_memory of python kafka producer is 32 MB, however after
  
 If Kafka is on a different machine or in a different dataceneter, it's vital to add more criterias.
 
-For example the rate of publishing using a broker can be unexpectedly limited by network latency. In this case we need statistics about the rate of publishing lets call it publishing_rate, if we have a heavy stream, the rate of receiving messages from the stream might be higher that publishin_rate at certain times due to network limitations, and this will result in accumulation in the producer's buffer_memory until it reaches its limit and starts deleting older messages.
+For example the rate of publishing using a broker can be unexpectedly limited by network latency. In this case we need statistics about the rate of publishing lets call it publishing_rate, if we have a heavy stream, the rate of receiving messages from the stream might be higher than publishin_rate at certain times due to network limitations, and this will result in accumulation in the producer's buffer_memory until it reaches its limit and starts deleting older messages.
 
 In cases where the publishing_rate is lower than a the stream_rate over a certain time, the Health check should label that as a kafka outage.
 
