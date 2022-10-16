@@ -192,6 +192,7 @@ In cases where the publishing_rate is lower than a the stream_rate over a certai
 
 Concretely, it would be better and easier to monitor the buffer_memory of the producer, for example if the buffer_memory reaches 70 % of its total size, the Health check should label that as a Kafka outage and switch to writing in disk.
 
+The suggested method requires modification of the kafka producer in kafka-python so that it can return the size of the buffer_memory.
 
 ### Architecture
 The architecture consists of 5 threads described below:
