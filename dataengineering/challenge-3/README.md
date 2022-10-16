@@ -182,17 +182,17 @@ Before ellaborating the architecture, two vital points for interacting with kafk
  
 
  ##### Health check: 
- For doing continious healthcheck on brokers, KafkaAdminClient has been used. For our case where kafka is on the same physical machine, Its assumed that if KafkaAdminClient can connect to a broker and validate topic creation, then it's more than enough to ensure that we can produce using this broker.
+ For doing continious healthcheck on brokers, KafkaAdminClient has been used. For simplicity, Its assumed that if KafkaAdminClient can connect to a broker and validate topic creation, then it's enough to ensure that we can produce using this broker.
  
-If Kafka is on a different machine or in a different dataceneter, it's vital to add more criterias.
+However this aprroach is not deterministic for multiple reasons.
 
-For example the rate of publishing using a broker can be unexpectedly limited by network latency. In this case we need statistics about the rate of publishing lets call it publishing_rate, if we have a heavy stream, the rate of receiving messages from the stream might be higher than publishin_rate at certain times due to network limitations, and this will result in accumulation in the producer's buffer_memory until it reaches its limit and starts deleting older messages.
+For example the rate of publishing using a broker can be unexpectedly limited. In this case we need statistics about the rate of publishing lets call it publishing_rate, if we have a heavy stream, the rate of receiving messages from the stream might be higher than publishin_rate at certain times due to network limitations, and this will result in accumulation in the producer's buffer_memory until it reaches its limit and starts deleting older messages.
 
 In cases where the publishing_rate is lower than a the stream_rate over a certain time, the Health check should label that as a kafka outage.
 
-Concretely, it would be better and easier to monitor the buffer_memory of the producer, for example if the buffer_memory reaches 70 % of its total size, the Health check should label that as a Kafka outage and switch to writing in disk.
+Concretely, it would be better and easier to monitor the buffer_memory of the producer, for example if the buffer_memory reaches 70 % of its total size, the Health check should label that as a Kafka outage and switch to writing in disk,The suggested method requires modification of the kafka producer in kafka-python so that it can return the size of the buffer_memory.
 
-The suggested method requires modification of the kafka producer in kafka-python so that it can return the size of the buffer_memory.
+Error rates should also be taken in consideration, if the data error rate is too high the health check should signal this as a kafka outage.
 
 ### Architecture
 The architecture consists of 5 threads described below:
