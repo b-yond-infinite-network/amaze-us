@@ -186,7 +186,7 @@ It's claimed that buffer_memory of python kafka producer is 32 MB, however after
  ##### Health check: 
  For doing continious healthcheck on brokers, KafkaAdminClient has been used. For our case where kafka is on the same physical machine, Its assumed that if KafkaAdminClient can connect to a broker and validate topic creation, then it's more than enough to ensure that we can produce using this broker.
  
-If Kafka is on a different machine or in a different dataceneter, it's important to add more criterias.
+If Kafka is on a different machine or in a different dataceneter, it's vital to add more criterias.
 
 For example the rate of publishing using a broker can be unexpectedly limited by network latency. In this case we need statistics about the rate of publishing lets call it publishing_rate, if we have a heavy stream, the rate of receiving messages from the stream might be higher that publishin_rate at certain times due to network limitations, and this will result in Memory accumulation in the producer until the buffer_memory reaches it's limit and starts deleting older messages.
 
