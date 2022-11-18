@@ -2,7 +2,7 @@ from src.model import Driver
 
 unique_drivers_count = 10000
 
-async def seed_drivers_table(fake):
+async def seed_driver_table(fake):
     drivers = [Driver(
         id=i,
         first_name=fake.first_name(),

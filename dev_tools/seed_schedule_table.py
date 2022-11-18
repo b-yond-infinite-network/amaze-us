@@ -8,12 +8,12 @@ import pendulum
 
 schedules_count = 1000000
 
-async def seed_schedules_table(buses, drivers):
+async def seed_schedule_table(buses, drivers):
     today = pendulum.today()
     shifts = pandas.date_range(start=str(today.subtract(months=3)), end=str(today),
                                freq='8H')
 
-    buses_per_shift = math.ceil(schedules_count/(len(shifts) - 1))gi
+    buses_per_shift = math.ceil(schedules_count/(len(shifts) - 1))
     schedules = []
 
     for i in range(0, len(shifts) - 1):
@@ -30,7 +30,7 @@ async def seed_schedules_table(buses, drivers):
     database = sqlite3.connect(os.getenv('DB_FILE_NAME'))
     cursor = database.cursor()
     cursor.executemany("""
-        INSERT INTO schedules (driver, bus, begin, end)
+        INSERT INTO schedule (driver, bus, begin, end)
         VALUES (:driver, :bus, :begin, :end)
     """, schedules)
     database.commit()

@@ -5,7 +5,8 @@
   },
   "containerEnv": {
     "DB_PATH": "sqlite:///db.sqlite",
-    "DB_FILE_NAME": "db.sqlite"
+    "DB_FILE_NAME": "db.sqlite",
+    "SECURE_API": "true"
   },
   "features": {
     "ghcr.io/devcontainers/features/node:1": {

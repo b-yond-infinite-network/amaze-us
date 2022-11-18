@@ -9,7 +9,7 @@ database = databases.Database("sqlite:///db.sqlite")
 
 class Driver(ormar.Model):
     class Meta:
-        tablename = "drivers"
+        tablename = "driver"
         metadata = metadata
         database = database
 

@@ -5,7 +5,7 @@ from src.model.metadata import metadata, database
 
 class Bus(ormar.Model):
     class Meta:
-        tablename = "buses"
+        tablename = "bus"
         metadata = metadata
         database = database
 

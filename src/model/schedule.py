@@ -12,7 +12,7 @@ database = databases.Database("sqlite:///db.sqlite")
 
 class Schedule(ormar.Model):
     class Meta:
-        tablename = "schedules"
+        tablename = "schedule"
         metadata = metadata
         database = database
 
