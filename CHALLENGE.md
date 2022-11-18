@@ -15,7 +15,7 @@ Here's a list of operations that are required by this application:
 ## Data Preparation
 This solution should have a storage layer of your choice (DB) and you are asked to provide some way to initialize it with large amount of **random** test data:
 - +1000 (1K) unique drivers
-- +250 unique buses
+- +250 unique buses -> needs to increase to 1k
 - +1000000 (1M) schedules over 3 months period
 
 ## FULLSTACK position

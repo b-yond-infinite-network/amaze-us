@@ -119,3 +119,8 @@ typings/
 *.gz
 
 results
+
+.pytest_cache/
+**/__pycache__/
+
+*.sqlite

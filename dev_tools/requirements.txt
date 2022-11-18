@@ -1,0 +1,6 @@
+Faker
+faker-vehicle
+ormar
+pendulum
+pandas
+sqlalchemy
