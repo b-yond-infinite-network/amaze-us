@@ -6,7 +6,7 @@
   "containerEnv": {
     "DB_PATH": "sqlite:///db.sqlite",
     "DB_FILE_NAME": "db.sqlite",
-    "SECURE_API": "true"
+    "SECURE_API": "True"
   },
   "features": {
     "ghcr.io/devcontainers/features/node:1": {
@@ -25,6 +25,6 @@
     //sqlite web explorer
     8080
   ],
-  "postStartCommand": "pip install -r requirements.txt && pip install -r ./dev_tools/requirements.txt && python -m dev_tools.initialize_database",
+  "postStartCommand": "pip install -r requirements.txt && pip install -r ./dev_tools/requirements.txt && python -m dev_tools.run init-database && python -m dev_tools.run rotate-jwt-secret",
   "remoteUser": "vscode"
 }

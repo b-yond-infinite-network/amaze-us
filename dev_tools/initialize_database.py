@@ -1,4 +1,3 @@
-import asyncio
 import os
 import sqlalchemy
 from faker import Faker
@@ -26,5 +25,3 @@ async def initialize_database():
 
     print('Seeding Schedule Table')
     await seed_schedule_table(buses, drivers)
-
-asyncio.run(initialize_database())

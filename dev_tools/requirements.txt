@@ -4,3 +4,4 @@ ormar
 pendulum
 pandas
 sqlalchemy
+typer
