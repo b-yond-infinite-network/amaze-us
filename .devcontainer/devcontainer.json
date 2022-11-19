@@ -1,13 +1,7 @@
 {
   "name": "Python 3",
-  "build": {
-    "dockerfile": "./Dockerfile"
-  },
-  "containerEnv": {
-    "DB_PATH": "sqlite:///db.sqlite",
-    "DB_FILE_NAME": "db.sqlite",
-    "SECURE_API": "True"
-  },
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "app",
   "features": {
     "ghcr.io/devcontainers/features/node:1": {
       "version": "lts"
@@ -19,12 +13,7 @@
     "ms-python.python",
     "GitHub.copilot"
   ],
-  "forwardPorts": [
-    //fastapi
-    8000, 
-    //sqlite web explorer
-    8080
-  ],
   "postStartCommand": "pip install -r requirements.txt && pip install -r ./dev_tools/requirements.txt && python -m dev_tools.run init-database && python -m dev_tools.run rotate-jwt-secret",
-  "remoteUser": "vscode"
+  "remoteUser": "vscode",
+  "workspaceFolder": "/workspace"
 }

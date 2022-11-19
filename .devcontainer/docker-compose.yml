@@ -1,0 +1,27 @@
+version: '3.7'
+
+services:
+  app:
+    build:
+      context: ..
+      dockerfile: .devcontainer/Dockerfile
+    environment:
+      - "DB_PATH=sqlite:///db.sqlite"
+      - "DB_FILE_NAME=db.sqlite"
+      - "SECURE_API=True"
+    volumes:
+      - ..:/workspace
+    user: vscode
+    command: sleep infinity
+  sqlite-web:
+    image: coleifer/sqlite-web
+    ports:
+      - 8080:8080
+    volumes:
+      - ../db.sqlite:/db.sqlite
+    environment:
+      - "SQLITE_DATABASE=/db.sqlite"
+  mailhog:
+    image: mailhog/mailhog
+    ports:
+      - 8025:8025
