@@ -1,6 +1,10 @@
 from typing import Union
-from fastapi import FastAPI
 
+from fastapi import FastAPI
+from fastapi_events.middleware import EventHandlerASGIMiddleware
+from fastapi_events.handlers.local import local_handler
+
+import src.events
 import src.model
 from src.routers import bus, driver, schedule
 
@@ -25,6 +29,10 @@ app.include_router(
     prefix="/schedule",
     tags=["schedule"],
 )
+
+app.add_middleware(EventHandlerASGIMiddleware,
+                   handlers=[local_handler],
+                   middleware_id=id(app))
 
 @app.on_event("startup")
 async def startup() -> None:

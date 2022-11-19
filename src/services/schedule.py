@@ -1,5 +1,9 @@
 import datetime
+from copy import copy
 
+from fastapi_events.dispatcher import dispatch
+
+from src.events import ScheduleChangedEvent
 from src.requests import ScheduleCreateModel
 from src.model import Schedule, Bus, Driver
 
@@ -17,6 +21,8 @@ class ScheduleService(object):
         if schedule is None:
             return None
 
+        original_schedule = copy(schedule)
+
         if scheduleInput.driver and scheduleInput.driver.id:
             driver = await Driver.objects.get(id=scheduleInput.driver.id)
             schedule.driver = driver
@@ -29,4 +35,5 @@ class ScheduleService(object):
         schedule.end = scheduleInput.end
 
         await schedule.update()
+        dispatch(ScheduleChangedEvent, {"old": original_schedule.__dict__, "new": schedule.__dict__})
         return schedule

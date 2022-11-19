@@ -1,0 +1,1 @@
+from src.infrastructure.email_client import send_message

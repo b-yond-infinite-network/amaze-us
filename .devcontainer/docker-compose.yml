@@ -9,6 +9,8 @@ services:
       - "DB_PATH=sqlite:///db.sqlite"
       - "DB_FILE_NAME=db.sqlite"
       - "SECURE_API=True"
+      - "SMTP_HOST=mailhog"
+      - "SMTP_PORT=1025"
     volumes:
       - ..:/workspace
     user: vscode
