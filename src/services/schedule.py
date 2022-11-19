@@ -3,7 +3,7 @@ from copy import copy
 
 from fastapi_events.dispatcher import dispatch
 
-from src.events import ScheduleChangedEvent
+from src.events import ScheduleChangedEvent, ScheduleDeletedEvent
 from src.requests import ScheduleCreateModel
 from src.model import Schedule, Bus, Driver
 
@@ -36,4 +36,13 @@ class ScheduleService(object):
 
         await schedule.update()
         dispatch(ScheduleChangedEvent, {"old": original_schedule.__dict__, "new": schedule.__dict__})
+        return schedule
+
+    async def delete_schedule(self, schedule_id: int):
+        schedule = await Schedule.objects.select_related(Schedule.driver).get_or_none(id=schedule_id)
+        if schedule is None:
+            return None
+
+        await schedule.delete()
+        dispatch(ScheduleDeletedEvent, {"schedule": schedule.__dict__})
         return schedule

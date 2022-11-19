@@ -11,8 +11,6 @@ router = APIRouter()
 
 
 DriverListResponse = Driver.get_pydantic(exclude={"schedules"})
-
-
 @router.get("/", response_model=list[DriverListResponse], dependencies=[Depends(JWTBearer(roles.all))])
 async def all(pagination_parameters=Depends(pagination_parameters)):
     page, page_size = pagination_parameters["page"], pagination_parameters["page_size"]
@@ -40,8 +38,6 @@ async def get(driver_id: int, response: Response):
 
 
 ScheduleResponse = Schedule.get_pydantic(exclude={"driver", "bus__schedules"})
-
-
 @router.get("/{driver_id}/schedule", dependencies=[Depends(JWTBearer(roles.all))], response_model=list[ScheduleResponse])
 async def get_schedule(driver_id: int, response: Response, filters: DriverScheduleFilterParameters = Depends(DriverScheduleFilterParameters), driverService=Depends(DriverService)):
     driver = await driverService.get_with_schedules_by_week(driver_id, filters.weekDate)

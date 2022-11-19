@@ -30,8 +30,6 @@ async def get(bus_id: int, response: Response):
 
 
 ScheduleResponse = Schedule.get_pydantic(exclude={"bus", "driver__schedules"})
-
-
 @router.get("/{bus_id}/schedule", dependencies=[Depends(JWTBearer(roles.all))], response_model=list[ScheduleResponse])
 async def get_schedule(bus_id: int, response: Response, filters: BusScheduleFilterParameters = Depends(BusScheduleFilterParameters), busService=Depends(BusService)):
     bus = await busService.get_with_schedules_by_week(bus_id, filters.weekDate)

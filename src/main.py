@@ -1,8 +1,7 @@
-from typing import Union
-
 from fastapi import FastAPI
 from fastapi_events.middleware import EventHandlerASGIMiddleware
 from fastapi_events.handlers.local import local_handler
+from fastapi.responses import RedirectResponse
 
 import src.events
 import src.model
@@ -33,6 +32,11 @@ app.include_router(
 app.add_middleware(EventHandlerASGIMiddleware,
                    handlers=[local_handler],
                    middleware_id=id(app))
+
+
+@app.get("/", include_in_schema=False)
+async def docs_redirect():
+    return RedirectResponse(url='/docs')
 
 @app.on_event("startup")
 async def startup() -> None:

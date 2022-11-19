@@ -1,1 +1,2 @@
 from src.events.schedule_changed import schedule_changed_handler, ScheduleChangedEvent
+from src.events.schedule_deleted import schedule_deleted_handler, ScheduleDeletedEvent

@@ -4,7 +4,6 @@ from email.message import EmailMessage
 
 from deepdiff import DeepDiff
 from fastapi_events.handlers.local import local_handler
-from fastapi_events.typing import Event
 
 from src.infrastructure import send_message
 
