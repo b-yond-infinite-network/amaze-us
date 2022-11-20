@@ -22,7 +22,10 @@ services:
     volumes:
       - ../db.sqlite:/db.sqlite
     environment:
-      - "SQLITE_DATABASE=/db.sqlite"
+      - "SQLITE_DATABASE=/db.sqlite"   
+    # This line is required because sqlite-web uses nginx and the host mus be specified.
+    # The host is different when using codespace
+    entrypoint: ["sqlite_web -H $([ x\"${CODESPACE_NAME}\" != \"x\" ] && echo \"${CODESPACE_NAME}-${PORT}.githubpreview.dev\" || echo \"0.0.0.0\")"]
   mailhog:
     image: mailhog/mailhog
     ports:
