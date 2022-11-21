@@ -3,8 +3,8 @@ version: '3.7'
 services:
   app:
     build:
-      context: ..
-      dockerfile: .devcontainer/Dockerfile
+      context: .
+      dockerfile: Dockerfile
     environment:
       - "DB_PATH=sqlite:///db.sqlite"
       - "DB_FILE_NAME=db.sqlite"
@@ -16,16 +16,15 @@ services:
     user: vscode
     command: sleep infinity
   sqlite-web:
-    image: coleifer/sqlite-web
+    build:
+      context: .
+      dockerfile: sqlite-web.Dockerfile
     ports:
       - 8080:8080
     volumes:
       - ../db.sqlite:/db.sqlite
     environment:
-      - "SQLITE_DATABASE=/db.sqlite"   
-    # This line is required because sqlite-web uses nginx and the host mus be specified.
-    # The host is different when using codespace
-    entrypoint: ["sqlite_web -H $([ x\"${CODESPACE_NAME}\" != \"x\" ] && echo \"${CODESPACE_NAME}-${PORT}.githubpreview.dev\" || echo \"0.0.0.0\")"]
+      - "SQLITE_DATABASE=/db.sqlite"
   mailhog:
     image: mailhog/mailhog
     ports:
