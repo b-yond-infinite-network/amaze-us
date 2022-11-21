@@ -24,13 +24,14 @@ async def get_top_drivers(filters: TopDriversFilterParameters = Depends(TopDrive
     return drivers
 
 
-@router.get("/{driver_id}", response_model=Driver, dependencies=[Depends(JWTBearer(roles.all))], responses={
-    200: {"model": Driver},
+DriverDetailsResponse = Driver.get_pydantic(
+    exclude={"schedules"})
+@router.get("/{driver_id}", response_model=DriverDetailsResponse, dependencies=[Depends(JWTBearer(roles.all))], responses={
+    200: {"model": DriverDetailsResponse},
     404: {"description": "Driver not found"}}
 )
 async def get(driver_id: int, response: Response):
-    driver = await Driver.objects.select_related("schedules").get_or_none(id=driver_id)
-    await driver.load("schedules")
+    driver = await Driver.objects.get_or_none(id=driver_id)
     if driver is None:
         response.status_code = 404
         return {"error": "Driver not found"}

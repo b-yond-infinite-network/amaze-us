@@ -22,9 +22,9 @@ services:
     ports:
       - 8080:8080
     volumes:
-      - ../db.sqlite:/db.sqlite
+      - ../:/workspace
     environment:
-      - "SQLITE_DATABASE=/db.sqlite"
+      - "SQLITE_DATABASE=/workspace/db.sqlite"
   mailhog:
     image: mailhog/mailhog
     ports:

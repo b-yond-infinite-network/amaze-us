@@ -10,6 +10,6 @@ class BusService(object):
         last_day_of_the_week = first_day_of_the_week + timedelta(days=7)
 
         bus = await Bus.objects.get_or_none(id=bus_id)
-        bus.schedules = await Schedule.objects.filter(driver=bus, begin__gte=first_day_of_the_week, end__lt=last_day_of_the_week).select_related(Schedule.driver).all()
+        bus.schedules = await Schedule.objects.filter(bus=bus, begin__gte=first_day_of_the_week, end__lt=last_day_of_the_week).select_related(Schedule.driver).all()
 
         return bus

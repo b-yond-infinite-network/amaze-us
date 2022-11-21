@@ -17,7 +17,7 @@ class ScheduleService(object):
         return schedule
 
     async def edit_schedule(self, schedule_id: int, scheduleInput: Schedule):
-        schedule = await Schedule.objects.select_related(Schedule.bus).select_related(Schedule.driver).get(id=schedule_id)
+        schedule = await Schedule.objects.select_related(Schedule.bus).select_related(Schedule.driver).get_or_none(id=schedule_id)
         if schedule is None:
             return None
 
