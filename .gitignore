@@ -124,4 +124,5 @@ results
 **/__pycache__/
 
 *.sqlite
+*.sqlite-journal
 jwt.json
