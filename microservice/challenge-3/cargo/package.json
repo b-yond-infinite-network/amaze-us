@@ -5,7 +5,7 @@
   "main": "server.js",
   "author": "Scotch",
   "dependencies": {
-    "express": "~4.16.2",
+    "express": "~4.17.3",
     "mongoose": "~5.11.14",
     "morgan": "~1.9.0",
     "body-parser": "~1.18.2",
